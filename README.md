@@ -79,7 +79,7 @@ Please restrict your usage of state or dependency injection to the following opt
 4. [get_it](https://pub.dev/packages/get_it)/[get_it_mixins](https://pub.dev/packages/get_it_mixin)
 5. [Mobx](https://pub.dev/packages/mobx)
 
-We ask this because this challenge values value consistency and efficiency over ingenuity.  Using commonly used libraries ensures that we can review your code in a timely manner and allows us to provide better feedback.
+We ask this because this challenge values consistency and efficiency over ingenuity.  Using commonly used libraries ensures that we can review your code in a timely manner and allows us to provide better feedback.
 
 ## Coding Values
 
@@ -108,7 +108,11 @@ While the purpose of this challenge is not to guage whether you can achieve 100%
 
 ## Bonus Requirements
 
-- TODO
+If you are feeling up to it and want to add some more functionality to the application try some of these bonus items
+
+- Implement persistance storage for favorited restaurants
+- Implement the *Bonus Detail Screen*
+- Implement a basic CI job that runs your tests and builds the app
 
 ## Q&A
 
