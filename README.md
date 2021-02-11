@@ -34,8 +34,8 @@ Be sure to read **all** of this document carefully, and follow the guidelines wi
   - User image
   - Review Text (These are just snippets of the full review, usually like 3-4 lines long)
 
-
 #### Misc.
+
 - Clear doumentation on the structure and architecture of your application.
 - Clear and logical commit messages.
 
@@ -50,7 +50,7 @@ Feel free to add more tests as you see fit but the above is the minimum requirem
 
 ## Design
 
-- See this [Figma File](https://www.figma.com/file/UOQDbU02GG2yaJMfrO9q9d/Flutter-Test?node-id=0%3A1) for design specifics like 
+- See this [Figma File](https://www.figma.com/file/UOQDbU02GG2yaJMfrO9q9d/Flutter-Test?node-id=0%3A1) for design specifics like
 fonts, themes, colors, etc.
 
 ![List View](screenshots/listview.png)
@@ -65,19 +65,46 @@ The [Yelp GraphQL API](https://www.yelp.com/developers/graphql/guides/intro) is 
 1. Create a new app by filling out the required information.
 1. Once your app is created, scroll down and join the `Developer Beta`. This allows you to use the GraphQL API.
 1. Copy your API Key from your app page and paste it on `line 5` [yelp_repository.dart](app/lib/yelp_repository.dart) replacing the `<PUT YOUR API KEY HERE>` with your key.
-1. Run the app and tap the `Fetch Restaurants` button. If you see a log like `Fetched x restaurants` you are all set! 
+1. Run the app and tap the `Fetch Restaurants` button. If you see a log like `Fetched x restaurants` you are all set!
 
-## What We Are Looking For
+## Technical Requirements
 
-Use any libraries that you would normally use if this were a real production App. Please note: we're interested in your code & the way you solve the problem, not how well you can use a particular library or feature.
+### State Management
 
-_We're interested in your method and how you approach the problem just as much as we're interested in the end result._
+Please restrict your usage of state or dependency injection to the following options:
 
-Here's what you should strive for:
+1. [provider](https://pub.dev/packages/provider)
+2. [Riverpod](https://pub.dev/packages/riverpod)
+3. [bloc](https://pub.dev/packages/bloc)
+4. [get_it](https://pub.dev/packages/get_it)/[get_it_mixins](https://pub.dev/packages/get_it_mixin)
+5. [Mobx](https://pub.dev/packages/mobx)
 
-- Good use of structure, security, and performance best practices.
-- Solid testing approach.
-- Extensible code.
+We ask this because this challenge values value consistency and efficiency over ingenuity.  Using commonly used libraries ensures that we can review your code in a timely manner and allows us to provide better feedback.
+
+## Coding Values
+
+At **Superformula** we strive to build applications that have
+
+- Consistent architecture
+- Extensible, clean code
+- Solid testing
+- Good security & performance best practices
+
+### Clear, consistent architecture
+
+Approach your submission as if it were a real world app. This includes Use any libraries that you would normally choose.
+
+_Please note: we're interested in your code & the way you solve the problem, not how well you can use a particular library or feature._
+
+### Easy to understand
+
+Writing boring code that is easy to follow is essential at **Superformula**.
+
+We're interested in your method and how you approach the problem just as much as we're interested in the end result.
+
+### Solid testing approach
+
+While the purpose of this challenge is not to guage whether you can achieve 100% test coverage, we do seek to evaluate whether you know how & what to test.
 
 ## Bonus Requirements
 
