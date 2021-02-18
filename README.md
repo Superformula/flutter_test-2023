@@ -2,6 +2,51 @@
 
 Be sure to read **all** of this document carefully, and follow the guidelines within.
 
+## Vendorized Flutter
+
+We are on a fixed Flutter release, similar to how gradle does this with a wrapper. More information on the approach can be found here:
+
+> https://github.com/passsy/flutter_wrapper
+
+_Be sure to use the `flutterw` wrapper while working on this repo._
+
+From the `app` directory _(currently)_:
+
+- `./flutterw channel {x}` to switch the Flutter channel.
+- `./flutterw upgrade` to upgrade the version of Flutter.
+- `./flutterw run -d {device_id}` to run the app.
+
+### IDE Setup
+
+<details>
+<summary>Use with VSCode</summary>
+<p>
+
+If you're a VScode user link the new Flutter SDK path in your settings
+`$projectRoot/.vscode/settings.json` (create if it doesn't exists yet)
+
+```json
+{
+  "dart.flutterSdkPath": ".flutter"
+}
+```
+
+Commit this file to your git repo and your coworkers will automatically use `flutterw` from now on
+
+</p>
+</details>
+
+<details>
+<summary>Use with IntelliJ / Android Studio</summary>
+<p>
+
+Go to `Preferences > Languages & Frameworks > Flutter` and set the Flutter SDK path to `$projectRoot/.flutter`
+
+<img width="800" alt="IntelliJ Settings" src="https://user-images.githubusercontent.com/1096485/64658026-3a1fdd00-d436-11e9-9457-556059f68e2c.png">
+
+</p>
+</details>
+
 ## Requirements
 
 ### App Structure
@@ -51,7 +96,7 @@ Feel free to add more tests as you see fit but the above is the minimum requirem
 ## Design
 
 - See this [Figma File](https://www.figma.com/file/UOQDbU02GG2yaJMfrO9q9d/Flutter-Test?node-id=0%3A1) for design specifics like
-fonts, themes, colors, etc.
+  fonts, themes, colors, etc.
 
 ![List View](screenshots/listview.png)
 ![Detail View](screenshots/detailview.png)
@@ -79,7 +124,7 @@ Please restrict your usage of state or dependency injection to the following opt
 4. [get_it](https://pub.dev/packages/get_it)/[get_it_mixins](https://pub.dev/packages/get_it_mixin)
 5. [Mobx](https://pub.dev/packages/mobx)
 
-We ask this because this challenge values consistency and efficiency over ingenuity.  Using commonly used libraries ensures that we can review your code in a timely manner and allows us to provide better feedback.
+We ask this because this challenge values consistency and efficiency over ingenuity. Using commonly used libraries ensures that we can review your code in a timely manner and allows us to provide better feedback.
 
 ## Coding Values
 
@@ -111,7 +156,7 @@ While the purpose of this challenge is not to guage whether you can achieve 100%
 If you are feeling up to it and want to add some more functionality to the application try some of these bonus items
 
 - Implement persistance storage for favorited restaurants
-- Implement the *Bonus Detail Screen*
+- Implement the _Bonus Detail Screen_
 - Implement a basic CI job that runs your tests and builds the app
 
 ## Q&A
