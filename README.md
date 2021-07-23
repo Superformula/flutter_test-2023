@@ -83,6 +83,7 @@ Go to `Preferences > Languages & Frameworks > Flutter` and set the Flutter SDK p
 
 - Clear doumentation on the structure and architecture of your application.
 - Clear and logical commit messages.
+  - We suggest following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## Test Coverage
 
@@ -163,8 +164,12 @@ If you are feeling up to it and want to add some more functionality to the appli
 
 > Where should I send back the result when I'm done?
 
-Fork this repo and send us a pull request when you think you are done. There is no deadline for this task unless otherwise noted to you directly.
+Please fork this repo and then send us a pull request to the our repo when you think you are done. There is no deadline for this task unless otherwise noted to you directly.
 
 > What if I have a question?
 
 Just create a new issue in this repo and we will respond and get back to you quickly.
+
+## Review
+
+The coding challenge is a take-home test upon which we'll be conducting a thorough code review once complete. The review will consist of meeting some more of our mobile engineers and giving a review of the solution you have designed. Please be prepared to share your screen and run/demo the application to the group. During this process, the engineers will be asking questions.
