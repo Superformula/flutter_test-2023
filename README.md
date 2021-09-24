@@ -10,10 +10,9 @@ We are on a fixed Flutter release, similar to how gradle does this with a wrappe
 
 _Be sure to use the `flutterw` wrapper while working on this repo._
 
-From the `app` directory _(currently)_:
+From the `restaurantour` directory _(currently)_:
 
-- `./flutterw channel {x}` to switch the Flutter channel.
-- `./flutterw upgrade` to upgrade the version of Flutter.
+- `./flutterw pub get` to get the current packages for the specified flutter version.
 - `./flutterw run -d {device_id}` to run the app.
 
 ### IDE Setup
