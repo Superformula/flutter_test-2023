@@ -62,11 +62,8 @@ class YelpRepository {
     try {
       final response = await dio.post<Map<String, dynamic>>(
         '/v3/graphql',
-        data: {
-          'query': _getQuery(offset),
-        },
+        data: _getQuery(offset),
       );
-
       return RestaurantQueryResult.fromJson(response.data!['data']['search']);
     } catch (e) {
       return null;
