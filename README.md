@@ -10,7 +10,7 @@ We are on a fixed Flutter release, similar to how gradle does this with a wrappe
 
 _Be sure to use the `flutterw` wrapper while working on this repo._
 
-From the `restaurantour` directory _(currently)_:
+From the root directory:
 
 - `./flutterw pub get` to get the current packages for the specified flutter version.
 - `./flutterw run -d {device_id}` to run the app.
@@ -22,7 +22,7 @@ From the `restaurantour` directory _(currently)_:
 <p>
 
 If you're a VScode user link the new Flutter SDK path in your settings
-`$projectRoot/.vscode/settings.json` (create if it doesn't exists yet)
+`$projectRoot/.vscode/settings.json` (create if it doesn't exist yet)
 
 ```json
 {
@@ -80,7 +80,7 @@ Go to `Preferences > Languages & Frameworks > Flutter` and set the Flutter SDK p
 
 #### Misc.
 
-- Clear doumentation on the structure and architecture of your application.
+- Clear documentation on the structure and architecture of your application.
 - Clear and logical commit messages.
   - We suggest following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
@@ -149,13 +149,13 @@ We're interested in your method and how you approach the problem just as much as
 
 ### Solid testing approach
 
-While the purpose of this challenge is not to guage whether you can achieve 100% test coverage, we do seek to evaluate whether you know how & what to test.
+While the purpose of this challenge is not to gauge whether you can achieve 100% test coverage, we do seek to evaluate whether you know how & what to test.
 
 ## Bonus Requirements
 
 If you are feeling up to it and want to add some more functionality to the application try some of these bonus items
 
-- Implement persistance storage for favorited restaurants
+- Implement persistence storage for favorite restaurants
 - Implement the _Bonus Detail Screen_
 - Implement a basic CI job that runs your tests and builds the app
 
@@ -163,7 +163,7 @@ If you are feeling up to it and want to add some more functionality to the appli
 
 > Where should I send back the result when I'm done?
 
-Please fork this repo and then send us a pull request to the our repo when you think you are done. There is no deadline for this task unless otherwise noted to you directly.
+Please fork this repo and then send us a pull request to our repo when you think you are done. There is no deadline for this task unless otherwise noted to you directly.
 
 > What if I have a question?
 
