@@ -1,3 +1,5 @@
+Submit: Loyd Kim
+
 # RestauranTour
 
 Be sure to read **all** of this document carefully, and follow the guidelines within.
