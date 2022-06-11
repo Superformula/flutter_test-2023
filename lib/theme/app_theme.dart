@@ -12,14 +12,22 @@ import 'package:restaurantour/theme/app_color.dart';
 class AppTheme{
   static ThemeData themeData = ThemeData(
     textTheme: TextTheme(
-      headline4: GoogleFonts.lora(fontSize: 28, fontWeight: FontWeight.w700),
-      headline6: GoogleFonts.lora(fontSize: 18, fontWeight: FontWeight.w700),
-      subtitle1: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w500),
-      bodyText1: GoogleFonts.openSans(fontSize: 16, fontWeight: FontWeight.w400),
-      bodyText2: GoogleFonts.openSans(fontSize: 14, fontWeight: FontWeight.w400),
-      button: GoogleFonts.openSans(fontSize: 14, fontWeight: FontWeight.w600),
-      caption: GoogleFonts.openSans(fontSize: 12, fontWeight: FontWeight.w400),
-      overline: GoogleFonts.openSans(fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.italic),
+      headline4: GoogleFonts.lora(fontSize: 28, fontWeight: FontWeight.w700, color: AppColor.defaultText),
+      headline6: GoogleFonts.lora(fontSize: 18, fontWeight: FontWeight.w700, color: AppColor.defaultText),
+      subtitle1: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w500, color: AppColor.defaultText),
+      bodyText1: GoogleFonts.openSans(fontSize: 16, fontWeight: FontWeight.w400, color: AppColor.defaultText),
+      bodyText2: GoogleFonts.openSans(fontSize: 14, fontWeight: FontWeight.w400, color: AppColor.defaultText),
+      button: GoogleFonts.openSans(fontSize: 14, fontWeight: FontWeight.w600, color: AppColor.defaultText),
+      caption: GoogleFonts.openSans(fontSize: 12, fontWeight: FontWeight.w400, color: AppColor.defaultText),
+      overline: GoogleFonts.openSans(fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.italic, color: AppColor.defaultText),
+    ),
+    appBarTheme: AppBarTheme(
+        color: AppColor.surface
+    ),
+    tabBarTheme: TabBarTheme(
+      indicator: UnderlineTabIndicator(
+          borderSide: BorderSide(color: AppColor.primaryFill)),
+      indicatorSize: TabBarIndicatorSize.label,
     ),
     backgroundColor: AppColor.background,
     primaryColor: AppColor.primaryFill,
