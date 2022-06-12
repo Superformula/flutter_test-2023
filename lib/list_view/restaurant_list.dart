@@ -25,12 +25,19 @@ class _RestaurantListState extends State<RestaurantList> {
         future: YelpRepository().getRestaurants(),
         builder: (BuildContext context, AsyncSnapshot<RestaurantQueryResult?> snapshot) {
           if (snapshot.hasData) {
-            return ListView(
-                padding: const EdgeInsets.fromLTRB(4.0,10,4,10),
-                children: ["1","2","3","4","5","6","7"].map((e) {
-                  return RestaurantRowItem(widget.theme);
-                }).toList()
-            );
+            List<Restaurant>? restaurants = snapshot.data!.restaurants;
+            if (restaurants != null){
+              if (restaurants.isNotEmpty) {
+                return ListView.builder(
+                    padding: const EdgeInsets.fromLTRB(4.0,10,4,10),
+                    itemCount: restaurants.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return RestaurantRowItem(widget.theme,restaurants[index],index);
+                    }
+                );
+              }
+            }
+            return noRestaurantData();
           } else if (snapshot.hasError) {
             return snapshotErrorWidget();
           } else {
@@ -60,6 +67,17 @@ class _RestaurantListState extends State<RestaurantList> {
             padding: EdgeInsets.only(top: 16),
             child: Text('Error: Please check your internet connection.'),
           )
+        ],
+      ),
+    );
+  }
+
+  noRestaurantData() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text("No restaurant data.")
         ],
       ),
     );

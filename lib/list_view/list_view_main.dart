@@ -31,24 +31,24 @@ class _ListViewMainState extends State<ListViewMain> with TickerProviderStateMix
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-        appBar: AppBar(
-          // TODO: Need to check the size again.
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(size.height * 0.05),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.14),
-              child: TabBar(
-                controller: _controller,
-                tabs: [
-                  tabItem(theme,"All Restaurants",0),
-                  tabItem(theme,"My Favorites",1)
-                ],
-              ),
+      appBar: AppBar(
+        // TODO: Need to check the size again.
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(size.height * 0.05),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: size.width * 0.14),
+            child: TabBar(
+              controller: _controller,
+              tabs: [
+                tabItem(theme,"All Restaurants",0),
+                tabItem(theme,"My Favorites",1)
+              ],
             ),
           ),
-          title: Text('RestauranTour', style: theme.textTheme.headline6,),
-          toolbarHeight: size.height * 0.082,
         ),
+        title: Text('RestauranTour', style: theme.textTheme.headline6,),
+        toolbarHeight: size.height * 0.082,
+      ),
       body: TabBarView(
         controller: _controller,
         children: [
