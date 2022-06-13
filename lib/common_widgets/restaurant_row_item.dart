@@ -1,16 +1,19 @@
 
 import 'package:flutter/material.dart';
+import 'package:restaurantour/common_widgets/is_open.dart';
+import 'package:restaurantour/common_widgets/rating.dart';
 import 'package:restaurantour/detail_view/detail_view_main.dart';
 import 'package:restaurantour/models/restaurant.dart';
-import 'package:restaurantour/theme/app_color.dart';
+import 'package:restaurantour/my_favorites/my_favorites_main.dart';
 
 class RestaurantRowItem extends StatelessWidget {
   final ThemeData theme;
   final Restaurant restaurant;
   final int index;
+  final GlobalKey<MyFavoritesMainState> myFavoriteKey;
 
   RestaurantRowItem(this.theme, this.restaurant,
-      this.index); // const RestaurantRowItem({Key? key}) : super(key: key);
+      this.index, this.myFavoriteKey); // const RestaurantRowItem({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class RestaurantRowItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DetailViewMain(theme,restaurant,index)),
+          MaterialPageRoute(builder: (context) => DetailViewMain(theme,restaurant,index,myFavoriteKey)),
         );
       },
       child: Padding(
@@ -47,8 +50,8 @@ class RestaurantRowItem extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Hero(
-                        tag: "restaurantPhoto$index",
-                        child: Image.network(restaurant.photos?.first ?? "",fit: BoxFit.fill,)
+                      tag: "restaurantPhoto$index",
+                      child: Image.network(restaurant.photos?.first ?? "",fit: BoxFit.fill,)
                     ),
                   ),
                 ),
@@ -63,7 +66,7 @@ class RestaurantRowItem extends StatelessWidget {
                         child: Text(
                           restaurant.name ?? "Restaurant Name",
                           style: theme.textTheme.subtitle1!.copyWith(
-                              height: 1.44
+                            height: 1.44
                           ),
                           // textAlign: TextAlign.,
                         ),
@@ -75,27 +78,8 @@ class RestaurantRowItem extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          rating(),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(isOpen() ? "Open Now" : "Closed",
-                                style: theme.textTheme.overline!.copyWith(
-                                  // wordSpacing: -2
-                                    letterSpacing: -0.5
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Icon(
-                                  Icons.circle,
-                                  color: isOpen() ? AppColor.open : AppColor.closed,
-                                  size: 8.0,
-                                ),
-                              ),
-                            ],
-                          ),
+                          Rating(restaurant.rating),
+                          IsOpen(theme, restaurant)
                         ],
                       ),
                     ],
@@ -107,41 +91,5 @@ class RestaurantRowItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget rating() {
-    if (restaurant.rating != null) {
-      List<Widget> children = [];
-      for (var i = 0; i < restaurant.rating! ~/ 1; i++) {
-        children.add(Icon(
-          Icons.star,
-          color: AppColor.star,
-          size: 12.0,
-        ));
-      }
-      if (restaurant.rating! % 1 == 0.5) {
-        children.add(Icon(
-          Icons.star_half,
-          color: AppColor.star,
-          size: 12.0,
-        ));
-      }
-      return Row(children: children,);
-    }else {
-      return Container();
-    }
-  }
-
-  bool isOpen() {
-    if (restaurant.hours != null) {
-      if (restaurant.hours!.first.isOpenNow != null) {
-        if (restaurant.hours!.first.isOpenNow!) {
-          return true;
-        }else {
-          return false;
-        }
-      }
-    }
-    return false;
   }
 }
