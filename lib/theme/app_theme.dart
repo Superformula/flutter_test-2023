@@ -22,14 +22,49 @@ class AppTheme{
       overline: GoogleFonts.openSans(fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.italic, color: AppColor.defaultText),
     ),
     appBarTheme: AppBarTheme(
-        color: AppColor.surface
+        color: AppColor.surface,
+        iconTheme: IconThemeData(
+          color: AppColor.primaryFill,
+        )
     ),
     tabBarTheme: TabBarTheme(
+      labelPadding: EdgeInsets.zero,
       indicator: UnderlineTabIndicator(
           borderSide: BorderSide(color: AppColor.primaryFill)),
       indicatorSize: TabBarIndicatorSize.label,
     ),
     backgroundColor: AppColor.background,
     primaryColor: AppColor.primaryFill,
+  );
+
+  static get restaurantRowDecoration => BoxDecoration(
+    borderRadius: BorderRadius.circular(8.0),
+    color: Colors.white,
+    boxShadow: const [
+      BoxShadow(
+        color: Colors.grey,
+        offset: Offset(0.0, 0.5),
+        blurRadius: 1.2,
+      ),
+    ],
+  );
+
+  static get gradientLoadingDecoration => BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        stops: const [
+          0.2,
+          0.4,
+          0.6,
+          1.0,
+        ],
+        colors: [
+          AppColor.gradientBG,
+          AppColor.placeHolder,
+          AppColor.placeHolder,
+          AppColor.gradientBG,
+        ],
+      )
   );
 }

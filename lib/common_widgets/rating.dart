@@ -5,7 +5,7 @@ import 'package:restaurantour/theme/app_color.dart';
 class Rating extends StatelessWidget {
   final double? rating;
 
-  Rating(this.rating);
+  const Rating(this.rating, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

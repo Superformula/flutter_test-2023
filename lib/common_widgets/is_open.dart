@@ -6,7 +6,7 @@ class IsOpen extends StatelessWidget {
   final ThemeData theme;
   final Restaurant restaurant;
 
-  const IsOpen(this.theme, this.restaurant, {Key? key}) : super(key: key); // const IsOpen({Key? key}) : super(key: key);
+  const IsOpen(this.theme, this.restaurant, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,6 @@ class IsOpen extends StatelessWidget {
       children: [
         Text(isOpen() ? "Open Now" : "Closed",
           style: theme.textTheme.overline!.copyWith(
-            // wordSpacing: -2
               letterSpacing: -0.5
           ),
         ),

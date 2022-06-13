@@ -1,16 +1,19 @@
 
+
 import 'package:flutter/material.dart';
+import 'package:restaurantour/common_widgets/app_place_holder.dart';
 import 'package:restaurantour/common_widgets/rating.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/theme/app_color.dart';
 
 class ReviewRowItem extends StatelessWidget {
-  final ThemeData theme;
-  final Review review;
-  final int index;
+  final bool isLoading;
   final bool isLastComment;
+  final ThemeData? theme;
+  final Review? review;
+  final int? index;
 
-  ReviewRowItem(this.theme, this.review, this.index, this.isLastComment);
+  const ReviewRowItem([this.isLoading = false,this.isLastComment = false,this.theme, this.review, this.index,  Key? key]) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +22,41 @@ class ReviewRowItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Rating(review.rating?.toDouble() ?? 0),
+          isLoading ? const AppPlaceHolder(height: 12, width: 60,) : Rating(review!.rating?.toDouble() ?? 0),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Text(dummyReview(index), style: theme.textTheme.bodyText1,),
+            padding:  isLoading ? const EdgeInsets.only(top:8.0) : const EdgeInsets.symmetric(vertical: 8.0),
+            child: isLoading ? const AppPlaceHolder(height: 22) : Text(dummyReview(index!), style: theme!.textTheme.bodyText1,),
           ),
-          Row(
-            children: [
-              review.user!.imageUrl != null ?
-              ClipOval(
-                child:Image.network(
-                  review.user!.imageUrl!,
-                  width: 40,
-                  height: 40,
-                  fit: BoxFit.cover,
+          isLoading ? const Padding(
+            padding: EdgeInsets.only(top:8.0),
+            child: AppPlaceHolder(height: 22),
+          ) : Container(),
+          Padding(
+            padding: isLoading ? const EdgeInsets.only(top:8.0) : const EdgeInsets.all(0),
+            child: Row(
+              children: [
+                isLoading ? ClipOval(
+                    child:Container(
+                      width: 40,
+                      height: 40,
+                      color: AppColor.placeHolder,
+                    )
+                ) :
+                review!.user!.imageUrl != null ?
+                ClipOval(
+                  child:Image.network(
+                    review!.user!.imageUrl!,
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.cover,
+                  )
+                ) : const Icon(Icons.account_circle, color: Colors.grey,size: 46),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: isLoading? const AppPlaceHolder(height: 12, width: 60,) :  Text(review!.user?.name ?? "No Name", style: theme!.textTheme.caption,),
                 )
-              ) : Icon(Icons.account_circle, color: Colors.grey,size: 46),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(review.user?.name ?? "No Name", style: theme.textTheme.caption,),
-              )
-            ],
+              ],
+            ),
           ),
           if(!isLastComment) divider()
         ],

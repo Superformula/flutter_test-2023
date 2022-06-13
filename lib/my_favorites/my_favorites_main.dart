@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurantour/common_widgets/restaurant_row_item.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/my_favorites/no_favorites_data.dart';
+import 'package:restaurantour/repositories/local_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyFavoritesMain extends StatefulWidget {
@@ -26,8 +27,7 @@ class MyFavoritesMainState extends State<MyFavoritesMain> {
   }
 
   initFavorite() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String>? favoriteList = prefs.getStringList("favoriteList");
+    List<String>? favoriteList = await LocalDB.instance.favoriteList;
 
     if (favoriteList != null) {
       setState(() {
@@ -47,12 +47,12 @@ class MyFavoritesMainState extends State<MyFavoritesMain> {
 
   @override
   Widget build(BuildContext context) {
-    return favoriteRestaurants.length > 0 ? ListView.builder(
+    return favoriteRestaurants.isNotEmpty ? ListView.builder(
         padding: const EdgeInsets.fromLTRB(4.0,10,4,10),
         itemCount: favoriteRestaurants.length,
         itemBuilder: (BuildContext context, int index) {
-          return RestaurantRowItem(widget.theme,favoriteRestaurants[index],index, widget.myFavoriteKey);
+          return RestaurantRowItem(false,widget.theme,favoriteRestaurants[index],index, widget.myFavoriteKey);
         }
-    ) : NoFavoritesData();
+    ) : const NoFavoritesData();
   }
 }

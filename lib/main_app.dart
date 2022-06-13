@@ -6,6 +6,7 @@ import 'package:restaurantour/my_favorites/my_favorites_main.dart';
 import 'package:restaurantour/my_favorites/no_favorites_data.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 import 'package:restaurantour/theme/app_color.dart';
+import 'package:restaurantour/extensions/async_extension.dart';
 
 class MainApp extends StatefulWidget {
   const MainApp({Key? key}) : super(key: key);
@@ -34,26 +35,24 @@ class _MainAppState extends State<MainApp>  with TickerProviderStateMixin, Autom
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
-        // TODO: Need to check the size again.
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(size.height * 0.05),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * 0.14),
-            child: TabBar(
-              controller: _controller,
-              tabs: [
-                tabItem(theme,"All Restaurants",0),
-                tabItem(theme,"My Favorites",1)
-              ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(40),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.72, // Set tab bar value with dynamic screen.
+              child: TabBar(
+                controller: _controller,
+                tabs: [
+                  tabItem(theme,"All Restaurants",0),
+                  tabItem(theme,"My Favorites",1)
+                ],
+              ),
             ),
           ),
-        ),
-        title: Text('RestauranTour', style: theme.textTheme.headline6,),
-        toolbarHeight: size.height * 0.082,
+          title: Center(child: Text('RestauranTour', style: theme.textTheme.headline6,)),
+          toolbarHeight: 90
       ),
       body: FutureBuilder<RestaurantQueryResult?>(
         future: YelpRepository().getRestaurants(),
@@ -71,36 +70,23 @@ class _MainAppState extends State<MainApp>  with TickerProviderStateMixin, Autom
   }
 
   Widget allRestaurantsPage(ThemeData theme, AsyncSnapshot<RestaurantQueryResult?> snapshot) {
-    if (isHasRestaurantData(snapshot)) {
+    if (snapshot.hasRestaurantData()) { // show restaurant page with data.
       return AllRestaurantsMain(false,myFavoriteKey,theme,snapshot.data!.restaurants);
-    }else if (snapshot.hasError) {
-      return FetchErrorRestaurants();
-    }else {
-      return AllRestaurantsMain(true,myFavoriteKey);
+    }else if (snapshot.hasError) {  //  error fetch restaurant screen
+      return const FetchErrorRestaurants();
+    }else { // return Loading restaurant page.
+      return const AllRestaurantsMain(true);
     }
   }
 
   Widget myFavoritesPage(ThemeData theme, AsyncSnapshot<RestaurantQueryResult?> snapshot) {
-
-    if (isHasRestaurantData(snapshot)) {
+    if (snapshot.hasRestaurantData()) { // show saved favorite page.
       return MyFavoritesMain(theme,snapshot.data!.restaurants!,myFavoriteKey,key:myFavoriteKey);
-    }else if (snapshot.hasError) {
-      return FetchErrorRestaurants();
-    }else {
-      return NoFavoritesData();
+    }else if (snapshot.hasError) {  //  error fetch restaurant screen
+      return const FetchErrorRestaurants();
+    }else { // No favorite page.
+      return const NoFavoritesData();
     }
-  }
-
-  bool isHasRestaurantData(AsyncSnapshot<RestaurantQueryResult?> snapshot) {
-    if (snapshot.hasData) {
-      List<Restaurant>? restaurants = snapshot.data!.restaurants;
-      if (restaurants != null) {
-        if (restaurants.isNotEmpty) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
   Tab tabItem(ThemeData theme, String text, int index) {
