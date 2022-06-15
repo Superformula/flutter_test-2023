@@ -28,6 +28,7 @@ class _AllRestaurantsMainState extends State<AllRestaurantsMain> {
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
         child: ListView.builder(
+            key: const Key('AllRestaurantListView'),
             padding: const EdgeInsets.fromLTRB(4.0,10,4,10),
             itemCount: listCount,
             itemBuilder: (BuildContext context, int index) {

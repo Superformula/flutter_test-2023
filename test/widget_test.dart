@@ -8,13 +8,38 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:restaurantour/main.dart';
+import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:flutter/material.dart';
+
+// Test on device: flutter run -t test/widget_test.dart
+// flutter test test/widget_test.dart
 
 void main() {
-  testWidgets('Page loads', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const Restaurantour());
 
-    // Verify that tests will run
-    expect(find.text('Fetch Restaurants'), findsOneWidget);
+  setUp(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+  });
+
+  testWidgets('Page loads', (WidgetTester tester) async {
+    await tester.runAsync(() async {
+      expect(YelpRepository().getRestaurants(), isA<Future<RestaurantQueryResult?>>());
+      await tester.pumpAndSettle();
+    });
+
+    await tester.pumpWidget(const Restaurantour());
+    await tester.pumpAndSettle();
+
+    expect(find.text('RestauranTour'), findsOneWidget);
+    expect(find.text('All Restaurants'), findsOneWidget);
+    expect(find.text('My Favorites'), findsOneWidget);
+
+    await tester.tap(find.text('My Favorites'));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
+
+    await tester.tap(find.text('All Restaurants'));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
+
+    expect(find.byKey(const Key('AllRestaurantListView')), findsOneWidget);
   });
 }
