@@ -12,8 +12,8 @@ import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 import 'package:flutter/material.dart';
 
-// Test on device: flutter run -t test/widget_test.dart
-// flutter test test/widget_test.dart
+/// Quick test command: flutter test test/widget_test.dart
+/// Test on device: flutter run -t test/widget_test.dart
 
 void main() {
 

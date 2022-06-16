@@ -34,6 +34,7 @@ class _DetailViewAppBarState extends State<DetailViewAppBar> {
   }
 
   initFavorite() async {
+    // Check the restaurant is favorite or not.
     final checkFavorite = await db.isFavorite(widget.restaurant.id!);
     if(checkFavorite) {
       setState(() {

@@ -34,7 +34,8 @@ class _AllRestaurantsMainState extends State<AllRestaurantsMain> {
             itemBuilder: (BuildContext context, int index) {
               if (widget.isLoading) return RestaurantRowItem(widget.isLoading);
 
-              // Restaurant row item with View More button list tile.
+              // If the last tile is not last index of restaurant
+              // Contain ViewMore Button
               if (index == listCount - 1 && listCount < widget.restaurants!.length && !widget.isLoading) {
                 return Column(
                   children: [

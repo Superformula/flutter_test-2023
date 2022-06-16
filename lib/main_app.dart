@@ -25,6 +25,7 @@ class _MainAppState extends State<MainApp>  with TickerProviderStateMixin, Autom
   void initState() {
     _controller = TabController(length: 2,vsync: this);
     _controller.addListener(() {
+      // To set up tab text color
       setState(() {
         _selectedIndex = _controller.index;
       });
@@ -41,7 +42,8 @@ class _MainAppState extends State<MainApp>  with TickerProviderStateMixin, Autom
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(40),
             child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.72, // Set tab bar value with dynamic screen.
+              // Set tab bar value with dynamic screen.
+              width: MediaQuery.of(context).size.width * 0.72,
               child: TabBar(
                 controller: _controller,
                 tabs: [
