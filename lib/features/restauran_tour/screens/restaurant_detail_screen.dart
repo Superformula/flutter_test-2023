@@ -10,21 +10,37 @@ class ResturantDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Restaurant viewModel =
-        context.watch<RestaurantsViewModel>().selectedRestaurant;
+    // Restaurant viewModel =
+    //     context.watch<RestaurantsViewModel>().selectedRestaurant;
+
+    RestaurantsViewModel viewModel = context.watch<RestaurantsViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          viewModel.name ?? "",
+          viewModel.selectedRestaurant.name ?? "",
           style: Theme.of(context).textTheme.headline6,
           overflow: TextOverflow.ellipsis,
         ),
+        actions: [
+          InkWell(
+            onTap: () {
+              viewModel
+                  .addOrRemoveFavorite(viewModel.selectedRestaurant.id ?? "");
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: viewModel.isFavorite()
+                  ? const Icon(Icons.favorite)
+                  : const Icon(Icons.favorite_border),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _imageDisplay(context, viewModel.heroImage),
-            _detailContent(context, viewModel),
+            _imageDisplay(context, viewModel.selectedRestaurant.heroImage),
+            _detailContent(context, viewModel.selectedRestaurant),
           ],
         ),
       ),

@@ -15,17 +15,20 @@ class RestaurantsViewModel extends ChangeNotifier {
 
   bool _loading = false;
   final List<Restaurant> _restaurantsList = [];
+  final List<String> _favoriteList = [];
   int _totalRestaurants = 0;
   int _offSet = 0;
   late Restaurant _selectedRestaurant;
-
   late UserError _userError;
 
+  /// Getting methods used to read the View model from Screen level
   bool get loading => _loading;
   List<Restaurant> get allRestaurants => _restaurantsList;
   int get totalRestaurantsCount => _totalRestaurants;
   Restaurant get selectedRestaurant => _selectedRestaurant;
+  List<Restaurant> get favoriteRestaurants => getFavoriteList();
 
+  /// Setting methods to set to respective model objects based on user interactions.
   void setLoading(bool loading) async {
     _loading = loading;
     notifyListeners();
@@ -63,6 +66,28 @@ class RestaurantsViewModel extends ChangeNotifier {
 
   void setSelectedRestaurant(Restaurant item) {
     _selectedRestaurant = item;
+  }
+
+  void addOrRemoveFavorite(String id) {
+    if (_favoriteList.contains(id)) {
+      _favoriteList.remove(id);
+    } else {
+      _favoriteList.add(id);
+    }
+    notifyListeners();
+  }
+
+  bool isFavorite() {
+    return _favoriteList.contains(_selectedRestaurant.id);
+  }
+
+  List<Restaurant> getFavoriteList() {
+    List<Restaurant> favoriteRestaurants = [];
+    for (String id in _favoriteList) {
+      Restaurant item = _restaurantsList.where((e) => e.id == id).first;
+      favoriteRestaurants.add(item);
+    }
+    return favoriteRestaurants;
   }
 }
 
