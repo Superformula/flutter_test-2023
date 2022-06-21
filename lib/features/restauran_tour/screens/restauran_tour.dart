@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/features/restauran_tour/screens/all_restaurants_screen.dart';
+import 'package:restaurantour/features/restauran_tour/screens/my_favorites_screen.dart';
 import 'package:restaurantour/theme/app_color.dart';
 
 class RestauranTour extends StatelessWidget {
@@ -12,9 +14,11 @@ class RestauranTour extends StatelessWidget {
         appBar: AppBar(
           bottom: TabBar(
             labelColor: AppColors.primaryFill,
+            indicatorColor: AppColors.primaryFill,
+            indicatorSize: TabBarIndicatorSize.label,
             unselectedLabelColor: AppColors.secondaryText,
-            labelStyle: Theme.of(context).textTheme.bodyText2,
-            unselectedLabelStyle: Theme.of(context).textTheme.bodyText2,
+            labelStyle: Theme.of(context).textTheme.button,
+            unselectedLabelStyle: Theme.of(context).textTheme.button,
             tabs: const [
               Tab(
                 text: "All Resturants",
@@ -31,8 +35,8 @@ class RestauranTour extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            Text("Rest list"),
-            Text("Favurites list"),
+            AllRestaurantsScreen(),
+            MyFavoritesScreen(),
           ],
         ),
       ),

@@ -48,18 +48,10 @@ class AppTheme {
       ),
     ),
     appBarTheme: AppBarTheme(
-        color: AppColors.surface,
-        iconTheme: IconThemeData(
-          color: AppColors.primaryFill,
-        )),
-    tabBarTheme: TabBarTheme(
-      labelColor: AppColors.primaryFill,
-      unselectedLabelColor: AppColors.secondaryText,
-      labelPadding: EdgeInsets.zero,
-      indicator: UnderlineTabIndicator(
-        borderSide: BorderSide(color: AppColors.primaryFill),
+      color: AppColors.surface,
+      iconTheme: IconThemeData(
+        color: AppColors.primaryFill,
       ),
-      indicatorSize: TabBarIndicatorSize.label,
     ),
     backgroundColor: AppColors.background,
     primaryColor: AppColors.primaryFill,

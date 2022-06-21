@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurantour/app_routes/app_routes.dart';
+import 'package:restaurantour/features/restauran_tour/view_model/restaurants_view_model.dart';
 import 'package:restaurantour/theme/app_theme.dart';
-import 'package:restaurantour/restauran_tour.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,11 +13,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RestauranTour',
-      theme: AppTheme.themeData,
-      debugShowCheckedModeBanner: false,
-      home: const RestauranTour(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => RestaurantsViewModel()),
+      ],
+      child: MaterialApp(
+        theme: AppTheme.themeData,
+        debugShowCheckedModeBanner: false,
+        routes: AppRoutes.setUpRoutes(context),
+      ),
     );
   }
 }
