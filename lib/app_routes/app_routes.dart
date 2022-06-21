@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/features/restauran_tour/screens/restauran_tour.dart';
-import 'package:restaurantour/features/restauran_tour/screens/restaurant_detail_screen.dart';
+import 'package:restaurantour/features/restauran_tour/view/restauran_tour.dart';
+import 'package:restaurantour/features/restauran_tour/view/restaurant_detail_screen.dart';
 
 class AppRoutes {
   static String initialRoute = '/';

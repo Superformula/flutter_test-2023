@@ -10,9 +10,6 @@ class ResturantDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Restaurant viewModel =
-    //     context.watch<RestaurantsViewModel>().selectedRestaurant;
-
     RestaurantsViewModel viewModel = context.watch<RestaurantsViewModel>();
     return Scaffold(
       appBar: AppBar(

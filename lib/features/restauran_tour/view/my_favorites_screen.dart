@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/app_routes/app_routes.dart';
 import 'package:restaurantour/features/restauran_tour/model/restaurant.dart';
-import 'package:restaurantour/features/restauran_tour/screens/restaurant_row_item.dart';
+import 'package:restaurantour/features/restauran_tour/view/restaurant_row_item.dart';
 import 'package:restaurantour/features/restauran_tour/view_model/restaurants_view_model.dart';
 
 class MyFavoritesScreen extends StatelessWidget {
