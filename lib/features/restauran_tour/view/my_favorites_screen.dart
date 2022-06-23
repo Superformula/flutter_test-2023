@@ -12,17 +12,26 @@ class MyFavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     RestaurantsViewModel viewModel = context.watch<RestaurantsViewModel>();
     List<Restaurant> favoriteList = viewModel.getFavoriteList();
-    return ListView.builder(
-      itemCount: favoriteList.length,
-      itemBuilder: (BuildContext context, int index) {
-        return RestaurantRowItem(
-          restaurant: favoriteList[index],
-          onTapItem: () {
-            viewModel.setSelectedRestaurant(favoriteList[index]);
-            Navigator.pushNamed(context, AppRoutes.restaurantDetailRoute);
-          },
-        );
-      },
-    );
+    if (favoriteList.isNotEmpty) {
+      return ListView.builder(
+        itemCount: favoriteList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return RestaurantRowItem(
+            restaurant: favoriteList[index],
+            onTapItem: () {
+              viewModel.setSelectedRestaurant(favoriteList[index]);
+              Navigator.pushNamed(context, AppRoutes.restaurantDetailRoute);
+            },
+          );
+        },
+      );
+    } else {
+      return Center(
+        child: Text(
+          "No items added as favorites",
+          style: Theme.of(context).textTheme.headline6,
+        ),
+      );
+    }
   }
 }

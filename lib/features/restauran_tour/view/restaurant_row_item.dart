@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/features/restauran_tour/model/restaurant.dart';
-import 'package:restaurantour/theme/app_color.dart';
+import 'package:restaurantour/widgets/image_tile.dart';
 import 'package:restaurantour/widgets/open_status.dart';
 import 'package:restaurantour/widgets/rating.dart';
 
@@ -52,12 +52,7 @@ class RestaurantRowItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(8.0),
       child: Hero(
         tag: restaurant.heroImage,
-        child: Image.network(
-          restaurant.heroImage,
-          width: 88,
-          height: 88,
-          fit: BoxFit.fill,
-        ),
+        child: ImageTile(url: restaurant.heroImage),
       ),
     );
   }
