@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:restaurantour/models/api_status.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
-const _apiKey = 'pFOpoemAaDeXkHTfJ1lxZXEL1MGobTl_TXm71fKyT4HfZm9Lw52jTR9Ko2Ds37yWsNz3vWWCO2gI8C1vbOy3SjEuL8ltOltuEaSHmCaRxoYM6TEcTGrN_uf0qcajYnYx';
+const _apiKey =
+    'pFOpoemAaDeXkHTfJ1lxZXEL1MGobTl_TXm71fKyT4HfZm9Lw52jTR9Ko2Ds37yWsNz3vWWCO2gI8C1vbOy3SjEuL8ltOltuEaSHmCaRxoYM6TEcTGrN_uf0qcajYnYx';
 
 class YelpRepository {
   late Dio dio;
@@ -58,15 +60,14 @@ class YelpRepository {
   ///   }
   /// }
   ///
-  Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
+  Future<Response> getRestaurants({int offset = 0}) async {
     try {
-      final response = await dio.post<Map<String, dynamic>>(
+      return await dio.post<Map<String, dynamic>>(
         '/v3/graphql',
         data: _getQuery(offset),
       );
-      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
     } catch (e) {
-      return null;
+      throw Exception(e.toString());
     }
   }
 

@@ -5,13 +5,8 @@ class NoRestaurantsData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text("No restaurant data.")
-        ],
-      ),
+    return const Center(
+      child: Text("No restaurant data."),
     );
   }
 }

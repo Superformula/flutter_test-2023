@@ -1,60 +1,66 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurantour/common_widgets/fetch_error_restaurants.dart';
 import 'package:restaurantour/common_widgets/restaurant_row_item.dart';
-import 'package:restaurantour/models/restaurant.dart';
-import 'package:restaurantour/my_favorites/my_favorites_main.dart';
+import 'package:restaurantour/view_model/restaurant_model.dart';
 
 class AllRestaurantsMain extends StatefulWidget {
-  final bool isLoading;
-  final ThemeData? theme;
-  final List<Restaurant>? restaurants;
-  final GlobalKey<MyFavoritesMainState>? myFavoriteKey;
-
-  const AllRestaurantsMain(this.isLoading, [this.myFavoriteKey, this.theme,
-    this.restaurants, Key? key]) : super(key: key);
+  const AllRestaurantsMain({Key? key}) : super(key: key);
 
   @override
   State<AllRestaurantsMain> createState() => _AllRestaurantsMainState();
 }
 
 class _AllRestaurantsMainState extends State<AllRestaurantsMain> {
-
-  int listCount = 7;
-
   @override
   Widget build(BuildContext context) {
+    RestaurantModel restaurant = context.watch<RestaurantModel>();
+    if (restaurant.error != null) {
+      return FetchErrorRestaurants(restaurant.error!.response as String);
+    }
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
         child: ListView.builder(
             key: const Key('AllRestaurantListView'),
-            padding: const EdgeInsets.fromLTRB(4.0,10,4,10),
-            itemCount: listCount,
+            padding: const EdgeInsets.fromLTRB(4, 10, 4, 10),
+            itemCount: restaurant.listCount,
             itemBuilder: (BuildContext context, int index) {
-              if (widget.isLoading) return RestaurantRowItem(widget.isLoading);
-
-              // If the last tile is not last index of restaurant
-              // Contain ViewMore Button
-              if (index == listCount - 1 && listCount < widget.restaurants!.length && !widget.isLoading) {
+              if (restaurant.isLoading) {
+                return RestaurantRowItem(isLoading: restaurant.isLoading);
+              }
+              // Restaurant row item with View More button list tile.
+              if (index == restaurant.listCount - 1 &&
+                  restaurant.listCount < restaurant.restaurants.length) {
                 return Column(
                   children: [
-                    RestaurantRowItem(widget.isLoading, widget.theme!,widget.restaurants![index],index, widget.myFavoriteKey),
+                    RestaurantRowItem(
+                      isLoading: restaurant.isLoading,
+                      theme: Theme.of(context),
+                      restaurant: restaurant.restaurants[index],
+                      index: index,
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(
                           onPressed: () {
-                            setState(() {
-                              listCount = min(listCount + 7, widget.restaurants!.length);
-                            });
+                            restaurant.increaseListCount();
                           },
-                          child: Text("View More",style: widget.theme!.textTheme.button,)),
+                          child: Text(
+                            "View More",
+                            style: Theme.of(context).textTheme.button,
+                          )),
                     ),
                   ],
                 );
               }
-              return RestaurantRowItem(widget.isLoading,widget.theme!,widget.restaurants![index],index, widget.myFavoriteKey);
-            }
-        )
-    );}
+              return RestaurantRowItem(
+                isLoading: restaurant.isLoading,
+                theme: Theme.of(context),
+                restaurant: restaurant.restaurants[index],
+                index: index,
+              );
+            }));
+  }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/main_app.dart';
+import 'package:restaurantour/app_routes.dart';
 import 'package:restaurantour/theme/app_theme.dart';
 
 void main() {
@@ -14,7 +14,9 @@ class Restaurantour extends StatelessWidget {
     return MaterialApp(
       title: 'RestauranTour',
       theme: AppTheme.themeData,
-      home: const MainApp(),
+      initialRoute: AppRoutes.initialRoute,
+      routes: AppRoutes.setUpRoutes(context),
+      onGenerateRoute: (setting) => AppRoutes.setUpGenerateRoutes(setting),
       debugShowCheckedModeBanner: false,
     );
   }
