@@ -4,8 +4,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ConnectivityModel extends ChangeNotifier {
-  ConnectivityResult _connectionStatus = ConnectivityResult.none;
+class ConnectivityModel with ChangeNotifier {
+  ConnectivityResult? _connectionStatus;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
@@ -15,10 +15,8 @@ class ConnectivityModel extends ChangeNotifier {
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initConnectivity() async {
     late ConnectivityResult result;
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
@@ -40,5 +38,5 @@ class ConnectivityModel extends ChangeNotifier {
 
   Connectivity get connectivity => _connectivity;
 
-  ConnectivityResult get connectionStatus => _connectionStatus;
+  ConnectivityResult? get connectionStatus => _connectionStatus;
 }

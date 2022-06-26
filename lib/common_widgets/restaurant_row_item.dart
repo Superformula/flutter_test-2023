@@ -9,18 +9,21 @@ import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/key_collection.dart';
 import 'package:restaurantour/repositories/place_holder_value.dart';
 import 'package:restaurantour/theme/app_theme.dart';
+import 'package:restaurantour/view_model/favorite_model.dart';
 
 /// Common restaurant row Item
 /// It uses for all restaurants and my favorites list.
 
 class RestaurantRowItem extends StatelessWidget {
   final bool isLoading;
+  final FavoriteModel? favoriteModel;
   final ThemeData? theme;
   final Restaurant? restaurant;
   final int? index;
 
   const RestaurantRowItem(
       {this.isLoading = false,
+      this.favoriteModel,
       this.theme,
       this.restaurant,
       this.index,
@@ -33,7 +36,8 @@ class RestaurantRowItem extends StatelessWidget {
       onTap: () {
         if (!isLoading) {
           Navigator.pushNamed(context, AppRoutes.detailView,
-              arguments: DetailViewArgument(restaurant!, index!));
+              arguments:
+                  DetailViewArgument(favoriteModel!, restaurant!, index!));
         }
       },
       child: Padding(
@@ -151,8 +155,7 @@ class RestaurantRowItem extends StatelessWidget {
                       ? CachedNetworkImage(
                           imageUrl: restaurant!.photos!.first,
                           fit: BoxFit.fill,
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
+                          placeholder: (context, url) => Container(),
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                         )

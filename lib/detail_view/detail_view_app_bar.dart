@@ -1,19 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/key_collection.dart';
 import 'package:restaurantour/repositories/local_db.dart';
 import 'package:restaurantour/theme/app_color.dart';
 import 'package:restaurantour/theme/app_theme.dart';
+import 'package:restaurantour/view_model/favorite_model.dart';
 
 class DetailViewAppBar extends StatefulWidget {
+  final FavoriteModel favoriteModel;
   final Restaurant restaurant;
   final bool isShrink;
   final int index;
   final bool isLoading;
 
-  const DetailViewAppBar(
-      this.restaurant, this.isShrink, this.index, this.isLoading,
+  const DetailViewAppBar(this.favoriteModel, this.restaurant, this.isShrink,
+      this.index, this.isLoading,
       {Key? key})
       : super(key: key);
 
@@ -67,8 +70,7 @@ class _DetailViewAppBarState extends State<DetailViewAppBar> {
               ? CachedNetworkImage(
                   imageUrl: widget.restaurant.photos!.first,
                   fit: BoxFit.fill,
-                  placeholder: (context, url) =>
-                      const CircularProgressIndicator(),
+                  placeholder: (context, url) => Container(),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 )
               : Container(
@@ -90,8 +92,8 @@ class _DetailViewAppBarState extends State<DetailViewAppBar> {
             setState(() {
               isFavorite = !isFavorite;
             });
-            db.saveFavorite(widget.restaurant.id!, isFavorite);
-            // TODO: update favorite data in model view
+            widget.favoriteModel
+                .updateFavorites(widget.restaurant.id!, isFavorite);
           },
         ),
       ],

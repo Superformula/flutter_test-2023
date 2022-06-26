@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/common_widgets/fetch_error_restaurants.dart';
 import 'package:restaurantour/common_widgets/restaurant_row_item.dart';
+import 'package:restaurantour/view_model/favorite_model.dart';
 import 'package:restaurantour/view_model/restaurant_model.dart';
 
 class AllRestaurantsMain extends StatefulWidget {
@@ -15,6 +16,7 @@ class _AllRestaurantsMainState extends State<AllRestaurantsMain> {
   @override
   Widget build(BuildContext context) {
     RestaurantModel restaurant = context.watch<RestaurantModel>();
+    FavoriteModel favoriteModel = context.watch<FavoriteModel>();
     if (restaurant.error != null) {
       return FetchErrorRestaurants(restaurant.error!.response as String);
     }
@@ -35,6 +37,7 @@ class _AllRestaurantsMainState extends State<AllRestaurantsMain> {
                   children: [
                     RestaurantRowItem(
                       isLoading: restaurant.isLoading,
+                      favoriteModel: favoriteModel,
                       theme: Theme.of(context),
                       restaurant: restaurant.restaurants[index],
                       index: index,
@@ -55,6 +58,7 @@ class _AllRestaurantsMainState extends State<AllRestaurantsMain> {
               }
               return RestaurantRowItem(
                 isLoading: restaurant.isLoading,
+                favoriteModel: favoriteModel,
                 theme: Theme.of(context),
                 restaurant: restaurant.restaurants[index],
                 index: index,

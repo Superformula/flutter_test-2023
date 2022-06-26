@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurantour/common_widgets/app_place_holder.dart';
 import 'package:restaurantour/common_widgets/is_open.dart';
 import 'package:restaurantour/detail_view/detail_view_app_bar.dart';
@@ -6,19 +7,23 @@ import 'package:restaurantour/detail_view/review_row_item.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/models/shared_const.dart';
 import 'package:restaurantour/theme/app_color.dart';
+import 'package:restaurantour/view_model/favorite_model.dart';
 
 class DetailViewArgument {
+  final FavoriteModel favoriteModel;
   final Restaurant restaurant;
   final int index;
 
-  DetailViewArgument(this.restaurant, this.index);
+  DetailViewArgument(this.favoriteModel, this.restaurant, this.index);
 }
 
 class DetailViewMain extends StatefulWidget {
+  final FavoriteModel favoriteModel;
   final Restaurant restaurant;
   final int index;
 
-  const DetailViewMain(this.restaurant, this.index, {Key? key})
+  const DetailViewMain(this.favoriteModel, this.restaurant, this.index,
+      {Key? key})
       : super(key: key);
 
   @override
@@ -67,8 +72,8 @@ class _DetailViewMainState extends State<DetailViewMain> {
               return CustomScrollView(
                 controller: _scrollController,
                 slivers: [
-                  DetailViewAppBar(widget.restaurant, isShrink, widget.index,
-                      snapshot.hasData),
+                  DetailViewAppBar(widget.favoriteModel, widget.restaurant,
+                      isShrink, widget.index, snapshot.hasData),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {

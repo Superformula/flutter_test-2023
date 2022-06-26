@@ -6,6 +6,7 @@ import 'package:restaurantour/common_widgets/fetch_error_restaurants.dart';
 import 'package:restaurantour/my_favorites/my_favorites_main.dart';
 import 'package:restaurantour/theme/app_color.dart';
 import 'package:restaurantour/view_model/connectivity_model.dart';
+import 'package:restaurantour/view_model/favorite_model.dart';
 import 'package:restaurantour/view_model/restaurant_model.dart';
 
 class MainApp extends StatefulWidget {
@@ -15,8 +16,7 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<MainApp> {
+class _MainAppState extends State<MainApp> with TickerProviderStateMixin {
   late TabController _controller;
   int _selectedIndex = 0;
 
@@ -33,7 +33,20 @@ class _MainAppState extends State<MainApp>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    context.read<ConnectivityModel>().cancelSubscription();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final connectionStatus =
+        context.watch<ConnectivityModel>().connectionStatus;
+    if (connectionStatus != null && connectionStatus == ConnectionState.none) {
+      return const Scaffold(
+        body: Center(child: Text("Please check your internet connection")),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(
@@ -55,15 +68,15 @@ class _MainAppState extends State<MainApp>
         ),
         toolbarHeight: 90,
       ),
-      body: ChangeNotifierProvider(
-        create: (_) => RestaurantModel(),
-        child: TabBarView(
-          controller: _controller,
-          children: const [
-            AllRestaurantsMain(),
-            MyFavoritesMain(),
-          ],
-        ),
+      body: TabBarView(
+        controller: _controller,
+        children: [
+          ChangeNotifierProvider(
+            create: (_) => RestaurantModel(),
+            child: const AllRestaurantsMain(),
+          ),
+          const MyFavoritesMain(),
+        ],
       ),
     );
   }
@@ -79,7 +92,4 @@ class _MainAppState extends State<MainApp>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
