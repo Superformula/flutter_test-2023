@@ -4,7 +4,7 @@ import 'package:restaurantour/common_widgets/is_open.dart';
 import 'package:restaurantour/detail_view/detail_view_app_bar.dart';
 import 'package:restaurantour/detail_view/review_row_item.dart';
 import 'package:restaurantour/models/restaurant.dart';
-import 'package:restaurantour/my_favorites/my_favorites_main.dart';
+import 'package:restaurantour/models/shared_const.dart';
 import 'package:restaurantour/theme/app_color.dart';
 
 class DetailViewArgument {
@@ -32,7 +32,7 @@ class _DetailViewMainState extends State<DetailViewMain> {
   _scrollListener() {
     setState(() {
       if (_scrollController.hasClients &&
-          _scrollController.offset > (320 - kToolbarHeight)) {
+          _scrollController.offset > (kNavigationBarHeight - kToolbarHeight)) {
         isShrink = true;
       } else {
         isShrink = false;
@@ -42,9 +42,9 @@ class _DetailViewMainState extends State<DetailViewMain> {
 
   @override
   void initState() {
+    super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
-    super.initState();
   }
 
   @override
@@ -102,23 +102,22 @@ class _DetailViewMainState extends State<DetailViewMain> {
           style: Theme.of(context).textTheme.caption,
         ),
         hasData
-            ? widget.restaurant.reviews != null
-                ? Column(
-                    children:
-                        widget.restaurant.reviews!.asMap().entries.map((entry) {
-                    return ReviewRowItem(
-                        false,
+            ? Column(
+                children:
+                    widget.restaurant.reviews!.asMap().entries.map((entry) {
+                return ReviewRowItem(
+                    isLoading: false,
+                    isLastComment:
                         entry.key == widget.restaurant.reviews!.length - 1,
-                        Theme.of(context),
-                        entry.value,
-                        entry.key);
-                  }).toList())
-                : Container()
+                    theme: Theme.of(context),
+                    review: entry.value,
+                    index: entry.key);
+              }).toList())
             : Column(// Review Place Holder
                 children: const [
-                ReviewRowItem(true),
-                ReviewRowItem(true),
-                ReviewRowItem(true, true)
+                ReviewRowItem(isLoading: true),
+                ReviewRowItem(isLoading: true),
+                ReviewRowItem(isLoading: true, isLastComment: true)
               ])
       ],
     );
@@ -143,7 +142,7 @@ class _DetailViewMainState extends State<DetailViewMain> {
                 style: Theme.of(context).textTheme.headline4,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(2.0, 0, 0, 6),
+                padding: const EdgeInsets.fromLTRB(2, 0, 0, 6),
                 child: Icon(
                   Icons.star,
                   color: AppColor.star,
@@ -165,8 +164,12 @@ class _DetailViewMainState extends State<DetailViewMain> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-                "${widget.restaurant.price ?? ""}, ${widget.restaurant.categories?.first.title ?? ""}"),
+            Row(
+              children: [
+                Text("${widget.restaurant.price ?? ""}, "),
+                Text(widget.restaurant.categories?.first.title ?? ""),
+              ],
+            ),
             IsOpen(Theme.of(context),
                 widget.restaurant.hours!.first.isOpenNow ?? false)
           ],

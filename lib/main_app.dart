@@ -22,6 +22,7 @@ class _MainAppState extends State<MainApp>
 
   @override
   void initState() {
+    super.initState();
     _controller = TabController(length: 2, vsync: this);
     _controller.addListener(() {
       // To set up tab text color
@@ -29,19 +30,10 @@ class _MainAppState extends State<MainApp>
         _selectedIndex = _controller.index;
       });
     });
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    if (context.watch<ConnectivityModel>().connectionStatus ==
-        ConnectivityResult.none) {
-      return const Scaffold(
-          body: Center(
-              child:
-                  FetchErrorRestaurants("Please check internet connection")));
-    }
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(
@@ -51,17 +43,14 @@ class _MainAppState extends State<MainApp>
             width: MediaQuery.of(context).size.width * 0.72,
             child: TabBar(
               controller: _controller,
-              tabs: [
-                tabItem(theme, "All Restaurants", 0),
-                tabItem(theme, "My Favorites", 1)
-              ],
+              tabs: [tabItem("All Restaurants", 0), tabItem("My Favorites", 1)],
             ),
           ),
         ),
         title: Center(
           child: Text(
             'RestauranTour',
-            style: theme.textTheme.headline6,
+            style: Theme.of(context).textTheme.headline6,
           ),
         ),
         toolbarHeight: 90,
@@ -79,11 +68,11 @@ class _MainAppState extends State<MainApp>
     );
   }
 
-  Tab tabItem(ThemeData theme, String text, int index) {
+  Tab tabItem(String text, int index) {
     return Tab(
       child: Text(
         text,
-        style: theme.textTheme.button!.copyWith(
+        style: Theme.of(context).textTheme.button!.copyWith(
             color: _selectedIndex == index
                 ? AppColor.defaultText
                 : AppColor.secondaryText),

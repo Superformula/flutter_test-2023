@@ -5,13 +5,8 @@ class NoFavoritesData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text("No favorite data.")
-        ],
-      ),
+    return const Center(
+      child: Text("No favorite data."),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurantour/common_widgets/fetch_error_restaurants.dart';
 import 'package:restaurantour/common_widgets/restaurant_row_item.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/my_favorites/no_favorites_data.dart';
@@ -44,6 +45,10 @@ class MyFavoritesMainState extends State<MyFavoritesMain> {
 
   @override
   Widget build(BuildContext context) {
+    RestaurantModel restaurant = context.watch<RestaurantModel>();
+    if (restaurant.error != null) {
+      return FetchErrorRestaurants(restaurant.error!.response as String);
+    }
     return favoriteRestaurants.isNotEmpty
         ? ListView.builder(
             padding: const EdgeInsets.fromLTRB(4.0, 10, 4, 10),

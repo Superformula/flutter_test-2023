@@ -34,6 +34,10 @@ class ConnectivityModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  cancelSubscription() {
+    _connectivitySubscription.cancel();
+  }
+
   Connectivity get connectivity => _connectivity;
 
   ConnectivityResult get connectionStatus => _connectionStatus;

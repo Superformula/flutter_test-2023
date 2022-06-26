@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:restaurantour/detail_view/detail_view_main.dart';
 import 'package:restaurantour/main_app.dart';
-import 'package:restaurantour/view_model/connectivity_model.dart';
-import 'package:restaurantour/view_model/restaurant_model.dart';
 
 class AppRoutes {
   static const String initialRoute = '/';
@@ -11,7 +8,7 @@ class AppRoutes {
 
   static setUpRoutes(BuildContext context) {
     return <String, WidgetBuilder>{
-      initialRoute: (context) => mainAppRoute(),
+      initialRoute: (context) => const MainApp(),
     };
   }
 
@@ -23,16 +20,9 @@ class AppRoutes {
             final arg = settings.arguments as DetailViewArgument;
             return DetailViewMain(arg.restaurant, arg.index);
           default:
-            return mainAppRoute();
+            return const MainApp();
         }
       },
-    );
-  }
-
-  static mainAppRoute() {
-    return ChangeNotifierProvider(
-      create: (_) => ConnectivityModel(),
-      child: const MainApp(),
     );
   }
 }

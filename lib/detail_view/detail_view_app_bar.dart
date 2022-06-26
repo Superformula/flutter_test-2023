@@ -1,11 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurantour/models/restaurant.dart';
-import 'package:restaurantour/my_favorites/my_favorites_main.dart';
+import 'package:restaurantour/repositories/key_collection.dart';
 import 'package:restaurantour/repositories/local_db.dart';
 import 'package:restaurantour/theme/app_color.dart';
 import 'package:restaurantour/theme/app_theme.dart';
-
-import '../repositories/key_collection.dart';
 
 class DetailViewAppBar extends StatefulWidget {
   final Restaurant restaurant;
@@ -23,13 +22,14 @@ class DetailViewAppBar extends StatefulWidget {
 }
 
 class _DetailViewAppBarState extends State<DetailViewAppBar> {
+  // TODO: change it with dependency injection
   LocalDB db = LocalDB.instance;
   bool isFavorite = false;
 
   @override
   void initState() {
-    initFavorite();
     super.initState();
+    initFavorite();
   }
 
   initFavorite() async {
@@ -64,9 +64,12 @@ class _DetailViewAppBarState extends State<DetailViewAppBar> {
         background: Hero(
           tag: "${GlobalKeyName.imageHero}${widget.index}",
           child: widget.isLoading
-              ? Image.network(
-                  widget.restaurant.photos!.first,
+              ? CachedNetworkImage(
+                  imageUrl: widget.restaurant.photos!.first,
                   fit: BoxFit.fill,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 )
               : Container(
                   decoration: AppTheme.gradientLoadingDecoration,
