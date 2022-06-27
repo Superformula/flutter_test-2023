@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/features/restauran_tour/model/restauran_service.dart';
 import 'package:restaurantour/features/restauran_tour/model/restaurant.dart';
+import 'package:restaurantour/features/restauran_tour/view_model/user_error.dart';
 import 'package:restaurantour/repositories/api_status.dart';
 
 class RestaurantsViewModel extends ChangeNotifier {
@@ -27,6 +28,7 @@ class RestaurantsViewModel extends ChangeNotifier {
   int get totalRestaurantsCount => _totalRestaurants;
   Restaurant get selectedRestaurant => _selectedRestaurant;
   List<Restaurant> get favoriteRestaurants => getFavoriteList();
+  UserError get userError => _userError;
 
   /// Setting methods to set to respective model objects based on user interactions.
   void setLoading(bool loading) async {
@@ -43,8 +45,8 @@ class RestaurantsViewModel extends ChangeNotifier {
     _userError = userError;
   }
 
-  void getAllRestaurants({int offSet = 0}) async {
-    setLoading(true);
+  void getAllRestaurants({int offSet = 0, bool isRefresh = true}) async {
+    setLoading(isRefresh);
     var res = await service?.getAllRestaurans(offSet: offSet);
     if (res is Success<RestaurantQueryResult>) {
       setRestauransModel(res.response);
@@ -61,7 +63,7 @@ class RestaurantsViewModel extends ChangeNotifier {
 
   void loadMore() {
     _offSet += 1;
-    getAllRestaurants(offSet: _offSet);
+    getAllRestaurants(offSet: _offSet, isRefresh: false);
   }
 
   void setSelectedRestaurant(Restaurant item) {
@@ -89,10 +91,4 @@ class RestaurantsViewModel extends ChangeNotifier {
     }
     return favoriteRestaurants;
   }
-}
-
-class UserError {
-  int? code;
-  String? message;
-  UserError({this.code, this.message});
 }
