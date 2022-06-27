@@ -111,10 +111,12 @@ class RestaurantRowItem extends StatelessWidget {
   priceCategories() => Row(
         children: [
           Text(
+            // Price text
             restaurant!.price ?? "",
             style: theme!.textTheme.caption,
           ),
           Text(
+            // Category text
             " ${restaurant!.categories?.first.title ?? ""}",
             style: theme!.textTheme.caption,
           ),

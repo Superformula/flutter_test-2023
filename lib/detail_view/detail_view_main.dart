@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:restaurantour/common_widgets/app_place_holder.dart';
 import 'package:restaurantour/common_widgets/is_open.dart';
 import 'package:restaurantour/detail_view/detail_view_app_bar.dart';
