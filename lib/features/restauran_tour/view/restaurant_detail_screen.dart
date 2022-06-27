@@ -86,17 +86,19 @@ class ResturantDetailScreen extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Row(children: [
-            Text(
-              viewModel.rating.toString(),
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            Icon(
-              Icons.star,
-              color: AppColors.star,
-              size: 12,
-            ),
-          ]),
+          child: Row(
+            children: [
+              Text(
+                viewModel.rating.toString(),
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              Icon(
+                Icons.star,
+                color: AppColors.star,
+                size: 12,
+              ),
+            ],
+          ),
         )
       ],
     );

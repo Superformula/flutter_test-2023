@@ -97,7 +97,8 @@ class Location {
 
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 
-  /// Use the first category for the category shown to the user
+  /// use this method which as formatted address to display in view
+  /// TODO: Basically this should be done in Business logic.
   String get displayAddress {
     String res = '';
     if (formattedAddress != null && formattedAddress!.isNotEmpty) {
