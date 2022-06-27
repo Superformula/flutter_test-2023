@@ -11,11 +11,13 @@ class Rating extends StatelessWidget {
     if (rating != null) {
       List<Widget> children = [];
       for (var i = 0; i < rating! ~/ 1; i++) {
-        children.add(Icon(
-          Icons.star,
-          color: AppColors.star,
-          size: 12.0,
-        ));
+        children.add(
+          Icon(
+            Icons.star,
+            color: AppColors.star,
+            size: 12.0,
+          ),
+        );
       }
       return Row(
         children: children,

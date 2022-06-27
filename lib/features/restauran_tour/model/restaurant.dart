@@ -54,11 +54,13 @@ class Review {
   final String? id;
   final int? rating;
   final User? user;
+  final String? text;
 
   const Review({
     this.id,
     this.rating,
     this.user,
+    this.text,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
@@ -70,15 +72,61 @@ class Review {
 class Location {
   @JsonKey(name: 'formatted_address')
   final String? formattedAddress;
+  final String? address1;
+  final String? address2;
+  final String? address3;
+  final String? city;
+  final String? state;
+  @JsonKey(name: 'postal_code')
+  final String? postalCode;
+  final String? country;
 
   Location({
     this.formattedAddress,
+    this.address1,
+    this.address2,
+    this.address3,
+    this.city,
+    this.state,
+    this.postalCode,
+    this.country,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocationToJson(this);
+
+  /// Use the first category for the category shown to the user
+  String get displayAddress {
+    String res = '';
+    if (formattedAddress != null && formattedAddress!.isNotEmpty) {
+      res = formattedAddress!;
+    } else {
+      if (address1 != null && address1!.isNotEmpty) {
+        res = address1! + "\n";
+      }
+      if (address2 != null && address2!.isNotEmpty) {
+        res += address2! + "\n";
+      }
+      if (address3 != null && address3!.isNotEmpty) {
+        res += address2! + "\n";
+      }
+      if (city != null && city!.isNotEmpty) {
+        res += city!;
+      }
+      if (state != null && state!.isNotEmpty) {
+        res += ", " + state!;
+      }
+      if (postalCode != null && postalCode!.isNotEmpty) {
+        res += "-" + postalCode!;
+      }
+      if (country != null && country!.isNotEmpty) {
+        res += "\n" + country!;
+      }
+    }
+    return res;
+  }
 }
 
 @JsonSerializable()

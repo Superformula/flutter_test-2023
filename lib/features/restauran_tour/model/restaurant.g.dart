@@ -42,20 +42,36 @@ Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
+      text: json['text'] as String?,
     );
 
 Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
       'id': instance.id,
       'rating': instance.rating,
       'user': instance.user,
+      'text': instance.text,
     };
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(
       formattedAddress: json['formatted_address'] as String?,
+      address1: json['address1'] as String?,
+      address2: json['address2'] as String?,
+      address3: json['address3'] as String?,
+      city: json['city'] as String?,
+      state: json['state'] as String?,
+      postalCode: json['postal_code'] as String?,
+      country: json['country'] as String?,
     );
 
 Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
       'formatted_address': instance.formattedAddress,
+      'address1': instance.address1,
+      'address2': instance.address2,
+      'address3': instance.address3,
+      'city': instance.city,
+      'state': instance.state,
+      'postal_code': instance.postalCode,
+      'country': instance.country,
     };
 
 Restaurant _$RestaurantFromJson(Map<String, dynamic> json) => Restaurant(

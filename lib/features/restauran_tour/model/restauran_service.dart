@@ -44,6 +44,7 @@ query getRestaurants {
       rating
       photos
       reviews {
+        text
         id
         rating
         user {
@@ -60,6 +61,13 @@ query getRestaurants {
         is_open_now
       }
       location {
+        address1
+        address2
+        address3
+        city
+        state
+        postal_code
+        country
         formatted_address
       }
     }
