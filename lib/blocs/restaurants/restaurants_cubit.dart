@@ -27,10 +27,12 @@ class RestaurantsCubit extends Cubit<RestaurantsState> {
       response.fold(
         (f) => state.copyWith(failure: optionOf(f), isLoading: false),
         (result) {
+          final length = result.restaurants.length;
+
           return state.copyWith(
-            restaurants: result.restaurants,
-            hasMore: result.total == Constants.restaurantsToFetch,
-            offset: state.offset + result.total,
+            restaurants: [...state.restaurants, ...result.restaurants],
+            hasMore: length == Constants.restaurantsToFetch,
+            offset: state.offset + length,
             isLoading: false,
           );
         },

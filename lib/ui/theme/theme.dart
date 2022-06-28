@@ -23,6 +23,7 @@ abstract class AppTheme {
         textTheme: _textTheme,
         colorScheme: const ColorScheme.light().copyWith(
           primary: AppColor.primaryFill,
+          surface: AppColor.surface,
         ),
       );
 
@@ -44,8 +45,10 @@ abstract class AppTheme {
     ),
   );
 
-  static const _snackBarTheme =
-      SnackBarThemeData(contentTextStyle: TextStyle(color: Colors.white));
+  static const _snackBarTheme = SnackBarThemeData(
+    contentTextStyle: TextStyle(color: Colors.white),
+    backgroundColor: AppColor.closed,
+  );
 
   static const _textTheme = TextTheme(
     headline4: TextStyle(
@@ -61,6 +64,7 @@ abstract class AppTheme {
     subtitle1: TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w500,
+      height: 1.5,
       color: AppColor.defaultText,
     ),
     bodyText1: TextStyle(
@@ -88,6 +92,7 @@ abstract class AppTheme {
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.italic,
       color: AppColor.defaultText,
+      letterSpacing: -0.5,
     ),
   );
 }
