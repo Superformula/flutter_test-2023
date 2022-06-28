@@ -142,14 +142,11 @@ class Restaurant {
 
 @JsonSerializable()
 class RestaurantQueryResult {
-  final int? total;
+  final int total;
   @JsonKey(name: 'business')
-  final List<Restaurant>? restaurants;
+  final List<Restaurant> restaurants;
 
-  const RestaurantQueryResult({
-    this.total,
-    this.restaurants,
-  });
+  const RestaurantQueryResult({required this.total, required this.restaurants});
 
   factory RestaurantQueryResult.fromJson(Map<String, dynamic> json) =>
       _$RestaurantQueryResultFromJson(json);

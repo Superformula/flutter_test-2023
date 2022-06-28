@@ -11,6 +11,7 @@ environment:
 dependencies:
   bloc: ^8.0.3
   cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
   dio: ^4.0.0
   flutter:
     sdk: flutter
@@ -31,7 +32,7 @@ dev_dependencies:
   freezed: ^1.1.0
   injectable_generator: ^1.5.2
   json_serializable: ^6.1.4
-  mocktail: ^0.3.0 
+  mocktail: ^0.3.0
 
 flutter:
   uses-material-design: true

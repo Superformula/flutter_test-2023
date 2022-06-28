@@ -1,25 +1,14 @@
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:injectable/injectable.dart';
+import 'package:restaurantour/data/failures/failures.dart';
+import 'package:restaurantour/data/models/models.dart';
 
-const _apiKey =
-    'pDNeXWJdee_Is0fwfrh9t1EmOzIbyz7szgdVqdA0RldPQt-mIw5X6P9upb6GhsKhX4qS4Usy5uo4o1ZxrUOzuYF_glOQw4G3V5Pew5fdEFgdOOfrIQJdhxHMZEi6YnYx';
-
+@LazySingleton()
 class YelpRepository {
-  late Dio dio;
+  final Dio _dio;
 
-  YelpRepository({
-    @visibleForTesting Dio? dio,
-  }) : dio = dio ??
-            Dio(
-              BaseOptions(
-                baseUrl: 'https://api.yelp.com',
-                headers: {
-                  'Authorization': 'Bearer $_apiKey',
-                  'Content-Type': 'application/graphql',
-                },
-              ),
-            );
+  YelpRepository(this._dio);
 
   /// Returns a response in this shape
   /// {
@@ -59,23 +48,28 @@ class YelpRepository {
   ///   }
   /// }
   ///
-  Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
+  Future<Either<RestaurantFailure, RestaurantQueryResult>> getRestaurants({
+    int offset = 0,
+    int limit = 20,
+  }) async {
     try {
-      final response = await dio.post<Map<String, dynamic>>(
+      final response = await _dio.post<Map<String, dynamic>>(
         '/v3/graphql',
-        data: _getQuery(offset),
+        data: _getQuery(offset: offset, limit: limit),
       );
 
-      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
+      return right(
+        RestaurantQueryResult.fromJson(response.data!['data']['search']),
+      );
     } catch (e) {
-      return null;
+      return left(const RestaurantFailure.serverError());
     }
   }
 
-  String _getQuery(int offset) {
+  String _getQuery({required int offset, required int limit}) {
     return '''
 query getRestaurants {
-  search(location: "Las Vegas", limit: 20, offset: $offset) {
+  search(location: "Las Vegas", limit: $limit, offset: $offset) {
     total    
     business {
       id

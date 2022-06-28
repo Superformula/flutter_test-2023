@@ -95,9 +95,9 @@ Map<String, dynamic> _$RestaurantToJson(Restaurant instance) =>
 RestaurantQueryResult _$RestaurantQueryResultFromJson(
         Map<String, dynamic> json) =>
     RestaurantQueryResult(
-      total: json['total'] as int?,
-      restaurants: (json['business'] as List<dynamic>?)
-          ?.map((e) => Restaurant.fromJson(e as Map<String, dynamic>))
+      total: json['total'] as int,
+      restaurants: (json['business'] as List<dynamic>)
+          .map((e) => Restaurant.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
