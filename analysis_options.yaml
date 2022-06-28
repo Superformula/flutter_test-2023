@@ -6,9 +6,35 @@ analyzer:
   exclude:
     - vendor/**
     - '**/*.g.dart'
+    - "**/*.freezed.dart"
+    - "**/injection.config.dart"
+
+  plugins:
+    - dart_code_metrics
 linter:
   rules:
     ## The following rules are excluded only to keep compatibility with our previous lint set (pedantic).
     ## There's room to discuss them individually and raise PRs adjusting our codebase.
     avoid_print: false
     require_trailing_commas: true
+    prefer_single_quotes: true 
+    directives_ordering: true
+
+dart_code_metrics:
+  rules:
+    # Dart
+    - avoid-unused-parameters
+    - newline-before-return
+    - no-boolean-literal-compare
+    - no-equal-then-else
+    - prefer-conditional-expressions
+    - prefer-moving-to-variable
+    - prefer-trailing-comma
+
+    # Flutter
+    - always-remove-listener
+    - avoid-returning-widgets
+    - avoid-unnecessary-setstate
+
+
+

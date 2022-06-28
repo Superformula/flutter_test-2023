@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
+const _apiKey =
+    'pDNeXWJdee_Is0fwfrh9t1EmOzIbyz7szgdVqdA0RldPQt-mIw5X6P9upb6GhsKhX4qS4Usy5uo4o1ZxrUOzuYF_glOQw4G3V5Pew5fdEFgdOOfrIQJdhxHMZEi6YnYx';
 
 class YelpRepository {
   late Dio dio;
@@ -15,7 +16,7 @@ class YelpRepository {
                 baseUrl: 'https://api.yelp.com',
                 headers: {
                   'Authorization': 'Bearer $_apiKey',
-                  'Content-Type': 'application/graphql'
+                  'Content-Type': 'application/graphql',
                 },
               ),
             );
@@ -64,6 +65,7 @@ class YelpRepository {
         '/v3/graphql',
         data: _getQuery(offset),
       );
+
       return RestaurantQueryResult.fromJson(response.data!['data']['search']);
     } catch (e) {
       return null;

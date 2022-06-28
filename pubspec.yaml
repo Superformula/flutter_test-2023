@@ -5,26 +5,36 @@ publish_to: 'none'
 
 version: 1.0.0+1
 
-
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
+  bloc: ^8.0.3
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
-  json_annotation: ^4.1.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
   flutter_svg: ^1.0.1
+  freezed_annotation: ^1.1.0
+  get_it: ^7.2.0
+  go_router: ^3.1.1
+  json_annotation: ^4.1.0
 
 dev_dependencies:
+  bloc_test: ^9.0.3
+  build_runner: ^2.1.2
+  dart_code_metrics: ^4.15.2
+  flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
-  build_runner: ^2.1.2
+  freezed: ^1.1.0
+  injectable_generator: ^1.5.2
   json_serializable: ^6.1.4
+  mocktail: ^0.3.0 
 
 flutter:
   uses-material-design: true
+
 #  assets:
 #    - assets/svg/

@@ -116,6 +116,7 @@ class Restaurant {
     if (categories != null && categories!.isNotEmpty) {
       return categories!.first.title ?? '';
     }
+
     return '';
   }
 
@@ -124,6 +125,7 @@ class Restaurant {
     if (photos != null && photos!.isNotEmpty) {
       return photos!.first;
     }
+
     return '';
   }
 
@@ -133,6 +135,7 @@ class Restaurant {
     if (hours != null && hours!.isNotEmpty) {
       return hours!.first.isOpenNow ?? false;
     }
+
     return false;
   }
 }
