@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/ui/router.dart';
+import 'package:restaurantour/ui/theme/theme.dart';
 
 class App extends StatelessWidget {
   // This widget is the root of your application.
@@ -9,9 +10,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'RestauranTour',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: AppTheme.lightThemeData(),
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
     );

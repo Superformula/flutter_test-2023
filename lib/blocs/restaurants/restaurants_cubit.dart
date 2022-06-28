@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:restaurantour/core/constants.dart';
@@ -12,26 +13,28 @@ part 'restaurants_state.dart';
 class RestaurantsCubit extends Cubit<RestaurantsState> {
   final YelpRepository _yelpRepository;
 
-  int offset = 0;
-
-  RestaurantsCubit(this._yelpRepository)
-      : super(const RestaurantsState.loading());
+  RestaurantsCubit(this._yelpRepository) : super(RestaurantsState.initial());
 
   Future<void> getRestaurants() async {
+    emit(state.copyWith(isLoading: true, failure: none()));
+
     final response = await _yelpRepository.getRestaurants(
-      offset: offset,
+      offset: state.offset,
       limit: Constants.restaurantsToFetch,
     );
 
     emit(
-      response.fold((f) => RestaurantsState.error(f), (result) {
-        offset = offset + result.total;
-
-        return RestaurantsState.data(
-          restaurants: result.restaurants,
-          hasMore: result.total == Constants.restaurantsToFetch,
-        );
-      }),
+      response.fold(
+        (f) => state.copyWith(failure: optionOf(f), isLoading: false),
+        (result) {
+          return state.copyWith(
+            restaurants: result.restaurants,
+            hasMore: result.total == Constants.restaurantsToFetch,
+            offset: state.offset + result.total,
+            isLoading: false,
+          );
+        },
+      ),
     );
   }
 }
