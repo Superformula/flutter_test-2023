@@ -11,7 +11,8 @@ class MyFavoritesMain extends StatefulWidget {
   State<MyFavoritesMain> createState() => MyFavoritesMainState();
 }
 
-class MyFavoritesMainState extends State<MyFavoritesMain> {
+class MyFavoritesMainState extends State<MyFavoritesMain>
+    with AutomaticKeepAliveClientMixin<MyFavoritesMain> {
   @override
   Widget build(BuildContext context) {
     FavoriteModel favoriteModel = context.watch<FavoriteModel>();
@@ -31,4 +32,7 @@ class MyFavoritesMainState extends State<MyFavoritesMain> {
             })
         : const NoFavoritesData();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

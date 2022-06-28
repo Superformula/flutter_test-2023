@@ -13,8 +13,12 @@ class LocalDB {
   saveRestaurants(List<Restaurant> restaurants) async =>
       (await _prefs).setString(DBKey.restaurantList, json.encode(restaurants));
 
-  readRestaurants() async =>
-      json.decode((await _prefs).getString(DBKey.restaurantList) ?? "None");
+  readRestaurants() async {
+    final restaurantList = (await _prefs).getString(DBKey.restaurantList);
+    if (restaurantList != null) {
+      return json.decode(restaurantList);
+    }
+  }
 
   updateFavorite(String id, bool newFavorite) async {
     SharedPreferences prefs = await _prefs;

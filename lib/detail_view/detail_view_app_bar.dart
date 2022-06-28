@@ -47,7 +47,9 @@ class DetailViewAppBarState extends State<DetailViewAppBar> {
     final checkFavorite =
         await LocalDB.instance.isFavorite(widget.restaurant.id!);
     if (checkFavorite) {
-      _isFavorite = checkFavorite;
+      setState(() {
+        _isFavorite = checkFavorite;
+      });
     }
   }
 

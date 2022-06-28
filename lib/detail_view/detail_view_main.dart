@@ -57,44 +57,36 @@ class _DetailViewMainState extends State<DetailViewMain> {
     super.dispose();
   }
 
-  final Future<bool> _futureLoading = Future<bool>.delayed(
-    const Duration(seconds: 2),
-    () => true,
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FutureBuilder<bool>(
-            future: _futureLoading,
-            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-              return CustomScrollView(
-                controller: _scrollController,
-                slivers: [
-                  DetailViewAppBar(widget.favoriteModel, widget.restaurant,
-                      isShrink, widget.index, snapshot.hasData),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(24.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              priceAndIsOpen(),
-                              address(snapshot.hasData),
-                              overallRating(),
-                              reviews(snapshot.hasData)
-                            ],
-                          ),
-                        );
-                      },
-                      childCount: 1,
-                    ),
+      body: CustomScrollView(
+        controller: _scrollController,
+        slivers: [
+          DetailViewAppBar(widget.favoriteModel, widget.restaurant, isShrink,
+              widget.index, true),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      priceAndIsOpen(),
+                      address(true),
+                      overallRating(),
+                      reviews(true)
+                    ],
                   ),
-                ],
-              );
-            }));
+                );
+              },
+              childCount: 1,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget reviews(bool hasData) {

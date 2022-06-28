@@ -1,12 +1,9 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/all_restaurants/all_restaurants_main.dart';
-import 'package:restaurantour/common_widgets/fetch_error_restaurants.dart';
 import 'package:restaurantour/my_favorites/my_favorites_main.dart';
 import 'package:restaurantour/theme/app_color.dart';
 import 'package:restaurantour/view_model/connectivity_model.dart';
-import 'package:restaurantour/view_model/favorite_model.dart';
 import 'package:restaurantour/view_model/restaurant_model.dart';
 
 class MainApp extends StatefulWidget {

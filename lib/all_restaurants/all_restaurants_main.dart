@@ -12,7 +12,7 @@ class AllRestaurantsMain extends StatefulWidget {
   State<AllRestaurantsMain> createState() => _AllRestaurantsMainState();
 }
 
-class _AllRestaurantsMainState extends State<AllRestaurantsMain> {
+class _AllRestaurantsMainState extends State<AllRestaurantsMain> with AutomaticKeepAliveClientMixin<AllRestaurantsMain> {
   @override
   Widget build(BuildContext context) {
     RestaurantModel restaurant = context.watch<RestaurantModel>();
@@ -65,4 +65,7 @@ class _AllRestaurantsMainState extends State<AllRestaurantsMain> {
               );
             }));
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

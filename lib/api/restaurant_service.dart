@@ -3,7 +3,7 @@ import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
 class RestaurantService {
-  static Future<Object> getRestaurants({int offSet = 0}) async {
+  static Future<dynamic> getRestaurants() async {
     try {
       var response = await YelpRepository().getRestaurants();
       if (200 == response.statusCode) {
