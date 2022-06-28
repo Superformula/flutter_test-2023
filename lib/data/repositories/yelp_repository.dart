@@ -61,8 +61,17 @@ class YelpRepository {
       return right(
         RestaurantQueryResult.fromJson(response.data!['data']['search']),
       );
+    } on DioError catch (e) {
+      switch (e.response?.statusCode) {
+        case 401:
+          return left(const RestaurantFailure.unauthorized());
+        case 500:
+          return left(const RestaurantFailure.serverError());
+        default:
+          return left(const RestaurantFailure.unexpected());
+      }
     } catch (e) {
-      return left(const RestaurantFailure.serverError());
+      return left(const RestaurantFailure.unexpected());
     }
   }
 
@@ -80,6 +89,7 @@ query getRestaurants {
       reviews {
         id
         rating
+        text
         user {
           id
           image_url

@@ -24,6 +24,10 @@ class _$RestaurantFailureTearOff {
   ServerError serverError() {
     return const ServerError();
   }
+
+  Unauthorized unauthorized() {
+    return const Unauthorized();
+  }
 }
 
 /// @nodoc
@@ -35,18 +39,21 @@ mixin _$RestaurantFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() unexpected,
     required TResult Function() serverError,
+    required TResult Function() unauthorized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unexpected,
     TResult Function()? serverError,
+    TResult Function()? unauthorized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unexpected,
     TResult Function()? serverError,
+    TResult Function()? unauthorized,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -54,18 +61,21 @@ mixin _$RestaurantFailure {
   TResult map<TResult extends Object?>({
     required TResult Function(Unexpected value) unexpected,
     required TResult Function(ServerError value) serverError,
+    required TResult Function(Unauthorized value) unauthorized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
     TResult Function(ServerError value)? serverError,
+    TResult Function(Unauthorized value)? unauthorized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
     TResult Function(ServerError value)? serverError,
+    TResult Function(Unauthorized value)? unauthorized,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -130,6 +140,7 @@ class _$Unexpected implements Unexpected {
   TResult when<TResult extends Object?>({
     required TResult Function() unexpected,
     required TResult Function() serverError,
+    required TResult Function() unauthorized,
   }) {
     return unexpected();
   }
@@ -139,6 +150,7 @@ class _$Unexpected implements Unexpected {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unexpected,
     TResult Function()? serverError,
+    TResult Function()? unauthorized,
   }) {
     return unexpected?.call();
   }
@@ -148,6 +160,7 @@ class _$Unexpected implements Unexpected {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unexpected,
     TResult Function()? serverError,
+    TResult Function()? unauthorized,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -161,6 +174,7 @@ class _$Unexpected implements Unexpected {
   TResult map<TResult extends Object?>({
     required TResult Function(Unexpected value) unexpected,
     required TResult Function(ServerError value) serverError,
+    required TResult Function(Unauthorized value) unauthorized,
   }) {
     return unexpected(this);
   }
@@ -170,6 +184,7 @@ class _$Unexpected implements Unexpected {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
     TResult Function(ServerError value)? serverError,
+    TResult Function(Unauthorized value)? unauthorized,
   }) {
     return unexpected?.call(this);
   }
@@ -179,6 +194,7 @@ class _$Unexpected implements Unexpected {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
     TResult Function(ServerError value)? serverError,
+    TResult Function(Unauthorized value)? unauthorized,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -235,6 +251,7 @@ class _$ServerError implements ServerError {
   TResult when<TResult extends Object?>({
     required TResult Function() unexpected,
     required TResult Function() serverError,
+    required TResult Function() unauthorized,
   }) {
     return serverError();
   }
@@ -244,6 +261,7 @@ class _$ServerError implements ServerError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unexpected,
     TResult Function()? serverError,
+    TResult Function()? unauthorized,
   }) {
     return serverError?.call();
   }
@@ -253,6 +271,7 @@ class _$ServerError implements ServerError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unexpected,
     TResult Function()? serverError,
+    TResult Function()? unauthorized,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -266,6 +285,7 @@ class _$ServerError implements ServerError {
   TResult map<TResult extends Object?>({
     required TResult Function(Unexpected value) unexpected,
     required TResult Function(ServerError value) serverError,
+    required TResult Function(Unauthorized value) unauthorized,
   }) {
     return serverError(this);
   }
@@ -275,6 +295,7 @@ class _$ServerError implements ServerError {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
     TResult Function(ServerError value)? serverError,
+    TResult Function(Unauthorized value)? unauthorized,
   }) {
     return serverError?.call(this);
   }
@@ -284,6 +305,7 @@ class _$ServerError implements ServerError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
     TResult Function(ServerError value)? serverError,
+    TResult Function(Unauthorized value)? unauthorized,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -295,4 +317,115 @@ class _$ServerError implements ServerError {
 
 abstract class ServerError implements RestaurantFailure {
   const factory ServerError() = _$ServerError;
+}
+
+/// @nodoc
+abstract class $UnauthorizedCopyWith<$Res> {
+  factory $UnauthorizedCopyWith(
+          Unauthorized value, $Res Function(Unauthorized) then) =
+      _$UnauthorizedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$UnauthorizedCopyWithImpl<$Res>
+    extends _$RestaurantFailureCopyWithImpl<$Res>
+    implements $UnauthorizedCopyWith<$Res> {
+  _$UnauthorizedCopyWithImpl(
+      Unauthorized _value, $Res Function(Unauthorized) _then)
+      : super(_value, (v) => _then(v as Unauthorized));
+
+  @override
+  Unauthorized get _value => super._value as Unauthorized;
+}
+
+/// @nodoc
+
+class _$Unauthorized implements Unauthorized {
+  const _$Unauthorized();
+
+  @override
+  String toString() {
+    return 'RestaurantFailure.unauthorized()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is Unauthorized);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unexpected,
+    required TResult Function() serverError,
+    required TResult Function() unauthorized,
+  }) {
+    return unauthorized();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unexpected,
+    TResult Function()? serverError,
+    TResult Function()? unauthorized,
+  }) {
+    return unauthorized?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unexpected,
+    TResult Function()? serverError,
+    TResult Function()? unauthorized,
+    required TResult orElse(),
+  }) {
+    if (unauthorized != null) {
+      return unauthorized();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Unexpected value) unexpected,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(Unauthorized value) unauthorized,
+  }) {
+    return unauthorized(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(Unauthorized value)? unauthorized,
+  }) {
+    return unauthorized?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(Unauthorized value)? unauthorized,
+    required TResult orElse(),
+  }) {
+    if (unauthorized != null) {
+      return unauthorized(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Unauthorized implements RestaurantFailure {
+  const factory Unauthorized() = _$Unauthorized;
 }

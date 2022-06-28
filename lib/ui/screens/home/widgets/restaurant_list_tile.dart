@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurantour/ui/screens/widgets/widgets.dart';
-import 'package:restaurantour/ui/values/padding_values.dart';
+import 'package:restaurantour/ui/values/values.dart';
 
 class RestaurantListTile extends StatelessWidget {
   final String? title;
@@ -49,18 +48,11 @@ class RestaurantListTile extends StatelessWidget {
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
-                  child: CachedNetworkImage(
+                  child: HeroNetworkImage(
                     imageUrl: image,
-                    fit: BoxFit.fill,
+                    heroTag: title,
                     width: 88,
                     height: 88,
-                    placeholder: (_, __) => const SizedBox(
-                      height: 8,
-                      width: 8,
-                      child: Center(child: CircularProgressIndicator()),
-                    ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
                   ),
                 ),
                 const SizedBox(width: PaddingValues.big),
@@ -76,17 +68,7 @@ class RestaurantListTile extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       const Spacer(),
-                      Row(
-                        children: [
-                          if (price != null)
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(right: PaddingValues.s),
-                              child: Text(price!),
-                            ),
-                          Text(category),
-                        ],
-                      ),
+                      PriceCategory(category: category, price: price),
                       const SizedBox(height: PaddingValues.s),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

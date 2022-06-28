@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurantour/ui/theme/app_color.dart';
 
 class Rating extends StatelessWidget {
-  final double? rating;
+  final num? rating;
 
   const Rating({Key? key, required this.rating}) : super(key: key);
 

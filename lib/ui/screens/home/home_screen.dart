@@ -91,6 +91,7 @@ class _AllRestaurants extends StatelessWidget {
       itemCount: restaurants.length,
       itemBuilder: (context, index) {
         final restaurant = restaurants[index];
+        final isLastItem = index == restaurants.length - 1;
 
         return Column(
           children: [
@@ -104,7 +105,7 @@ class _AllRestaurants extends StatelessWidget {
               onTap: () => GoRouter.of(context)
                   .pushNamed(RouteName.restaurantDetails, extra: restaurant),
             ),
-            if (index == restaurants.length - 1)
+            if (isLastItem)
               GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () => context.read<RestaurantsCubit>().getRestaurants(),

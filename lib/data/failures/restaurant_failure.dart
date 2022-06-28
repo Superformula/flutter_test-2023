@@ -6,4 +6,5 @@ part 'restaurant_failure.freezed.dart';
 class RestaurantFailure with _$RestaurantFailure {
   const factory RestaurantFailure.unexpected() = Unexpected;
   const factory RestaurantFailure.serverError() = ServerError;
+  const factory RestaurantFailure.unauthorized() = Unauthorized;
 }
