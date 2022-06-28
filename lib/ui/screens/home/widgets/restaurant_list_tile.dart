@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/ui/screens/widgets/widgets.dart';
 import 'package:restaurantour/ui/values/values.dart';
+import 'package:restaurantour/ui/widgets/widgets.dart';
 
 class RestaurantListTile extends StatelessWidget {
   final String? title;
@@ -34,7 +34,7 @@ class RestaurantListTile extends StatelessWidget {
         child: PhysicalModel(
           color: theme.colorScheme.surface,
           clipBehavior: Clip.hardEdge,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(PaddingValues.medium),
           elevation: 2,
           child: Container(
             height: 104,
@@ -46,7 +46,8 @@ class RestaurantListTile extends StatelessWidget {
                 Container(
                   clipBehavior: Clip.hardEdge,
                   decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(PaddingValues.medium)),
                   ),
                   child: HeroNetworkImage(
                     imageUrl: image,

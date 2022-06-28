@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:restaurantour/core/constants.dart';
 import 'package:restaurantour/data/data.dart';
 import 'package:restaurantour/data/failures/restaurant_failure.dart';
+import 'package:restaurantour/ui/models/restaurant_ui.dart';
 
 part 'restaurants_cubit.freezed.dart';
 part 'restaurants_state.dart';
@@ -30,7 +31,10 @@ class RestaurantsCubit extends Cubit<RestaurantsState> {
           final length = result.restaurants.length;
 
           return state.copyWith(
-            restaurants: [...state.restaurants, ...result.restaurants],
+            restaurants: [
+              ...state.restaurants,
+              ...result.restaurants.map((r) => RestaurantUi(restaurant: r)),
+            ],
             hasMore: length == Constants.restaurantsToFetch,
             offset: state.offset + length,
             isLoading: false,
@@ -38,5 +42,17 @@ class RestaurantsCubit extends Cubit<RestaurantsState> {
         },
       ),
     );
+  }
+
+  void isFavoriteChanged({required String? restaurantId}) {
+    final restaurants = state.restaurants.map((r) {
+      if (r.restaurant.id == restaurantId) {
+        return r.copyWith(isFavorite: !r.isFavorite);
+      }
+
+      return r;
+    }).toList();
+
+    emit(state.copyWith(restaurants: restaurants));
   }
 }

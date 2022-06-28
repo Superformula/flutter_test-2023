@@ -20,7 +20,7 @@ class _$RestaurantsStateTearOff {
   _RestaurantsState call(
       {required bool isLoading,
       required Option<RestaurantFailure> failure,
-      required List<Restaurant> restaurants,
+      required List<RestaurantUi> restaurants,
       required bool hasMore,
       required int offset}) {
     return _RestaurantsState(
@@ -40,7 +40,7 @@ const $RestaurantsState = _$RestaurantsStateTearOff();
 mixin _$RestaurantsState {
   bool get isLoading => throw _privateConstructorUsedError;
   Option<RestaurantFailure> get failure => throw _privateConstructorUsedError;
-  List<Restaurant> get restaurants => throw _privateConstructorUsedError;
+  List<RestaurantUi> get restaurants => throw _privateConstructorUsedError;
   bool get hasMore => throw _privateConstructorUsedError;
   int get offset => throw _privateConstructorUsedError;
 
@@ -57,7 +57,7 @@ abstract class $RestaurantsStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       Option<RestaurantFailure> failure,
-      List<Restaurant> restaurants,
+      List<RestaurantUi> restaurants,
       bool hasMore,
       int offset});
 }
@@ -91,7 +91,7 @@ class _$RestaurantsStateCopyWithImpl<$Res>
       restaurants: restaurants == freezed
           ? _value.restaurants
           : restaurants // ignore: cast_nullable_to_non_nullable
-              as List<Restaurant>,
+              as List<RestaurantUi>,
       hasMore: hasMore == freezed
           ? _value.hasMore
           : hasMore // ignore: cast_nullable_to_non_nullable
@@ -114,7 +114,7 @@ abstract class _$RestaurantsStateCopyWith<$Res>
   $Res call(
       {bool isLoading,
       Option<RestaurantFailure> failure,
-      List<Restaurant> restaurants,
+      List<RestaurantUi> restaurants,
       bool hasMore,
       int offset});
 }
@@ -150,7 +150,7 @@ class __$RestaurantsStateCopyWithImpl<$Res>
       restaurants: restaurants == freezed
           ? _value.restaurants
           : restaurants // ignore: cast_nullable_to_non_nullable
-              as List<Restaurant>,
+              as List<RestaurantUi>,
       hasMore: hasMore == freezed
           ? _value.hasMore
           : hasMore // ignore: cast_nullable_to_non_nullable
@@ -165,20 +165,21 @@ class __$RestaurantsStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RestaurantsState implements _RestaurantsState {
+class _$_RestaurantsState extends _RestaurantsState {
   const _$_RestaurantsState(
       {required this.isLoading,
       required this.failure,
       required this.restaurants,
       required this.hasMore,
-      required this.offset});
+      required this.offset})
+      : super._();
 
   @override
   final bool isLoading;
   @override
   final Option<RestaurantFailure> failure;
   @override
-  final List<Restaurant> restaurants;
+  final List<RestaurantUi> restaurants;
   @override
   final bool hasMore;
   @override
@@ -217,20 +218,21 @@ class _$_RestaurantsState implements _RestaurantsState {
       __$RestaurantsStateCopyWithImpl<_RestaurantsState>(this, _$identity);
 }
 
-abstract class _RestaurantsState implements RestaurantsState {
+abstract class _RestaurantsState extends RestaurantsState {
   const factory _RestaurantsState(
       {required bool isLoading,
       required Option<RestaurantFailure> failure,
-      required List<Restaurant> restaurants,
+      required List<RestaurantUi> restaurants,
       required bool hasMore,
       required int offset}) = _$_RestaurantsState;
+  const _RestaurantsState._() : super._();
 
   @override
   bool get isLoading;
   @override
   Option<RestaurantFailure> get failure;
   @override
-  List<Restaurant> get restaurants;
+  List<RestaurantUi> get restaurants;
   @override
   bool get hasMore;
   @override
