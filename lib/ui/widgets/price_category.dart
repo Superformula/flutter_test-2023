@@ -11,13 +11,16 @@ class PriceCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         if (price != null)
           Padding(
             padding: const EdgeInsets.only(right: PaddingValues.s),
             child: Text(price!),
           ),
-        Text(category, style: Theme.of(context).textTheme.caption),
+        Expanded(
+          child: Text(category, style: Theme.of(context).textTheme.caption),
+        ),
       ],
     );
   }

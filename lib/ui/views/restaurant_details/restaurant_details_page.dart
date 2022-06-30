@@ -55,9 +55,11 @@ class RestaurantDetailsPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    PriceCategory(
-                      price: restaurant.price,
-                      category: restaurant.displayCategory,
+                    Expanded(
+                      child: PriceCategory(
+                        price: restaurant.price,
+                        category: restaurant.displayCategory,
+                      ),
                     ),
                     IsOpen(isOpen: restaurant.isOpen),
                   ],

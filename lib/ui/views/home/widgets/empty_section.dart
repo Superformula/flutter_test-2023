@@ -15,7 +15,7 @@ class EmptySection extends StatelessWidget {
       children: [
         Icon(icon, size: 62),
         const SizedBox(height: PaddingValues.l),
-        Text(title),
+        Text(title, textAlign: TextAlign.center),
       ],
     );
   }

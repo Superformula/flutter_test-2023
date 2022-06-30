@@ -37,51 +37,55 @@ class RestaurantListTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(PaddingValues.medium),
           elevation: 2,
           child: Container(
-            height: 104,
+            constraints: const BoxConstraints(minHeight: 104),
             padding: const EdgeInsets.all(PaddingValues.medium),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  clipBehavior: Clip.hardEdge,
-                  decoration: const BoxDecoration(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(PaddingValues.medium)),
-                  ),
-                  child: HeroNetworkImage(
-                    imageUrl: image,
-                    heroTag: title,
-                    width: 88,
-                    height: 88,
-                  ),
-                ),
-                const SizedBox(width: PaddingValues.big),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (title != null)
-                        Text(
-                          title!,
-                          style: theme.textTheme.subtitle1,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      const Spacer(),
-                      PriceCategory(category: category, price: price),
-                      const SizedBox(height: PaddingValues.s),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Rating(rating: rating),
-                          IsOpen(isOpen: isOpen),
-                        ],
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    clipBehavior: Clip.hardEdge,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(PaddingValues.medium),
                       ),
-                    ],
+                    ),
+                    child: HeroNetworkImage(
+                      imageUrl: image,
+                      heroTag: title,
+                      width: 88,
+                      height: 88,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: PaddingValues.big),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        if (title != null)
+                          Text(
+                            title!,
+                            style: theme.textTheme.subtitle1,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        const Spacer(),
+                        PriceCategory(category: category, price: price),
+                        const SizedBox(height: PaddingValues.s),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Rating(rating: rating),
+                            IsOpen(isOpen: isOpen),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
