@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/data/models/models.dart';
-import 'package:restaurantour/ui/screens/restaurant_details/widgets/divider_line.dart';
 import 'package:restaurantour/ui/values/values.dart';
+import 'package:restaurantour/ui/views/restaurant_details/widgets/divider_line.dart';
 import 'package:restaurantour/ui/widgets/rating.dart';
 
 class ReviewListTile extends StatelessWidget {

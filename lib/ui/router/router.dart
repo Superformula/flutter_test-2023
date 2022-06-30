@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:restaurantour/ui/models/restaurant_ui.dart';
-import 'package:restaurantour/ui/screens/screens.dart';
+import 'package:restaurantour/ui/views/views.dart';
 
 class RouteName {
   const RouteName._();
@@ -14,13 +14,13 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       name: RouteName.home,
-      builder: (context, state) => const HomeScreen(),
+      builder: (context, state) => const HomePage(),
     ),
     GoRoute(
       path: '/${RouteName.restaurantDetails}',
       name: RouteName.restaurantDetails,
       builder: (context, state) {
-        return RestaurantDetailsScreen(
+        return RestaurantDetailsPage(
           restaurantUi: state.extra as RestaurantUi,
         );
       },

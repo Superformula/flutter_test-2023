@@ -8,10 +8,10 @@ import 'package:restaurantour/ui/widgets/widgets.dart';
 
 import 'widgets/widgets.dart';
 
-class RestaurantDetailsScreen extends StatelessWidget {
+class RestaurantDetailsPage extends StatelessWidget {
   final RestaurantUi restaurantUi;
 
-  const RestaurantDetailsScreen({Key? key, required this.restaurantUi})
+  const RestaurantDetailsPage({Key? key, required this.restaurantUi})
       : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class RestaurantDetailsScreen extends StatelessWidget {
             isFavorite: restaurantUi.isFavorite,
             onToggle: () => context
                 .read<RestaurantsCubit>()
-                .isFavoriteChanged(restaurantId: restaurant.id),
+                .favoriteToggled(restaurantId: restaurant.id),
           ),
         ],
       ),

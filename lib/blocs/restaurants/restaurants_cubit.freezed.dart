@@ -19,12 +19,14 @@ class _$RestaurantsStateTearOff {
 
   _RestaurantsState call(
       {required bool isLoading,
+      required bool isLoadingMore,
       required Option<RestaurantFailure> failure,
       required List<RestaurantUi> restaurants,
       required bool hasMore,
       required int offset}) {
     return _RestaurantsState(
       isLoading: isLoading,
+      isLoadingMore: isLoadingMore,
       failure: failure,
       restaurants: restaurants,
       hasMore: hasMore,
@@ -39,6 +41,7 @@ const $RestaurantsState = _$RestaurantsStateTearOff();
 /// @nodoc
 mixin _$RestaurantsState {
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isLoadingMore => throw _privateConstructorUsedError;
   Option<RestaurantFailure> get failure => throw _privateConstructorUsedError;
   List<RestaurantUi> get restaurants => throw _privateConstructorUsedError;
   bool get hasMore => throw _privateConstructorUsedError;
@@ -56,6 +59,7 @@ abstract class $RestaurantsStateCopyWith<$Res> {
       _$RestaurantsStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
+      bool isLoadingMore,
       Option<RestaurantFailure> failure,
       List<RestaurantUi> restaurants,
       bool hasMore,
@@ -74,6 +78,7 @@ class _$RestaurantsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? isLoadingMore = freezed,
     Object? failure = freezed,
     Object? restaurants = freezed,
     Object? hasMore = freezed,
@@ -83,6 +88,10 @@ class _$RestaurantsStateCopyWithImpl<$Res>
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoadingMore: isLoadingMore == freezed
+          ? _value.isLoadingMore
+          : isLoadingMore // ignore: cast_nullable_to_non_nullable
               as bool,
       failure: failure == freezed
           ? _value.failure
@@ -113,6 +122,7 @@ abstract class _$RestaurantsStateCopyWith<$Res>
   @override
   $Res call(
       {bool isLoading,
+      bool isLoadingMore,
       Option<RestaurantFailure> failure,
       List<RestaurantUi> restaurants,
       bool hasMore,
@@ -133,6 +143,7 @@ class __$RestaurantsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
+    Object? isLoadingMore = freezed,
     Object? failure = freezed,
     Object? restaurants = freezed,
     Object? hasMore = freezed,
@@ -142,6 +153,10 @@ class __$RestaurantsStateCopyWithImpl<$Res>
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoadingMore: isLoadingMore == freezed
+          ? _value.isLoadingMore
+          : isLoadingMore // ignore: cast_nullable_to_non_nullable
               as bool,
       failure: failure == freezed
           ? _value.failure
@@ -168,6 +183,7 @@ class __$RestaurantsStateCopyWithImpl<$Res>
 class _$_RestaurantsState extends _RestaurantsState {
   const _$_RestaurantsState(
       {required this.isLoading,
+      required this.isLoadingMore,
       required this.failure,
       required this.restaurants,
       required this.hasMore,
@@ -176,6 +192,8 @@ class _$_RestaurantsState extends _RestaurantsState {
 
   @override
   final bool isLoading;
+  @override
+  final bool isLoadingMore;
   @override
   final Option<RestaurantFailure> failure;
   @override
@@ -187,7 +205,7 @@ class _$_RestaurantsState extends _RestaurantsState {
 
   @override
   String toString() {
-    return 'RestaurantsState(isLoading: $isLoading, failure: $failure, restaurants: $restaurants, hasMore: $hasMore, offset: $offset)';
+    return 'RestaurantsState(isLoading: $isLoading, isLoadingMore: $isLoadingMore, failure: $failure, restaurants: $restaurants, hasMore: $hasMore, offset: $offset)';
   }
 
   @override
@@ -196,6 +214,8 @@ class _$_RestaurantsState extends _RestaurantsState {
         (other.runtimeType == runtimeType &&
             other is _RestaurantsState &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality()
+                .equals(other.isLoadingMore, isLoadingMore) &&
             const DeepCollectionEquality().equals(other.failure, failure) &&
             const DeepCollectionEquality()
                 .equals(other.restaurants, restaurants) &&
@@ -207,6 +227,7 @@ class _$_RestaurantsState extends _RestaurantsState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(isLoadingMore),
       const DeepCollectionEquality().hash(failure),
       const DeepCollectionEquality().hash(restaurants),
       const DeepCollectionEquality().hash(hasMore),
@@ -221,6 +242,7 @@ class _$_RestaurantsState extends _RestaurantsState {
 abstract class _RestaurantsState extends RestaurantsState {
   const factory _RestaurantsState(
       {required bool isLoading,
+      required bool isLoadingMore,
       required Option<RestaurantFailure> failure,
       required List<RestaurantUi> restaurants,
       required bool hasMore,
@@ -229,6 +251,8 @@ abstract class _RestaurantsState extends RestaurantsState {
 
   @override
   bool get isLoading;
+  @override
+  bool get isLoadingMore;
   @override
   Option<RestaurantFailure> get failure;
   @override

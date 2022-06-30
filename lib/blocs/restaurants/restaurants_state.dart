@@ -6,6 +6,7 @@ class RestaurantsState with _$RestaurantsState {
 
   const factory RestaurantsState({
     required bool isLoading,
+    required bool isLoadingMore,
     required Option<RestaurantFailure> failure,
     required List<RestaurantUi> restaurants,
     required bool hasMore,
@@ -15,6 +16,7 @@ class RestaurantsState with _$RestaurantsState {
   factory RestaurantsState.initial() {
     return _RestaurantsState(
       isLoading: true,
+      isLoadingMore: false,
       failure: none(),
       restaurants: [],
       hasMore: true,

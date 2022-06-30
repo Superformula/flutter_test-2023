@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/blocs/restaurants/restaurants_cubit.dart';
-import 'package:restaurantour/di/injection.dart';
-import 'package:restaurantour/ui/router.dart';
+import 'package:restaurantour/core/di/injection.dart';
+import 'package:restaurantour/ui/router/router.dart';
 import 'package:restaurantour/ui/theme/app_theme.dart';
 
 class App extends StatelessWidget {
