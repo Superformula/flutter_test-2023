@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurantour/ui/ui.dart';
 
 class HeroNetworkImage extends StatelessWidget {
   final String imageUrl;
@@ -24,11 +25,7 @@ class HeroNetworkImage extends StatelessWidget {
         fit: BoxFit.cover,
         width: width,
         height: width,
-        placeholder: (_, __) => const SizedBox(
-          height: 8,
-          width: 8,
-          child: Center(child: CircularProgressIndicator()),
-        ),
+        placeholder: (_, __) => Container(color: AppColor.placeHolder),
         errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
     );

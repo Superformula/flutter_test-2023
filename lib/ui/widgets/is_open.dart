@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/ui/theme/app_color.dart';
 import 'package:restaurantour/ui/values/padding_values.dart';
+import 'package:restaurantour/ui/values/strings_values.dart';
 
 class IsOpen extends StatelessWidget {
   final bool isOpen;
@@ -14,7 +15,7 @@ class IsOpen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          isOpen ? 'Open Now' : 'Closed',
+          isOpen ? StringValues.openNow : StringValues.closed,
           style: Theme.of(context).textTheme.overline,
         ),
         Padding(

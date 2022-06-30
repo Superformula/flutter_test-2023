@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:restaurantour/blocs/restaurants/restaurants_cubit.dart';
+import 'package:restaurantour/blocs/blocs.dart';
 import 'package:restaurantour/core/constants/constants.dart';
 import 'package:restaurantour/data/data.dart';
 import 'package:restaurantour/ui/models/restaurant_ui.dart';

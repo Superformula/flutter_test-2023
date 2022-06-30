@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<RestaurantsCubit, RestaurantsState>(
+      listenWhen: (previous, current) => previous.failure != current.failure,
       listener: (context, state) {
         state.failure.fold(
           () {},
@@ -41,8 +42,8 @@ class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
   final _tabs = const [
-    Tab(child: Text('All Restaurants')),
-    Tab(child: Text('My Favorites')),
+    Tab(child: Text(StringValues.allRestaurants)),
+    Tab(child: Text(StringValues.myFavorites)),
   ];
 
   @override
@@ -55,7 +56,7 @@ class _HomeViewState extends State<HomeView>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('RestauranTour'),
+        title: const Text(StringValues.title),
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
@@ -72,7 +73,10 @@ class _HomeViewState extends State<HomeView>
 
           return TabBarView(
             controller: _tabController,
-            children: const [_AllRestaurants(), _FavoritesRestaurants()],
+            children: const [
+              _AllRestaurants(key: Key('all_restaurants_tab')),
+              _FavoritesRestaurants(key: Key('favorites_restaurants_tab')),
+            ],
           );
         },
       ),
@@ -81,8 +85,8 @@ class _HomeViewState extends State<HomeView>
 
   @override
   void dispose() {
-    super.dispose();
     _tabController.dispose();
+    super.dispose();
   }
 }
 
@@ -99,12 +103,11 @@ class _AllRestaurants extends StatelessWidget {
     if (restaurants.isEmpty) {
       return const EmptySection(
         icon: Icons.store,
-        title: 'There are no restaurants',
+        title: StringValues.emptyRestaurants,
       );
     }
 
     return ListView.builder(
-      key: const Key('homeBody_all_restaurants'),
       padding: const EdgeInsets.symmetric(
         vertical: PaddingValues.l,
         horizontal: PaddingValues.big,
@@ -158,7 +161,7 @@ class _Pagination extends StatelessWidget {
           bottom: PaddingValues.xxl,
         ),
         child: Text(
-          isLoadingMore ? 'Loading...' : 'View more',
+          isLoadingMore ? StringValues.loading : StringValues.viewMore,
           style: Theme.of(context).textTheme.button,
         ),
       ),
@@ -177,12 +180,11 @@ class _FavoritesRestaurants extends StatelessWidget {
     if (favorites.isEmpty) {
       return const EmptySection(
         icon: Icons.favorite_border,
-        title: 'No favorite restaurants yet',
+        title: StringValues.emptyFavorites,
       );
     }
 
     return ListView.builder(
-      key: const Key('homeBody_favorites_restaurants'),
       padding: const EdgeInsets.symmetric(
         vertical: PaddingValues.l,
         horizontal: PaddingValues.big,

@@ -63,7 +63,7 @@ class RestaurantDetailsPage extends StatelessWidget {
                 ),
                 const DividerLine(),
                 if (formattedAddress != null) ...[
-                  Text('Address', style: textTheme.caption),
+                  Text(StringValues.address, style: textTheme.caption),
                   const SizedBox(height: PaddingValues.xl),
                   SizedBox(
                     width: 140,
@@ -75,13 +75,16 @@ class RestaurantDetailsPage extends StatelessWidget {
                   const DividerLine(),
                 ],
                 if (restaurant.rating != null) ...[
-                  Text('Overall Rating', style: textTheme.caption),
+                  Text(StringValues.overallRating, style: textTheme.caption),
                   const SizedBox(height: PaddingValues.l),
                   OverallRating(rating: restaurant.rating!),
                   const DividerLine(),
                 ],
                 if (reviews != null && reviews.isNotEmpty) ...[
-                  Text('${reviews.length} Reviews', style: textTheme.caption),
+                  Text(
+                    '${reviews.length} ${StringValues.reviews}',
+                    style: textTheme.caption,
+                  ),
                   const SizedBox(height: PaddingValues.l),
                   for (final review in reviews) ReviewListTile(review: review),
                 ],
