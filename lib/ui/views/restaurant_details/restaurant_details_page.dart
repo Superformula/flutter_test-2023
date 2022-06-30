@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:restaurantour/blocs/blocs.dart';
-import 'package:restaurantour/ui/models/restaurant_ui.dart';
-import 'package:restaurantour/ui/theme/app_color.dart';
-import 'package:restaurantour/ui/values/padding_values.dart';
-import 'package:restaurantour/ui/widgets/widgets.dart';
-
-import 'widgets/widgets.dart';
+import 'package:restaurantour/ui/ui.dart';
 
 class RestaurantDetailsPage extends StatelessWidget {
   final RestaurantUi restaurantUi;
 
   const RestaurantDetailsPage({Key? key, required this.restaurantUi})
       : super(key: key);
+
+  static void route(
+    BuildContext context, {
+    required RestaurantUi restaurantUi,
+  }) {
+    GoRouter.of(context)
+        .pushNamed(RouteName.restaurantDetails, extra: restaurantUi);
+  }
 
   @override
   Widget build(BuildContext context) {

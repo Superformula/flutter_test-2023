@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:restaurantour/blocs/blocs.dart';
-import 'package:restaurantour/ui/router/router.dart';
-import 'package:restaurantour/ui/values/padding_values.dart';
-import 'package:restaurantour/ui/views/home/widgets/widgets.dart';
+import 'package:restaurantour/ui/ui.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -126,9 +123,9 @@ class _AllRestaurants extends StatelessWidget {
               isOpen: restaurant.isOpen,
               rating: restaurant.rating,
               price: restaurant.price,
-              onTap: () => GoRouter.of(context).pushNamed(
-                RouteName.restaurantDetails,
-                extra: restaurants[index],
+              onTap: () => RestaurantDetailsPage.route(
+                context,
+                restaurantUi: restaurants[index],
               ),
             ),
             if (isLastItem && hasMore) const _Pagination(),
@@ -201,9 +198,9 @@ class _FavoritesRestaurants extends StatelessWidget {
           isOpen: restaurant.isOpen,
           rating: restaurant.rating,
           price: restaurant.price,
-          onTap: () => GoRouter.of(context).pushNamed(
-            RouteName.restaurantDetails,
-            extra: favorites[index],
+          onTap: () => RestaurantDetailsPage.route(
+            context,
+            restaurantUi: favorites[index],
           ),
         );
       },
