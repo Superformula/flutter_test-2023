@@ -57,6 +57,7 @@ class _HomeViewState extends State<HomeView>
     return Scaffold(
       appBar: AppBar(
         title: const Text(StringValues.title),
+        centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,

@@ -40,11 +40,12 @@ class RestaurantDetailsPage extends StatelessWidget {
       backgroundColor: AppColor.surface,
       body: ListView(
         children: [
-          HeroNetworkImage(
-            heroTag: restaurant.name,
-            height: 362,
-            width: 362,
-            imageUrl: restaurant.heroImage,
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 2,
+            child: HeroNetworkImage(
+              heroTag: restaurant.name,
+              imageUrl: restaurant.heroImage,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(PaddingValues.xl),
