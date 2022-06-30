@@ -33,6 +33,7 @@ class RestaurantRowItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      key: isLoading ? null : ValueKey(restaurant!.id),
       onTap: () {
         if (!isLoading) {
           Navigator.pushNamed(context, AppRoutes.detailView,

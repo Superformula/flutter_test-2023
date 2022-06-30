@@ -14,10 +14,9 @@ class DetailViewAppBar extends StatefulWidget {
   final Restaurant restaurant;
   final bool isShrink;
   final int index;
-  final bool isLoading;
 
-  const DetailViewAppBar(this.favoriteModel, this.restaurant, this.isShrink,
-      this.index, this.isLoading,
+  const DetailViewAppBar(
+      this.favoriteModel, this.restaurant, this.isShrink, this.index,
       {Key? key})
       : super(key: key);
 
@@ -81,19 +80,15 @@ class DetailViewAppBarState extends State<DetailViewAppBar> {
           titlePadding:
               widget.isShrink ? null : const EdgeInsets.fromLTRB(24, 0, 24, 16),
           background: Hero(
-            tag: "${GlobalKeyName.imageHero}${widget.index}",
-            child: widget.isLoading
-                ? CachedNetworkImage(
-                    imageUrl: widget.restaurant.photos!.first,
-                    fit: BoxFit.fill,
-                    placeholder: (context, url) => Container(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  )
-                : Container(
-                    decoration: AppTheme.gradientLoadingDecoration,
-                  ),
-          ),
+              tag: "${GlobalKeyName.imageHero}${widget.index}",
+              child: CachedNetworkImage(
+                imageUrl: widget.restaurant.photos!.first,
+                fit: BoxFit.fill,
+                placeholder: (context, url) => Container(
+                  decoration: AppTheme.gradientLoadingDecoration,
+                ),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              )),
           centerTitle: false,
         ),
         leading: IconButton(

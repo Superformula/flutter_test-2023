@@ -63,8 +63,8 @@ class _DetailViewMainState extends State<DetailViewMain> {
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [
-          DetailViewAppBar(widget.favoriteModel, widget.restaurant, isShrink,
-              widget.index, true),
+          DetailViewAppBar(
+              widget.favoriteModel, widget.restaurant, isShrink, widget.index),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {

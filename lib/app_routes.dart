@@ -4,6 +4,7 @@ import 'package:restaurantour/detail_view/detail_view_main.dart';
 import 'package:restaurantour/main_app.dart';
 import 'package:restaurantour/view_model/connectivity_model.dart';
 import 'package:restaurantour/view_model/favorite_model.dart';
+import 'package:restaurantour/view_model/restaurant_model.dart';
 
 class AppRoutes {
   static const String initialRoute = '/';
@@ -33,6 +34,7 @@ class AppRoutes {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ConnectivityModel()),
+        ChangeNotifierProvider(create: (_) => RestaurantModel()),
         ChangeNotifierProvider(create: (_) => FavoriteModel()),
       ],
       child: const MainApp(),

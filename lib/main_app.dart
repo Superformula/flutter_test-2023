@@ -67,12 +67,9 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin {
       ),
       body: TabBarView(
         controller: _controller,
-        children: [
-          ChangeNotifierProvider(
-            create: (_) => RestaurantModel(),
-            child: const AllRestaurantsMain(),
-          ),
-          const MyFavoritesMain(),
+        children: const [
+          AllRestaurantsMain(),
+          MyFavoritesMain(),
         ],
       ),
     );
