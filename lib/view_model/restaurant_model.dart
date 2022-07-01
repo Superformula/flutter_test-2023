@@ -1,14 +1,21 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/view_model/restaurant_handler.dart';
 
 class RestaurantModel extends RestaurantHandler with ChangeNotifier {
   bool _isLoading = true;
   int _listCount = 7;
 
-  RestaurantModel() {
-    getRestaurants();
+  RestaurantModel({List<Restaurant>? restaurants})
+      : super(restaurants: restaurants) {
+    // set up for widget test.
+    if (restaurants != null) {
+      _isLoading = false;
+    } else {
+      getRestaurants();
+    }
   }
 
   void increaseListCount() {

@@ -7,8 +7,11 @@ class FavoriteModel extends RestaurantHandler with ChangeNotifier {
   final List<Restaurant> _favoriteRestaurants = [];
   LocalDB localDB = LocalDB.instance;
 
-  FavoriteModel() {
-    getRestaurants();
+  FavoriteModel({List<Restaurant>? restaurants})
+      : super(restaurants: restaurants) {
+    if (restaurants == null) {
+      getRestaurants();
+    }
   }
 
   void getRestaurants() async {

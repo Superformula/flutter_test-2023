@@ -7,6 +7,12 @@ class RestaurantHandler {
   List<Restaurant> restaurants = [];
   Failure? error;
 
+  RestaurantHandler({List<Restaurant>? restaurants}) {
+    if (restaurants != null) {
+      this.restaurants = restaurants;
+    }
+  }
+
   requestRestaurant() async {
     var response = await RestaurantService.getRestaurants();
     if (response is Success) {

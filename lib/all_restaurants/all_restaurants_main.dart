@@ -17,7 +17,6 @@ class _AllRestaurantsMainState extends State<AllRestaurantsMain>
   @override
   Widget build(BuildContext context) {
     RestaurantModel restaurant = context.watch<RestaurantModel>();
-    FavoriteModel favoriteModel = context.watch<FavoriteModel>();
     if (restaurant.error != null) {
       return FetchErrorRestaurants(restaurant.error!.response as String);
     }
@@ -36,13 +35,7 @@ class _AllRestaurantsMainState extends State<AllRestaurantsMain>
                   restaurant.listCount < restaurant.restaurants.length) {
                 return Column(
                   children: [
-                    RestaurantRowItem(
-                      isLoading: restaurant.isLoading,
-                      favoriteModel: favoriteModel,
-                      theme: Theme.of(context),
-                      restaurant: restaurant.restaurants[index],
-                      index: index,
-                    ),
+                    restaurantItem(restaurant, index),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(
@@ -57,14 +50,20 @@ class _AllRestaurantsMainState extends State<AllRestaurantsMain>
                   ],
                 );
               }
-              return RestaurantRowItem(
-                isLoading: restaurant.isLoading,
-                favoriteModel: favoriteModel,
-                theme: Theme.of(context),
-                restaurant: restaurant.restaurants[index],
-                index: index,
-              );
+              return restaurantItem(restaurant, index);
             }));
+  }
+
+  restaurantItem(RestaurantModel restaurant, int index) {
+    return Consumer<FavoriteModel>(builder: (context, favoriteModel, child) {
+      return RestaurantRowItem(
+        isLoading: restaurant.isLoading,
+        favoriteModel: favoriteModel,
+        theme: Theme.of(context),
+        restaurant: restaurant.restaurants[index],
+        index: index,
+      );
+    });
   }
 
   @override

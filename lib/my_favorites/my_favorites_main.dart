@@ -15,22 +15,24 @@ class MyFavoritesMainState extends State<MyFavoritesMain>
     with AutomaticKeepAliveClientMixin<MyFavoritesMain> {
   @override
   Widget build(BuildContext context) {
-    FavoriteModel favoriteModel = context.watch<FavoriteModel>();
-
-    return favoriteModel.favoriteRestaurants.isNotEmpty
-        ? ListView.builder(
-            padding: const EdgeInsets.fromLTRB(4.0, 10, 4, 10),
-            itemCount: favoriteModel.favoriteRestaurants.length,
-            itemBuilder: (BuildContext context, int index) {
-              return RestaurantRowItem(
-                isLoading: false,
-                favoriteModel: favoriteModel,
-                theme: Theme.of(context),
-                restaurant: favoriteModel.favoriteRestaurants[index],
-                index: index,
-              );
-            })
-        : const NoFavoritesData();
+    return Consumer<FavoriteModel>(
+      builder: (context, favoriteModel, child) {
+        return favoriteModel.favoriteRestaurants.isNotEmpty
+            ? ListView.builder(
+                padding: const EdgeInsets.fromLTRB(4, 10, 4, 10),
+                itemCount: favoriteModel.favoriteRestaurants.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return RestaurantRowItem(
+                    isLoading: false,
+                    favoriteModel: favoriteModel,
+                    theme: Theme.of(context),
+                    restaurant: favoriteModel.favoriteRestaurants[index],
+                    index: index,
+                  );
+                })
+            : const NoFavoritesData();
+      },
+    );
   }
 
   @override

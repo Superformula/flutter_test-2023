@@ -35,7 +35,6 @@ void main() {
       matcher: const FullHttpRequestMatcher(),
     );
 
-    WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences.setMockInitialValues({});
   });
 
@@ -62,7 +61,7 @@ void main() {
             data.response as RestaurantQueryResult;
         List<Restaurant> restaurants = queryResult.restaurants!;
 
-        expect(restaurants.length, 3);
+        expect(restaurants.length, 9);
 
         for (var element in restaurants) {
           print("Restaurant name is ${element.name ?? "No Name"}");
@@ -95,7 +94,7 @@ void main() {
                 (savedRestaurant as List<dynamic>)
                     .map((e) => Restaurant.fromJson(e))
                     .toList();
-            expect(restaurantsFromDB.length, 3);
+            expect(restaurantsFromDB.length, 9);
             expect(restaurantsFromDB.first.rating! < 0, false);
           }
         }
