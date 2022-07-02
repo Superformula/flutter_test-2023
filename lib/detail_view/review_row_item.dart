@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurantour/common_widgets/app_place_holder.dart';
 import 'package:restaurantour/common_widgets/rating.dart';
@@ -66,12 +67,23 @@ class ReviewRowItem extends StatelessWidget {
                       ))
                     : review!.user!.imageUrl != null
                         ? ClipOval(
-                            child: Image.network(
-                            review!.user!.imageUrl!,
+                            child: CachedNetworkImage(
+                            imageUrl: review!.user!.imageUrl!,
                             width: 40,
                             height: 40,
                             fit: BoxFit.cover,
+                            placeholder: (context, url) => Container(),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
                           ))
+
+                        // Image.network(
+                        //   review!.user!.imageUrl!,
+                        //   width: 40,
+                        //   height: 40,
+                        //   fit: BoxFit.cover,
+                        // )
+
                         : const Icon(Icons.account_circle,
                             color: Colors.grey, size: 46),
                 Padding(

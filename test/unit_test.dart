@@ -55,7 +55,7 @@ void main() {
     });
 
     test('Restaurants data exists.', () async {
-      Success data = TestUtil.restaurantData();
+      Success data = TestUtil.restaurantDataSuccess();
       if (data.response is RestaurantQueryResult) {
         RestaurantQueryResult queryResult =
             data.response as RestaurantQueryResult;
@@ -73,7 +73,7 @@ void main() {
 
     test('local database test', () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
-      Success data = TestUtil.restaurantData();
+      Success data = TestUtil.restaurantDataSuccess();
 
       if (data.response is RestaurantQueryResult) {
         RestaurantQueryResult queryResult =

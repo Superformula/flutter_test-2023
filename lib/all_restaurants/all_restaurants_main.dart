@@ -16,7 +16,6 @@ class _AllRestaurantsMainState extends State<AllRestaurantsMain>
     with AutomaticKeepAliveClientMixin<AllRestaurantsMain> {
   @override
   Widget build(BuildContext context) {
-    print("AllRestaurantsMain");
     RestaurantModel restaurant = context.watch<RestaurantModel>();
     if (restaurant.error != null) {
       return FetchErrorRestaurants(restaurant.error!.response as String);

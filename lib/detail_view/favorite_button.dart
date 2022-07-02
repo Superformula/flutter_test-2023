@@ -27,7 +27,6 @@ class _FavoriteButtonState extends State<FavoriteButton> {
     super.didChangeDependencies();
     DetailViewAppBarState data = DetailViewAppBar.of(context);
     isFavorite = data.isFavorite;
-    widget.favoriteModel.updateFavorites(widget.restaurantId, isFavorite);
   }
 
   @override

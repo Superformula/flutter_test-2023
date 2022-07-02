@@ -55,6 +55,8 @@ class DetailViewAppBarState extends State<DetailViewAppBar> {
     setState(() {
       _isFavorite = !_isFavorite;
     });
+
+    widget.favoriteModel.updateFavorites(widget.restaurant.id!, isFavorite);
   }
 
   @override

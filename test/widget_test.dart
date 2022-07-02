@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/all_restaurants/all_restaurants_main.dart';
-import 'package:restaurantour/models/api_status.dart';
+import 'package:restaurantour/app_routes.dart';
+import 'package:restaurantour/common_widgets/restaurant_row_item.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/view_model/favorite_model.dart';
 import 'package:restaurantour/view_model/restaurant_model.dart';
@@ -24,17 +25,13 @@ void main() {
 
   setUp(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    Success data = TestUtil.restaurantData();
-    if (data.response is RestaurantQueryResult) {
-      RestaurantQueryResult queryResult =
-          data.response as RestaurantQueryResult;
-      restaurants = queryResult.restaurants!;
-    }
+    restaurants = TestUtil.restaurantData();
   });
 
   testWidgets('Page loads', (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
+        onGenerateRoute: (setting) => AppRoutes.setUpGenerateRoutes(setting),
         home: MultiProvider(
           providers: [
             ChangeNotifierProvider(
@@ -50,6 +47,26 @@ void main() {
     expect(find.byKey(const Key('AllRestaurantListView')), findsOneWidget);
     await tester.drag(find.byKey(const Key('AllRestaurantListView')),
         const Offset(0.0, -500.0));
+
+    await tester.pumpAndSettle(const Duration(seconds: 1));
+
+    expect(
+      find.byKey(Key('${ParentRoute.allRestaurant.toString()}5')),
+      findsOneWidget,
+    );
+
+    await tester
+        .tap(find.byKey(Key('${ParentRoute.allRestaurant.toString()}5')));
+    await tester.pumpAndSettle(const Duration(seconds: 1));
+
+    await tester.drag(find.byType(CustomScrollView), const Offset(0.0, -600.0));
+    await tester.pumpAndSettle();
+
+    await tester.drag(find.byType(CustomScrollView), const Offset(0.0, 600.0));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byType(IconButton).first);
+    await tester.pumpAndSettle();
 
     await tester.pumpAndSettle(const Duration(seconds: 2));
   });

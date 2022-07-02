@@ -2,7 +2,18 @@ import 'package:restaurantour/models/api_status.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 class TestUtil {
-  static restaurantData() {
+  static List<Restaurant> restaurantData() {
+    Success data = restaurantDataSuccess();
+    if (data.response is RestaurantQueryResult) {
+      RestaurantQueryResult queryResult =
+          data.response as RestaurantQueryResult;
+      return queryResult.restaurants!;
+    } else {
+      return [];
+    }
+  }
+
+  static restaurantDataSuccess() {
     RestaurantQueryResult response = RestaurantQueryResult(
       total: 9,
       restaurants: [
@@ -20,6 +31,7 @@ class TestUtil {
             Category(alias: "cocktailbars", title: "Cocktail Bars")
           ],
           hours: [const Hours(isOpenNow: true)],
+          location: Location(formattedAddress: null),
           reviews: const [
             Review(
                 id: "O0S4tG3FjvCgmQMHEOgCIg",
@@ -58,6 +70,7 @@ class TestUtil {
             Category(alias: "breakfast_brunch", title: "Breakfast & Brunch")
           ],
           hours: [const Hours(isOpenNow: false)],
+          location: Location(formattedAddress: null),
           reviews: const [
             Review(
                 id: "gwqJwlul2BdT4tyomwv2Xg",
@@ -97,6 +110,7 @@ class TestUtil {
             Category(alias: "seafood", title: "Seafood")
           ],
           hours: [const Hours(isOpenNow: true)],
+          location: Location(formattedAddress: null),
           reviews: const [
             Review(
                 id: "GsWng3cPnqntI52hZeviMg",
@@ -136,6 +150,7 @@ class TestUtil {
             Category(alias: "cocktailbars", title: "Cocktail Bars")
           ],
           hours: [const Hours(isOpenNow: true)],
+          location: Location(formattedAddress: null),
           reviews: const [
             Review(
                 id: "O0S4tG3FjvCgmQMHEOgCIg",
@@ -174,6 +189,7 @@ class TestUtil {
             Category(alias: "breakfast_brunch", title: "Breakfast & Brunch")
           ],
           hours: [const Hours(isOpenNow: false)],
+          location: Location(formattedAddress: null),
           reviews: const [
             Review(
                 id: "gwqJwlul2BdT4tyomwv2Xg",
@@ -213,6 +229,7 @@ class TestUtil {
             Category(alias: "seafood", title: "Seafood")
           ],
           hours: [const Hours(isOpenNow: true)],
+          location: Location(formattedAddress: null),
           reviews: const [
             Review(
                 id: "GsWng3cPnqntI52hZeviMg",
@@ -252,6 +269,7 @@ class TestUtil {
             Category(alias: "cocktailbars", title: "Cocktail Bars")
           ],
           hours: [const Hours(isOpenNow: true)],
+          location: Location(formattedAddress: null),
           reviews: const [
             Review(
                 id: "O0S4tG3FjvCgmQMHEOgCIg",
@@ -290,6 +308,7 @@ class TestUtil {
             Category(alias: "breakfast_brunch", title: "Breakfast & Brunch")
           ],
           hours: [const Hours(isOpenNow: false)],
+          location: Location(formattedAddress: null),
           reviews: const [
             Review(
                 id: "gwqJwlul2BdT4tyomwv2Xg",
@@ -329,6 +348,7 @@ class TestUtil {
             Category(alias: "seafood", title: "Seafood")
           ],
           hours: [const Hours(isOpenNow: true)],
+          location: Location(formattedAddress: null),
           reviews: const [
             Review(
                 id: "GsWng3cPnqntI52hZeviMg",

@@ -40,7 +40,7 @@ class RestaurantRowItem extends StatelessWidget {
         "${parentRoute.toString()}${GlobalKeyName.imageHero}$index";
 
     return GestureDetector(
-      key: isLoading ? null : ValueKey(restaurant!.id),
+      key: isLoading ? null : Key('${parentRoute.toString()}${index!}'),
       onTap: () {
         if (!isLoading) {
           Navigator.pushNamed(context, AppRoutes.detailView,
