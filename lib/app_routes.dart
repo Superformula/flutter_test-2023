@@ -22,7 +22,8 @@ class AppRoutes {
         switch (settings.name) {
           case detailView:
             final arg = settings.arguments as DetailViewArgument;
-            return DetailViewMain(arg.favoriteModel, arg.restaurant, arg.index);
+            return DetailViewMain(
+                arg.favoriteModel, arg.restaurant, arg.heroTag);
           default:
             return mainAppPage();
         }

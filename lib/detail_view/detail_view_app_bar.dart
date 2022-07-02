@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:restaurantour/detail_view/detail_header_ingerited_widget.dart';
 import 'package:restaurantour/detail_view/favorite_button.dart';
 import 'package:restaurantour/models/restaurant.dart';
-import 'package:restaurantour/repositories/key_collection.dart';
 import 'package:restaurantour/repositories/local_db.dart';
 import 'package:restaurantour/theme/app_color.dart';
 import 'package:restaurantour/theme/app_theme.dart';
@@ -13,10 +12,10 @@ class DetailViewAppBar extends StatefulWidget {
   final FavoriteModel favoriteModel;
   final Restaurant restaurant;
   final bool isShrink;
-  final int index;
+  final String heroTag;
 
   const DetailViewAppBar(
-      this.favoriteModel, this.restaurant, this.isShrink, this.index,
+      this.favoriteModel, this.restaurant, this.isShrink, this.heroTag,
       {Key? key})
       : super(key: key);
 
@@ -80,7 +79,7 @@ class DetailViewAppBarState extends State<DetailViewAppBar> {
           titlePadding:
               widget.isShrink ? null : const EdgeInsets.fromLTRB(24, 0, 24, 16),
           background: Hero(
-              tag: "${GlobalKeyName.imageHero}${widget.index}",
+              tag: widget.heroTag,
               child: CachedNetworkImage(
                 imageUrl: widget.restaurant.photos!.first,
                 fit: BoxFit.fill,

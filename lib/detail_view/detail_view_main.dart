@@ -11,17 +11,17 @@ import 'package:restaurantour/view_model/favorite_model.dart';
 class DetailViewArgument {
   final FavoriteModel favoriteModel;
   final Restaurant restaurant;
-  final int index;
+  final String heroTag;
 
-  DetailViewArgument(this.favoriteModel, this.restaurant, this.index);
+  DetailViewArgument(this.favoriteModel, this.restaurant, this.heroTag);
 }
 
 class DetailViewMain extends StatefulWidget {
   final FavoriteModel favoriteModel;
   final Restaurant restaurant;
-  final int index;
+  final String heroTag;
 
-  const DetailViewMain(this.favoriteModel, this.restaurant, this.index,
+  const DetailViewMain(this.favoriteModel, this.restaurant, this.heroTag,
       {Key? key})
       : super(key: key);
 
@@ -63,8 +63,8 @@ class _DetailViewMainState extends State<DetailViewMain> {
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [
-          DetailViewAppBar(
-              widget.favoriteModel, widget.restaurant, isShrink, widget.index),
+          DetailViewAppBar(widget.favoriteModel, widget.restaurant, isShrink,
+              widget.heroTag),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {

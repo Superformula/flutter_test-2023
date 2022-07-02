@@ -14,8 +14,11 @@ import 'package:restaurantour/view_model/favorite_model.dart';
 /// Common restaurant row Item
 /// It uses for all restaurants and my favorites list.
 
+enum ParentRoute { allRestaurant, myFavorite }
+
 class RestaurantRowItem extends StatelessWidget {
   final bool isLoading;
+  final ParentRoute parentRoute;
   final FavoriteModel? favoriteModel;
   final ThemeData? theme;
   final Restaurant? restaurant;
@@ -23,6 +26,7 @@ class RestaurantRowItem extends StatelessWidget {
 
   const RestaurantRowItem(
       {this.isLoading = false,
+      this.parentRoute = ParentRoute.allRestaurant,
       this.favoriteModel,
       this.theme,
       this.restaurant,
@@ -32,13 +36,16 @@ class RestaurantRowItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String heroTag =
+        "${parentRoute.toString()}${GlobalKeyName.imageHero}$index";
+
     return GestureDetector(
       key: isLoading ? null : ValueKey(restaurant!.id),
       onTap: () {
         if (!isLoading) {
           Navigator.pushNamed(context, AppRoutes.detailView,
               arguments:
-                  DetailViewArgument(favoriteModel!, restaurant!, index!));
+                  DetailViewArgument(favoriteModel!, restaurant!, heroTag));
         }
       },
       child: Padding(
@@ -50,7 +57,7 @@ class RestaurantRowItem extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              restaurantThumbnail(),
+              restaurantThumbnail(heroTag),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(4, 8, 8, 8),
@@ -139,7 +146,7 @@ class RestaurantRowItem extends StatelessWidget {
         ),
       );
 
-  restaurantThumbnail() {
+  restaurantThumbnail(String heroTag) {
     return Padding(
       // Restaurant Image.
       padding: const EdgeInsets.all(8.0),
@@ -153,7 +160,7 @@ class RestaurantRowItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Hero(
-                  tag: "${GlobalKeyName.imageHero}$index",
+                  tag: heroTag,
                   child: restaurant!.photos?.first != null
                       ? CachedNetworkImage(
                           imageUrl: restaurant!.photos!.first,

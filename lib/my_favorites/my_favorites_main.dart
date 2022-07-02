@@ -24,6 +24,7 @@ class MyFavoritesMainState extends State<MyFavoritesMain>
                 itemBuilder: (BuildContext context, int index) {
                   return RestaurantRowItem(
                     isLoading: false,
+                    parentRoute: ParentRoute.myFavorite,
                     favoriteModel: favoriteModel,
                     theme: Theme.of(context),
                     restaurant: favoriteModel.favoriteRestaurants[index],
