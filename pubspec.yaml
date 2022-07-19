@@ -16,6 +16,7 @@ dependencies:
   dio: ^4.0.0
   json_annotation: ^4.1.0
   flutter_svg: ^1.0.1
+  provider: ^6.0.3
 
 dev_dependencies:
   flutter_test:
