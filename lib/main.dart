@@ -17,7 +17,6 @@ void main() => runApp(RestaurantHome());
 /// A widget that does not require mutable state as we use Provider.
 /// Define the ChangeNotifierProvider Widget as a root so that all widgets can use
 /// Define the Routes which will by managed by the Navigator
-///
 class RestaurantHome extends StatelessWidget {
   const RestaurantHome({Key? key}) : super(key: key);
 
