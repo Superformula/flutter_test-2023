@@ -52,8 +52,6 @@ class RestaurantHome extends StatelessWidget {
 /// A widget that does not require mutable state as we use Provider.
 /// Define the ChangeNotifierProvider Widget as a root so that all widgets can use
 /// Define Tabs to show the All and Favourite Restaurants
-///
-
 class RestaurantHomePage extends StatelessWidget {
   const RestaurantHomePage({Key? key}) : super(key: key);
 
