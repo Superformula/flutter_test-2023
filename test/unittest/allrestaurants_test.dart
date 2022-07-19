@@ -1,3 +1,4 @@
+/// Copyright 2022 - Superformula. All rights reserved.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';

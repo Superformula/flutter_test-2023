@@ -1,9 +1,9 @@
+/// Copyright 2022 - Superformula. All rights reserved.
 import "package:flutter/material.dart";
 
 /// A widget that displays all Restaurants in a ListView.
 /// A widget that does not require mutable state.
 /// Show Restaurant minimal Information
-
 class RestaurantListItem extends StatelessWidget{
   final String title,category,image,price;
   final double rating;
@@ -46,7 +46,6 @@ class RestaurantListItem extends StatelessWidget{
           ),
           Expanded(
               child: Container(
-                  height: 88,
                   margin: const EdgeInsets.only(left: 5.0, right: 15.0, top: 10.0, bottom: 10.0),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Text(

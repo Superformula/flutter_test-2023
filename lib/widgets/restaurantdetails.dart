@@ -7,7 +7,6 @@ import 'package:restaurantour/providers/restaurantsprovider.dart';
 /// A widget that does not require mutable state.
 /// Show all details of the selected Restaurant by calling the Provider
 /// This Class is route from the All Restaurants/Favourite Restaurants
-///
 class RestaurantDetails extends StatelessWidget {
   const RestaurantDetails({Key? key}) : super(key: key);
 
@@ -30,7 +29,7 @@ class RestaurantDetails extends StatelessWidget {
                     child: SizedBox(
                         width: 50,
                         height: 50, //color: Colors.lightGreen,
-                        child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black))),
+                        child: const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black))),
                   )
                 : Scaffold(
                     appBar: AppBar(
@@ -38,7 +37,7 @@ class RestaurantDetails extends StatelessWidget {
                       title: Text(restDetails.name),
                       actions: <Widget>[
                         Padding(
-                            padding: EdgeInsets.only(right: 20.0),
+                            padding: const EdgeInsets.only(right: 20.0),
                             child: GestureDetector(
                               onTap: () {
                                 if (resModel.allFavouriteRestaurants[restDetails.id] == null) {
@@ -114,41 +113,37 @@ class RestaurantDetails extends StatelessWidget {
                                 ])),
                             const Divider(color: Colors.black),
                             Container(alignment: Alignment.centerLeft, height: 50, child: Text("${restDetails.reviews.length} Reviews")),
-                            Container(
-                              child: Column(
-                                  children: List.generate(restDetails.reviews.length, (index) {
-                                var review = restDetails.reviews[index];
-                                return Column(children: [
-                                  Row(
-                                      children: List.generate(review.rating.round(), (rindex) {
-                                    return const Icon(Icons.star, color: Colors.orange, size: 12);
-                                  })),
-                                  Container(
+                            Column(
+                                children: List.generate(restDetails.reviews.length, (index) {
+                              var review = restDetails.reviews[index];
+                              return Column(children: [
+                                Row(
+                                    children: List.generate(review.rating.round(), (rindex) {
+                                  return const Icon(Icons.star, color: Colors.orange, size: 12);
+                                })),
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  height: 45,
+                                  child: const Text("Review not posted"),
+                                ),
+                                Container(
                                     alignment: Alignment.centerLeft,
                                     height: 45,
-                                    child: const Text("Review not posted"),
-                                  ),
-                                  Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 45,
-                                      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                                        review.user.imageUrl == null
-                                            ? const Icon(Icons.account_circle, size: 40)
-                                            : Container(
-                                                height: 40,
-                                                width: 40, //margin: const EdgeInsets.only(left: 5.0, right: 15.0, top: 10.0, bottom: 10.0),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                                                  image: DecorationImage(image: NetworkImage(review.user.imageUrl), fit: BoxFit.fill),
-                                                ),
+                                    child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                                      review.user.imageUrl == null
+                                          ? const Icon(Icons.account_circle, size: 40)
+                                          : Container(
+                                              height: 40, width: 40, //margin: const EdgeInsets.only(left: 5.0, right: 15.0, top: 10.0, bottom: 10.0),
+                                              decoration: BoxDecoration(
+                                                borderRadius: const BorderRadius.all(Radius.circular(25)),
+                                                image: DecorationImage(image: NetworkImage(review.user.imageUrl), fit: BoxFit.fill),
                                               ),
-                                        Text("  ${review.user.name}"),
-                                      ])),
-                                  const Divider(color: Colors.black),
-                                ]);
-                              })),
-                              //child: Text("${restDetails.review} Reviews")
-                            )
+                                            ),
+                                      Text("  ${review.user.name}"),
+                                    ])),
+                                const Divider(color: Colors.black),
+                              ]);
+                            })), //child: Text("${restDetails.review} Reviews")
                           ]))
                     ])))),
       ]),

@@ -7,7 +7,6 @@ import 'package:restaurantour/widgets/restaurantlistitem.dart';
 /// A widget that displays all Restaurants in a ListView.
 /// A widget that does not require mutable state.
 /// Show all Restaurants by calling the Provider
-///
 class AllRestaurants extends StatelessWidget {
   const AllRestaurants({
     Key? key,
@@ -30,7 +29,7 @@ class AllRestaurants extends StatelessWidget {
         Flexible(
             child: resModel.isFirstLoading
                 ? const Center(
-                    child: SizedBox(width: 50, height: 50, child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black))),
+                    child: SizedBox(width: 50, height: 50, child: const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black))),
                   )
                 : ListView.builder(
                     itemCount: listItemCount,

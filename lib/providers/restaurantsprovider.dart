@@ -8,13 +8,9 @@ class RestaurantsProvider extends ChangeNotifier {
   final _yelpRepo = YelpRepository();
   bool _firstLoading = true;
   final int _perPageRecords = 6;
-
   List _allRestaurantsList = [];
-
   Map<String?, Restaurant> _allRestaurants = {};
-
   Map<String?, bool> _restMap = {};
-
   Map get allRestaurantsMap => _allRestaurants;
   Map get allFavouriteRestaurants => _restMap;
   bool get isFirstLoading => _firstLoading;
@@ -29,7 +25,7 @@ class RestaurantsProvider extends ChangeNotifier {
     final restaurantQueryResult = await _yelpRepo.getRestaurants();
     if (restaurantQueryResult != null) {
       _allRestaurantsList = restaurantQueryResult.restaurants!;
-      loadInitialRestaurants();
+      _loadInitialRestaurants();
     }
     _firstLoading = false;
     notifyListeners();
@@ -40,7 +36,7 @@ class RestaurantsProvider extends ChangeNotifier {
   /// If the given listener is not registered, the call is ignored.
   /// This method will be useful for the pagination
 
-  loadInitialRestaurants() {
+  _loadInitialRestaurants() {
     var rCount = _allRestaurantsList.length > _perPageRecords ? _perPageRecords : _allRestaurantsList.length;
     for (var i = 0; i < rCount; i++) {
       var restaurant = _allRestaurantsList[i];

@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:restaurantour/utils/properties.dart';
 import 'package:restaurantour/providers/restaurantsprovider.dart';
 import 'package:restaurantour/widgets/allrestaurants.dart';
@@ -12,7 +11,7 @@ import 'package:restaurantour/widgets/restaurantdetails.dart';
 ///Start method - which is the main
 /// This is going to call the StatelessWidget
 /// runApp is the driver of the App
-void main() => runApp( RestaurantHome());
+void main() => runApp(RestaurantHome());
 
 /// This is the Home widget for the Restaurant .
 /// A widget that does not require mutable state as we use Provider.
@@ -21,6 +20,7 @@ void main() => runApp( RestaurantHome());
 ///
 class RestaurantHome extends StatelessWidget {
   const RestaurantHome({Key? key}) : super(key: key);
+
   /// Providers are above [RestaurantHome] instead of inside it, so that all Widgets
   /// can use [RestaurantHome] while mocking the providers
   @override
@@ -56,7 +56,6 @@ class RestaurantHome extends StatelessWidget {
 ///
 
 class RestaurantHomePage extends StatelessWidget {
-
   const RestaurantHomePage({Key? key}) : super(key: key);
 
   @override
@@ -69,9 +68,10 @@ class RestaurantHomePage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: const Text(appTitle, style:  TextStyle(
-              fontSize: 18.0,
-            )),
+            title: const Text(appTitle,
+                style: TextStyle(
+                  fontSize: 18.0,
+                )),
             bottom: const TabBar(
               indicatorColor: Colors.black,
               indicatorSize: TabBarIndicatorSize.label,
