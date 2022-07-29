@@ -6,6 +6,7 @@ import 'package:restaurantour/repositories/yelp_repository.dart';
 import 'app/app.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   bootstrap(() => const App());
 }
 
@@ -36,7 +37,10 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(l10n.homeAppBarTitle),
+            Text(
+              l10n.homeAppBarTitle,
+              style: Theme.of(context).textTheme.button,
+            ),
             ElevatedButton(
               child: const Text('Fetch Restaurants'),
               onPressed: () async {

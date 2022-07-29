@@ -1,6 +1,11 @@
 {
     "@@locale": "es",
     "homeAppBarTitle": "Restaurantour",
+    "homeAllRestaurantsTabBarText": "All Restaurants",
+    "homeViewMoreButtonText": "View More",
+    "homeFavoritesTabBarText": "My Favorites",
+    "attentionStatusOpen": "Open Now",
+    "attentionStatusClosed": "Closed",
     "counterAppBarTitle": "Contador",
     "@counterAppBarTitle": {
         "description": "Texto mostrado en la AppBar de la página del contador"
