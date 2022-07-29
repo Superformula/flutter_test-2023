@@ -5,8 +5,12 @@
     "version": "0.2.0",
     "configurations": [{
         "name": "app",
-        "cwd": "app",
         "request": "launch",
-        "type": "dart"
+        "type": "dart",
+        "program": "lib/main.dart",
+            "args": [
+                "--target",
+                "lib/main.dart"
+            ]
     }]
 }
