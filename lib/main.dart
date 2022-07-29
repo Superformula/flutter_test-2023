@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/bootstrap.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
+import 'app/app.dart';
+
 void main() {
-  runApp(const Restaurantour());
+  bootstrap(() => const App());
 }
 
 class Restaurantour extends StatelessWidget {
