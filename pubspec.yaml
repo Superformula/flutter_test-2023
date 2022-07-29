@@ -15,7 +15,10 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_localizations:
+    sdk: flutter 
   flutter_svg: ^1.0.1
+  intl: ^0.17.0
   json_annotation: ^4.1.0
 
 dev_dependencies:
@@ -27,6 +30,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
 
 #  assets:
 #    - assets/svg/

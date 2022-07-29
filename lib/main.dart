@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/bootstrap.dart';
+import 'package:restaurantour/l10n/l10n.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
 import 'app/app.dart';
@@ -29,12 +30,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Restaurantour'),
+            Text(l10n.homeAppBarTitle),
             ElevatedButton(
               child: const Text('Fetch Restaurants'),
               onPressed: () async {
