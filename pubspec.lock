@@ -597,6 +597,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  restaurant_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/restaurant_repository"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   restaurantour_ui:
     dependency: "direct main"
     description:

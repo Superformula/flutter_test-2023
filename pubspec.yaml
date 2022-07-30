@@ -22,6 +22,8 @@ dependencies:
   flutter_svg: ^1.0.1
   intl: ^0.17.0
   json_annotation: ^4.1.0
+  restaurant_repository:
+    path: packages/restaurant_repository
   restaurantour_ui:
     path: packages/restaurantour_ui
   yelp_api:
