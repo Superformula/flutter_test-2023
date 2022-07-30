@@ -44,8 +44,9 @@ class FavoritesList extends StatelessWidget {
           imageUrl: 'https://via.placeholder.com/150',
           rating: 5,
           price: '\$\$\$',
-          attentionStatusText: l10n.attentionStatusOpen,
-          attentionStatusIconColor: RestaurantourColors.open,
+          openText: l10n.attentionStatusOpen,
+          closedText: l10n.attentionStatusClosed,
+          isOpenNow: true,
           onTap: () {},
         );
       },

@@ -29,6 +29,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(
       state.copyWith(
         allRestaurantsStatus: HomeListStatus.loaded,
+        offset: state.offset + restaurants.length,
         allRestaurants: restaurants,
       ),
     );

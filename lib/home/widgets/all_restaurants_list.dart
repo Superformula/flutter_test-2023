@@ -56,19 +56,26 @@ class AllRestaurantList extends StatelessWidget {
             }
             final restaurant = state.allRestaurants[index];
             return RestaurantCard(
-              title: restaurant.name ?? '',
-              category: restaurant.category ?? '',
-              imageUrl:
-                  restaurant.photoUrl ?? 'https://via.placeholder.com/150',
-              rating: restaurant.rating?.round() ?? 0,
-              price: restaurant.price ?? '',
-              attentionStatusText: l10n.attentionStatusOpen,
-              attentionStatusIconColor: RestaurantourColors.open,
+              title: restaurant.name,
+              category: restaurant.category,
+              imageUrl: restaurant.photoUrl,
+              rating: restaurant.rating?.round(),
+              price: restaurant.price,
+              isOpenNow: restaurant.isOpenNow ?? false,
+              openText: l10n.attentionStatusOpen,
+              closedText: l10n.attentionStatusClosed,
               onTap: () {},
             );
           },
         );
       },
     );
+  }
+
+  String? _getAttentionStatusText(bool? isOpenNow, AppLocalizations l10n) {
+    if (isOpenNow == null) {
+      return null;
+    }
+    return isOpenNow ? l10n.attentionStatusOpen : l10n.attentionStatusClosed;
   }
 }

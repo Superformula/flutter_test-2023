@@ -11,17 +11,20 @@ class RestaurantCard extends StatelessWidget {
     required this.imageUrl,
     required this.price,
     required this.rating,
-    required this.attentionStatusText,
-    required this.attentionStatusIconColor,
+    required this.isOpenNow,
+    required this.openText,
+    required this.closedText,
     required this.onTap,
   }) : super(key: key);
-  final String title;
-  final String price;
-  final String category;
-  final int rating;
-  final String imageUrl;
-  final String attentionStatusText;
-  final Color attentionStatusIconColor;
+  final String? title;
+  final String? price;
+  final String? category;
+  final int? rating;
+  final String? imageUrl;
+  final bool isOpenNow;
+  final String openText;
+  final String closedText;
+
   final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
@@ -45,15 +48,15 @@ class RestaurantCard extends StatelessWidget {
                   child: SizedBox(
                     width: imageSize,
                     height: imageSize,
-                    child: CachedNetworkImage(
-                      imageUrl: imageUrl,
-                      fit: BoxFit.cover,
-                      placeholder: (_, __) => Container(
-                        color: RestaurantourColors.placeholder,
-                      ),
-                      errorWidget: (_, __, ___) =>
-                          const Center(child: Icon(Icons.error)),
-                    ),
+                    child: imageUrl == null
+                        ? const _ImagePlaceholder()
+                        : CachedNetworkImage(
+                            imageUrl: imageUrl!,
+                            fit: BoxFit.cover,
+                            placeholder: (_, __) => const _ImagePlaceholder(),
+                            errorWidget: (_, __, ___) =>
+                                const Center(child: Icon(Icons.error)),
+                          ),
                   ),
                 ),
                 const SizedBox(
@@ -65,7 +68,7 @@ class RestaurantCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          title,
+                          title ?? 'Restaurant',
                           maxLines: titleMaxLines,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.subtitle1,
@@ -82,11 +85,13 @@ class RestaurantCard extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Raiting(rating: rating),
+                          Raiting(rating: rating ?? 0),
                           const Spacer(),
                           AttentionStatus(
-                            text: attentionStatusText,
-                            iconColor: attentionStatusIconColor,
+                            text: isOpenNow ? openText : closedText,
+                            iconColor: isOpenNow
+                                ? RestaurantourColors.open
+                                : RestaurantourColors.closed,
                           )
                         ],
                       )
@@ -98,6 +103,17 @@ class RestaurantCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ImagePlaceholder extends StatelessWidget {
+  const _ImagePlaceholder({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: RestaurantourColors.placeholder,
     );
   }
 }
