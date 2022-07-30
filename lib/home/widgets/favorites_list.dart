@@ -25,6 +25,7 @@ class FavoritesList extends StatelessWidget {
       );
     }
     return ListView.separated(
+      key: const Key('homeView_favoritesList'),
       // TODO: change for real value
       itemCount: 10,
       padding: const EdgeInsets.symmetric(

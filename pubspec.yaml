@@ -26,11 +26,13 @@ dependencies:
     path: packages/restaurantour_ui
 
 dev_dependencies:
+  bloc_test: ^9.0.1
   build_runner: ^2.1.2
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
   json_serializable: ^6.1.4
+  mocktail: ^0.2.0
 
 flutter:
   uses-material-design: true

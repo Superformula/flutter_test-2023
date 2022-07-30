@@ -9,7 +9,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> loadAllRestaurants() async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      // await Future.delayed(const Duration(seconds: 2));
       // TODO: load all restaurants from the server and replace error
       // throw Exception('Error loading restaurants');
       emit(
@@ -27,7 +27,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> loadFavorites() async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      // await Future.delayed(const Duration(seconds: 2));
       // TODO: load all restaurants from the server and replace error
       // throw Exception('Error loading favorites');
       emit(

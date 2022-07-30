@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurantour/home/widgets/view_more_button.dart';
 import 'package:restaurantour/l10n/l10n.dart';
 
 import 'package:restaurantour_ui/restaurantour_ui.dart';
@@ -28,6 +27,7 @@ class AllRestaurantList extends StatelessWidget {
     }
     final isCompleted = allRestaurantsStatus == HomeListStatus.completed;
     return ListView.separated(
+      key: const Key('homeView_allRestaurantList'),
       // TODO: change for real value
       itemCount: isCompleted ? 10 : 10 + 1,
       padding: const EdgeInsets.symmetric(
