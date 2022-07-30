@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:restaurantour/l10n/l10n.dart';
 import '../home.dart';
 
@@ -13,9 +14,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()
-        ..loadAllRestaurants()
-        ..loadFavorites(),
+      create: (context) =>
+          HomeCubit(restaurantRepository: context.read<RestaurantRepository>())
+            ..loadAllRestaurants()
+            ..loadFavorites(),
       child: const HomeView(),
     );
   }

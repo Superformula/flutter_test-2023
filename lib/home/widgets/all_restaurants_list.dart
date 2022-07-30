@@ -13,49 +13,60 @@ class AllRestaurantList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final allRestaurantsStatus =
-        context.watch<HomeCubit>().state.allRestaurantsStatus;
-    if (allRestaurantsStatus == HomeListStatus.initial) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-    if (allRestaurantsStatus == HomeListStatus.error) {
-      return const Center(
-        child: Icon(Icons.error),
-      );
-    }
-    final isCompleted = allRestaurantsStatus == HomeListStatus.completed;
-    return ListView.separated(
-      key: const Key('homeView_allRestaurantList'),
-      // TODO: change for real value
-      itemCount: isCompleted ? 10 : 10 + 1,
-      padding: const EdgeInsets.symmetric(
-        horizontal: RestaurantourPaddingValues.big,
-        vertical: RestaurantourPaddingValues.l,
-      ),
-      separatorBuilder: (context, index) => const SizedBox(
-        height: RestaurantourPaddingValues.big,
-      ),
-      itemBuilder: (context, index) {
-        // Change for real value
-        if (index == 10 && !isCompleted) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(RestaurantourPaddingValues.big),
-              child: ViewMoreButton(onPressed: () {}),
-            ),
+
+    return BlocBuilder<HomeCubit, HomeState>(
+      buildWhen: (previous, current) {
+        return previous.allRestaurants != current.allRestaurants;
+      },
+      builder: (context, state) {
+        final allRestaurantsStatus =
+            context.watch<HomeCubit>().state.allRestaurantsStatus;
+        if (allRestaurantsStatus == HomeListStatus.initial) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         }
-        return RestaurantCard(
-          title: 'Restaurant Name Goes Here And Wraps 2 Lines',
-          category: 'Italian',
-          imageUrl: 'https://via.placeholder.com/150',
-          rating: 5,
-          price: '\$\$\$',
-          attentionStatusText: l10n.attentionStatusOpen,
-          attentionStatusIconColor: RestaurantourColors.open,
-          onTap: () {},
+        if (allRestaurantsStatus == HomeListStatus.error) {
+          return const Center(
+            child: Icon(Icons.error),
+          );
+        }
+        final isCompleted = allRestaurantsStatus == HomeListStatus.completed;
+        final restaurants = state.allRestaurants;
+        return ListView.separated(
+          key: const Key('homeView_allRestaurantList'),
+          // ! One element is added to show ViewMoreButton
+          itemCount: state.allRestaurants.length + (isCompleted ? 0 : 1),
+          padding: const EdgeInsets.symmetric(
+            horizontal: RestaurantourPaddingValues.big,
+            vertical: RestaurantourPaddingValues.l,
+          ),
+          separatorBuilder: (context, index) => const SizedBox(
+            height: RestaurantourPaddingValues.big,
+          ),
+          itemBuilder: (context, index) {
+            final isLastItem = index == restaurants.length;
+            if (isLastItem && !isCompleted) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(RestaurantourPaddingValues.big),
+                  child: ViewMoreButton(onPressed: () {}),
+                ),
+              );
+            }
+            final restaurant = state.allRestaurants[index];
+            return RestaurantCard(
+              title: restaurant.name ?? '',
+              category: restaurant.category ?? '',
+              imageUrl:
+                  restaurant.photoUrl ?? 'https://via.placeholder.com/150',
+              rating: restaurant.rating?.round() ?? 0,
+              price: restaurant.price ?? '',
+              attentionStatusText: l10n.attentionStatusOpen,
+              attentionStatusIconColor: RestaurantourColors.open,
+              onTap: () {},
+            );
+          },
         );
       },
     );

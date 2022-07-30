@@ -112,19 +112,19 @@ class Restaurant {
   Map<String, dynamic> toJson() => _$RestaurantToJson(this);
 
   /// Use the first category for the category shown to the user
-  String get displayCategory {
+  String? get displayCategory {
     if (categories != null && categories!.isNotEmpty) {
       return categories!.first.title ?? '';
     }
-    return '';
+    return null;
   }
 
   /// Use the first image as the image shown to the user
-  String get heroImage {
+  String? get heroImage {
     if (photos != null && photos!.isNotEmpty) {
       return photos!.first;
     }
-    return '';
+    return null;
   }
 
   /// This logic is probably not correct in all cases but it is ok
