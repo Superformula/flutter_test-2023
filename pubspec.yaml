@@ -24,6 +24,8 @@ dependencies:
   json_annotation: ^4.1.0
   restaurantour_ui:
     path: packages/restaurantour_ui
+  yelp_api:
+    path: packages/yelp_api
 
 dev_dependencies:
   bloc_test: ^9.0.1

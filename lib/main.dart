@@ -44,18 +44,18 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
               child: const Text('Fetch Restaurants'),
               onPressed: () async {
-                final yelpRepo = YelpRepository();
+                // final yelpRepo = YelpRepository();
 
-                try {
-                  final result = await yelpRepo.getRestaurants();
-                  if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
-                  } else {
-                    print('No restaurants fetched');
-                  }
-                } catch (e) {
-                  print('Failed to fetch restaurants: $e');
-                }
+                // try {
+                //   final result = await yelpRepo.getRestaurants();
+                //   if (result != null) {
+                //     print('Fetched ${result.restaurants!.length} restaurants');
+                //   } else {
+                //     print('No restaurants fetched');
+                //   }
+                // } catch (e) {
+                //   print('Failed to fetch restaurants: $e');
+                // }
               },
             )
           ],

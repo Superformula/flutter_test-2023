@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:yelp_api/yelp_api.dart';
 
 part 'home_state.dart';
 
