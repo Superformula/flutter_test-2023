@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/l10n/l10n.dart';
+import 'package:restaurantour/restaurant_detail/restaurant_detail.dart';
 
 import 'package:restaurantour_ui/restaurantour_ui.dart';
 
@@ -71,7 +72,11 @@ class AllRestaurantList extends StatelessWidget {
               isOpenNow: restaurant.isOpenNow ?? false,
               openText: l10n.attentionStatusOpen,
               closedText: l10n.attentionStatusClosed,
-              onTap: () {},
+              defaultRestaurantName: l10n.defaultRestaurantName,
+              heroTag: restaurant.id!,
+              onTap: () {
+                Navigator.push(context, RestaurantDetailPage.route(restaurant));
+              },
             );
           },
         );

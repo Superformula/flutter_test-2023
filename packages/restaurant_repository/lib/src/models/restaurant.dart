@@ -36,17 +36,14 @@ class Restaurant extends Equatable {
 }
 
 class Review extends Equatable {
-  const Review({
-    this.id,
-    this.rating,
-    this.user,
-  });
+  const Review({this.id, this.rating, this.user, this.text});
   final String? id;
   final int? rating;
   final User? user;
+  final String? text;
 
   @override
-  List<Object?> get props => [id, rating, user];
+  List<Object?> get props => [id, rating, user, text];
 }
 
 class User extends Equatable {

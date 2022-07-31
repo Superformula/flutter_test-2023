@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour_ui/restaurantour_ui.dart';
 
-class Raiting extends StatelessWidget {
-  const Raiting({Key? key, required this.rating}) : super(key: key);
+class Rating extends StatelessWidget {
+  const Rating({Key? key, required this.rating}) : super(key: key);
   final int rating;
   @override
   Widget build(BuildContext context) {

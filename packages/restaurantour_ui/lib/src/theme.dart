@@ -37,7 +37,8 @@ class RestaurantourTheme {
 
   static AppBarTheme get _appBarTheme {
     return AppBarTheme(
-      color: Colors.white,
+      color: RestaurantourColors.surface,
+      iconTheme: const IconThemeData(color: RestaurantourColors.primaryFill),
       titleTextStyle: RestaurantourTextStyle.headline6,
     );
   }

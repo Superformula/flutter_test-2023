@@ -15,7 +15,10 @@ class RestaurantCard extends StatelessWidget {
     required this.openText,
     required this.closedText,
     required this.onTap,
+    required this.defaultRestaurantName,
+    required this.heroTag,
   }) : super(key: key);
+
   final String? title;
   final String? price;
   final String? category;
@@ -24,8 +27,9 @@ class RestaurantCard extends StatelessWidget {
   final bool isOpenNow;
   final String openText;
   final String closedText;
-
   final VoidCallback onTap;
+  final String defaultRestaurantName;
+  final String heroTag;
   @override
   Widget build(BuildContext context) {
     const double cardHeight = 104.0;
@@ -43,20 +47,23 @@ class RestaurantCard extends StatelessWidget {
             padding: const EdgeInsets.all(RestaurantourPaddingValues.medium),
             child: Row(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(imageBorderRadius),
-                  child: SizedBox(
-                    width: imageSize,
-                    height: imageSize,
-                    child: imageUrl == null
-                        ? const _ImagePlaceholder()
-                        : CachedNetworkImage(
-                            imageUrl: imageUrl!,
-                            fit: BoxFit.cover,
-                            placeholder: (_, __) => const _ImagePlaceholder(),
-                            errorWidget: (_, __, ___) =>
-                                const Center(child: Icon(Icons.error)),
-                          ),
+                Hero(
+                  tag: heroTag,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(imageBorderRadius),
+                    child: SizedBox(
+                      width: imageSize,
+                      height: imageSize,
+                      child: imageUrl == null
+                          ? const _ImagePlaceholder()
+                          : CachedNetworkImage(
+                              imageUrl: imageUrl!,
+                              fit: BoxFit.cover,
+                              placeholder: (_, __) => const _ImagePlaceholder(),
+                              errorWidget: (_, __, ___) =>
+                                  const Center(child: Icon(Icons.error)),
+                            ),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -68,7 +75,7 @@ class RestaurantCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          title ?? 'Restaurant',
+                          title ?? defaultRestaurantName,
                           maxLines: titleMaxLines,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.subtitle1,
@@ -85,7 +92,7 @@ class RestaurantCard extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Raiting(rating: rating ?? 0),
+                          Rating(rating: rating ?? 0),
                           const Spacer(),
                           AttentionStatus(
                             text: isOpenNow ? openText : closedText,

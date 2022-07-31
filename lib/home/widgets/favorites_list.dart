@@ -47,6 +47,8 @@ class FavoritesList extends StatelessWidget {
           openText: l10n.attentionStatusOpen,
           closedText: l10n.attentionStatusClosed,
           isOpenNow: true,
+          defaultRestaurantName: l10n.defaultRestaurantName,
+          heroTag: UniqueKey().toString(),
           onTap: () {},
         );
       },

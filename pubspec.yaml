@@ -26,6 +26,7 @@ dependencies:
     path: packages/restaurant_repository
   restaurantour_ui:
     path: packages/restaurantour_ui
+  sliver_tools: ^0.2.7
   yelp_api:
     path: packages/yelp_api
 

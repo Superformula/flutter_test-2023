@@ -76,6 +76,7 @@ class RestaurantRepository {
                   (review) => Review(
                     id: review.id,
                     rating: review.rating,
+                    text: review.text,
                     user: review.user == null
                         ? null
                         : User(
