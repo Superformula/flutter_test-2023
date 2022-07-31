@@ -1,6 +1,27 @@
 import 'package:dio/dio.dart';
 import 'package:yelp_api/yelp_api.dart';
 
+/// Thrown if an exception occurs while making an `http` request.
+class HttpException implements Exception {}
+
+/// {@template http_request_failure}
+/// Thrown if an `http` request returns a non-200 status code.
+/// {@endtemplate}
+class HttpRequestFailure implements Exception {
+  /// {@macro http_request_failure}
+  const HttpRequestFailure(this.statusCode);
+
+  /// The status code of the response.
+  final int statusCode;
+}
+
+/// Thrown is an error occurs while deserializing the response body.
+class JsonDeserializationException implements Exception {}
+
+/// {@template graphql_yelp_api_client}
+/// A Dart API Client for the GraphQL Yelp API.
+/// {@endtemplate}
+
 class GraphQlYelpApiClient extends YelpApi {
   GraphQlYelpApiClient({required Dio dio}) : _dio = dio;
 
@@ -8,14 +29,22 @@ class GraphQlYelpApiClient extends YelpApi {
 
   @override
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
+    Response response;
     try {
-      final response = await _dio.post<Map<String, dynamic>>(
+      response = await _dio.post<Map<String, dynamic>>(
         '/v3/graphql',
         data: _getQuery(offset),
       );
+    } on Exception {
+      throw HttpException();
+    }
+    if (response.statusCode != 200) {
+      throw HttpRequestFailure(response.statusCode!);
+    }
+    try {
       return RestaurantQueryResult.fromJson(response.data!['data']['search']);
-    } catch (e) {
-      return null;
+    } on Exception {
+      throw JsonDeserializationException();
     }
   }
 
