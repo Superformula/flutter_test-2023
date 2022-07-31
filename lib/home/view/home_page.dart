@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           HomeCubit(restaurantRepository: context.read<RestaurantRepository>())
-            ..loadAllRestaurants()
+            ..loadRestaurants()
             ..loadFavorites(),
       child: const HomeView(),
     );

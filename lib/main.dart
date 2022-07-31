@@ -20,7 +20,7 @@ void main() {
     ),
   );
   final restaurantRepository =
-      RestaurantRepository(yelpApi: GraphQlYelpApiClient(dio: dioClient))
-        ..getRestaurants();
+      RestaurantRepository(yelpApi: GraphQlYelpApiClient(dio: dioClient));
+
   bootstrap(() => App(restaurantRepository: restaurantRepository));
 }

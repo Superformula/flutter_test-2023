@@ -29,13 +29,12 @@ class HomeCubit extends Cubit<HomeState> {
     emit(
       state.copyWith(
         allRestaurantsStatus: HomeListStatus.loaded,
-        offset: state.offset + restaurants.length,
         allRestaurants: restaurants,
       ),
     );
   }
 
-  Future<void> loadAllRestaurants() async {
+  Future<void> loadRestaurants() async {
     try {
       if (state.allRestaurantsStatus != HomeListStatus.initial) {
         emit(state.copyWith(allRestaurantsStatus: HomeListStatus.loading));

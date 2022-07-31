@@ -32,6 +32,7 @@ class AllRestaurantList extends StatelessWidget {
           );
         }
         final isCompleted = allRestaurantsStatus == HomeListStatus.completed;
+        final isLoading = allRestaurantsStatus == HomeListStatus.loading;
         final restaurants = state.allRestaurants;
         return ListView.separated(
           key: const Key('homeView_allRestaurantList'),
@@ -46,11 +47,17 @@ class AllRestaurantList extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             final isLastItem = index == restaurants.length;
+
             if (isLastItem && !isCompleted) {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.all(RestaurantourPaddingValues.big),
-                  child: ViewMoreButton(onPressed: () {}),
+                  child: ViewMoreButton(
+                    isLoading: isLoading,
+                    onPressed: () {
+                      context.read<HomeCubit>().loadRestaurants();
+                    },
+                  ),
                 ),
               );
             }
@@ -70,12 +77,5 @@ class AllRestaurantList extends StatelessWidget {
         );
       },
     );
-  }
-
-  String? _getAttentionStatusText(bool? isOpenNow, AppLocalizations l10n) {
-    if (isOpenNow == null) {
-      return null;
-    }
-    return isOpenNow ? l10n.attentionStatusOpen : l10n.attentionStatusClosed;
   }
 }

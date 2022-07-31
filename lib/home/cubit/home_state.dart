@@ -14,20 +14,17 @@ class HomeState extends Equatable {
     this.favoritesStatus = HomeListStatus.initial,
     this.allRestaurants = const [],
     this.favorites = const [],
-    this.offset = 0,
   });
   final HomeListStatus allRestaurantsStatus;
   final HomeListStatus favoritesStatus;
   final List<Restaurant> allRestaurants;
   final List<Restaurant> favorites;
-  final int offset;
   @override
   List<Object> get props => [
         allRestaurantsStatus,
         favoritesStatus,
         allRestaurants,
         favorites,
-        offset,
       ];
 
   HomeState copyWith({
@@ -42,7 +39,6 @@ class HomeState extends Equatable {
       favoritesStatus: favoritesStatus ?? this.favoritesStatus,
       allRestaurants: allRestaurants ?? this.allRestaurants,
       favorites: favorites ?? this.favorites,
-      offset: offset ?? this.offset,
     );
   }
 }
