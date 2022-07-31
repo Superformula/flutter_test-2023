@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:restaurantour/home/home.dart';
 
 import '../../helpers/pump_app.dart';
@@ -10,10 +11,17 @@ import '../../helpers/pump_app.dart';
 class MockHomeCubit extends MockCubit<HomeState> implements HomeCubit {}
 
 void main() {
+  late RestaurantRepository restaurantRepository;
   group('HomePage', () {
+    setUp(() {
+      restaurantRepository = MockRestaurantRepository();
+      when(() => restaurantRepository.restaurants)
+          .thenAnswer((_) => const Stream.empty());
+    });
     testWidgets('renders HomeView', (WidgetTester tester) async {
       await tester.pumpApp(
         const HomePage(),
+        restaurantRepository: restaurantRepository,
       );
       expect(find.byType(HomeView), findsOneWidget);
     });
@@ -39,9 +47,12 @@ void main() {
       'render CircleProgressIndicator'
       'when allRestaurantsStatus is initial',
       (WidgetTester tester) async {
-        await tester.pumpApp(
-          buildSubject(),
+        when(() => homeCubit.state).thenReturn(
+          const HomeState(
+            allRestaurantsStatus: HomeListStatus.initial,
+          ),
         );
+        await tester.pumpApp(buildSubject());
         expect(find.byType(CircularProgressIndicator), findsOneWidget);
       },
     );
@@ -55,24 +66,20 @@ void main() {
             allRestaurantsStatus: HomeListStatus.loaded,
           ),
         );
-        await tester.pumpApp(
-          buildSubject(),
-        );
+        await tester.pumpApp(buildSubject());
         expect(find.byType(ListView), findsOneWidget);
       },
     );
     testWidgets(
       'render ViewMoreButton '
-      'when allRestaurantsStatus is completed and scrolled to the bottom',
+      'when allRestaurantsStatus is loaded and scrolled to the bottom',
       (WidgetTester tester) async {
         when(() => homeCubit.state).thenReturn(
           const HomeState(
             allRestaurantsStatus: HomeListStatus.loaded,
           ),
         );
-        await tester.pumpApp(
-          buildSubject(),
-        );
+        await tester.pumpApp(buildSubject());
         await tester.drag(find.byType(ListView), const Offset(0, -1000));
         await tester.pump();
         expect(find.byType(ViewMoreButton), findsOneWidget);
@@ -88,10 +95,24 @@ void main() {
             allRestaurantsStatus: HomeListStatus.error,
           ),
         );
-        await tester.pumpApp(
-          buildSubject(),
-        );
+        await tester.pumpApp(buildSubject());
         expect(find.byIcon(Icons.error), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'does not render ViewMoreButton '
+      'when allRestaurantsStatus is completed and scrolled to the bottom',
+      (WidgetTester tester) async {
+        when(() => homeCubit.state).thenReturn(
+          const HomeState(
+            allRestaurantsStatus: HomeListStatus.completed,
+          ),
+        );
+        await tester.pumpApp(buildSubject());
+        await tester.drag(find.byType(ListView), const Offset(0, -1000));
+        await tester.pump();
+        expect(find.byType(ViewMoreButton), findsNothing);
       },
     );
 
@@ -102,7 +123,6 @@ void main() {
         when(() => homeCubit.state).thenReturn(
           const HomeState(
             favoritesStatus: HomeListStatus.initial,
-            allRestaurantsStatus: HomeListStatus.loaded,
           ),
         );
         await tester.pumpApp(
@@ -122,7 +142,6 @@ void main() {
         when(() => homeCubit.state).thenReturn(
           const HomeState(
             favoritesStatus: HomeListStatus.loaded,
-            allRestaurantsStatus: HomeListStatus.initial,
           ),
         );
         await tester.pumpApp(
@@ -137,12 +156,11 @@ void main() {
 
     testWidgets(
       'render Icons.error'
-      'when favoritesStatus is loaded',
+      'when favoritesStatus is error',
       (WidgetTester tester) async {
         when(() => homeCubit.state).thenReturn(
           const HomeState(
             favoritesStatus: HomeListStatus.error,
-            allRestaurantsStatus: HomeListStatus.initial,
           ),
         );
         await tester.pumpApp(
