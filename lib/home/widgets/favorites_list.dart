@@ -13,43 +13,46 @@ class FavoritesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final favoritesStatus = context.watch<HomeCubit>().state.favoritesStatus;
-    if (favoritesStatus == HomeListStatus.initial) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-    if (favoritesStatus == HomeListStatus.error) {
-      return const Center(
-        child: Icon(Icons.error),
-      );
-    }
-    return ListView.separated(
-      key: const Key('homeView_favoritesList'),
-      // TODO: change for real value
-      itemCount: 10,
-      padding: const EdgeInsets.symmetric(
-        horizontal: RestaurantourPaddingValues.big,
-        vertical: RestaurantourPaddingValues.l,
-      ),
-      separatorBuilder: (context, index) => const SizedBox(
-        height: RestaurantourPaddingValues.big,
-      ),
-      itemBuilder: (context, index) {
-        // TODO: Change for real value
-        return RestaurantCard(
-          title:
-              'Restaurant Name Goes Here And Wraps 2 Lines Non fugiat sint mollit ut ullamco mollit et.',
-          category: 'Italian',
-          imageUrl: 'https://via.placeholder.com/150',
-          rating: 5,
-          price: '\$\$\$',
-          openText: l10n.attentionStatusOpen,
-          closedText: l10n.attentionStatusClosed,
-          isOpenNow: true,
-          defaultRestaurantName: l10n.defaultRestaurantName,
-          heroTag: UniqueKey().toString(),
-          onTap: () {},
+
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        final favoritesStatus = state.favoritesStatus;
+        if (favoritesStatus == HomeListStatus.initial) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (favoritesStatus == HomeListStatus.error) {
+          return const Center(
+            child: Icon(Icons.error),
+          );
+        }
+        final favorites = state.favorites;
+        return ListView.separated(
+          key: const Key('homeView_favoritesList'),
+          itemCount: favorites.length,
+          padding: const EdgeInsets.symmetric(
+            horizontal: RestaurantourPaddingValues.big,
+            vertical: RestaurantourPaddingValues.l,
+          ),
+          separatorBuilder: (context, index) => const SizedBox(
+            height: RestaurantourPaddingValues.big,
+          ),
+          itemBuilder: (context, index) {
+            final favorite = favorites[index];
+            return RestaurantCard(
+              title: favorite.name,
+              category: favorite.category,
+              imageUrl: favorite.photoUrl,
+              rating: favorite.rating?.round(),
+              price: favorite.price,
+              isOpenNow: favorite.isOpenNow ?? false,
+              openText: l10n.attentionStatusOpen,
+              closedText: l10n.attentionStatusClosed,
+              defaultRestaurantName: l10n.defaultRestaurantName,
+              heroTag: favorite.id! + '_favorite_',
+            );
+          },
         );
       },
     );

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:restaurantour/bootstrap.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:yelp_api/yelp_api.dart';
 
 import 'app/app.dart';
@@ -21,6 +22,12 @@ void main() {
   );
   final restaurantRepository =
       RestaurantRepository(yelpApi: GraphQlYelpApiClient(dio: dioClient));
+  final userRepository = UserRepository();
 
-  bootstrap(() => App(restaurantRepository: restaurantRepository));
+  bootstrap(
+    () => App(
+      restaurantRepository: restaurantRepository,
+      userRepository: userRepository,
+    ),
+  );
 }

@@ -20,8 +20,7 @@ class AllRestaurantList extends StatelessWidget {
         return previous.allRestaurants != current.allRestaurants;
       },
       builder: (context, state) {
-        final allRestaurantsStatus =
-            context.watch<HomeCubit>().state.allRestaurantsStatus;
+        final allRestaurantsStatus = state.allRestaurantsStatus;
         if (allRestaurantsStatus == HomeListStatus.initial) {
           return const Center(
             child: CircularProgressIndicator(),

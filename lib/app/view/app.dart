@@ -6,16 +6,25 @@ import 'package:restaurantour/home/home.dart';
 
 import 'package:restaurantour/l10n/l10n.dart';
 import 'package:restaurantour_ui/restaurantour_ui.dart';
+import 'package:user_repository/user_repository.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key, required RestaurantRepository restaurantRepository})
+  const App(
+      {Key? key,
+      required RestaurantRepository restaurantRepository,
+      required UserRepository userRepository})
       : _restaurantRepository = restaurantRepository,
+        _userRepository = userRepository,
         super(key: key);
   final RestaurantRepository _restaurantRepository;
+  final UserRepository _userRepository;
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-      providers: [RepositoryProvider.value(value: _restaurantRepository)],
+      providers: [
+        RepositoryProvider.value(value: _restaurantRepository),
+        RepositoryProvider.value(value: _userRepository)
+      ],
       child: MaterialApp(
         title: 'RestauranTour',
         theme: RestaurantourTheme.standard,

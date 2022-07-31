@@ -14,9 +14,9 @@ class RestaurantCard extends StatelessWidget {
     required this.isOpenNow,
     required this.openText,
     required this.closedText,
-    required this.onTap,
     required this.defaultRestaurantName,
     required this.heroTag,
+    this.onTap,
   }) : super(key: key);
 
   final String? title;
@@ -27,7 +27,7 @@ class RestaurantCard extends StatelessWidget {
   final bool isOpenNow;
   final String openText;
   final String closedText;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String defaultRestaurantName;
   final String heroTag;
   @override
