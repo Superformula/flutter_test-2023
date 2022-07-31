@@ -7,7 +7,7 @@ import 'package:yelp_api/yelp_api.dart';
 import 'app/app.dart';
 
 const _apiKey =
-    'pDNeXWJdee_Is0fwfrh9t1EmOzIbyz7szgdVqdA0RldPQt-mIw5X6P9upb6GhsKhX4qS4Usy5uo4o1ZxrUOzuYF_glOQw4G3V5Pew5fdEFgdOOfrIQJdhxHMZEi6YnYx';
+    'iKPAvopXFyPGAPi6Ne_xc3PuphPXlpmu-NZWYzg5Ky76huLeKqEc_MACqoDbzZnUDQQ47hQo3MRqj6-w00T4SRK6gpfb5Uw-C3ZuMwfVDfzPwyfWznNMeCi72HPmYnYx';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   final dioClient = Dio(

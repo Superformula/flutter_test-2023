@@ -35,12 +35,14 @@ class GraphQlYelpApiClient extends YelpApi {
         '/v3/graphql',
         data: _getQuery(offset),
       );
-    } on Exception {
-      throw HttpException();
+    } on DioError catch (e) {
+      if (e.response?.statusCode != null) {
+        throw HttpRequestFailure(e.response!.statusCode!);
+      } else {
+        throw HttpException();
+      }
     }
-    if (response.statusCode != 200) {
-      throw HttpRequestFailure(response.statusCode!);
-    }
+
     try {
       return RestaurantQueryResult.fromJson(response.data!['data']['search']);
     } on Exception {
