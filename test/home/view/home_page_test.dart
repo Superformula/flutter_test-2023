@@ -6,7 +6,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:restaurantour/home/home.dart';
 
-import '../../helpers/pump_app.dart';
+import '../../helpers/helpers.dart';
 
 class MockHomeCubit extends MockCubit<HomeState> implements HomeCubit {}
 

@@ -23,27 +23,27 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void _onRestaurantsLoaded(List<Restaurant> restaurants) {
-    if (restaurants.isEmpty) {
+    if (restaurants.length == state.allRestaurants.length) {
       emit(state.copyWith(allRestaurantsStatus: HomeListStatus.completed));
+    } else {
+      emit(
+        state.copyWith(
+          allRestaurantsStatus: HomeListStatus.loaded,
+          allRestaurants: restaurants,
+        ),
+      );
     }
-    emit(
-      state.copyWith(
-        allRestaurantsStatus: HomeListStatus.loaded,
-        allRestaurants: restaurants,
-      ),
-    );
   }
 
   Future<void> loadRestaurants() async {
+    if (state.allRestaurantsStatus == HomeListStatus.completed) return;
     try {
       if (state.allRestaurantsStatus != HomeListStatus.initial) {
         emit(state.copyWith(allRestaurantsStatus: HomeListStatus.loading));
       }
-      _restaurantRepository.getRestaurants();
+      await _restaurantRepository.getRestaurants();
     } catch (e) {
-      state.copyWith(
-        allRestaurantsStatus: HomeListStatus.error,
-      );
+      emit(state.copyWith(allRestaurantsStatus: HomeListStatus.error));
     }
   }
 
