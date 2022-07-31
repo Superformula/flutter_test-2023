@@ -17,7 +17,7 @@ class AllRestaurantList extends StatelessWidget {
 
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (previous, current) {
-        return previous.allRestaurants != current.allRestaurants;
+        return previous.allRestaurantsStatus != current.allRestaurantsStatus;
       },
       builder: (context, state) {
         final allRestaurantsStatus = state.allRestaurantsStatus;
