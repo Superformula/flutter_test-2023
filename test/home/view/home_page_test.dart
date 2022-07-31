@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:restaurantour/home/home.dart';
+import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -12,16 +13,22 @@ class MockHomeCubit extends MockCubit<HomeState> implements HomeCubit {}
 
 void main() {
   late RestaurantRepository restaurantRepository;
+  late UserRepository userRepository;
   group('HomePage', () {
     setUp(() {
       restaurantRepository = MockRestaurantRepository();
+      userRepository = MockUserRepository();
+
       when(() => restaurantRepository.restaurants)
+          .thenAnswer((_) => const Stream.empty());
+      when(() => userRepository.favoriteRestaurants)
           .thenAnswer((_) => const Stream.empty());
     });
     testWidgets('renders HomeView', (WidgetTester tester) async {
       await tester.pumpApp(
         const HomePage(),
         restaurantRepository: restaurantRepository,
+        userRepository: userRepository,
       );
       expect(find.byType(HomeView), findsOneWidget);
     });

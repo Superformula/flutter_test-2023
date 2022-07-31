@@ -3,19 +3,28 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 import 'package:restaurantour/home/home.dart';
+import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
   late RestaurantRepository restaurantRepository;
+  late UserRepository userRepository;
   group('HomeCubit', () {
     setUp(() {
       restaurantRepository = MockRestaurantRepository();
+      userRepository = MockUserRepository();
+      when(() => userRepository.favoriteRestaurants)
+          .thenAnswer((_) => const Stream.empty());
       when(() => restaurantRepository.restaurants)
           .thenAnswer((_) => const Stream.empty());
+      when(() => restaurantRepository.getRestaurants())
+          .thenAnswer((_) async {});
     });
-    HomeCubit buildCubit() =>
-        HomeCubit(restaurantRepository: restaurantRepository);
+    HomeCubit buildCubit() => HomeCubit(
+          restaurantRepository: restaurantRepository,
+          userRepository: userRepository,
+        );
 
     group('constructor', () {
       test('works properly', () {
