@@ -6,11 +6,12 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.0.1
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
   json_annotation: ^4.1.0

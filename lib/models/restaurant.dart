@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant.g.dart';
@@ -16,6 +17,17 @@ class Category {
       _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Category &&
+          runtimeType == other.runtimeType &&
+          alias == other.alias &&
+          title == other.title;
+
+  @override
+  int get hashCode => alias.hashCode ^ title.hashCode;
 }
 
 @JsonSerializable()
@@ -30,6 +42,16 @@ class Hours {
   factory Hours.fromJson(Map<String, dynamic> json) => _$HoursFromJson(json);
 
   Map<String, dynamic> toJson() => _$HoursToJson(this);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Hours &&
+          runtimeType == other.runtimeType &&
+          isOpenNow == other.isOpenNow;
+
+  @override
+  int get hashCode => isOpenNow.hashCode;
 }
 
 @JsonSerializable()
@@ -54,19 +76,33 @@ class User {
 class Review {
   final String? id;
   final int? rating;
-  final User? user;
   final String? text;
+  final User? user;
 
   const Review({
     this.id,
     this.rating,
-    this.user,
     this.text,
+    this.user,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReviewToJson(this);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Review &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          rating == other.rating &&
+          text == other.text &&
+          user == other.user;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^ rating.hashCode ^ text.hashCode ^ user.hashCode;
 }
 
 @JsonSerializable()
@@ -82,6 +118,16 @@ class Location {
       _$LocationFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocationToJson(this);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Location &&
+          runtimeType == other.runtimeType &&
+          formattedAddress == other.formattedAddress;
+
+  @override
+  int get hashCode => formattedAddress.hashCode;
 }
 
 @JsonSerializable()
@@ -137,6 +183,33 @@ class Restaurant {
     }
     return false;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Restaurant &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          price == other.price &&
+          rating == other.rating &&
+          const ListEquality().equals(photos, other.photos) &&
+          const ListEquality().equals(categories, other.categories) &&
+          const ListEquality().equals(hours, other.hours) &&
+          const ListEquality().equals(hours, other.reviews) &&
+          location == other.location;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      price.hashCode ^
+      rating.hashCode ^
+      photos.hashCode ^
+      categories.hashCode ^
+      hours.hashCode ^
+      reviews.hashCode ^
+      location.hashCode;
 }
 
 @JsonSerializable()

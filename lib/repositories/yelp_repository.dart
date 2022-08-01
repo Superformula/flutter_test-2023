@@ -58,16 +58,15 @@ class YelpRepository {
   ///   }
   /// }
   ///
-  Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
-    try {
-      final response = await dio.post<Map<String, dynamic>>(
-        '/v3/graphql',
-        data: _getQuery(offset),
-      );
-      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
-    } catch (e) {
-      return null;
-    }
+  Future<List<Restaurant>?> getRestaurants({int offset = 0}) async {
+    //
+    final response = await dio.post<Map<String, dynamic>>(
+      '/v3/graphql',
+      data: _getQuery(offset),
+    );
+    var queryResult =
+        RestaurantQueryResult.fromJson(response.data!['data']['search']);
+    return queryResult.restaurants;
   }
 
   String _getQuery(int offset) {
