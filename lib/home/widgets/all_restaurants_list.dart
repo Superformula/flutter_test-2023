@@ -54,7 +54,7 @@ class AllRestaurantList extends StatelessWidget {
                   child: ViewMoreButton(
                     isLoading: isLoading,
                     onPressed: () {
-                      context.read<HomeCubit>().loadRestaurants();
+                      context.read<HomeCubit>().fetchRestaurants();
                     },
                   ),
                 ),

@@ -30,32 +30,15 @@ class HomeCubit extends Cubit<HomeState> {
     return super.close();
   }
 
-  Future<void> loadRestaurants() async {
+  Future<void> fetchRestaurants() async {
     if (state.allRestaurantsStatus == HomeListStatus.completed) return;
     try {
       if (state.allRestaurantsStatus != HomeListStatus.initial) {
         emit(state.copyWith(allRestaurantsStatus: HomeListStatus.loading));
       }
       await _restaurantRepository.getRestaurants();
-    } catch (e) {
+    } catch (_) {
       emit(state.copyWith(allRestaurantsStatus: HomeListStatus.error));
-    }
-  }
-
-  Future<void> loadFavorites() async {
-    try {
-      emit(
-        state.copyWith(
-          favorites: [],
-          favoritesStatus: HomeListStatus.loaded,
-        ),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          favoritesStatus: HomeListStatus.error,
-        ),
-      );
     }
   }
 

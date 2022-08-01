@@ -18,9 +18,7 @@ class HomePage extends StatelessWidget {
       create: (context) => HomeCubit(
         restaurantRepository: context.read<RestaurantRepository>(),
         userRepository: context.read<UserRepository>(),
-      )
-        ..loadRestaurants()
-        ..loadFavorites(),
+      )..fetchRestaurants(),
       child: const HomeView(),
     );
   }

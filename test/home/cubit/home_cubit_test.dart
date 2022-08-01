@@ -38,14 +38,14 @@ void main() {
         );
       });
     });
-    group('loadRestaurants', () {
+    group('fetchRestaurants', () {
       blocTest<HomeCubit, HomeState>(
         'emits nothing when AllRestaurantsStatus is completed',
         build: buildCubit,
         seed: () => const HomeState(
           allRestaurantsStatus: HomeListStatus.completed,
         ),
-        act: (homeCubit) => homeCubit.loadRestaurants(),
+        act: (homeCubit) => homeCubit.fetchRestaurants(),
         expect: () => <HomeState>[],
       );
 
@@ -61,7 +61,7 @@ void main() {
         seed: () => const HomeState(
           allRestaurantsStatus: HomeListStatus.loaded,
         ),
-        act: (homeCubit) => homeCubit.loadRestaurants(),
+        act: (homeCubit) => homeCubit.fetchRestaurants(),
         expect: () => <HomeState>[
           const HomeState(
             allRestaurantsStatus: HomeListStatus.loading,
@@ -87,7 +87,7 @@ void main() {
           allRestaurantsStatus: HomeListStatus.loaded,
           allRestaurants: List.generate(10, (index) => const Restaurant()),
         ),
-        act: (homeCubit) => homeCubit.loadRestaurants(),
+        act: (homeCubit) => homeCubit.fetchRestaurants(),
         expect: () => <HomeState>[
           HomeState(
             allRestaurantsStatus: HomeListStatus.loading,
@@ -111,7 +111,7 @@ void main() {
           allRestaurantsStatus: HomeListStatus.loaded,
           allRestaurants: List.generate(10, (index) => const Restaurant()),
         ),
-        act: (homeCubit) => homeCubit.loadRestaurants(),
+        act: (homeCubit) => homeCubit.fetchRestaurants(),
         expect: () => <HomeState>[
           HomeState(
             allRestaurantsStatus: HomeListStatus.loading,
