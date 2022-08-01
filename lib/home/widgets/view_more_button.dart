@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:restaurantour/l10n/l10n.dart';
 
 class ViewMoreButton extends StatelessWidget {
-  const ViewMoreButton(
-      {Key? key, required this.onPressed, this.isLoading = false})
-      : super(key: key);
+  const ViewMoreButton({
+    Key? key,
+    required this.onPressed,
+    this.isLoading = false,
+  }) : super(key: key);
   final bool isLoading;
   final VoidCallback onPressed;
   @override

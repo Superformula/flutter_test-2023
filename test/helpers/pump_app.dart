@@ -17,20 +17,25 @@ extension PumpApp on WidgetTester {
     RestaurantRepository? restaurantRepository,
     UserRepository? userRepository,
   }) {
-    return pumpWidget(MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider.value(
-            value: restaurantRepository ?? MockRestaurantRepository()),
-        RepositoryProvider.value(value: userRepository ?? MockUserRepository()),
-      ],
-      child: MaterialApp(
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
+    return pumpWidget(
+      MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider.value(
+            value: restaurantRepository ?? MockRestaurantRepository(),
+          ),
+          RepositoryProvider.value(
+            value: userRepository ?? MockUserRepository(),
+          ),
         ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(body: widget),
+        child: MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(body: widget),
+        ),
       ),
-    ));
+    );
   }
 }
