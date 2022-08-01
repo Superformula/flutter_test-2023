@@ -37,6 +37,8 @@ class HomeCubit extends Cubit<HomeState> {
         emit(state.copyWith(allRestaurantsStatus: HomeListStatus.loading));
       }
       await _restaurantRepository.getRestaurants();
+    } on RestaurantHttpRequestFailure catch (_) {
+      emit(state.copyWith(allRestaurantsStatus: HomeListStatus.error));
     } catch (_) {
       emit(state.copyWith(allRestaurantsStatus: HomeListStatus.error));
     }
