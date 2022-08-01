@@ -4,6 +4,9 @@ import 'package:yelp_api/yelp_api.dart';
 /// Thrown if an exception occurs while making an `http` request.
 class HttpException implements Exception {}
 
+/// Thrown if exceds the time limit for an `http` request.
+class HttpTimeOutException implements Exception {}
+
 /// {@template http_request_failure}
 /// Thrown if an `http` request returns a non-200 status code.
 /// {@endtemplate}
@@ -26,14 +29,21 @@ class GraphQlYelpApiClient extends YelpApi {
   GraphQlYelpApiClient({required Dio dio}) : _dio = dio;
 
   final Dio _dio;
-
+  static const String _path = '/v3/graphql';
   @override
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
     Response response;
     try {
-      response = await _dio.post<Map<String, dynamic>>(
-        '/v3/graphql',
+      response = await _dio
+          .post<Map<String, dynamic>>(
+        _path,
         data: _getQuery(offset),
+      )
+          .timeout(
+        const Duration(seconds: timeOutSeconds),
+        onTimeout: () {
+          throw HttpTimeOutException();
+        },
       );
     } on DioError catch (e) {
       if (e.response?.statusCode != null) {
@@ -55,7 +65,7 @@ class GraphQlYelpApiClient extends YelpApi {
     Response response;
     try {
       response = await _dio.post<Map<String, dynamic>>(
-        '/v3/graphql',
+        _path,
         data: _getCompleteRestaurantInformationQuery(restaurantId),
       );
     } on DioError catch (e) {
