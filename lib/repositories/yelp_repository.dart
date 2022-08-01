@@ -83,6 +83,7 @@ query getRestaurants {
       photos
       reviews {
         id
+        text
         rating
         user {
           id

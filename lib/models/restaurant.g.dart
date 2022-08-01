@@ -42,12 +42,14 @@ Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
+      text: json['text'],
     );
 
 Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
       'id': instance.id,
       'rating': instance.rating,
       'user': instance.user,
+      'text': instance.text,
     };
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(
