@@ -14,7 +14,7 @@ void main() {
     setUp(() {
       restaurantRepository = MockRestaurantRepository();
       userRepository = MockUserRepository();
-      when(() => userRepository.favoriteRestaurants)
+      when(() => userRepository.favorites)
           .thenAnswer((_) => const Stream.empty());
       when(() => restaurantRepository.restaurants)
           .thenAnswer((_) => const Stream.empty());
@@ -71,7 +71,7 @@ void main() {
       blocTest<RestaurantDetailCubit, RestaurantDetailState>(
         'emits [true] when toggleFavorite is called and isFavorite is false',
         setUp: () {
-          when(() => userRepository.favoriteRestaurants).thenAnswer(
+          when(() => userRepository.favorites).thenAnswer(
             (_) => Stream.value([const Restaurant(name: 'restaurant_test')]),
           );
           when(

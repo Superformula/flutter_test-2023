@@ -17,7 +17,7 @@ class HomeCubit extends Cubit<HomeState> {
     _restaurantsSubscription =
         _restaurantRepository.restaurants.listen(_onRestaurantsLoaded);
     _favoriteRestaurantsSubscription =
-        _userRepository.favoriteRestaurants.listen(_onFavoritesLoaded);
+        _userRepository.favorites.listen(_onFavoritesLoaded);
   }
   late StreamSubscription<List<Restaurant>> _restaurantsSubscription;
   final RestaurantRepository _restaurantRepository;

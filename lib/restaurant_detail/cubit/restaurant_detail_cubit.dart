@@ -15,8 +15,8 @@ class RestaurantDetailCubit extends Cubit<RestaurantDetailState> {
   })  : _userRepository = userRepository,
         _restaurantRepository = restaurantRepository,
         super(RestaurantDetailState(restaurantId: restaurantId)) {
-    _favoriteRestaurantsSubscription = _userRepository.favoriteRestaurants
-        .listen(_onChangeFavoriteRestaurants);
+    _favoriteRestaurantsSubscription =
+        _userRepository.favorites.listen(_onChangeFavoriteRestaurants);
   }
   final RestaurantRepository _restaurantRepository;
   final UserRepository _userRepository;

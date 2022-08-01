@@ -21,7 +21,7 @@ void main() {
 
       when(() => restaurantRepository.restaurants)
           .thenAnswer((_) => const Stream.empty());
-      when(() => userRepository.favoriteRestaurants)
+      when(() => userRepository.favorites)
           .thenAnswer((_) => const Stream.empty());
     });
     testWidgets('renders HomeView', (WidgetTester tester) async {

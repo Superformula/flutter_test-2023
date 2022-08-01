@@ -14,7 +14,7 @@ void main() {
     setUp(() {
       restaurantRepository = MockRestaurantRepository();
       userRepository = MockUserRepository();
-      when(() => userRepository.favoriteRestaurants)
+      when(() => userRepository.favorites)
           .thenAnswer((_) => const Stream.empty());
       when(() => restaurantRepository.restaurants)
           .thenAnswer((_) => const Stream.empty());

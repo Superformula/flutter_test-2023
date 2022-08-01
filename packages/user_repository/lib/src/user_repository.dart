@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
 
 /// {@template user_repository}
@@ -10,32 +11,33 @@ class UserRepository {
   UserRepository();
 
   /// Provides a [Stream] of all favorite restaurants
-  Stream<List<Restaurant>> get favoriteRestaurants async* {
+  Stream<List<Restaurant>> get favorites async* {
     yield* _favoriteRestaurantsController.stream;
   }
 
   /// Add restaurant to favorites list.
   void addFavoriteRestaurant(Restaurant restaurant) {
-    final duplicate = _favoriteRestaurants
+    final duplicate = favoriteRestaurants
         .firstWhereOrNull((element) => element.id == restaurant.id);
     if (duplicate == null) {
-      _favoriteRestaurants.add(restaurant);
-      _favoriteRestaurantsController.add([..._favoriteRestaurants]);
+      favoriteRestaurants.add(restaurant);
+      _favoriteRestaurantsController.add([...favoriteRestaurants]);
     }
   }
 
   /// Remove a restaurant from the list of favorites with the given
   /// restaurantId.
   void removeFavoriteRestaurant(String restaurantId) {
-    _favoriteRestaurants.removeWhere((element) => restaurantId == element.id);
-    _favoriteRestaurantsController.add([..._favoriteRestaurants]);
+    favoriteRestaurants.removeWhere((element) => restaurantId == element.id);
+    _favoriteRestaurantsController.add([...favoriteRestaurants]);
   }
 
   bool isFavorite(String restaurantId) {
-    return _favoriteRestaurants.any((element) => restaurantId == element.id);
+    return favoriteRestaurants.any((element) => restaurantId == element.id);
   }
 
   final _favoriteRestaurantsController =
       StreamController<List<Restaurant>>.broadcast();
-  final List<Restaurant> _favoriteRestaurants = [];
+  @visibleForTesting
+  final List<Restaurant> favoriteRestaurants = [];
 }
