@@ -7,7 +7,7 @@ class Category {
   final String? alias;
   final String? title;
 
-  Category({
+  const Category({
     this.alias,
     this.title,
   });
@@ -74,7 +74,7 @@ class Location {
   @JsonKey(name: 'formatted_address')
   final String? formattedAddress;
 
-  Location({
+  const Location({
     this.formattedAddress,
   });
 
