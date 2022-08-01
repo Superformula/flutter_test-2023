@@ -5,6 +5,7 @@
     "homeAllRestaurantsTabBarText": "All Restaurants",
     "homeViewMoreButtonText": "View More",
     "homeFavoritesTabBarText": "My Favorites",
+    "homeViewEmptyFavoriteListText": "You have no favorites yet.",
     "restaurantDetailsAddressText": "Address",
     "restaurantDetailsOverallRaitingText": "Overall Raiting",
     "restaurantDetailsReviewText": "Reviews",

@@ -29,6 +29,11 @@ class FavoritesList extends StatelessWidget {
           );
         }
         final favorites = state.favorites;
+        if (favorites.isEmpty) {
+          return Center(
+            child: Text(l10n.homeViewEmptyFavoriteListText),
+          );
+        }
         return ListView.separated(
           key: const Key('homeView_favoritesList'),
           itemCount: favorites.length,
