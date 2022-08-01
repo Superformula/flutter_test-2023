@@ -8,6 +8,7 @@ import 'package:restaurantour/restaurant_detail/restaurant_detail.dart';
 import 'package:restaurantour/restaurant_detail/widgets/favorite_button.dart';
 import 'package:restaurantour/restaurant_detail/widgets/restaurant_detail_information.dart';
 import 'package:restaurantour_ui/restaurantour_ui.dart';
+import 'package:user_repository/user_repository.dart';
 
 class RestaurantDetailPage extends StatelessWidget {
   const RestaurantDetailPage({
@@ -26,7 +27,10 @@ class RestaurantDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RestaurantDetailCubit(restaurant: restaurant),
+      create: (context) => RestaurantDetailCubit(
+        restaurant: restaurant,
+        userRepository: context.read<UserRepository>(),
+      )..init(),
       child: const RestaurantDetailView(),
     );
   }

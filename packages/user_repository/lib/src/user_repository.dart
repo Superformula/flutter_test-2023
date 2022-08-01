@@ -31,6 +31,10 @@ class UserRepository {
     _favoriteRestaurantsController.add([..._favoriteRestaurants]);
   }
 
+  bool isFavorite(String restaurantId) {
+    return _favoriteRestaurants.any((element) => restaurantId == element.id);
+  }
+
   final _favoriteRestaurantsController =
       StreamController<List<Restaurant>>.broadcast();
   final List<Restaurant> _favoriteRestaurants = [];

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/l10n/l10n.dart';
+import 'package:restaurantour/restaurant_detail/restaurant_detail.dart';
 
 import 'package:restaurantour_ui/restaurantour_ui.dart';
 
@@ -51,6 +52,9 @@ class FavoritesList extends StatelessWidget {
               closedText: l10n.attentionStatusClosed,
               defaultRestaurantName: l10n.defaultRestaurantName,
               heroTag: favorite.id! + '_favorite_',
+              onTap: () {
+                Navigator.push(context, RestaurantDetailPage.route(favorite));
+              },
             );
           },
         );

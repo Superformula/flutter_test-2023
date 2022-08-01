@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/restaurant_detail/cubit/restaurant_detail_cubit.dart';
 
 class FavoriteButton extends StatelessWidget {
   const FavoriteButton({
@@ -7,9 +9,13 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite = true;
+    final isFavorite = context.select<RestaurantDetailCubit, bool>(
+      (cubit) => cubit.state.isFavorite,
+    );
     return IconButton(
-      onPressed: () {},
+      onPressed: () {
+        context.read<RestaurantDetailCubit>().toggleFavorite();
+      },
       icon: isFavorite
           ? const Icon(Icons.favorite)
           : const Icon(Icons.favorite_border),
