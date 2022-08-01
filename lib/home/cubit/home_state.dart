@@ -11,7 +11,7 @@ enum HomeListStatus {
 class HomeState extends Equatable {
   const HomeState({
     this.allRestaurantsStatus = HomeListStatus.initial,
-    this.favoritesStatus = HomeListStatus.initial,
+    this.favoritesStatus = HomeListStatus.loaded,
     this.allRestaurants = const [],
     this.favorites = const [],
   });
@@ -32,7 +32,6 @@ class HomeState extends Equatable {
     HomeListStatus? favoritesStatus,
     List<Restaurant>? allRestaurants,
     List<Restaurant>? favorites,
-    int? offset,
   }) {
     return HomeState(
       allRestaurantsStatus: allRestaurantsStatus ?? this.allRestaurantsStatus,
