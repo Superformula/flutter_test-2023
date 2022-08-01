@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:yelp_api/yelp_api.dart' as yelp;
 
 import 'models/models.dart';
@@ -37,7 +38,8 @@ class RestaurantRepository {
   RestaurantRepository({required yelp.YelpApi yelpApi}) : _yelpApi = yelpApi;
   final yelp.YelpApi _yelpApi;
   final _restaurantsController = StreamController<List<Restaurant>>.broadcast();
-  final List<Restaurant> _restaurants = [];
+  @visibleForTesting
+  final List<Restaurant> allRestaurants = [];
   Stream<List<Restaurant>> get restaurants async* {
     yield* _restaurantsController.stream;
   }
@@ -46,7 +48,7 @@ class RestaurantRepository {
     yelp.RestaurantQueryResult? restaurantQueryResult;
     try {
       restaurantQueryResult =
-          await _yelpApi.getRestaurants(offset: _restaurants.length);
+          await _yelpApi.getRestaurants(offset: allRestaurants.length);
     } on yelp.HttpRequestFailure catch (e, stackTrace) {
       throw RestaurantHttpRequestFailure(e, stackTrace);
     }
@@ -55,8 +57,8 @@ class RestaurantRepository {
       final restaurants = restaurantQueryResult!.restaurants!
           .map((restaurant) => _convertYelpRestaurantToRestaurant(restaurant))
           .toList();
-      _restaurants.addAll(restaurants);
-      _restaurantsController.add([..._restaurants]);
+      allRestaurants.addAll(restaurants);
+      _restaurantsController.add([...allRestaurants]);
     }
   }
 
