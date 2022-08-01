@@ -53,7 +53,10 @@ class FavoritesList extends StatelessWidget {
               defaultRestaurantName: l10n.defaultRestaurantName,
               heroTag: favorite.id! + '_favorite_',
               onTap: () {
-                Navigator.push(context, RestaurantDetailPage.route(favorite));
+                Navigator.push(
+                  context,
+                  RestaurantDetailPage.route(favorite.id!),
+                );
               },
             );
           },

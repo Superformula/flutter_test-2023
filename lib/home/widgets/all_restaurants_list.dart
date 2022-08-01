@@ -74,7 +74,10 @@ class AllRestaurantList extends StatelessWidget {
               defaultRestaurantName: l10n.defaultRestaurantName,
               heroTag: restaurant.id!,
               onTap: () {
-                Navigator.push(context, RestaurantDetailPage.route(restaurant));
+                Navigator.push(
+                  context,
+                  RestaurantDetailPage.route(restaurant.id!),
+                );
               },
             );
           },

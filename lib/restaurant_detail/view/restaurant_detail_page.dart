@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
-import 'package:restaurantour/l10n/l10n.dart';
 import 'package:restaurantour/restaurant_detail/restaurant_detail.dart';
 import 'package:restaurantour/restaurant_detail/widgets/favorite_button.dart';
 import 'package:restaurantour/restaurant_detail/widgets/restaurant_detail_information.dart';
@@ -13,14 +11,14 @@ import 'package:user_repository/user_repository.dart';
 class RestaurantDetailPage extends StatelessWidget {
   const RestaurantDetailPage({
     Key? key,
-    required this.restaurant,
+    required this.restaurantId,
   }) : super(key: key);
 
-  final Restaurant restaurant;
+  final String restaurantId;
 
-  static Route route(Restaurant restaurant) {
+  static Route route(String restaurantId) {
     return MaterialPageRoute<void>(
-      builder: (context) => RestaurantDetailPage(restaurant: restaurant),
+      builder: (context) => RestaurantDetailPage(restaurantId: restaurantId),
     );
   }
 
@@ -28,8 +26,9 @@ class RestaurantDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RestaurantDetailCubit(
-        restaurant: restaurant,
+        restaurantId: restaurantId,
         userRepository: context.read<UserRepository>(),
+        restaurantRepository: context.read<RestaurantRepository>(),
       )..init(),
       child: const RestaurantDetailView(),
     );
@@ -43,44 +42,66 @@ class RestaurantDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final restaurant = context.select<RestaurantDetailCubit, Restaurant>(
-      (cubit) => cubit.state.restaurant,
-    );
     final imageHeight = MediaQuery.of(context).size.height * 0.5;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(restaurant.name ?? l10n.defaultRestaurantName),
-        elevation: 0,
-        actions: const [FavoriteButton()],
-      ),
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Hero(
-              tag: restaurant.id!,
-              child: SizedBox(
-                width: double.infinity,
-                height: imageHeight,
-                child: restaurant.photoUrl == null
-                    ? Container(
-                        color: RestaurantourColors.placeholder,
-                      )
-                    : CachedNetworkImage(
-                        imageUrl: restaurant.photoUrl!,
-                        fit: BoxFit.cover,
-                        placeholder: (_, __) => Container(
-                          color: RestaurantourColors.placeholder,
-                        ),
-                        errorWidget: (_, __, ___) =>
-                            const Center(child: Icon(Icons.error)),
-                      ),
-              ),
-            ),
+
+    return BlocBuilder<RestaurantDetailCubit, RestaurantDetailState>(
+      buildWhen: (previous, current) {
+        return previous.status != current.status;
+      },
+      builder: (context, state) {
+        final restaurant = state.restaurant;
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(restaurant.name ?? ''),
+            elevation: 0,
+            actions: [
+              Visibility(
+                visible: state.status == RestaurantDetailStatus.loaded,
+                child: const FavoriteButton(),
+              )
+            ],
           ),
-          const RestaurantDetailInformation()
-        ],
-      ),
+          body: Builder(
+            builder: (_) {
+              if (state.status == RestaurantDetailStatus.initial) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state.status == RestaurantDetailStatus.error) {
+                return const Center(child: Icon(Icons.error));
+              }
+              return CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Hero(
+                      tag: restaurant.id!,
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: imageHeight,
+                        child: restaurant.photoUrl == null
+                            ? Container(
+                                color: RestaurantourColors.placeholder,
+                              )
+                            : CachedNetworkImage(
+                                imageUrl: restaurant.photoUrl!,
+                                fit: BoxFit.cover,
+                                placeholder: (_, __) => Container(
+                                  color: RestaurantourColors.placeholder,
+                                ),
+                                errorWidget: (_, __, ___) =>
+                                    const Center(child: Icon(Icons.error)),
+                              ),
+                      ),
+                    ),
+                  ),
+                  const RestaurantDetailInformation()
+                ],
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

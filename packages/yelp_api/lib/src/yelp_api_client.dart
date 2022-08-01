@@ -9,4 +9,5 @@ abstract class YelpApi {
   const YelpApi();
 
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0});
+  Future<Restaurant> getRestaurant(String restaurantId);
 }

@@ -9,11 +9,11 @@ import 'package:restaurantour_ui/restaurantour_ui.dart';
 import 'package:user_repository/user_repository.dart';
 
 class App extends StatelessWidget {
-  const App(
-      {Key? key,
-      required RestaurantRepository restaurantRepository,
-      required UserRepository userRepository})
-      : _restaurantRepository = restaurantRepository,
+  const App({
+    Key? key,
+    required RestaurantRepository restaurantRepository,
+    required UserRepository userRepository,
+  })  : _restaurantRepository = restaurantRepository,
         _userRepository = userRepository,
         super(key: key);
   final RestaurantRepository _restaurantRepository;

@@ -50,6 +50,29 @@ class GraphQlYelpApiClient extends YelpApi {
     }
   }
 
+  @override
+  Future<Restaurant> getRestaurant(String restaurantId) async {
+    Response response;
+    try {
+      response = await _dio.post<Map<String, dynamic>>(
+        '/v3/graphql',
+        data: _getCompleteRestaurantInformationQuery(restaurantId),
+      );
+    } on DioError catch (e) {
+      if (e.response?.statusCode != null) {
+        throw HttpRequestFailure(e.response!.statusCode!);
+      } else {
+        throw HttpException();
+      }
+    }
+
+    try {
+      return Restaurant.fromJson(response.data!['data']['business']);
+    } on Exception {
+      throw JsonDeserializationException();
+    }
+  }
+
   String _getQuery(int offset) {
     return '''
 query getRestaurants {
@@ -61,26 +84,47 @@ query getRestaurants {
       price
       rating
       photos
-      reviews {
-        id
-        rating
-        text
-        user {
-          id
-          image_url
-          name
-        }
-      }
       categories {
         title
-        alias
       }
       hours {
         is_open_now
       }
-      location {
-        formatted_address
+    }
+  }
+}
+''';
+  }
+
+  String _getCompleteRestaurantInformationQuery(String restaurantId) {
+    return '''
+query getRestaurantInformation
+{
+  business(id: "$restaurantId") {
+    id
+    name
+    price
+    rating
+    photos
+    reviews {
+      id
+      rating
+      text
+      user {
+        id
+        image_url
+        name
       }
+    }
+    categories {
+      title
+      alias
+    }
+    hours {
+      is_open_now
+    }
+    location {
+      formatted_address
     }
   }
 }

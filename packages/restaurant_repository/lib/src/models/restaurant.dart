@@ -21,6 +21,8 @@ class Restaurant extends Equatable {
   final bool? isOpenNow;
   final List<Review>? reviews;
   final String? address;
+
+  static const empty = Restaurant();
   @override
   List<Object?> get props => [
         id,

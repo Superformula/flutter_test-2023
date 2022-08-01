@@ -131,7 +131,7 @@ class _Reviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    if (reviews?.isEmpty ?? false) return const SizedBox();
+    if (reviews?.isEmpty ?? true) return const SizedBox();
     return MultiSliver(
       children: [
         SliverToBoxAdapter(
@@ -231,7 +231,8 @@ class _CategoryAttentionStatus extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(
-              vertical: RestaurantourPaddingValues.xl),
+            vertical: RestaurantourPaddingValues.xl,
+          ),
           child: Row(
             children: [
               Text(

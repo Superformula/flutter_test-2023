@@ -9,13 +9,16 @@ part 'restaurant_detail_state.dart';
 
 class RestaurantDetailCubit extends Cubit<RestaurantDetailState> {
   RestaurantDetailCubit({
-    required Restaurant restaurant,
+    required String restaurantId,
     required UserRepository userRepository,
+    required RestaurantRepository restaurantRepository,
   })  : _userRepository = userRepository,
-        super(RestaurantDetailState(restaurant: restaurant)) {
+        _restaurantRepository = restaurantRepository,
+        super(RestaurantDetailState(restaurantId: restaurantId)) {
     _favoriteRestaurantsSubscription = _userRepository.favoriteRestaurants
         .listen(_onChangeFavoriteRestaurants);
   }
+  final RestaurantRepository _restaurantRepository;
   final UserRepository _userRepository;
   late StreamSubscription<List<Restaurant>> _favoriteRestaurantsSubscription;
 
@@ -25,9 +28,21 @@ class RestaurantDetailCubit extends Cubit<RestaurantDetailState> {
     return super.close();
   }
 
-  void init() {
-    final isFavorite = _userRepository.isFavorite(state.restaurant.id!);
-    emit(state.copyWith(isFavorite: isFavorite));
+  Future<void> init() async {
+    try {
+      final fullInformationRestaurant =
+          await _restaurantRepository.getRestaurant(state.restaurantId);
+      final isFavorite = _userRepository.isFavorite(state.restaurantId);
+      emit(
+        state.copyWith(
+          isFavorite: isFavorite,
+          restaurant: fullInformationRestaurant,
+          status: RestaurantDetailStatus.loaded,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(status: RestaurantDetailStatus.error));
+    }
   }
 
   void toggleFavorite() {
