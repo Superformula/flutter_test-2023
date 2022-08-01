@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/ui/screens/restaurant_details_screen.dart';
 import 'package:restaurantour/ui/widgets/restaurant_list_tile.dart';
 
 import '../../models/restaurant.dart';
@@ -103,7 +104,15 @@ class RestauranTourHomeScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return RestaurantListTile(
                     restaurant: restaurantExample,
-                    onTap: () => print('Go to details'),
+                    // TODO: Navigate using pushNamed...
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RestaurantDetails(
+                          restaurant: restaurantExample,
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),
