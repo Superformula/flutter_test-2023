@@ -76,7 +76,7 @@ void main() {
         when(() => restaurantDetailCubit.state).thenReturn(
           const RestaurantDetailState(
             restaurantId: '',
-            restaurant: Restaurant(id: 'key'),
+            restaurant: Restaurant.empty,
             status: RestaurantDetailStatus.loaded,
           ),
         );

@@ -22,7 +22,7 @@ class Restaurant extends Equatable {
   final List<Review>? reviews;
   final String? address;
 
-  static const empty = Restaurant();
+  static const empty = Restaurant(id: '');
   @override
   List<Object?> get props => [
         id,

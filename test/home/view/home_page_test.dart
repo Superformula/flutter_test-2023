@@ -143,12 +143,13 @@ void main() {
     );
 
     testWidgets(
-      'render ListView'
-      'when favoritesStatus is loaded',
+      'render ListView '
+      'when favoritesStatus is loaded and favoritesList is not empty',
       (WidgetTester tester) async {
         when(() => homeCubit.state).thenReturn(
-          const HomeState(
+          HomeState(
             favoritesStatus: HomeListStatus.loaded,
+            favorites: List.generate(4, (index) => Restaurant.empty),
           ),
         );
         await tester.pumpApp(
