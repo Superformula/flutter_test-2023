@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/home/home.dart';
 import 'package:restaurantour/l10n/l10n.dart';
 import 'package:restaurantour/restaurant_detail/restaurant_detail.dart';
 
 import 'package:restaurantour_ui/restaurantour_ui.dart';
-
-import '../home.dart';
 
 class AllRestaurantList extends StatelessWidget {
   const AllRestaurantList({Key? key}) : super(key: key);

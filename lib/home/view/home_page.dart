@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_repository/restaurant_repository.dart';
+import 'package:restaurantour/home/home.dart';
 import 'package:restaurantour/l10n/l10n.dart';
 import 'package:user_repository/user_repository.dart';
-import '../home.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({

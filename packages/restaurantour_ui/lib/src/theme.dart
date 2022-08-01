@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour_ui/src/text_styles.dart';
-
 import 'colors.dart';
 
 /// Namespace for the Restaurantour [ThemeData].
