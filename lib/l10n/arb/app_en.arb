@@ -11,9 +11,6 @@
     "restaurantDetailsReviewText": "Reviews",
     "noReviewDescriptionText": "No review",
     "attentionStatusOpen": "Open Now",
-    "attentionStatusClosed": "Closed",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    }
+    "attentionStatusClosed": "Closed"
+    
 }
