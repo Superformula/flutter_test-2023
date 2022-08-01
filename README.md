@@ -94,7 +94,7 @@ Feel free to add more tests as you see fit but the above is the minimum requirem
 
 ## Design
 
-- See this [Figma File](https://www.figma.com/file/KsEhQUp66m9yeVkvQ0hSZm/Flutter-Test?node-id=0%3A1) for design information related to the overall look and feel of the application. We do not expect pixel-perfection but would like an end product that is very similar to what is specified in the Figma file.
+- See this [Figma File](https://www.figma.com/file/KsEhQUp66m9yeVkvQ0hSZm/Flutter-Test?node-id=0%3A1) for design information related to the overall look and feel of the application. We do not expect pixel-perfection but would like the application to visually be close to what is specified in the Figma file.
 
 ![List View](screenshots/listview.png)
 ![Detail View](screenshots/detailview.png)
