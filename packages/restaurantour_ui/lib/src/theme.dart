@@ -61,6 +61,7 @@ class RestaurantourTheme {
     return CardTheme(
       margin: EdgeInsets.zero,
       color: RestaurantourColors.surface,
+      elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),

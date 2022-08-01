@@ -36,7 +36,7 @@ class RestaurantCard extends StatelessWidget {
     const double imageSize = 88.0;
     const double imageBorderRadius = 8.0;
     const int titleMaxLines = 2;
-
+    const int defaultRating = 0;
     return InkWell(
       onTap: onTap,
       child: Card(
@@ -92,7 +92,7 @@ class RestaurantCard extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Rating(rating: rating ?? 0),
+                          Rating(rating: rating ?? defaultRating),
                           const Spacer(),
                           AttentionStatus(
                             text: isOpenNow ? openText : closedText,
