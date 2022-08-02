@@ -6,8 +6,8 @@ import '../widgets/restaurant_details_section_widget.dart';
 import '../widgets/restaurant_is_open_widget.dart';
 import '../widgets/restaurant_reviews_widget.dart';
 
-class RestaurantDetails extends StatelessWidget {
-  const RestaurantDetails({required this.restaurant, Key? key}) : super(key: key);
+class RestaurantDetailsScreen extends StatelessWidget {
+  const RestaurantDetailsScreen({required this.restaurant, Key? key}) : super(key: key);
 
   final Restaurant restaurant;
 

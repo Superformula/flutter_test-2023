@@ -18,7 +18,7 @@ class Restaurantour extends StatelessWidget {
         BlocProvider<RestaurantsBloc>(
           create: (BuildContext context) => RestaurantsBloc(
             yelpRepository: yelpRepository,
-          )..add(RestaurantStarted()),
+          )..add(RestaurantsStarted()),
         ),
       ],
       child: MaterialApp(

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/bloc/restaurants_bloc.dart';
 import 'package:restaurantour/ui/widgets/restaurant_list_tile.dart';
 
+import '../../bloc/restaurants_event.dart';
 import '../../bloc/restaurants_state.dart';
 import 'restaurant_details_screen.dart';
 
@@ -57,17 +58,39 @@ class RestauranTourHomeScreen extends StatelessWidget {
               }
 
               return ListView.builder(
-                itemCount: restaurants.length,
+                itemCount: restaurants.length + 1,
                 itemBuilder: (context, index) {
-                  var restaurant = restaurants[index];
+                  //
+                  var isTheLastElement = index >= restaurants.length;
 
+                  if (isTheLastElement) {
+                    var width = MediaQuery.of(context).size.width;
+
+                    if (state is RestaurantsLoadedAndFetchingMore) {
+                      return Padding(
+                        padding: EdgeInsets.all(width * 0.05),
+                        child: const Center(child: CircularProgressIndicator()),
+                      );
+                    } else {
+                      return MaterialButton(
+                        height: width * 0.2,
+                        child: const Text('View more'),
+                        onPressed: () => context
+                            .read<RestaurantsBloc>()
+                            .add(FetchedMoreRestaurants()),
+                      );
+                    }
+                  }
+
+                  var restaurant = restaurants[index];
                   return RestaurantListTile(
                     restaurant: restaurant,
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            RestaurantDetails(restaurant: restaurant),
+                        builder: (context) => RestaurantDetailsScreen(
+                          restaurant: restaurant,
+                        ),
                       ),
                     ),
                   );

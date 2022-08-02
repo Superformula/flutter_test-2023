@@ -108,7 +108,7 @@ class RestauranTourHomeScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const RestaurantDetails(
+                        builder: (context) => const RestaurantDetailsScreen(
                           restaurant: restaurantExample,
                         ),
                       ),
