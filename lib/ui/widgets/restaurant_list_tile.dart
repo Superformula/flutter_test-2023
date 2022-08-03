@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/restaurant.dart';
+import '../screens/restaurant_details_screen.dart';
 import 'restaurant_is_open_widget.dart';
 import 'restaurant_price_and_category_widget.dart';
 import 'rating_widget.dart';
@@ -8,12 +9,10 @@ import 'rating_widget.dart';
 class RestaurantListTile extends StatelessWidget {
   const RestaurantListTile({
     required this.restaurant,
-    required this.onTap,
     Key? key,
   }) : super(key: key);
 
   final Restaurant restaurant;
-  final void Function() onTap;
 
   static const restaurantNameStyle = TextStyle(
     color: Colors.black,
@@ -26,19 +25,22 @@ class RestaurantListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final img = Padding(
+    final image = Padding(
       padding: const EdgeInsets.all(10),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          return Container(
-            width: constraints.maxHeight,
-            height: constraints.maxHeight,
-            decoration: BoxDecoration(
-              color: Colors.red,
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              image: DecorationImage(
-                image: NetworkImage(restaurant.heroImage),
-                fit: BoxFit.cover,
+          return Hero(
+            tag: restaurant.heroImage,
+            child: Container(
+              width: constraints.maxHeight,
+              height: constraints.maxHeight,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                image: DecorationImage(
+                  image: NetworkImage(restaurant.heroImage),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           );
@@ -89,7 +91,7 @@ class RestaurantListTile extends StatelessWidget {
         vertical: 2,
       ),
       child: GestureDetector(
-        onTap: onTap,
+        onTap: () => pushRoute(context, restaurant),
         child: Card(
           shadowColor: Colors.grey.shade200,
           elevation: 1,
@@ -101,11 +103,25 @@ class RestaurantListTile extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                img,
+                image,
                 Expanded(child: restaurantInformation),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  void pushRoute(
+    BuildContext context,
+    Restaurant restaurant,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RestaurantDetailsScreen(
+          restaurant: restaurant,
         ),
       ),
     );

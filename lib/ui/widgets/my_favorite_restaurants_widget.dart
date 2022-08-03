@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/my_favorites/favorites_restaurants_bloc.dart';
-import '../../bloc/my_favorites/favorites_restaurants_state.dart';
+import '../../bloc/favorites_restaurants/favorites_restaurants_bloc.dart';
+import '../../bloc/favorites_restaurants/favorites_restaurants_state.dart';
 import '../../models/restaurant.dart';
 import '../screens/restaurant_details_screen.dart';
 import 'restaurant_list_tile.dart';
@@ -21,7 +21,6 @@ class MyFavoritesRestaurantsWidget extends StatelessWidget {
             itemCount: state.restaurants.length,
             itemBuilder: (context, index) => RestaurantListTile(
               restaurant: state.restaurants[index],
-              onTap: () => pushRoute(context, state.restaurants, index),
             ),
           );
         } else {

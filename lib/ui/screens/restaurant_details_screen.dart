@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/ui/widgets/restaurant_price_and_category_widget.dart';
-import '../../bloc/my_favorites/favorites_restaurants_bloc.dart';
-import '../../bloc/my_favorites/favorites_restaurants_event.dart';
-import '../../bloc/my_favorites/favorites_restaurants_state.dart';
+import '../../bloc/favorites_restaurants/favorites_restaurants_bloc.dart';
+import '../../bloc/favorites_restaurants/favorites_restaurants_event.dart';
+import '../../bloc/favorites_restaurants/favorites_restaurants_state.dart';
 import '../../models/restaurant.dart';
 import '../widgets/rating_widget.dart';
 import '../widgets/restaurant_details_section_widget.dart';
@@ -41,13 +41,16 @@ class RestaurantDetailsScreen extends StatelessWidget {
     final padding = width * 0.072;
 
     final image = LayoutBuilder(
-      builder: (context, constraints) => Container(
-        width: width,
-        height: width,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(restaurant.heroImage),
-            fit: BoxFit.cover,
+      builder: (context, constraints) => Hero(
+        tag: restaurant.heroImage,
+        child: Container(
+          width: width,
+          height: width,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(restaurant.heroImage),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
@@ -114,7 +117,8 @@ class RestaurantDetailsScreen extends StatelessWidget {
       padding: padding,
     );
 
-    final favoriteButton = BlocBuilder<FavoritesRestaurantsBloc, FavoritesRestaurantsState>(
+    final favoriteButton =
+        BlocBuilder<FavoritesRestaurantsBloc, FavoritesRestaurantsState>(
       builder: (context, state) {
         var isFavorite = state.restaurants.any(
           (Restaurant _restaurant) => _restaurant.id == restaurant.id,

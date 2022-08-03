@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/bloc/restaurants/restaurants_bloc.dart';
-import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/ui/widgets/restaurant_list_tile.dart';
 
 import '../../bloc/restaurants/restaurants_event.dart';
 import '../../bloc/restaurants/restaurants_state.dart';
-import '../screens/restaurant_details_screen.dart';
 
 class AllRestaurantsWidget extends StatelessWidget {
   const AllRestaurantsWidget({Key? key}) : super(key: key);
@@ -26,7 +24,7 @@ class AllRestaurantsWidget extends StatelessWidget {
         if (state is RestaurantsLoading) {
           return circularProcessIndicator;
         } else if (state is RestaurantsLoaded) {
-          if (state.restaurants.isNotEmpty) {
+          if (state.restaurants.isEmpty) {
             return noRestaurantFound;
           }
 
@@ -59,7 +57,7 @@ class AllRestaurantsWidget extends StatelessWidget {
 
               return RestaurantListTile(
                 restaurant: state.restaurants[index],
-                onTap: () => pushRoute(context, state.restaurants, index),
+
               );
             },
           );
@@ -70,18 +68,4 @@ class AllRestaurantsWidget extends StatelessWidget {
     );
   }
 
-  void pushRoute(
-    BuildContext context,
-    List<Restaurant> restaurants,
-    int index,
-  ) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => RestaurantDetailsScreen(
-          restaurant: restaurants[index],
-        ),
-      ),
-    );
-  }
 }
