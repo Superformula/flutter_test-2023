@@ -11,6 +11,8 @@ class RestauranTourHomeScreen extends StatelessWidget {
     fontWeight: FontWeight.w600,
   );
 
+  static const routeName = '/';
+
   @override
   Widget build(BuildContext context) {
     const tabBar = TabBar(

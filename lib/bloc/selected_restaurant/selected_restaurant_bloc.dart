@@ -6,7 +6,6 @@ class SelectedRestaurantBloc
     extends Bloc<SelectedRestaurantEvent, SelectedRestaurantState> {
   SelectedRestaurantBloc() : super(SelectedRestaurantState.empty) {
     on<SelectRestaurant>(_selectRestaurant);
-    on<DeselectRestaurant>(_deselectRestaurant);
   }
 
   void _selectRestaurant(
@@ -14,12 +13,5 @@ class SelectedRestaurantBloc
     Emitter<SelectedRestaurantState> emit,
   ) {
     emit(SelectedRestaurantState(event.restaurant));
-  }
-
-  void _deselectRestaurant(
-    DeselectRestaurant event,
-    Emitter<SelectedRestaurantState> emit,
-  ) {
-    emit(const SelectedRestaurantState(null));
   }
 }

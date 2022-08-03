@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/favorites_restaurants/favorites_restaurants_bloc.dart';
 import '../../bloc/favorites_restaurants/favorites_restaurants_state.dart';
-import '../../models/restaurant.dart';
-import '../screens/restaurant_details_screen.dart';
 import 'restaurant_list_tile.dart';
 
 class MyFavoritesRestaurantsWidget extends StatelessWidget {
@@ -29,21 +27,6 @@ class MyFavoritesRestaurantsWidget extends StatelessWidget {
           );
         }
       },
-    );
-  }
-
-  void pushRoute(
-    BuildContext context,
-    List<Restaurant> restaurants,
-    int index,
-  ) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => RestaurantDetailsScreen(
-          restaurant: restaurants[index],
-        ),
-      ),
     );
   }
 }

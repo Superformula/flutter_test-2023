@@ -19,7 +19,3 @@ class SelectRestaurant extends SelectedRestaurantEvent {
   @override
   int get hashCode => restaurant.hashCode;
 }
-
-class DeselectRestaurant extends SelectedRestaurantEvent {
-  const DeselectRestaurant();
-}

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/ui/widgets/review_widget.dart';
 
 import '../../models/restaurant.dart';
+import '../../presentation/widgets/review_widget.dart';
 
 class RestaurantReviewsWidget extends StatelessWidget {
   const RestaurantReviewsWidget(

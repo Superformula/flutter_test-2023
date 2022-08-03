@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/ui/widgets/rating_widget.dart';
 
 import '../../models/restaurant.dart';
+import '../../presentation/widgets/rating_widget.dart';
 import 'divider_widget.dart';
 
 class ReviewWidget extends StatelessWidget {

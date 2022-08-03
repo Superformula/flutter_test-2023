@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/ui/screens/restarautour_home_screen.dart';
+import 'package:restaurantour/presentation/screens/restarautour_home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/favorites_restaurants/favorites_restaurants_bloc.dart';
 import 'bloc/restaurants/restaurants_bloc.dart';
 import 'bloc/restaurants/restaurants_event.dart';
 import 'bloc/selected_restaurant/selected_restaurant_bloc.dart';
+import 'presentation/router/app_router.dart';
 import 'repositories/yelp_repository.dart';
 
 class Restaurantour extends StatelessWidget {
@@ -35,7 +36,7 @@ class Restaurantour extends StatelessWidget {
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: const RestauranTourHomeScreen(),
+        onGenerateRoute: AppRouter.onGenerateRoute,
       ),
     );
   }

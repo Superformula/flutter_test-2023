@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/bloc/selected_restaurant/selected_restaurant_bloc.dart';
 
+import '../../bloc/selected_restaurant/selected_restaurant_event.dart';
 import '../../models/restaurant.dart';
 import '../screens/restaurant_details_screen.dart';
 import 'restaurant_is_open_widget.dart';
@@ -91,7 +94,7 @@ class RestaurantListTile extends StatelessWidget {
         vertical: 2,
       ),
       child: GestureDetector(
-        onTap: () => pushRoute(context, restaurant),
+        onTap: () => onTap(context, restaurant),
         child: Card(
           shadowColor: Colors.grey.shade200,
           elevation: 1,
@@ -113,17 +116,11 @@ class RestaurantListTile extends StatelessWidget {
     );
   }
 
-  void pushRoute(
+  void onTap(
     BuildContext context,
     Restaurant restaurant,
   ) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => RestaurantDetailsScreen(
-          restaurant: restaurant,
-        ),
-      ),
-    );
+    context.read<SelectedRestaurantBloc>().add(SelectRestaurant(restaurant));
+    Navigator.pushNamed(context, RestaurantDetailsScreen.routeName);
   }
 }
