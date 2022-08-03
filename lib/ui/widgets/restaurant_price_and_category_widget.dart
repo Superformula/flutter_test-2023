@@ -15,7 +15,5 @@ class RestaurantPriceAndCategoryWidget extends StatelessWidget {
   String get displayCategory => restaurant.displayCategory;
 
   @override
-  Widget build(BuildContext context) {
-    return Text(price + " " + displayCategory);
-  }
+  Widget build(BuildContext context) => Text(price + " " + displayCategory);
 }

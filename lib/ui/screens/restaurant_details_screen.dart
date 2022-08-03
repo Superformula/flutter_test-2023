@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/ui/widgets/restaurant_price_and_category_widget.dart';
-import '../../bloc/my_favorites/my_favorites_bloc.dart';
-import '../../bloc/my_favorites/my_favorites_event.dart';
-import '../../bloc/my_favorites/my_favorites_state.dart';
+import '../../bloc/my_favorites/favorites_restaurants_bloc.dart';
+import '../../bloc/my_favorites/favorites_restaurants_event.dart';
+import '../../bloc/my_favorites/favorites_restaurants_state.dart';
 import '../../models/restaurant.dart';
 import '../widgets/rating_widget.dart';
 import '../widgets/restaurant_details_section_widget.dart';
@@ -16,10 +16,12 @@ class RestaurantDetailsScreen extends StatelessWidget {
 
   final Restaurant restaurant;
 
-  final bool isLoading = false;
-
   bool get hasReview =>
       restaurant.reviews != null && restaurant.reviews!.isNotEmpty;
+
+  bool get hasAddress =>
+      restaurant.location?.formattedAddress != null &&
+      restaurant.location!.formattedAddress!.isNotEmpty;
 
   static const titleStyle = TextStyle(
     color: Colors.black,
@@ -35,25 +37,23 @@ class RestaurantDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
-    var width = MediaQuery.of(context).size.width;
-    var padding = width * 0.072;
+    final width = MediaQuery.of(context).size.width;
+    final padding = width * 0.072;
 
     final image = LayoutBuilder(
-      builder: (context, constraints) {
-        return Container(
-          width: width,
-          height: width,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(restaurant.heroImage),
-              fit: BoxFit.cover,
-            ),
+      builder: (context, constraints) => Container(
+        width: width,
+        height: width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(restaurant.heroImage),
+            fit: BoxFit.cover,
           ),
-        );
-      },
+        ),
+      ),
     );
 
-    var restaurantPriceCategoryAndIsOpen = RestaurantDetailsSectionWidget(
+    final restaurantPriceCategoryAndIsOpen = RestaurantDetailsSectionWidget(
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -64,34 +64,35 @@ class RestaurantDetailsScreen extends StatelessWidget {
       padding: padding,
     );
 
-    var restaurantAddress = RestaurantDetailsSectionWidget(
+    final restaurantAddress = RestaurantDetailsSectionWidget(
       Column(
         children: [
           Padding(
             padding: EdgeInsets.only(bottom: padding),
-            child: const Align(
+            child: Align(
               alignment: Alignment.topLeft,
-              child: Text('Address'),
+              child: Text(hasAddress ? 'Address' : 'No address'),
             ),
           ),
-          Row(
-            children: [
-              Flexible(
-                child: Text(
-                  restaurant.location?.formattedAddress ?? 'No address',
-                  style: addressTextStyle,
-                  maxLines: 2,
+          if (hasAddress)
+            Row(
+              children: [
+                Flexible(
+                  child: Text(
+                    restaurant.location!.formattedAddress!,
+                    style: addressTextStyle,
+                    maxLines: 2,
+                  ),
                 ),
-              ),
-              Flexible(child: Container())
-            ],
-          ),
+                Flexible(child: Container())
+              ],
+            ),
         ],
       ),
       padding: padding,
     );
 
-    var restaurantRatingDetails = RestaurantDetailsSectionWidget(
+    final restaurantRatingDetails = RestaurantDetailsSectionWidget(
       Column(
         children: [
           Padding(
@@ -107,31 +108,30 @@ class RestaurantDetailsScreen extends StatelessWidget {
       padding: padding,
     );
 
-    var restaurantReviews = RestaurantReviewsWidget(
+    final restaurantReviews = RestaurantReviewsWidget(
       restaurant,
       isLast: true,
       padding: padding,
     );
 
-    var favoriteButton = BlocBuilder<MyFavoritesBloc, MyFavoritesState>(
+    final favoriteButton = BlocBuilder<FavoritesRestaurantsBloc, FavoritesRestaurantsState>(
       builder: (context, state) {
-        var isFavorite = state is MyFavoritesLoaded &&
-            state.restaurants.any(
-              (Restaurant _restaurant) => _restaurant.id == restaurant.id,
-            );
+        var isFavorite = state.restaurants.any(
+          (Restaurant _restaurant) => _restaurant.id == restaurant.id,
+        );
         if (isFavorite) {
           return IconButton(
             icon: const Icon(Icons.favorite),
             onPressed: () => context
-                .read<MyFavoritesBloc>()
-                .add(RemoveRestaurantFromFavorites(restaurant)),
+                .read<FavoritesRestaurantsBloc>()
+                .add(RemoveFavoriteRestaurant(restaurant)),
           );
         } else {
           return IconButton(
             icon: const Icon(Icons.favorite_border),
             onPressed: () => context
-                .read<MyFavoritesBloc>()
-                .add(AddRestaurantToFavorites(restaurant)),
+                .read<FavoritesRestaurantsBloc>()
+                .add(AddFavoriteRestaurant(restaurant)),
           );
         }
       },
@@ -150,17 +150,15 @@ class RestaurantDetailsScreen extends StatelessWidget {
           favoriteButton,
         ],
       ),
-      body: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : ListView(
-              children: [
-                image,
-                restaurantPriceCategoryAndIsOpen,
-                restaurantAddress,
-                restaurantRatingDetails,
-                restaurantReviews,
-              ],
-            ),
+      body: ListView(
+        children: [
+          image,
+          restaurantPriceCategoryAndIsOpen,
+          restaurantAddress,
+          restaurantRatingDetails,
+          restaurantReviews,
+        ],
+      ),
     );
   }
 }

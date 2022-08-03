@@ -1,5 +1,5 @@
 abstract class RestaurantsEvent {}
 
-class RestaurantsStarted extends RestaurantsEvent {}
+class FetchedRestaurantsStarted extends RestaurantsEvent {}
 
 class FetchedMoreRestaurants extends RestaurantsEvent {}

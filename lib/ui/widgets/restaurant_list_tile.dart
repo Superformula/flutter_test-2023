@@ -46,7 +46,7 @@ class RestaurantListTile extends StatelessWidget {
       ),
     );
 
-    var restaurantName = Align(
+    final restaurantName = Align(
       alignment: Alignment.topLeft,
       child: Text(
         restaurant.name ?? '',
@@ -55,12 +55,12 @@ class RestaurantListTile extends StatelessWidget {
       ),
     );
 
-    var restaurantPriceAndCategory = Align(
+    final restaurantPriceAndCategory = Align(
       alignment: const Alignment(-1, 0.45),
       child: RestaurantPriceAndCategoryWidget(restaurant),
     );
 
-    var restaurantEvaluationAndIsOpenOrClosed = Align(
+    final restaurantEvaluationAndIsOpenOrClosed = Align(
       alignment: Alignment.bottomLeft,
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -72,7 +72,7 @@ class RestaurantListTile extends StatelessWidget {
       ),
     );
 
-    var restaurantInformation = Padding(
+    final restaurantInformation = Padding(
       padding: const EdgeInsets.fromLTRB(0, 9.3, 10, 5.15),
       child: Stack(
         children: [

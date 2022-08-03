@@ -19,33 +19,27 @@ class AllRestaurantsWidget extends StatelessWidget {
     child: Text('No restaurants found.'),
   );
 
-  final bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RestaurantsBloc, RestaurantsState>(
       builder: (context, state) {
         if (state is RestaurantsLoading) {
           return circularProcessIndicator;
-        }
-        //
-        else if (state is RestaurantsLoaded) {
-          var restaurants = state.restaurants;
-
-          if (restaurants == null || restaurants.isEmpty) {
+        } else if (state is RestaurantsLoaded) {
+          if (state.restaurants.isNotEmpty) {
             return noRestaurantFound;
           }
 
           return ListView.builder(
-            itemCount: restaurants.length + 1,
+            itemCount: state.restaurants.length + 1,
             itemBuilder: (context, index) {
-              var isTheLastElement = index >= restaurants.length;
+              final isTheLastElement = index >= state.restaurants.length;
 
               // Last element is the button to fetch more restaurants.
               if (isTheLastElement) {
-                var width = MediaQuery.of(context).size.width;
+                final width = MediaQuery.of(context).size.width;
 
-                var fetchMoreButton = MaterialButton(
+                final fetchMoreButton = MaterialButton(
                   height: width * 0.2,
                   child: const Text('View more'),
                   onPressed: () => context
@@ -53,7 +47,7 @@ class AllRestaurantsWidget extends StatelessWidget {
                       .add(FetchedMoreRestaurants()),
                 );
 
-                var fetchingMoreRestaurantsProcessIndicator = Padding(
+                final fetchingMoreRestaurantsProcessIndicator = Padding(
                   padding: EdgeInsets.all(width * 0.05),
                   child: circularProcessIndicator,
                 );
@@ -64,8 +58,8 @@ class AllRestaurantsWidget extends StatelessWidget {
               }
 
               return RestaurantListTile(
-                restaurant: restaurants[index],
-                onTap: () => pushRoute(context, restaurants, index),
+                restaurant: state.restaurants[index],
+                onTap: () => pushRoute(context, state.restaurants, index),
               );
             },
           );

@@ -7,31 +7,33 @@ import 'restaurants_event.dart';
 class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
   RestaurantsBloc({required this.yelpRepository})
       : super(const RestaurantsLoading()) {
-    on<RestaurantsStarted>(_onStarted);
-    on<FetchedMoreRestaurants>(_fetchMoreRestaurants);
+    on<FetchedRestaurantsStarted>(_fetchedRestaurantsStarted);
+    on<FetchedMoreRestaurants>(_fetchedMoreRestaurants);
   }
 
   static const howManyRestaurantsToFetch = 20;
 
   final YelpRepository yelpRepository;
 
-  void _onStarted(
-    RestaurantsStarted event,
+  void _fetchedRestaurantsStarted(
+    FetchedRestaurantsStarted event,
     Emitter<RestaurantsState> emit,
   ) async {
     emit(const RestaurantsLoading());
 
     try {
       final restaurant = await yelpRepository.getRestaurants();
-      emit(
-        RestaurantsLoaded(restaurant, howManyRestaurantsToFetch),
-      );
+      if (restaurant == null) {
+        emit(RestaurantsLoaded.empty);
+      } else {
+        emit(RestaurantsLoaded(restaurant, howManyRestaurantsToFetch));
+      }
     } catch (error) {
       emit(RestaurantsFetchError());
     }
   }
 
-  void _fetchMoreRestaurants(
+  void _fetchedMoreRestaurants(
     FetchedMoreRestaurants event,
     Emitter<RestaurantsState> emit,
   ) async {
@@ -48,7 +50,7 @@ class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
         emit(
           RestaurantsLoaded(
             [
-              if (state.restaurants != null) ...state.restaurants!,
+              ...state.restaurants,
               if (newRestaurants != null) ...newRestaurants,
             ],
             newOffSet,

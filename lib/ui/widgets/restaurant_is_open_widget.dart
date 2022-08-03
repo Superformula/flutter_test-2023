@@ -17,10 +17,10 @@ class RestaurantIsOpenWidget extends StatelessWidget {
     fontStyle: FontStyle.italic,
   );
 
-  static const _openTxt = 'Open now';
+  static const _openText = 'Open now';
   static final _openColor = Colors.lightGreenAccent.shade700;
 
-  static const _closedTxt = 'Closed';
+  static const _closedText = 'Closed';
   static const _closedColor = Colors.red;
 
   @override
@@ -28,7 +28,7 @@ class RestaurantIsOpenWidget extends StatelessWidget {
     return Row(
       children: [
         Text(
-          restaurant.isOpen ? _openTxt : _closedTxt,
+          restaurant.isOpen ? _openText : _closedText,
           style: openOrClosedTextStyle,
         ),
         Padding(

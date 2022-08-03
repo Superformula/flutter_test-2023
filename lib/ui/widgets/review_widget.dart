@@ -37,7 +37,7 @@ class ReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var reviewInformation = Column(
+    final reviewInformation = Column(
       children: [
         Padding(
           padding: EdgeInsets.only(bottom: padding / 2, top: padding / 2),
@@ -50,7 +50,7 @@ class ReviewWidget extends StatelessWidget {
       ],
     );
 
-    var userInformation = Padding(
+    final userInformation = Padding(
       padding: EdgeInsets.only(top: padding / 1.2, bottom: padding / 2),
       child: Row(
         children: [

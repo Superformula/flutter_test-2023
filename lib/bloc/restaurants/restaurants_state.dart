@@ -14,7 +14,10 @@ class RestaurantsLoaded extends RestaurantsState {
     this.offSet,
   );
 
-  final List<Restaurant>? restaurants;
+  static const empty = RestaurantsLoaded(<Restaurant>[], 0);
+
+
+  final List<Restaurant> restaurants;
   final int offSet;
 
   @override

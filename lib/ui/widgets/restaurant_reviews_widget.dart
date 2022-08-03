@@ -15,10 +15,12 @@ class RestaurantReviewsWidget extends StatelessWidget {
   final bool isLast;
   final double padding;
 
-  bool get hasReview => restaurant.reviews != null && restaurant.reviews!.isNotEmpty;
+  bool get hasReview =>
+      restaurant.reviews != null && restaurant.reviews!.isNotEmpty;
 
-  String get reviewsTitle =>
-      hasReview ? (restaurant.reviews!.length.toString() + ' ' + 'Reviews') : 'No Reviews';
+  String get reviewsTitle => hasReview
+      ? (restaurant.reviews!.length.toString() + ' ' + 'Reviews')
+      : 'No Reviews';
 
   @override
   Widget build(BuildContext context) {

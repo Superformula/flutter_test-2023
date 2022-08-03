@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurantour/bloc/restaurants/restaurants_bloc.dart';
-import 'package:restaurantour/models/restaurant.dart';
-import 'package:restaurantour/ui/widgets/restaurant_list_tile.dart';
-
-import '../../bloc/restaurants/restaurants_event.dart';
-import '../../bloc/restaurants/restaurants_state.dart';
 import '../widgets/all_restaurants_widget.dart';
 import '../widgets/my_favorite_restaurants_widget.dart';
-import 'restaurant_details_screen.dart';
 
 class RestauranTourHomeScreen extends StatelessWidget {
-  const RestauranTourHomeScreen({Key? key}) : super(key: key);
+  const RestauranTourHomeScreen({super.key});
 
   static const titleStyle = TextStyle(
     color: Colors.black,
     fontFamily: 'VelourRaw',
     fontWeight: FontWeight.w600,
   );
-
-  final bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +24,7 @@ class RestauranTourHomeScreen extends StatelessWidget {
       ],
     );
 
-    var appBar = AppBar(
+    final appBar = AppBar(
       backgroundColor: Colors.white,
       title: const Text('RestauranTour', style: titleStyle),
       bottom: const PreferredSize(
