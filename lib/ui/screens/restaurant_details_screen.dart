@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/ui/widgets/restaurant_price_and_category_widget.dart';
+import '../../bloc/my_favorites/my_favorites_bloc.dart';
+import '../../bloc/my_favorites/my_favorites_event.dart';
+import '../../bloc/my_favorites/my_favorites_state.dart';
 import '../../models/restaurant.dart';
 import '../widgets/rating_widget.dart';
 import '../widgets/restaurant_details_section_widget.dart';
@@ -7,13 +11,15 @@ import '../widgets/restaurant_is_open_widget.dart';
 import '../widgets/restaurant_reviews_widget.dart';
 
 class RestaurantDetailsScreen extends StatelessWidget {
-  const RestaurantDetailsScreen({required this.restaurant, Key? key}) : super(key: key);
+  const RestaurantDetailsScreen({required this.restaurant, Key? key})
+      : super(key: key);
 
   final Restaurant restaurant;
 
   final bool isLoading = false;
 
-  bool get hasReview => restaurant.reviews != null && restaurant.reviews!.isNotEmpty;
+  bool get hasReview =>
+      restaurant.reviews != null && restaurant.reviews!.isNotEmpty;
 
   static const titleStyle = TextStyle(
     color: Colors.black,
@@ -107,6 +113,30 @@ class RestaurantDetailsScreen extends StatelessWidget {
       padding: padding,
     );
 
+    var favoriteButton = BlocBuilder<MyFavoritesBloc, MyFavoritesState>(
+      builder: (context, state) {
+        var isFavorite = state is MyFavoritesLoaded &&
+            state.restaurants.any(
+              (Restaurant _restaurant) => _restaurant.id == restaurant.id,
+            );
+        if (isFavorite) {
+          return IconButton(
+            icon: const Icon(Icons.favorite),
+            onPressed: () => context
+                .read<MyFavoritesBloc>()
+                .add(RemoveRestaurantFromFavorites(restaurant)),
+          );
+        } else {
+          return IconButton(
+            icon: const Icon(Icons.favorite_border),
+            onPressed: () => context
+                .read<MyFavoritesBloc>()
+                .add(AddRestaurantToFavorites(restaurant)),
+          );
+        }
+      },
+    );
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -117,10 +147,7 @@ class RestaurantDetailsScreen extends StatelessWidget {
         ),
         title: Text(restaurant.name ?? '', style: titleStyle),
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.favorite_border),
-            onPressed: () => print('FAV button pressed'),
-          ),
+          favoriteButton,
         ],
       ),
       body: isLoading

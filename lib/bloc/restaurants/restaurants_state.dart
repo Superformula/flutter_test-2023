@@ -1,6 +1,4 @@
-import 'package:collection/collection.dart';
-
-import '../models/restaurant.dart';
+import '../../models/restaurant.dart';
 
 abstract class RestaurantsState {
   const RestaurantsState();

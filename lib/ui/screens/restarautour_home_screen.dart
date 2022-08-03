@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurantour/bloc/restaurants_bloc.dart';
+import 'package:restaurantour/bloc/restaurants/restaurants_bloc.dart';
+import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/ui/widgets/restaurant_list_tile.dart';
 
-import '../../bloc/restaurants_event.dart';
-import '../../bloc/restaurants_state.dart';
+import '../../bloc/restaurants/restaurants_event.dart';
+import '../../bloc/restaurants/restaurants_state.dart';
+import '../widgets/all_restaurants_widget.dart';
+import '../widgets/my_favorite_restaurants_widget.dart';
 import 'restaurant_details_screen.dart';
 
 class RestauranTourHomeScreen extends StatelessWidget {
@@ -20,86 +23,38 @@ class RestauranTourHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const tabBar = TabBar(
+      indicatorWeight: 2,
+      indicatorSize: TabBarIndicatorSize.label,
+      indicatorColor: Colors.black,
+      labelColor: Colors.black,
+      tabs: [
+        Tab(text: 'All Restaurants'),
+        Tab(text: 'My Favorites'),
+      ],
+    );
+
+    var appBar = AppBar(
+      backgroundColor: Colors.white,
+      title: const Text('RestauranTour', style: titleStyle),
+      bottom: const PreferredSize(
+        preferredSize: Size.fromHeight(55),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 60),
+          child: tabBar,
+        ),
+      ),
+    );
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: const Text('RestauranTour', style: titleStyle),
-          bottom: const PreferredSize(
-            preferredSize: Size.fromHeight(55),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 60),
-              child: TabBar(
-                indicatorWeight: 2,
-                indicatorSize: TabBarIndicatorSize.label,
-                indicatorColor: Colors.black,
-                labelColor: Colors.black,
-                tabs: [
-                  Tab(text: 'All Restaurants'),
-                  Tab(text: 'My Favorites'),
-                ],
-              ),
-            ),
-          ),
-        ),
-        // Listview with restaurant cards
-        body: BlocBuilder<RestaurantsBloc, RestaurantsState>(
-          builder: (context, state) {
-            if (state is RestaurantsLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            //
-            else if (state is RestaurantsLoaded) {
-              var restaurants = state.restaurants;
-
-              if (restaurants == null || restaurants.isEmpty) {
-                return const Center(child: Text('No restaurants found.'));
-              }
-
-              return ListView.builder(
-                itemCount: restaurants.length + 1,
-                itemBuilder: (context, index) {
-                  //
-                  var isTheLastElement = index >= restaurants.length;
-
-                  if (isTheLastElement) {
-                    var width = MediaQuery.of(context).size.width;
-
-                    if (state is RestaurantsLoadedAndFetchingMore) {
-                      return Padding(
-                        padding: EdgeInsets.all(width * 0.05),
-                        child: const Center(child: CircularProgressIndicator()),
-                      );
-                    } else {
-                      return MaterialButton(
-                        height: width * 0.2,
-                        child: const Text('View more'),
-                        onPressed: () => context
-                            .read<RestaurantsBloc>()
-                            .add(FetchedMoreRestaurants()),
-                      );
-                    }
-                  }
-
-                  var restaurant = restaurants[index];
-                  return RestaurantListTile(
-                    restaurant: restaurant,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RestaurantDetailsScreen(
-                          restaurant: restaurant,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
-            }
-            //
-            return const Center(child: Text('Something went wrong!'));
-          },
+        appBar: appBar,
+        body: const TabBarView(
+          children: [
+            AllRestaurantsWidget(),
+            MyFavoritesRestaurantsWidget(),
+          ],
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 
-import '../repositories/yelp_repository.dart';
+import '../../repositories/yelp_repository.dart';
 import 'restaurants_state.dart';
 import 'restaurants_event.dart';
 
@@ -10,6 +10,8 @@ class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
     on<RestaurantsStarted>(_onStarted);
     on<FetchedMoreRestaurants>(_fetchMoreRestaurants);
   }
+
+  static const howManyRestaurantsToFetch = 20;
 
   final YelpRepository yelpRepository;
 
@@ -22,9 +24,9 @@ class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
     try {
       final restaurant = await yelpRepository.getRestaurants();
       emit(
-        RestaurantsLoaded(restaurant, 20),
+        RestaurantsLoaded(restaurant, howManyRestaurantsToFetch),
       );
-    } catch (_) {
+    } catch (error) {
       emit(RestaurantsFetchError());
     }
   }
@@ -38,10 +40,8 @@ class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
     if (state is RestaurantsLoaded) {
       emit(RestaurantsLoadedAndFetchingMore(state.restaurants, state.offSet));
       try {
-        // Increment the offSet by 20.
-        var newOffSet = state.offSet + 20;
-
-        var newRestaurant = await yelpRepository.getRestaurants(
+        var newOffSet = state.offSet + howManyRestaurantsToFetch;
+        var newRestaurants = await yelpRepository.getRestaurants(
           offset: newOffSet,
         );
 
@@ -49,7 +49,7 @@ class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
           RestaurantsLoaded(
             [
               if (state.restaurants != null) ...state.restaurants!,
-              if (newRestaurant != null) ...newRestaurant,
+              if (newRestaurants != null) ...newRestaurants,
             ],
             newOffSet,
           ),
