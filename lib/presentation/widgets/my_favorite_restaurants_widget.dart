@@ -11,11 +11,11 @@ class MyFavoritesRestaurantsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FavoritesRestaurantsBloc, FavoritesRestaurantsState>(
-      builder: (context, state) {
+      builder: (_, state) {
         if (state.restaurants.isNotEmpty) {
           return ListView.builder(
             itemCount: state.restaurants.length,
-            itemBuilder: (context, index) => RestaurantListTile(
+            itemBuilder: (_, index) => RestaurantListTile(
               restaurant: state.restaurants[index],
             ),
           );

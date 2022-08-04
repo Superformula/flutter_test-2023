@@ -20,7 +20,7 @@ class AllRestaurantsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RestaurantsBloc, RestaurantsState>(
-      builder: (context, state) {
+      builder: (_, state) {
         if (state is RestaurantsLoadInProgress) {
           return circularProcessIndicator;
         } else if (state is RestaurantsLoadSuccess) {

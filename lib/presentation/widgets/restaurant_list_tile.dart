@@ -31,7 +31,7 @@ class RestaurantListTile extends StatelessWidget {
     final image = Padding(
       padding: const EdgeInsets.all(10),
       child: LayoutBuilder(
-        builder: (context, constraints) {
+        builder: (_, constraints) {
           return Hero(
             tag: restaurant.heroImage,
             child: Container(
@@ -47,7 +47,7 @@ class RestaurantListTile extends StatelessWidget {
                 placeholder: const AssetImage(
                   'assets/images/restaurant_placeholder.png',
                 ),
-                imageErrorBuilder: (context, error, stackTrace) =>
+                imageErrorBuilder: (_, __, ___) =>
                     Container(color: Colors.white),
               ),
             ),

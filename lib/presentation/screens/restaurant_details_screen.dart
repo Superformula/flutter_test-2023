@@ -35,23 +35,21 @@ class RestaurantDetailsScreen extends StatelessWidget {
         final width = MediaQuery.of(context).size.width;
         final padding = width * 0.072;
 
-        final image = LayoutBuilder(
-          builder: (context, constraints) => Hero(
-            tag: restaurant.heroImage,
-            child: Container(
-              width: width,
-              height: width,
-              decoration: const BoxDecoration(color: Colors.white),
-              child: FadeInImage(
-                image: NetworkImage(restaurant.heroImage),
-                fit: BoxFit.cover,
-                placeholder: const AssetImage(
-                  'assets/images/restaurant_placeholder.png',
-                ),
-                imageErrorBuilder: (context, error, stackTrace) {
-                  return Container(color: Colors.white);
-                },
+        final image = Hero(
+          tag: restaurant.heroImage,
+          child: Container(
+            width: width,
+            height: width,
+            decoration: const BoxDecoration(color: Colors.white),
+            child: FadeInImage(
+              image: NetworkImage(restaurant.heroImage),
+              fit: BoxFit.cover,
+              placeholder: const AssetImage(
+                'assets/images/restaurant_placeholder.png',
               ),
+              imageErrorBuilder: (_, __, ___) {
+                return Container(color: Colors.white);
+              },
             ),
           ),
         );
