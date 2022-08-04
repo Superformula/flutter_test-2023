@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 Matcher isNotSame<T>(T obj) => _IsNoSame(obj);
 
 class _IsNoSame<T> extends Matcher {

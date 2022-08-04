@@ -43,11 +43,16 @@ class RestaurantDetailsScreen extends StatelessWidget {
             child: Container(
               width: width,
               height: width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(restaurant.heroImage),
-                  fit: BoxFit.cover,
+              decoration: const BoxDecoration(color: Colors.white),
+              child: FadeInImage(
+                image: NetworkImage(restaurant.heroImage),
+                fit: BoxFit.cover,
+                placeholder: const AssetImage(
+                  'assets/images/restaurant_placeholder.png',
                 ),
+                imageErrorBuilder: (context, error, stackTrace) {
+                  return Container(color: Colors.white);
+                },
               ),
             ),
           ),

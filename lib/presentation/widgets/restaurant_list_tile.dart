@@ -12,8 +12,8 @@ import 'rating_widget.dart';
 class RestaurantListTile extends StatelessWidget {
   const RestaurantListTile({
     required this.restaurant,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Restaurant restaurant;
 
@@ -37,13 +37,18 @@ class RestaurantListTile extends StatelessWidget {
             child: Container(
               width: constraints.maxHeight,
               height: constraints.maxHeight,
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                image: DecorationImage(
-                  image: NetworkImage(restaurant.heroImage),
-                  fit: BoxFit.cover,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              child: FadeInImage(
+                image: NetworkImage(restaurant.heroImage),
+                fit: BoxFit.cover,
+                placeholder: const AssetImage(
+                  'assets/images/restaurant_placeholder.png',
                 ),
+                imageErrorBuilder: (context, error, stackTrace) =>
+                    Container(color: Colors.white),
               ),
             ),
           );

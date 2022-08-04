@@ -13,9 +13,9 @@ class AllRestaurantsWidget extends StatelessWidget {
     child: CircularProgressIndicator(),
   );
 
-  static const noRestaurantFound = Center(
-    child: Text('No restaurants found.'),
-  );
+  static const viewMoreButtonText = 'View more';
+  static const noRestaurantFoundText = 'No restaurants found.';
+  static const somethingWrongText = 'Something went wrong!';
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class AllRestaurantsWidget extends StatelessWidget {
           return circularProcessIndicator;
         } else if (state is RestaurantsLoaded) {
           if (state.restaurants.isEmpty) {
-            return noRestaurantFound;
+            return const Center(child: Text(noRestaurantFoundText));
           }
 
           return ListView.builder(
@@ -39,7 +39,7 @@ class AllRestaurantsWidget extends StatelessWidget {
 
                 final fetchMoreButton = MaterialButton(
                   height: width * 0.2,
-                  child: const Text('View more'),
+                  child: const Text(viewMoreButtonText),
                   onPressed: () => context
                       .read<RestaurantsBloc>()
                       .add(FetchedMoreRestaurants()),
@@ -57,15 +57,14 @@ class AllRestaurantsWidget extends StatelessWidget {
 
               return RestaurantListTile(
                 restaurant: state.restaurants[index],
-
+                key: Key(state.restaurants[index].id!),
               );
             },
           );
         }
         //
-        return const Center(child: Text('Something went wrong!'));
+        return const Center(child: Text(somethingWrongText));
       },
     );
   }
-
 }

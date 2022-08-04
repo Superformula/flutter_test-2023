@@ -10,25 +10,34 @@ class RestauranTourHomeScreen extends StatelessWidget {
     fontFamily: 'VelourRaw',
     fontWeight: FontWeight.w600,
   );
+  static const titleText = 'RestauranTour';
 
   static const routeName = '/';
+
+  static const tabBarAllRestaurantsText = 'All Restaurants';
+  static const tabBarMyFavoritesText = 'My Favorites';
+
+  static const appBarKey = Key('appBarKey');
+  static const tabBarKey = Key('tabBarKey');
 
   @override
   Widget build(BuildContext context) {
     const tabBar = TabBar(
+      key: tabBarKey,
       indicatorWeight: 2,
       indicatorSize: TabBarIndicatorSize.label,
       indicatorColor: Colors.black,
       labelColor: Colors.black,
       tabs: [
-        Tab(text: 'All Restaurants'),
-        Tab(text: 'My Favorites'),
+        Tab(text: tabBarAllRestaurantsText),
+        Tab(text: tabBarMyFavoritesText),
       ],
     );
 
     final appBar = AppBar(
+      key: appBarKey,
       backgroundColor: Colors.white,
-      title: const Text('RestauranTour', style: titleStyle),
+      title: const Text(titleText, style: titleStyle),
       bottom: const PreferredSize(
         preferredSize: Size.fromHeight(55),
         child: Padding(

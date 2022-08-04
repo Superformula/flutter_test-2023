@@ -28,6 +28,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/restaurant_placeholder.png
   fonts:
     - family: VelourRaw
       fonts:
