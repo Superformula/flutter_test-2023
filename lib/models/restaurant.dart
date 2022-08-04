@@ -1,5 +1,5 @@
-import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
+import "package:flutter/foundation.dart";
 
 part 'restaurant.g.dart';
 
@@ -17,6 +17,11 @@ class Category {
       _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
+
+  @override
+  String toString() {
+    return 'Category{alias: $alias, title: $title}';
+  }
 
   @override
   bool operator ==(Object other) =>
@@ -42,6 +47,9 @@ class Hours {
   factory Hours.fromJson(Map<String, dynamic> json) => _$HoursFromJson(json);
 
   Map<String, dynamic> toJson() => _$HoursToJson(this);
+
+  @override
+  String toString() => 'Hours{isOpenNow: $isOpenNow}';
 
   @override
   bool operator ==(Object other) =>
@@ -70,9 +78,21 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is User &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          imageUrl == other.imageUrl &&
+          name == other.name;
+
+  @override
+  int get hashCode => id.hashCode ^ imageUrl.hashCode ^ name.hashCode;
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Review {
   final String? id;
   final int? rating;
@@ -89,6 +109,11 @@ class Review {
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReviewToJson(this);
+
+  @override
+  String toString() {
+    return 'Review{id: $id, rating: $rating, text: $text, user: $user}';
+  }
 
   @override
   bool operator ==(Object other) =>
@@ -120,6 +145,11 @@ class Location {
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 
   @override
+  String toString() {
+    return 'Location{formattedAddress: $formattedAddress}';
+  }
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is Location &&
@@ -130,7 +160,7 @@ class Location {
   int get hashCode => formattedAddress.hashCode;
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Restaurant {
   final String? id;
   final String? name;
@@ -184,6 +214,43 @@ class Restaurant {
     return false;
   }
 
+  Restaurant copyWith({
+    String? id,
+    String? name,
+    String? price,
+    double? rating,
+    List<String>? photos,
+    List<Category>? categories,
+    List<Hours>? hours,
+    List<Review>? reviews,
+    Location? location,
+  }) {
+    return Restaurant(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      price: price ?? this.price,
+      rating: rating ?? this.rating,
+      photos: photos ?? this.photos,
+      categories: categories ?? this.categories,
+      hours: hours ?? this.hours,
+      reviews: reviews ?? this.reviews,
+      location: location ?? this.location,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Restaurant{id: $id,\n'
+        'name: $name,\n'
+        'price: $price,\n'
+        'rating: $rating,\n'
+        'photos: $photos,\n'
+        'categories: $categories,\n'
+        'hours: $hours,\n'
+        'reviews: $reviews,\n'
+        'location: $location}';
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -193,10 +260,10 @@ class Restaurant {
           name == other.name &&
           price == other.price &&
           rating == other.rating &&
-          const ListEquality().equals(photos, other.photos) &&
-          const ListEquality().equals(categories, other.categories) &&
-          const ListEquality().equals(hours, other.hours) &&
-          const ListEquality().equals(hours, other.reviews) &&
+          listEquals(photos, other.photos) &&
+          listEquals(categories, other.categories) &&
+          listEquals(hours, other.hours) &&
+          listEquals(reviews, other.reviews) &&
           location == other.location;
 
   @override
