@@ -8,8 +8,6 @@ class RestaurantIsOpenWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final Restaurant restaurant;
-
   static const openOrClosedTextStyle = TextStyle(
     color: Colors.black,
     fontSize: 12,
@@ -22,6 +20,8 @@ class RestaurantIsOpenWidget extends StatelessWidget {
 
   static const _closedText = 'Closed';
   static const _closedColor = Colors.red;
+
+  final Restaurant restaurant;
 
   @override
   Widget build(BuildContext context) {

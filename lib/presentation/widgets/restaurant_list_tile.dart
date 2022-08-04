@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurantour/bloc/selected_restaurant/selected_restaurant_bloc.dart';
 
-import '../../bloc/selected_restaurant/selected_restaurant_event.dart';
+import '../../business_logic/bloc/selected_restaurant/selected_restaurant_bloc.dart';
+import '../../business_logic/bloc/selected_restaurant/selected_restaurant_event.dart';
 import '../../models/restaurant.dart';
-import '../screens/restaurant_details_screen.dart';
+import '../router/app_router.dart';
 import 'restaurant_is_open_widget.dart';
 import 'restaurant_price_and_category_widget.dart';
 import 'rating_widget.dart';
@@ -15,8 +15,6 @@ class RestaurantListTile extends StatelessWidget {
     super.key,
   });
 
-  final Restaurant restaurant;
-
   static const restaurantNameStyle = TextStyle(
     color: Colors.black,
     fontFamily: 'Imperial Roman',
@@ -25,6 +23,8 @@ class RestaurantListTile extends StatelessWidget {
     wordSpacing: 1,
     height: 1.5,
   );
+
+  final Restaurant restaurant;
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +125,7 @@ class RestaurantListTile extends StatelessWidget {
     BuildContext context,
     Restaurant restaurant,
   ) {
-    context.read<SelectedRestaurantBloc>().add(SelectRestaurant(restaurant));
-    Navigator.pushNamed(context, RestaurantDetailsScreen.routeName);
+    context.read<SelectedRestaurantBloc>().add(SelectedRestaurant(restaurant));
+    Navigator.pushNamed(context, AppRouter.restaurantDetailsScreenRouteName);
   }
 }

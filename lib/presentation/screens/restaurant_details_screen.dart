@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/favorites_restaurants/favorites_restaurants_bloc.dart';
-import '../../bloc/favorites_restaurants/favorites_restaurants_event.dart';
-import '../../bloc/favorites_restaurants/favorites_restaurants_state.dart';
-import '../../bloc/selected_restaurant/selected_restaurant_bloc.dart';
-import '../../bloc/selected_restaurant/selected_restaurant_state.dart';
+import '../../business_logic/bloc/favorites_restaurants/favorites_restaurants_bloc.dart';
+import '../../business_logic/bloc/favorites_restaurants/favorites_restaurants_event.dart';
+import '../../business_logic/bloc/favorites_restaurants/favorites_restaurants_state.dart';
+import '../../business_logic/bloc/selected_restaurant/selected_restaurant_bloc.dart';
+import '../../business_logic/bloc/selected_restaurant/selected_restaurant_state.dart';
 import '../../models/restaurant.dart';
 import '../widgets/rating_widget.dart';
 import '../widgets/restaurant_details_section_widget.dart';
@@ -25,8 +25,6 @@ class RestaurantDetailsScreen extends StatelessWidget {
     color: Colors.black,
     fontWeight: FontWeight.w600,
   );
-
-  static const routeName = '/restaurantDetails';
 
   @override
   Widget build(BuildContext context) {
@@ -133,14 +131,14 @@ class RestaurantDetailsScreen extends StatelessWidget {
                 icon: const Icon(Icons.favorite),
                 onPressed: () => context
                     .read<FavoritesRestaurantsBloc>()
-                    .add(RemoveFavoriteRestaurant(restaurant)),
+                    .add(RemovedFavoriteRestaurant(restaurant)),
               );
             } else {
               return IconButton(
                 icon: const Icon(Icons.favorite_border),
                 onPressed: () => context
                     .read<FavoritesRestaurantsBloc>()
-                    .add(AddFavoriteRestaurant(restaurant)),
+                    .add(AddedFavoriteRestaurant(restaurant)),
               );
             }
           },

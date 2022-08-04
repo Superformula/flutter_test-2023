@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/restaurants/restaurants_bloc.dart';
-import '../../bloc/restaurants/restaurants_event.dart';
-import '../../bloc/restaurants/restaurants_state.dart';
+import '../../business_logic/bloc/restaurants/restaurants_bloc.dart';
+import '../../business_logic/bloc/restaurants/restaurants_event.dart';
+import '../../business_logic/bloc/restaurants/restaurants_state.dart';
 import '../../presentation/widgets/restaurant_list_tile.dart';
 
 class AllRestaurantsWidget extends StatelessWidget {
@@ -21,9 +21,9 @@ class AllRestaurantsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RestaurantsBloc, RestaurantsState>(
       builder: (context, state) {
-        if (state is RestaurantsLoading) {
+        if (state is RestaurantsLoadInProgress) {
           return circularProcessIndicator;
-        } else if (state is RestaurantsLoaded) {
+        } else if (state is RestaurantsLoadSuccess) {
           if (state.restaurants.isEmpty) {
             return const Center(child: Text(noRestaurantFoundText));
           }

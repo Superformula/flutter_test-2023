@@ -66,8 +66,9 @@ void main() {
       );
     }
 
-    testWidgets('All restaurant tab with (3) restaurants',
-        (WidgetTester tester) async {
+    testWidgets('All restaurant tab with (3) restaurants', (
+      WidgetTester tester,
+    ) async {
       //
       await tester.pumpWidget(
         Restaurantour(
@@ -98,9 +99,9 @@ void main() {
       );
     });
 
-    testWidgets('All restaurant tab without restaurants',
-        (WidgetTester tester) async {
-      //
+    testWidgets('All restaurant tab without restaurants', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         Restaurantour(yelpRepository: YelpRepositoryMock.noData()),
       );
@@ -114,9 +115,9 @@ void main() {
       expect(noRestaurantsFoundWidget, findsOneWidget);
     });
 
-    testWidgets('All restaurant tab with an error',
-        (WidgetTester tester) async {
-      //
+    testWidgets('All restaurant tab with an error', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         Restaurantour(yelpRepository: YelpRepositoryMock.error()),
       );

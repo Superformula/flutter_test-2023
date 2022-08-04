@@ -4,13 +4,18 @@ import '../screens/restarautour_home_screen.dart';
 import '../screens/restaurant_details_screen.dart';
 
 class AppRouter {
+  AppRouter._();
+
+  static const restauranTourHomeScreenRouteName = '/';
+  static const restaurantDetailsScreenRouteName = '/restaurantDetails';
+
   static Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case RestauranTourHomeScreen.routeName:
+      case restauranTourHomeScreenRouteName:
         return MaterialPageRoute(
           builder: (context) => const RestauranTourHomeScreen(),
         );
-      case RestaurantDetailsScreen.routeName:
+      case restaurantDetailsScreenRouteName:
         return MaterialPageRoute(
           builder: (context) => const RestaurantDetailsScreen(),
         );

@@ -1,21 +1,20 @@
-import '../../models/restaurant.dart';
+import '../../../models/restaurant.dart';
 
 abstract class RestaurantsState {
   const RestaurantsState();
 }
 
-class RestaurantsLoading extends RestaurantsState {
-  const RestaurantsLoading();
+class RestaurantsLoadInProgress extends RestaurantsState {
+  const RestaurantsLoadInProgress();
 }
 
-class RestaurantsLoaded extends RestaurantsState {
-  const RestaurantsLoaded(
+class RestaurantsLoadSuccess extends RestaurantsState {
+  const RestaurantsLoadSuccess(
     this.restaurants,
     this.offSet,
   );
 
-  static const empty = RestaurantsLoaded(<Restaurant>[], 0);
-
+  static const empty = RestaurantsLoadSuccess(<Restaurant>[], 0);
 
   final List<Restaurant> restaurants;
   final int offSet;
@@ -23,7 +22,7 @@ class RestaurantsLoaded extends RestaurantsState {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RestaurantsLoaded &&
+      other is RestaurantsLoadSuccess &&
           runtimeType == other.runtimeType &&
           restaurants == other.restaurants &&
           offSet == other.offSet;
@@ -31,22 +30,22 @@ class RestaurantsLoaded extends RestaurantsState {
   @override
   int get hashCode => restaurants.hashCode ^ offSet.hashCode;
 
-  RestaurantsLoaded copyWith({
+  RestaurantsLoadSuccess copyWith({
     List<Restaurant>? restaurants,
     int? offSet,
   }) {
-    return RestaurantsLoaded(
+    return RestaurantsLoadSuccess(
       restaurants ?? this.restaurants,
       offSet ?? this.offSet,
     );
   }
 }
 
-class RestaurantsLoadedAndFetchingMore extends RestaurantsLoaded {
+class RestaurantsLoadedAndFetchingMore extends RestaurantsLoadSuccess {
   const RestaurantsLoadedAndFetchingMore(
     super.restaurants,
     super.offSet,
   );
 }
 
-class RestaurantsFetchError extends RestaurantsState {}
+class RestaurantsFetchFailure extends RestaurantsState {}

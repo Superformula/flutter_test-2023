@@ -1,4 +1,4 @@
-import '../../models/restaurant.dart';
+import '../../../models/restaurant.dart';
 
 class SelectedRestaurantState {
   const SelectedRestaurantState([this.restaurant]);

@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
 
-import '../../repositories/yelp_repository.dart';
+import '../../../repositories/yelp_repository.dart';
 import 'restaurants_state.dart';
 import 'restaurants_event.dart';
 
 class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
   RestaurantsBloc({required this.yelpRepository})
-      : super(const RestaurantsLoading()) {
-    on<FetchedRestaurantsStarted>(_fetchedRestaurantsStarted);
+      : super(const RestaurantsLoadInProgress()) {
+    on<FetchedInitialRestaurants>(_fetchedRestaurantsStarted);
     on<FetchedMoreRestaurants>(_fetchedMoreRestaurants);
   }
 
@@ -16,20 +16,20 @@ class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
   final YelpRepository yelpRepository;
 
   void _fetchedRestaurantsStarted(
-    FetchedRestaurantsStarted event,
+    FetchedInitialRestaurants event,
     Emitter<RestaurantsState> emit,
   ) async {
-    emit(const RestaurantsLoading());
+    emit(const RestaurantsLoadInProgress());
 
     try {
       final restaurant = await yelpRepository.getRestaurants();
       if (restaurant == null) {
-        emit(RestaurantsLoaded.empty);
+        emit(RestaurantsLoadSuccess.empty);
       } else {
-        emit(RestaurantsLoaded(restaurant, howManyRestaurantsToFetch));
+        emit(RestaurantsLoadSuccess(restaurant, howManyRestaurantsToFetch));
       }
     } catch (error) {
-      emit(RestaurantsFetchError());
+      emit(RestaurantsFetchFailure());
     }
   }
 
@@ -39,7 +39,7 @@ class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
   ) async {
     var state = this.state;
 
-    if (state is RestaurantsLoaded) {
+    if (state is RestaurantsLoadSuccess) {
       emit(RestaurantsLoadedAndFetchingMore(state.restaurants, state.offSet));
       try {
         var newOffSet = state.offSet + howManyRestaurantsToFetch;
@@ -48,7 +48,7 @@ class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
         );
 
         emit(
-          RestaurantsLoaded(
+          RestaurantsLoadSuccess(
             [
               ...state.restaurants,
               if (newRestaurants != null) ...newRestaurants,
@@ -57,7 +57,7 @@ class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
           ),
         );
       } catch (_) {
-        emit(RestaurantsFetchError());
+        emit(RestaurantsFetchFailure());
       }
     }
   }

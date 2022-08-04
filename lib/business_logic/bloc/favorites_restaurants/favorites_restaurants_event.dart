@@ -1,17 +1,18 @@
-import '../../models/restaurant.dart';
+import '../../../models/restaurant.dart';
 
 abstract class FavoritesRestaurantsEvent {
   const FavoritesRestaurantsEvent();
 }
 
-class AddFavoriteRestaurant extends FavoritesRestaurantsEvent {
-  const AddFavoriteRestaurant(this.restaurant);
+class AddedFavoriteRestaurant extends FavoritesRestaurantsEvent {
+  const AddedFavoriteRestaurant(this.restaurant);
+
   final Restaurant restaurant;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AddFavoriteRestaurant &&
+      other is AddedFavoriteRestaurant &&
           runtimeType == other.runtimeType &&
           restaurant == other.restaurant;
 
@@ -19,14 +20,15 @@ class AddFavoriteRestaurant extends FavoritesRestaurantsEvent {
   int get hashCode => restaurant.hashCode;
 }
 
-class RemoveFavoriteRestaurant extends FavoritesRestaurantsEvent {
-  const RemoveFavoriteRestaurant(this.restaurant);
+class RemovedFavoriteRestaurant extends FavoritesRestaurantsEvent {
+  const RemovedFavoriteRestaurant(this.restaurant);
+
   final Restaurant restaurant;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RemoveFavoriteRestaurant &&
+      other is RemovedFavoriteRestaurant &&
           runtimeType == other.runtimeType &&
           restaurant == other.restaurant;
 

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/favorites_restaurants/favorites_restaurants_bloc.dart';
-import '../../bloc/favorites_restaurants/favorites_restaurants_state.dart';
+import '../../business_logic/bloc/favorites_restaurants/favorites_restaurants_bloc.dart';
+import '../../business_logic/bloc/favorites_restaurants/favorites_restaurants_state.dart';
 import 'restaurant_list_tile.dart';
 
 class MyFavoritesRestaurantsWidget extends StatelessWidget {
   const MyFavoritesRestaurantsWidget({Key? key}) : super(key: key);
-
-  final bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {

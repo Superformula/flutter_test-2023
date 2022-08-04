@@ -1,18 +1,18 @@
-import '../../models/restaurant.dart';
+import '../../../models/restaurant.dart';
 
 abstract class SelectedRestaurantEvent {
   const SelectedRestaurantEvent();
 }
 
-class SelectRestaurant extends SelectedRestaurantEvent {
-  const SelectRestaurant(this.restaurant);
+class SelectedRestaurant extends SelectedRestaurantEvent {
+  const SelectedRestaurant(this.restaurant);
 
   final Restaurant restaurant;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SelectRestaurant &&
+      other is SelectedRestaurant &&
           runtimeType == other.runtimeType &&
           restaurant == other.restaurant;
 

@@ -12,8 +12,6 @@ class RestauranTourHomeScreen extends StatelessWidget {
   );
   static const titleText = 'RestauranTour';
 
-  static const routeName = '/';
-
   static const tabBarAllRestaurantsText = 'All Restaurants';
   static const tabBarMyFavoritesText = 'My Favorites';
 

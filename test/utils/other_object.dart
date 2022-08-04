@@ -1,10 +1,10 @@
-import 'dart:math';
-
 import 'package:restaurantour/models/restaurant.dart';
 
 import 'test_utils.dart';
 
 class OtherObject {
+  OtherObject._();
+
   static T? withTheSameType<T extends Object>(T? obj) {
     if (obj == null) return throw ArgumentError('obj is $T and null');
     if (obj is bool) return !obj as T;

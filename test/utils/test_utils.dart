@@ -1,6 +1,8 @@
 import 'dart:math';
 
 class TestUtils {
+  TestUtils._();
+
   static String randomTxt([int length = 10]) => _getRandomString(length);
 
   static double randomDouble([double min = 0.0, double max = 1.0]) =>

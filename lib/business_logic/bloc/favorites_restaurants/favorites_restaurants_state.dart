@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import '../../models/restaurant.dart';
+import '../../../models/restaurant.dart';
 
 class FavoritesRestaurantsState {
   const FavoritesRestaurantsState(this.restaurants);
 
-  final List<Restaurant> restaurants;
-
   static const empty = FavoritesRestaurantsState([]);
+
+  final List<Restaurant> restaurants;
 
   String toJson() => json.encode(toMap());
 

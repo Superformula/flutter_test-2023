@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/favorites_restaurants/favorites_restaurants_bloc.dart';
-import 'bloc/restaurants/restaurants_bloc.dart';
-import 'bloc/restaurants/restaurants_event.dart';
-import 'bloc/selected_restaurant/selected_restaurant_bloc.dart';
+import 'business_logic/bloc/favorites_restaurants/favorites_restaurants_bloc.dart';
+import 'business_logic/bloc/restaurants/restaurants_bloc.dart';
+import 'business_logic/bloc/restaurants/restaurants_event.dart';
+import 'business_logic/bloc/selected_restaurant/selected_restaurant_bloc.dart';
 import 'presentation/router/app_router.dart';
 import 'repositories/yelp_repository.dart';
 
@@ -20,7 +20,7 @@ class Restaurantour extends StatelessWidget {
         BlocProvider<RestaurantsBloc>(
           create: (BuildContext context) => RestaurantsBloc(
             yelpRepository: yelpRepository,
-          )..add(FetchedRestaurantsStarted()),
+          )..add(FetchedInitialRestaurants()),
         ),
         BlocProvider<SelectedRestaurantBloc>(
           create: (BuildContext context) => SelectedRestaurantBloc(),

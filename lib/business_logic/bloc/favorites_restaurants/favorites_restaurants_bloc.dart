@@ -7,8 +7,8 @@ import 'favorites_restaurants_event.dart';
 class FavoritesRestaurantsBloc
     extends HydratedBloc<FavoritesRestaurantsEvent, FavoritesRestaurantsState> {
   FavoritesRestaurantsBloc() : super(FavoritesRestaurantsState.empty) {
-    on<AddFavoriteRestaurant>(_addFavoriteRestaurant);
-    on<RemoveFavoriteRestaurant>(_removeFavoriteRestaurant);
+    on<AddedFavoriteRestaurant>(_addFavoriteRestaurant);
+    on<RemovedFavoriteRestaurant>(_removeFavoriteRestaurant);
   }
 
   @override
@@ -20,14 +20,14 @@ class FavoritesRestaurantsBloc
       state.toMap();
 
   void _addFavoriteRestaurant(
-    AddFavoriteRestaurant event,
+    AddedFavoriteRestaurant event,
     Emitter<FavoritesRestaurantsState> emit,
   ) {
     emit(FavoritesRestaurantsState([...state.restaurants, event.restaurant]));
   }
 
   void _removeFavoriteRestaurant(
-    RemoveFavoriteRestaurant event,
+    RemovedFavoriteRestaurant event,
     Emitter<FavoritesRestaurantsState> emit,
   ) {
     var restaurants = List<Restaurant>.from(state.restaurants)

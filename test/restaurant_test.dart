@@ -1,40 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
+import 'utils/fixture.dart';
 import 'utils/other_object.dart';
 import 'utils/restaurantour_matchers.dart';
 
 void main() {
   group('Restaurant Class', () {
-    Restaurant restaurant = const Restaurant(
-      id: 'restaurant-id',
-      name: 'restaurant-name',
-      price: 'restaurant-price',
-      rating: 4.5,
-      categories: [
-        Category(
-          alias: 'category-alias',
-          title: 'category-title',
-        ),
-      ],
-      hours: [Hours(isOpenNow: true)],
-      photos: ['restaurant-photo'],
-      location: Location(
-        formattedAddress: 'restaurant-address',
-      ),
-      reviews: [
-        Review(
-          id: 'review-id',
-          text: 'review-text',
-          user: User(
-            id: 'user-id',
-            imageUrl: 'user-image-url',
-            name: 'user-name',
-          ),
-          rating: 5,
-        ),
-      ],
-    );
+    Restaurant restaurant = TestFixture().restaurant();
 
     test('Equals, hashCode and copyWithWith', () {
       dynamic other;
