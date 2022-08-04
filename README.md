@@ -61,7 +61,6 @@ Go to `Preferences > Languages & Frameworks > Flutter` and set the Flutter SDK p
     - Category
     - Rating (rounded to the nearest value)
     - Open/Closed
-    - Pagination via `Load More` button
 
 #### Restaurant Detail View
 
@@ -88,15 +87,14 @@ Go to `Preferences > Languages & Frameworks > Flutter` and set the Flutter SDK p
 
 To demonstrate your experience writing different types of tests in Flutter please do the following:
 
-- Choose ONE class and write a unit test.
+- Choose ONE portion of your state management and write a unit test.
 - Choose ONE widget and write a widget test.
 
 Feel free to add more tests as you see fit but the above is the minimum requirement.
 
 ## Design
 
-- See this [Figma File](https://www.figma.com/file/UOQDbU02GG2yaJMfrO9q9d/Flutter-Test?node-id=0%3A1) for design specifics like
-  fonts, themes, colors, etc.
+- See this [Figma File](https://www.figma.com/file/KsEhQUp66m9yeVkvQ0hSZm/Flutter-Test?node-id=0%3A1) for design information related to the overall look and feel of the application. We do not expect pixel-perfection but would like the application to visually be close to what is specified in the Figma file.
 
 ![List View](screenshots/listview.png)
 ![Detail View](screenshots/detailview.png)
@@ -116,7 +114,7 @@ The [Yelp GraphQL API](https://www.yelp.com/developers/graphql/guides/intro) is 
 
 ### State Management
 
-Please restrict your usage of state or dependency injection to the following options:
+Please restrict your usage of state management or dependency injection to the following options:
 
 1. [provider](https://pub.dev/packages/provider)
 2. [Riverpod](https://pub.dev/packages/riverpod)
@@ -150,14 +148,6 @@ We're interested in your method and how you approach the problem just as much as
 ### Solid testing approach
 
 While the purpose of this challenge is not to gauge whether you can achieve 100% test coverage, we do seek to evaluate whether you know how & what to test.
-
-## Bonus Requirements
-
-If you are feeling up to it and want to add some more functionality to the application try some of these bonus items
-
-- Implement persistence storage for favorite restaurants
-- Implement the _Bonus Detail Screen_
-- Implement a basic CI job that runs your tests and builds the app
 
 ## Q&A
 
