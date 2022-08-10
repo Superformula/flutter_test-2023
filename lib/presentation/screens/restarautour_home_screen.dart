@@ -24,6 +24,7 @@ class RestauranTourHomeScreen extends StatelessWidget {
       key: tabBarKey,
       indicatorWeight: 2,
       indicatorSize: TabBarIndicatorSize.label,
+      labelPadding: EdgeInsets.all(1),
       indicatorColor: Colors.black,
       labelColor: Colors.black,
       tabs: [
