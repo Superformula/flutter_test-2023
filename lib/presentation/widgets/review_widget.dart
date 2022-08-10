@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../models/restaurant.dart';
 import '../../presentation/widgets/rating_widget.dart';
-import 'divider_widget.dart';
 
 class ReviewWidget extends StatelessWidget {
   const ReviewWidget(
@@ -72,7 +71,7 @@ class ReviewWidget extends StatelessWidget {
       children: [
         reviewInformation,
         if (hasUser) userInformation,
-        if (!isLast) const DividerWidget(),
+        if (!isLast) const Divider(height: 2),
       ],
     );
   }

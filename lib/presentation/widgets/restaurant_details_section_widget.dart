@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'divider_widget.dart';
-
 class RestaurantDetailsSectionWidget extends StatelessWidget {
   //
   const RestaurantDetailsSectionWidget(
@@ -25,7 +23,7 @@ class RestaurantDetailsSectionWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: padding),
             child: widget,
           ),
-          if (!isLast) const DividerWidget(),
+          if (!isLast) const Divider(height: 2),
         ],
       ),
     );

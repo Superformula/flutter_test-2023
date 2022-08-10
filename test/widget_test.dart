@@ -32,7 +32,10 @@ void main() {
           .having((text) => text.fontWeight, 'fontWeight', FontWeight.w600);
 
       final appBarTitleMatcher = isA<Text>().having(
-          (text) => text.data, 'data', RestauranTourHomeScreen.titleText);
+        (text) => text.data,
+        'data',
+        RestauranTourHomeScreen.titleText,
+      );
 
       expect(
         appBar.title,
@@ -55,14 +58,20 @@ void main() {
 
       expect(
         tabBar.tabs.first,
-        isA<Tab>().having((tab) => tab.text, 'text',
-            RestauranTourHomeScreen.tabBarAllRestaurantsText),
+        isA<Tab>().having(
+          (tab) => tab.text,
+          'text',
+          RestauranTourHomeScreen.tabBarAllRestaurantsText,
+        ),
       );
 
       expect(
         tabBar.tabs.last,
-        isA<Tab>().having((tab) => tab.text, 'text',
-            RestauranTourHomeScreen.tabBarMyFavoritesText),
+        isA<Tab>().having(
+          (tab) => tab.text,
+          'text',
+          RestauranTourHomeScreen.tabBarMyFavoritesText,
+        ),
       );
     }
 
