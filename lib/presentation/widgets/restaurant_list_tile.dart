@@ -34,14 +34,11 @@ class RestaurantListTile extends StatelessWidget {
         builder: (_, constraints) {
           return Hero(
             tag: restaurant.heroImage,
-            child: Container(
-              width: constraints.maxHeight,
-              height: constraints.maxHeight,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               child: FadeInImage(
+                width: constraints.maxHeight,
+                height: constraints.maxHeight,
                 image: NetworkImage(restaurant.heroImage),
                 fit: BoxFit.cover,
                 placeholder: const AssetImage(
