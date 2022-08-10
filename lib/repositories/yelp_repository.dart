@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import '../models/restaurant.dart';
 import 'yelp_data_provider.dart';
 
 class YelpRepository {

@@ -32,9 +32,10 @@ class OtherObject {
       return <Review>[
         Review(
           user: User(
-              id: TestUtils.randomTxt(),
-              imageUrl: TestUtils.randomTxt(),
-              name: TestUtils.randomTxt()),
+            id: TestUtils.randomTxt(),
+            imageUrl: TestUtils.randomTxt(),
+            name: TestUtils.randomTxt(),
+          ),
           text: TestUtils.randomTxt(),
           id: TestUtils.randomTxt(),
           rating: TestUtils.randomInt(0, 5),

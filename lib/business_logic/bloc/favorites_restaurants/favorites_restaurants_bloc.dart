@@ -1,6 +1,6 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:restaurantour/models/restaurant.dart';
 
+import '../../../models/restaurant.dart';
 import 'favorites_restaurants_state.dart';
 import 'favorites_restaurants_event.dart';
 
