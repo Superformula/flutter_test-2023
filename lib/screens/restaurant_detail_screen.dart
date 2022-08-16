@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:superformula_flutter_test/blocs/restaurant_list/restaurant_list_bloc.dart';
 import 'package:superformula_flutter_test/widgets/restaurant_attributes.dart';
 import 'package:superformula_flutter_test/widgets/restaurant_status_widget.dart';
 
@@ -8,10 +10,13 @@ import '../widgets/user_reviews_list.dart';
 class RestaurantDetailScreen extends StatelessWidget {
   static const String id = 'restaurant_detail_screen';
   final Restaurant restaurant;
-  const RestaurantDetailScreen({Key? key, required this.restaurant}) : super(key: key);
+  final int heroTag;
+  const RestaurantDetailScreen({Key? key, required this.restaurant, required this.heroTag}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final RestaurantListBloc restaurantListBloc = BlocProvider.of<RestaurantListBloc>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -19,9 +24,9 @@ class RestaurantDetailScreen extends StatelessWidget {
         title: Text(restaurant.name ?? "N/A", style: TextStyle(color: Colors.black)),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => restaurantListBloc.add(ToggleFavoriteRestaurant(restaurant)),
             color: Colors.black,
-            icon: Icon(Icons.favorite_outline),
+            icon: Icon(context.watch<RestaurantListBloc>().favoriteRestaurants.contains(restaurant) ? Icons.favorite : Icons.favorite_outline),
           ),
         ],
       ),
@@ -31,7 +36,7 @@ class RestaurantDetailScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Hero(
-              tag: restaurant.id.toString(),
+              tag: heroTag,
               child: Image.network(
                 restaurant.photos?[0] ?? "",
                 height: 350,

@@ -7,3 +7,8 @@ class FetchRestaurants extends RestaurantListEvent {
   final int offset;
   FetchRestaurants(this.offset);
 }
+
+class ToggleFavoriteRestaurant extends RestaurantListEvent {
+  final Restaurant restaurant;
+  ToggleFavoriteRestaurant(this.restaurant);
+}

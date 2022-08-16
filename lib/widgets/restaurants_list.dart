@@ -11,19 +11,11 @@ class RestaurantsList extends StatefulWidget {
   State<RestaurantsList> createState() => _RestaurantsListState();
 }
 
-class _RestaurantsListState extends State<RestaurantsList> {
-  final RestaurantListBloc _restaurantListBloc = RestaurantListBloc();
-
-  @override
-  void initState() {
-    super.initState();
-    _restaurantListBloc.add(FetchRestaurants(0));
-  }
-
+class _RestaurantsListState extends State<RestaurantsList> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<RestaurantListBloc, RestaurantListState>(
-      bloc: _restaurantListBloc,
       builder: (context, state) {
         if (state is RestaurantListLoaded) {
           return ListView.builder(
@@ -39,4 +31,7 @@ class _RestaurantsListState extends State<RestaurantsList> {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/favorite_restaurants_list.dart';
 import '../widgets/restaurants_list.dart';
 
 class RestaurantListScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
         body: TabBarView(
           children: [
             RestaurantsList(),
-            RestaurantsList(),
+            FavoriteRestaurantsList(),
           ],
         ),
       ),
