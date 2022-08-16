@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:superformula_flutter_test/blocs/restaurant_list/restaurant_list_bloc.dart';
+import 'package:superformula_flutter_test/blocs/restaurants/restaurants_bloc.dart';
 import 'package:superformula_flutter_test/models/restaurant.dart';
 
 import 'utils/mock_network_provider.dart';
@@ -21,21 +21,21 @@ void main() {
 
     final RestaurantResult mockRestaurantResult = RestaurantResult(total: 3, restaurants: mockRestaurants);
 
-    test('emits states in the order [RestaurantListInitial, RestaurantListLoading, RestaurantListLoaded]', () {
+    test('emits states in the order [RestaurantsInitial, RestaurantsLoading, RestaurantsLoaded]', () {
       when(() => mockNetworkProvider.fetchRestaurants()).thenAnswer((_) async => mockRestaurantResult);
 
-      final RestaurantListBloc restaurantListBloc = RestaurantListBloc(mockNetworkProvider);
+      final RestaurantsBloc restaurantsBloc = RestaurantsBloc(mockNetworkProvider);
 
-      expect(restaurantListBloc.state, isA<RestaurantListInitial>());
+      expect(restaurantsBloc.state, isA<RestaurantsInitial>());
 
-      restaurantListBloc.add(FetchRestaurants(0));
+      restaurantsBloc.add(FetchRestaurants(0));
 
       expectLater(
-        restaurantListBloc.stream,
+        restaurantsBloc.stream,
         emitsInOrder(
           [
-            isA<RestaurantListLoading>(),
-            isA<RestaurantListLoaded>(),
+            isA<RestaurantsLoading>(),
+            isA<RestaurantsLoaded>(),
           ],
         ),
       );
@@ -44,18 +44,18 @@ void main() {
     test('emits failed state when fetchRestaurants fails', () {
       when(() => mockNetworkProvider.fetchRestaurants()).thenThrow(Exception());
 
-      final RestaurantListBloc restaurantListBloc = RestaurantListBloc(mockNetworkProvider);
+      final RestaurantsBloc restaurantsBloc = RestaurantsBloc(mockNetworkProvider);
 
-      expect(restaurantListBloc.state, isA<RestaurantListInitial>());
+      expect(restaurantsBloc.state, isA<RestaurantsInitial>());
 
-      restaurantListBloc.add(FetchRestaurants(0));
+      restaurantsBloc.add(FetchRestaurants(0));
 
       expectLater(
-        restaurantListBloc.stream,
+        restaurantsBloc.stream,
         emitsInOrder(
           [
-            isA<RestaurantListLoading>(),
-            isA<RestaurantListError>(),
+            isA<RestaurantsLoading>(),
+            isA<RestaurantsError>(),
           ],
         ),
       );

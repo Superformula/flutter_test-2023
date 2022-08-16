@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:superformula_flutter_test/models/restaurant.dart';
 import 'package:superformula_flutter_test/widgets/general/stars_widget.dart';
-
-import '../models/restaurant.dart';
 
 class UserReviewTile extends StatelessWidget {
   final Review? review;

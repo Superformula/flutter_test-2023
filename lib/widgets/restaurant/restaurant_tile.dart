@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:superformula_flutter_test/widgets/restaurant_attributes.dart';
-
-import '../models/restaurant.dart';
-import '../screens/restaurant_detail_screen.dart';
-import 'restaurant_status_widget.dart';
-import 'stars_widget.dart';
+import 'package:superformula_flutter_test/models/restaurant.dart';
+import 'package:superformula_flutter_test/models/restaurant_status.dart';
+import 'package:superformula_flutter_test/screens/restaurant_detail_screen.dart';
+import 'package:superformula_flutter_test/widgets/general/stars_widget.dart';
+import 'package:superformula_flutter_test/widgets/restaurant/restaurant_attributes.dart';
+import 'package:superformula_flutter_test/widgets/restaurant/restaurant_status_widget.dart';
 
 class RestaurantTile extends StatefulWidget {
   final Restaurant restaurant;

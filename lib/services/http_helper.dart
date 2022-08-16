@@ -11,9 +11,7 @@ class HttpHelper {
     dio = Dio(BaseOptions(baseUrl: baseUrl, headers: headers));
   }
 
-  Future<Response> post(String endpoint, [FormData? data]) async => dio.post(endpoint, data: data);
-
-  Future<Response> rawPost(String endpoint, [dynamic data]) async => dio.post(endpoint, data: data);
+  Future<Response> post(String endpoint, [dynamic data]) async => dio.post(endpoint, data: data);
 
   Future<Response> get(String endpoint) async => dio.get(endpoint);
 }

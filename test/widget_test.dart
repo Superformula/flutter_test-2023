@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:superformula_flutter_test/blocs/restaurant_list/restaurant_list_bloc.dart';
+import 'package:superformula_flutter_test/blocs/restaurants/restaurants_bloc.dart';
 import 'package:superformula_flutter_test/models/restaurant.dart';
 import 'package:superformula_flutter_test/superformula_app.dart';
-import 'package:superformula_flutter_test/widgets/no_data_found_widget.dart';
+import 'package:superformula_flutter_test/widgets/general/no_data_found_widget.dart';
 import 'utils/mock_network_provider.dart';
 
 void main() {
@@ -19,11 +19,11 @@ void main() {
 
     when(() => mockNetworkProvider.fetchRestaurants()).thenAnswer((_) async => mockRestaurantResult);
 
-    final RestaurantListBloc restaurantListBloc = RestaurantListBloc(mockNetworkProvider);
+    final RestaurantsBloc restaurantsBloc = RestaurantsBloc(mockNetworkProvider);
 
-    await tester.pumpWidget(SuperformulaApp(restaurantListBloc: restaurantListBloc));
+    await tester.pumpWidget(SuperformulaApp(restaurantsBloc: restaurantsBloc));
 
-    restaurantListBloc.add(FetchRestaurants(0));
+    restaurantsBloc.add(FetchRestaurants(0));
 
     await tester.pumpAndSettle();
 
@@ -38,11 +38,11 @@ void main() {
       return mockRestaurantResult;
     });
 
-    final RestaurantListBloc restaurantListBloc = RestaurantListBloc(mockNetworkProvider);
+    final RestaurantsBloc restaurantsBloc = RestaurantsBloc(mockNetworkProvider);
 
-    await tester.pumpWidget(SuperformulaApp(restaurantListBloc: restaurantListBloc));
+    await tester.pumpWidget(SuperformulaApp(restaurantsBloc: restaurantsBloc));
 
-    restaurantListBloc.add(FetchRestaurants(0));
+    restaurantsBloc.add(FetchRestaurants(0));
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
 

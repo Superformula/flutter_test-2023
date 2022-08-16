@@ -1,30 +1,29 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:superformula_flutter_test/models/restaurant.dart';
 import 'package:superformula_flutter_test/services/network_provider.dart';
 
-import '../../models/restaurant.dart';
+part 'restaurants_event.dart';
+part 'restaurants_state.dart';
 
-part 'restaurant_list_event.dart';
-part 'restaurant_list_state.dart';
-
-class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> {
+class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
   final List<Restaurant> allRestaurants = [];
   final List<Restaurant> favoriteRestaurants = [];
 
-  RestaurantListBloc(NetworkProvider networkProvider) : super(RestaurantListInitial()) {
+  RestaurantsBloc(NetworkProvider networkProvider) : super(RestaurantsInitial()) {
     on<FetchRestaurants>((event, emit) async {
       if (event.offset == 0) {
-        emit(RestaurantListLoading());
+        emit(RestaurantsLoading());
       }
       try {
         final RestaurantResult restaurantResult = await networkProvider.fetchRestaurants(offset: event.offset);
         allRestaurants.addAll(restaurantResult.restaurants);
         restaurantResult.restaurants.clear();
         restaurantResult.restaurants.addAll(allRestaurants);
-        emit(RestaurantListLoaded(restaurantResult));
+        emit(RestaurantsLoaded(restaurantResult));
       } catch (e) {
         print(e);
-        emit(RestaurantListError());
+        emit(RestaurantsError());
       }
     });
     on<ToggleFavoriteRestaurant>((event, emit) {

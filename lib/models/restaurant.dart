@@ -1,4 +1,4 @@
-import 'package:superformula_flutter_test/widgets/restaurant_status_widget.dart';
+import 'package:superformula_flutter_test/models/restaurant_status.dart';
 
 class RestaurantResult {
   late int total;
