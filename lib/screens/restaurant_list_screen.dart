@@ -18,8 +18,15 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("RestauranTour"),
+          backgroundColor: Colors.white,
+          title: Text(
+            "RestauranTour",
+            style: TextStyle(color: Colors.black),
+          ),
           bottom: TabBar(
+            labelColor: Colors.black,
+            indicatorColor: Colors.black,
+            isScrollable: true,
             tabs: [
               Tab(text: "All Restaurants"),
               Tab(text: "My Favorites"),

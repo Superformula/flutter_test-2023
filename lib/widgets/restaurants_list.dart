@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:superformula_flutter_test/screens/restaurant_detail_screen.dart';
 import 'package:superformula_flutter_test/widgets/custom_error_widget.dart';
 
 import '../blocs/restaurant_list/restaurant_list_bloc.dart';
@@ -30,23 +29,13 @@ class _RestaurantsListState extends State<RestaurantsList> {
           return ListView.builder(
             itemCount: state.restaurantResult.restaurants.length,
             padding: EdgeInsets.all(12),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RestaurantDetailScreen(restaurant: state.restaurantResult.restaurants[index]),
-                  ),
-                ),
-                child: RestaurantTile(restaurant: state.restaurantResult.restaurants[index]),
-              );
-            },
+            itemBuilder: (context, index) => RestaurantTile(restaurant: state.restaurantResult.restaurants[index]),
           );
         }
         if (state is RestaurantListError) {
           return CustomErrorWidget();
         }
-        return Center(child: CircularProgressIndicator());
+        return Center(child: CircularProgressIndicator(color: Colors.black));
       },
     );
   }

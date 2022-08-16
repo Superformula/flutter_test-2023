@@ -14,10 +14,13 @@ class RestaurantDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(restaurant.name ?? "N/A"),
+        backgroundColor: Colors.white,
+        leading: BackButton(color: Colors.black),
+        title: Text(restaurant.name ?? "N/A", style: TextStyle(color: Colors.black)),
         actions: [
           IconButton(
             onPressed: () {},
+            color: Colors.black,
             icon: Icon(Icons.favorite_outline),
           ),
         ],

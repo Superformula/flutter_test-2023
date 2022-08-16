@@ -9,7 +9,7 @@ class StarsWidget extends StatelessWidget {
     return Row(
       children: List.generate(
         starCount,
-        (index) => Icon(Icons.star, size: 20, color: Colors.yellow[700]),
+        (index) => Icon(Icons.star, size: 14, color: Colors.yellow[700]),
       ),
     );
   }
