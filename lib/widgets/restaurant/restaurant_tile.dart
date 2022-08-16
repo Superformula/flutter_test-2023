@@ -41,7 +41,7 @@ class _RestaurantTileState extends State<RestaurantTile> {
                   ),
                 ),
               ),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               Flexible(
                 flex: 3,
                 child: Column(
@@ -50,11 +50,11 @@ class _RestaurantTileState extends State<RestaurantTile> {
                   children: [
                     Text(
                       widget.restaurant.name ?? "N/A",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     RestaurantAttributes(restaurant: widget.restaurant),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

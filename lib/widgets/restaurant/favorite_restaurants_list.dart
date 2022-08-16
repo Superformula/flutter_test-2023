@@ -17,11 +17,11 @@ class FavoriteRestaurantsList extends StatelessWidget {
         if (favoriteRestaurants.isNotEmpty) {
           return ListView.builder(
             itemCount: favoriteRestaurants.length,
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             itemBuilder: (context, index) => RestaurantTile(restaurant: favoriteRestaurants[index]),
           );
         }
-        return NoDataFoundWidget();
+        return const NoDataFoundWidget();
       },
     );
   }

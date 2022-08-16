@@ -12,8 +12,8 @@ class RestaurantDetailAppBar extends StatelessWidget implements PreferredSizeWid
     final RestaurantsBloc restaurantsBloc = BlocProvider.of<RestaurantsBloc>(context, listen: false);
     return AppBar(
       backgroundColor: Colors.white,
-      leading: BackButton(color: Colors.black),
-      title: Text(restaurant.name ?? "N/A", style: TextStyle(color: Colors.black)),
+      leading: const BackButton(color: Colors.black),
+      title: Text(restaurant.name ?? "N/A", style: const TextStyle(color: Colors.black)),
       actions: [
         IconButton(
           onPressed: () => restaurantsBloc.add(ToggleFavoriteRestaurant(restaurant)),
@@ -25,5 +25,5 @@ class RestaurantDetailAppBar extends StatelessWidget implements PreferredSizeWid
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

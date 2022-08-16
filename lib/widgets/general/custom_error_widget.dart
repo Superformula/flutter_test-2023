@@ -5,6 +5,6 @@ class CustomErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Oops, something went wrong.."));
+    return const Center(child: Text("Oops, something went wrong.."));
   }
 }

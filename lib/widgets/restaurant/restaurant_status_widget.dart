@@ -9,8 +9,8 @@ class RestaurantStatusWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(status.toString(), style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12)),
-        SizedBox(width: 4),
+        Text(status.toString(), style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 12)),
+        const SizedBox(width: 4),
         Icon(Icons.fiber_manual_record, size: 12, color: status == RestaurantStatus.open ? Colors.green[400] : Colors.red[300]),
       ],
     );

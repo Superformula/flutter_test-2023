@@ -19,7 +19,7 @@ class SuperformulaApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: const RestaurantListScreen(),
         routes: {
-          RestaurantListScreen.id: (context) => RestaurantListScreen(),
+          RestaurantListScreen.id: (context) => const RestaurantListScreen(),
           RestaurantDetailScreen.id: (context) => RestaurantDetailScreen(restaurant: Restaurant.empty(), heroTag: 0),
         },
       ),

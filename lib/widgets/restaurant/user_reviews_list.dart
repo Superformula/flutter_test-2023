@@ -12,13 +12,13 @@ class UserReviewsList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("${restaurant.reviews?.length ?? 0} Reviews"),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         ListView.separated(
           itemCount: restaurant.reviews?.length ?? 0,
           primary: false,
           shrinkWrap: true,
           itemBuilder: (context, index) => UserReviewTile(review: restaurant.reviews?[index]),
-          separatorBuilder: (context, index) => Divider(height: 42),
+          separatorBuilder: (context, index) => const Divider(height: 42),
         ),
       ],
     );

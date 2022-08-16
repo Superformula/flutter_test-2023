@@ -14,7 +14,7 @@ class UserReviewTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         StarsWidget(starCount: review?.rating?.round() ?? 0),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         if (review?.text != null)
           Padding(
             padding: const EdgeInsets.only(bottom: 12.0),

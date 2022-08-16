@@ -11,7 +11,7 @@ class RestaurantListScreen extends StatefulWidget {
 }
 
 class _RestaurantListScreenState extends State<RestaurantListScreen> {
-  final List<Tab> tabs = [Tab(text: "All Restaurants"), Tab(text: "My Favorites")];
+  final List<Tab> tabs = [const Tab(text: "All Restaurants"), const Tab(text: "My Favorites")];
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Text(
+          title: const Text(
             "RestauranTour",
             style: TextStyle(color: Colors.black),
           ),
@@ -32,7 +32,7 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
             tabs: tabs,
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             RestaurantsList(),
             FavoriteRestaurantsList(),

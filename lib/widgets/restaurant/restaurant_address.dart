@@ -10,11 +10,11 @@ class RestaurantAddress extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Address"),
-        SizedBox(height: 12),
+        const Text("Address"),
+        const SizedBox(height: 12),
         Text(
           restaurant.location?.formattedAddress ?? "N/A",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ],
     );

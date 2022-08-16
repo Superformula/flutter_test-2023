@@ -34,7 +34,7 @@ void main() {
     final RestaurantResult mockRestaurantResult = RestaurantResult(total: 0, restaurants: []);
 
     when(() => mockNetworkProvider.fetchRestaurants()).thenAnswer((_) async {
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
       return mockRestaurantResult;
     });
 
