@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:superformula_flutter_test/widgets/restaurant_attributes.dart';
 
 import 'restaurant_status_widget.dart';
 import 'stars_widget.dart';
@@ -26,10 +27,7 @@ class RestaurantTile extends StatelessWidget {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 8),
-                  Text(
-                    "\$\$\$\$ Italian",
-                    style: TextStyle(),
-                  ),
+                  RestaurantAttributes(),
                   SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

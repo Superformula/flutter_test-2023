@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:superformula_flutter_test/screens/restaurant_detail_screen.dart';
 
+import '../models/restaurant.dart';
 import 'restaurant_tile.dart';
 
 class AllRestaurantsList extends StatelessWidget {
@@ -10,7 +12,17 @@ class AllRestaurantsList extends StatelessWidget {
     return ListView.builder(
       itemCount: 12,
       padding: EdgeInsets.all(12),
-      itemBuilder: (context, index) => RestaurantTile(),
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RestaurantDetailScreen(restaurant: Restaurant()),
+            ),
+          ),
+          child: RestaurantTile(),
+        );
+      },
     );
   }
 }
