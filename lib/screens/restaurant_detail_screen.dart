@@ -7,14 +7,14 @@ import '../widgets/user_reviews_list.dart';
 
 class RestaurantDetailScreen extends StatelessWidget {
   static const String id = 'restaurant_detail_screen';
-  final Restaurant? restaurant;
-  const RestaurantDetailScreen({Key? key, this.restaurant}) : super(key: key);
+  final Restaurant restaurant;
+  const RestaurantDetailScreen({Key? key, required this.restaurant}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(restaurant?.name ?? "N/A"),
+        title: Text(restaurant.name ?? "N/A"),
         actions: [
           IconButton(
             onPressed: () {},
@@ -25,8 +25,16 @@ class RestaurantDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(height: 200, color: Colors.blueGrey),
+            Hero(
+              tag: restaurant.id.toString(),
+              child: Image.network(
+                restaurant.photos?[0] ?? "",
+                height: 350,
+                fit: BoxFit.cover,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Column(
@@ -36,15 +44,15 @@ class RestaurantDetailScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RestaurantAttributes(),
-                      RestaurantStatusWidget(status: RestaurantStatus.open),
+                      RestaurantAttributes(restaurant: restaurant),
+                      RestaurantStatusWidget(status: restaurant.hours?[0].restaurantStatus ?? RestaurantStatus.closed),
                     ],
                   ),
                   Divider(height: 42),
                   Text("Address"),
                   SizedBox(height: 12),
                   Text(
-                    "102 Lakeside Ave \nSeattle, WA 98122",
+                    restaurant.location?.formattedAddress ?? "N/A",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   Divider(height: 42),
@@ -56,16 +64,16 @@ class RestaurantDetailScreen extends StatelessWidget {
                     textBaseline: TextBaseline.alphabetic,
                     children: [
                       Text(
-                        "4.6",
+                        (restaurant.rating ?? "N/A").toString(),
                         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                       ),
-                      Icon(Icons.star, size: 14, color: Colors.yellow[700]),
+                      if (restaurant.rating != null) Icon(Icons.star, size: 14, color: Colors.yellow[700]),
                     ],
                   ),
                   Divider(height: 42),
-                  Text("42 Reviews"),
+                  Text("${restaurant.reviews?.length ?? 0} Reviews"),
                   SizedBox(height: 12),
-                  UserReviewsList(),
+                  UserReviewsList(reviews: restaurant.reviews),
                 ],
               ),
             ),

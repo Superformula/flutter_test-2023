@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/all_restaurants_list.dart';
+import '../widgets/restaurants_list.dart';
 
-class HomeScreen extends StatefulWidget {
-  static const String id = 'home_screen';
-  const HomeScreen({Key? key}) : super(key: key);
+class RestaurantListScreen extends StatefulWidget {
+  static const String id = 'restaurant_list_screen';
+  const RestaurantListScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<RestaurantListScreen> createState() => _RestaurantListScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _RestaurantListScreenState extends State<RestaurantListScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -22,14 +22,14 @@ class _HomeScreenState extends State<HomeScreen> {
           bottom: TabBar(
             tabs: [
               Tab(text: "All Restaurants"),
-              Tab(text: "My  Favorites"),
+              Tab(text: "My Favorites"),
             ],
           ),
         ),
         body: TabBarView(
           children: [
-            AllRestaurantsList(),
-            AllRestaurantsList(),
+            RestaurantsList(),
+            RestaurantsList(),
           ],
         ),
       ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../models/restaurant.dart';
 import 'stars_widget.dart';
 
 class UserReviewTile extends StatelessWidget {
-  const UserReviewTile({Key? key}) : super(key: key);
+  final Review? review;
+  const UserReviewTile({Key? key, required this.review}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,16 +13,21 @@ class UserReviewTile extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        StarsWidget(starCount: 4),
+        StarsWidget(starCount: review?.rating?.round() ?? 0),
         SizedBox(height: 12),
-        Text("Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long."),
+        Text("Dummy review text since API doesn't have a field that returns review text"),
         SizedBox(height: 12),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircleAvatar(radius: 16),
-            SizedBox(width: 8),
-            Text("Ammar Hemani"),
+            if (review?.user?.imageUrl != null) ...[
+              CircleAvatar(
+                radius: 16,
+                backgroundImage: NetworkImage(review?.user?.imageUrl ?? ""),
+              ),
+              SizedBox(width: 8),
+            ],
+            Text(review?.user?.name ?? "N/A"),
           ],
         ),
       ],
