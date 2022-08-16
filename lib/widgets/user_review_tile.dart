@@ -15,18 +15,22 @@ class UserReviewTile extends StatelessWidget {
       children: [
         StarsWidget(starCount: review?.rating?.round() ?? 0),
         SizedBox(height: 12),
-        Text("Dummy review text since API doesn't have a field that returns review text"),
-        SizedBox(height: 12),
+        if (review?.text != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
+            child: Text(review?.text ?? ""),
+          ),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (review?.user?.imageUrl != null) ...[
-              CircleAvatar(
-                radius: 16,
-                backgroundImage: NetworkImage(review?.user?.imageUrl ?? ""),
+            if (review?.user?.imageUrl != null)
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: CircleAvatar(
+                  radius: 16,
+                  backgroundImage: NetworkImage(review?.user?.imageUrl ?? ""),
+                ),
               ),
-              SizedBox(width: 8),
-            ],
             Text(review?.user?.name ?? "N/A"),
           ],
         ),

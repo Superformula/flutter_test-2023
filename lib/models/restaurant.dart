@@ -70,6 +70,7 @@ class Hours {
 class Review {
   late String? id;
   late int? rating;
+  late String? text;
   late User? user;
 
   Review({this.id, this.rating, this.user});
@@ -77,6 +78,7 @@ class Review {
   Review.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     rating = json["rating"];
+    text = json["text"];
     user = User.fromJson(json["user"]);
   }
 }
