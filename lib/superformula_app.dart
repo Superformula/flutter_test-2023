@@ -7,12 +7,13 @@ import 'models/restaurant.dart';
 import 'screens/restaurant_list_screen.dart';
 
 class SuperformulaApp extends StatelessWidget {
-  const SuperformulaApp({Key? key}) : super(key: key);
+  final RestaurantListBloc restaurantListBloc;
+  const SuperformulaApp({Key? key, required this.restaurantListBloc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RestaurantListBloc()..add(FetchRestaurants(0)),
+    return BlocProvider.value(
+      value: restaurantListBloc,
       child: MaterialApp(
         title: 'Superformula Test',
         debugShowCheckedModeBanner: false,

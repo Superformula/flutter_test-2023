@@ -24,7 +24,9 @@ class Restaurant {
   late List<Hours>? hours;
   late Location? location;
 
-  Restaurant.empty({this.id, this.name, this.price, this.rating, this.photos, this.categories, this.hours, this.reviews, this.location});
+  Restaurant({this.id, this.name, this.price, this.rating, this.photos, this.categories, this.hours, this.reviews, this.location});
+
+  Restaurant.empty();
 
   Restaurant.fromJson(Map<String, dynamic> json) {
     id = json["id"];

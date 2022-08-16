@@ -11,14 +11,13 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
   final List<Restaurant> allRestaurants = [];
   final List<Restaurant> favoriteRestaurants = [];
 
-  RestaurantListBloc() : super(RestaurantListInitial()) {
+  RestaurantListBloc(NetworkProvider networkProvider) : super(RestaurantListInitial()) {
     on<FetchRestaurants>((event, emit) async {
       if (event.offset == 0) {
         emit(RestaurantListLoading());
       }
       try {
-        print("offset: ${event.offset}");
-        final RestaurantResult restaurantResult = await NetworkProvider.fetchRestaurants(offset: event.offset);
+        final RestaurantResult restaurantResult = await networkProvider.fetchRestaurants(offset: event.offset);
         allRestaurants.addAll(restaurantResult.restaurants);
         restaurantResult.restaurants.clear();
         restaurantResult.restaurants.addAll(allRestaurants);

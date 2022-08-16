@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:superformula_flutter_test/widgets/custom_error_widget.dart';
+import 'package:superformula_flutter_test/widgets/no_data_found_widget.dart';
 
 import '../blocs/restaurant_list/restaurant_list_bloc.dart';
 import 'restaurant_tile.dart';
@@ -17,7 +18,7 @@ class _RestaurantsListState extends State<RestaurantsList> with AutomaticKeepAli
     super.build(context);
     return BlocBuilder<RestaurantListBloc, RestaurantListState>(
       builder: (context, state) {
-        if (state is RestaurantListLoaded) {
+        if (state is RestaurantListLoaded && state.restaurantResult.total != 0) {
           return ListView.builder(
             itemCount: state.restaurantResult.restaurants.length + 1,
             padding: EdgeInsets.all(12),
@@ -30,6 +31,9 @@ class _RestaurantsListState extends State<RestaurantsList> with AutomaticKeepAli
               return RestaurantTile(restaurant: state.restaurantResult.restaurants[index]);
             },
           );
+        }
+        if (state is RestaurantListLoaded && state.restaurantResult.total == 0) {
+          return NoDataFoundWidget();
         }
         if (state is RestaurantListError) {
           return CustomErrorWidget();

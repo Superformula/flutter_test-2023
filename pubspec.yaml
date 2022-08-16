@@ -13,6 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.2           # Cupertino/iOS icons
   dio: ^4.0.6                       # Http Client
   flutter_bloc: ^8.1.1               # State management
+  mocktail: ^0.3.0                  # Testing
 
 dev_dependencies:
   flutter_test:

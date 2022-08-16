@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NoDataFoundWidget extends StatelessWidget {
+  static const String text = "Oops, looks like there's nothing here yet..";
   const NoDataFoundWidget({Key? key}) : super(key: key);
 
   @override
@@ -9,7 +10,7 @@ class NoDataFoundWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Text(
-          "Oops, looks like there's nothing here yet..",
+          text,
           textAlign: TextAlign.center,
         ),
       ),
