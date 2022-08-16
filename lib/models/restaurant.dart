@@ -1,10 +1,10 @@
 import 'package:superformula_flutter_test/widgets/restaurant_status_widget.dart';
 
 class RestaurantResult {
-  late int? total;
+  late int total;
   late List<Restaurant> restaurants = [];
 
-  RestaurantResult({this.total, this.restaurants = const []});
+  RestaurantResult({this.total = 0, this.restaurants = const []});
 
   RestaurantResult.fromJson(Map<String, dynamic> json) {
     total = json["total"];

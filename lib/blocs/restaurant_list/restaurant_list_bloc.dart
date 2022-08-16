@@ -8,13 +8,20 @@ part 'restaurant_list_event.dart';
 part 'restaurant_list_state.dart';
 
 class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> {
+  final List<Restaurant> allRestaurants = [];
   final List<Restaurant> favoriteRestaurants = [];
 
   RestaurantListBloc() : super(RestaurantListInitial()) {
     on<FetchRestaurants>((event, emit) async {
-      emit(RestaurantListLoading());
+      if (event.offset == 0) {
+        emit(RestaurantListLoading());
+      }
       try {
-        final RestaurantResult restaurantResult = await NetworkProvider.fetchRestaurants();
+        print("offset: ${event.offset}");
+        final RestaurantResult restaurantResult = await NetworkProvider.fetchRestaurants(offset: event.offset);
+        allRestaurants.addAll(restaurantResult.restaurants);
+        restaurantResult.restaurants.clear();
+        restaurantResult.restaurants.addAll(allRestaurants);
         emit(RestaurantListLoaded(restaurantResult));
       } catch (e) {
         print(e);

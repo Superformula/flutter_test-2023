@@ -19,9 +19,16 @@ class _RestaurantsListState extends State<RestaurantsList> with AutomaticKeepAli
       builder: (context, state) {
         if (state is RestaurantListLoaded) {
           return ListView.builder(
-            itemCount: state.restaurantResult.restaurants.length,
+            itemCount: state.restaurantResult.restaurants.length + 1,
             padding: EdgeInsets.all(12),
-            itemBuilder: (context, index) => RestaurantTile(restaurant: state.restaurantResult.restaurants[index]),
+            itemBuilder: (context, index) {
+              if (index >= state.restaurantResult.total) return SizedBox(height: 32);
+              if (index == state.restaurantResult.restaurants.length) {
+                BlocProvider.of<RestaurantListBloc>(context).add(FetchRestaurants(index));
+                return Padding(padding: const EdgeInsets.all(24.0), child: Center(child: CircularProgressIndicator(color: Colors.black)));
+              }
+              return RestaurantTile(restaurant: state.restaurantResult.restaurants[index]);
+            },
           );
         }
         if (state is RestaurantListError) {

@@ -8,7 +8,7 @@ class RestaurantAttributes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      "${restaurant.price} ${restaurant.categories?[0].title ?? ""}",
+      "${restaurant.price ?? ""} ${restaurant.categories?[0].title ?? ""}",
       style: TextStyle(fontSize: 13),
     );
   }
