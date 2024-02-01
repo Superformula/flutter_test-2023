@@ -4,16 +4,36 @@ Be sure to read **all** of this document carefully, and follow the guidelines wi
 
 ## Vendorized Flutter
 
-We are on a fixed Flutter release, similar to how gradle does this with a wrapper. More information on the approach can be found here:
+3. We use [fvm](https://fvm.app/) for managing the flutter version within the project. Using terminal, while being on the test repository, install the tools dependencies by running the following commands:
 
-> https://github.com/passsy/flutter_wrapper
+    ```sh
+    dart pub global activate fvm
+    ```
 
-_Be sure to use the `flutterw` wrapper while working on this repo._
+    The output of the command will ask to add the folder `./pub-cache/bin` to your PATH variables, if you didn't already. If that is the case, add it to your environment variables, and restart the terminal.
+
+    ```sh
+    export PATH="$PATH":"$HOME/.pub-cache/bin" # Add this to your environment variables
+    ```
+
+4. Install the project's flutter version using `fvm`.
+
+    ```sh
+    fvm use
+    ```
+
+5. From now on, you will run all the flutter commands with the `fvm` prefix. Get all the projects dependencies.
+
+    ```sh
+    fvm flutter pub get
+    ```
+
+More information on the approach can be found here:
+
+> hhttps://fvm.app/docs/getting_started/installation
 
 From the root directory:
 
-- `./flutterw pub get` to get the current packages for the specified flutter version.
-- `./flutterw run -d {device_id}` to run the app.
 
 ### IDE Setup
 
@@ -26,11 +46,10 @@ If you're a VScode user link the new Flutter SDK path in your settings
 
 ```json
 {
-  "dart.flutterSdkPath": ".flutter"
+  "dart.flutterSdkPath": ".fvm/flutter_sdk"
 }
 ```
 
-Commit this file to your git repo and your coworkers will automatically use `flutterw` from now on
 
 </p>
 </details>
@@ -39,7 +58,7 @@ Commit this file to your git repo and your coworkers will automatically use `flu
 <summary>Use with IntelliJ / Android Studio</summary>
 <p>
 
-Go to `Preferences > Languages & Frameworks > Flutter` and set the Flutter SDK path to `$projectRoot/.flutter`
+Go to `Preferences > Languages & Frameworks > Flutter` and set the Flutter SDK path to `$projectRoot/.fvm/flutter_sdk`
 
 <img width="800" alt="IntelliJ Settings" src="https://user-images.githubusercontent.com/1096485/64658026-3a1fdd00-d436-11e9-9457-556059f68e2c.png">
 

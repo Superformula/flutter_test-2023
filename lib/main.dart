@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
                   print('Failed to fetch restaurants: $e');
                 }
               },
-            )
+            ),
           ],
         ),
       ),
