@@ -15,7 +15,7 @@ class YelpRepository {
                 baseUrl: 'https://api.yelp.com',
                 headers: {
                   'Authorization': 'Bearer $_apiKey',
-                  'Content-Type': 'application/graphql'
+                  'Content-Type': 'application/graphql',
                 },
               ),
             );

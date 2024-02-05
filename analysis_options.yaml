@@ -4,7 +4,6 @@ analyzer:
     todo: ignore
     include_file_not_found: ignore
   exclude:
-    - vendor/**
     - '**/*.g.dart'
 linter:
   rules:
