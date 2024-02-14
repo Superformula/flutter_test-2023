@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:restaurantour/modules/home/views/home_view.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
-void main() {
+import 'common/app_theme.dart';
+
+void main() async {
   runApp(const Restaurantour());
 }
 
@@ -13,10 +18,8 @@ class Restaurantour extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'RestauranTour',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const HomePage(),
+      theme: lightTheme,
+      home: const HomeView(),
     );
   }
 }
