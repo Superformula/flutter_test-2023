@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/restaurant_entity.dart';
@@ -17,7 +15,7 @@ abstract class RestaurantQueryResultEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    total,
-    restaurants,
-  ];
+        total,
+        restaurants,
+      ];
 }

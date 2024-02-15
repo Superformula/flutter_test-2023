@@ -9,9 +9,9 @@ class CategoryModel extends CategoryEntity {
     String? title,
     String? alias,
   }) : super(
-    title: title,
-    alias: alias,
-  );
+          title: title,
+          alias: alias,
+        );
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);

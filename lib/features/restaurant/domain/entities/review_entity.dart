@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/user_entity.dart';
@@ -18,8 +16,8 @@ abstract class ReviewEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    rating,
-    user,
-  ];
+        id,
+        rating,
+        user,
+      ];
 }

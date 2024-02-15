@@ -18,8 +18,8 @@ class AllRestaurantsLoaded extends AllRestaurantsState {
 
   @override
   List<Object> get props => [
-    restaurants,
-  ];
+        restaurants,
+      ];
 }
 
 class AllRestaurantsError extends AllRestaurantsState {
@@ -31,6 +31,6 @@ class AllRestaurantsError extends AllRestaurantsState {
 
   @override
   List<Object> get props => [
-    errorMessage,
-  ];
+        errorMessage,
+      ];
 }

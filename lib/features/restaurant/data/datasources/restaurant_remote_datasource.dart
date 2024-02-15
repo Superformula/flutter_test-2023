@@ -4,8 +4,9 @@ import 'package:restaurantour/core/network/custom_dio/custom_dio_creator.dart';
 class RestaurantRemoteDatasource {
   final dio = CustomDioCreator();
 
-  Future<Response<Map<String, dynamic>>> fetchAllRestaurants(
-      {int offset = 0}) async {
+  Future<Response<Map<String, dynamic>>> fetchAllRestaurants({
+    int offset = 0,
+  }) async {
     final response = await dio.post<Map<String, dynamic>>(
       '/v3/graphql',
       data: _getQuery(offset),

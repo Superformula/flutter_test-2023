@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -14,6 +12,6 @@ abstract class HoursEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    isOpenNow,
-  ];
+        isOpenNow,
+      ];
 }

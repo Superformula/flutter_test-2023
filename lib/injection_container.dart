@@ -9,23 +9,23 @@ final dependency = GetIt.instance;
 
 Future<void> init() async {
   dependency.registerFactory(
-        () => AllRestaurantsCubit(
+    () => AllRestaurantsCubit(
       getAllRestaurantsUseCase: dependency(),
     ),
   );
 
   dependency.registerFactory(
-        () => RestaurantRemoteDatasource(),
+    () => RestaurantRemoteDatasource(),
   );
 
   dependency.registerFactory<IRestaurantRepository>(
-        () => RestaurantRepository(
+    () => RestaurantRepository(
       restaurantRemoteDatasource: dependency(),
     ),
   );
 
   dependency.registerFactory(
-        () => GetAllRestaurantsUseCase(
+    () => GetAllRestaurantsUseCase(
       restaurantRepository: dependency(),
     ),
   );

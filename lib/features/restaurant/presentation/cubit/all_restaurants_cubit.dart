@@ -14,7 +14,7 @@ class AllRestaurantsCubit extends Cubit<AllRestaurantsState> {
 
   final GetAllRestaurantsUseCase _getAllRestaurantsUseCase;
 
-  Future<void> loadReminderList() async {
+  Future<void> loadRestaurantsList() async {
     final result = await _getAllRestaurantsUseCase();
 
     result.fold(

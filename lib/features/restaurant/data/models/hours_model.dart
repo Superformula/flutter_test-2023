@@ -8,8 +8,8 @@ class HoursModel extends HoursEntity {
   const HoursModel({
     bool? isOpenNow,
   }) : super(
-    isOpenNow: isOpenNow,
-  );
+          isOpenNow: isOpenNow,
+        );
 
   factory HoursModel.fromJson(Map<String, dynamic> json) =>
       _$HoursModelFromJson(json);

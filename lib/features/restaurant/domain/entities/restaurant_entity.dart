@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/category_entity.dart';
@@ -10,15 +8,15 @@ import 'package:restaurantour/features/restaurant/domain/entities/review_entity.
 @JsonSerializable(explicitToJson: true)
 abstract class RestaurantEntity extends Equatable {
   const RestaurantEntity({
-   this.id,
-   this.name,
-   this.price,
-   this.rating,
-   this.photos,
-   this.categories,
-   this.hours,
-   this.reviews,
-   this.location,
+    this.id,
+    this.name,
+    this.price,
+    this.rating,
+    this.photos,
+    this.categories,
+    this.hours,
+    this.reviews,
+    this.location,
   });
 
   final String? id;
@@ -58,14 +56,14 @@ abstract class RestaurantEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    price,
-    rating,
-    photos,
-    categories,
-    hours,
-    reviews,
-    location,
-  ];
+        id,
+        name,
+        price,
+        rating,
+        photos,
+        categories,
+        hours,
+        reviews,
+        location,
+      ];
 }
