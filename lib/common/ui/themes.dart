@@ -1,0 +1,55 @@
+/// This is the color sheet for the App
+///
+/// Define the color with code
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+abstract class Themes {
+  static ColorScheme colorTheme = const ColorScheme(
+    brightness: Brightness.light,
+    surface: Colors.white,
+    onSurface: Colors.white,
+    primary: Colors.white,
+    onPrimary: Colors.black,
+    primaryContainer: Colors.white,
+    onPrimaryContainer: Colors.white,
+    secondary: Colors.white,
+    secondaryContainer: Colors.white,
+    onSecondary: Colors.white,
+    tertiary: Colors.white,
+    onTertiary: Colors.white,
+    tertiaryContainer: Colors.white,
+    onTertiaryContainer: Colors.white,
+    background: Colors.white,
+    onBackground: Colors.white,
+    error: Colors.white,
+    onError: Colors.white,
+  );
+
+  static TextTheme textTheme = TextTheme(
+    headlineLarge: TextStyle(
+      fontFamily: GoogleFonts.lora().fontFamily,
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
+      color: colorTheme.onPrimary,
+    ),
+    headlineMedium: TextStyle(
+      fontFamily: GoogleFonts.lora().fontFamily,
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: colorTheme.onPrimary,
+    ),
+    bodyLarge: TextStyle(
+      fontFamily: GoogleFonts.openSans().fontFamily,
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: colorTheme.onPrimary,
+    ), bodyMedium: TextStyle(
+    fontFamily: GoogleFonts.openSans().fontFamily,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: colorTheme.onPrimary,
+  ),
+  );
+}
