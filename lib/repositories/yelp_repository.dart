@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
+const _apiKey =
+    '61mpkUaz3FTiG02NPwtFuvw69IBUrQeWMGzcxa6OrDPb_WNYnMHCJvTJRCIWA3T-Kxmahy_nkCR9jRkv-QFaatXGBOdTkiGvLIJn-cw8tclL0zYYcCzzbNQPfy_NZXYx';
 
 class YelpRepository {
   late Dio dio;
@@ -72,37 +73,37 @@ class YelpRepository {
 
   String _getQuery(int offset) {
     return '''
-query getRestaurants {
-  search(location: "Las Vegas", limit: 20, offset: $offset) {
-    total    
-    business {
-      id
-      name
-      price
-      rating
-      photos
-      reviews {
-        id
-        rating
-        user {
-          id
-          image_url
-          name
+      query getRestaurants {
+        search(location: "Las Vegas", limit: 20, offset: $offset) {
+          total    
+          business {
+            id
+            name
+            price
+            rating
+            photos
+            reviews {
+              id
+              rating
+              user {
+                id
+                image_url
+                name
+              }
+            }
+            categories {
+              title
+              alias
+            }
+            hours {
+              is_open_now
+            }
+            location {
+              formatted_address
+            }
+          }
         }
       }
-      categories {
-        title
-        alias
-      }
-      hours {
-        is_open_now
-      }
-      location {
-        formatted_address
-      }
-    }
-  }
-}
-''';
+    ''';
   }
 }
