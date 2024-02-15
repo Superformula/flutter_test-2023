@@ -27,7 +27,7 @@ class YelpRepository {
         "business": [
           {
             "id": "faPVqws-x-5k2CQKDNtHxw",
-            "name": "Yardbird Southern Table & Bar",
+            "name": "Restaurant Name Goes Here And Wraps 2 Lines",
             "price": "120.00",
             "rating": 4.5,
             "location": {
@@ -63,7 +63,7 @@ class YelpRepository {
           },
           {
             "id": "faPVqws-x-5k2CQKDNtHxf",
-            "name": "Yardbird Southern Table & Bar",
+            "name": "Restaurant Name Goes Here And Wraps 2 Lines",
             "price": "120.00",
             "rating": 4.5,
             "photos": [
@@ -99,7 +99,7 @@ class YelpRepository {
           },
           {
             "id": "faPVqws-x-5k2CQKDNtHxg",
-            "name": "Yardbird Southern Table & Bar",
+            "name": "Restaurant Name Goes Here And Wraps 2 Lines",
             "price": "120.00",
             "rating": 4.5,
             "photos": [
@@ -135,7 +135,7 @@ class YelpRepository {
           },
           {
             "id": "faPVqws-x-5k2CQKDNtHxh",
-            "name": "Yardbird Southern Table & Bar",
+            "name": "Restaurant Name Goes Here And Wraps 2 Lines",
             "price": "120.00",
             "rating": 4.5,
             "photos": [

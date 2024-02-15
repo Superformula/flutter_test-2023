@@ -18,11 +18,8 @@ class ReviewListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(userImageUrl),
-      ),
       title: Row(
-        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: List.generate(
           stars,
           (_) => const Icon(Icons.star, color: Colors.amber, size: 20.0),
@@ -31,9 +28,19 @@ class ReviewListTile extends StatelessWidget {
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(reviewText),
+          const Text(
+              "Review text goes here. Review text goes here. Review text goes here. This is a review. This is a review. This is a review that is 4 lines long."),
           const Gap(5),
-          Text(userName),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(userImageUrl),
+              ),
+              const Gap(5),
+              Text(userName),
+            ],
+          ),
         ],
       ),
     );

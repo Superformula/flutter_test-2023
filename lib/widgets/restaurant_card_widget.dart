@@ -53,20 +53,21 @@ class RestaurantCardWidget extends StatelessWidget {
                         restaurant.name!,
                         style: const TextStyle(
                           fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
+                      const Gap(10),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4.0),
                         child: Text(
                           '\$${restaurant.price}',
                           style: const TextStyle(
                             fontSize: 14.0,
-                            color: Colors.grey,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
                           ),
                         ),
                       ),
-                      const Gap(20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -86,7 +87,7 @@ class RestaurantCardWidget extends StatelessWidget {
                                       Constants.openNow,
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontWeight: FontWeight.normal,
+                                        fontWeight: FontWeight.w100,
                                       ),
                                     ),
                                     const SizedBox(width: 4.0),
