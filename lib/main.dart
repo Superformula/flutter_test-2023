@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/features/restaurant_tour/bloc/restaurant_bloc.dart';
 import 'package:restaurantour/features/restaurant_tour/presentation/home_restaurant/home_restaurant.dart';
+import 'package:restaurantour/injection_container.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDependencies();
+
   runApp(const Restaurantour());
 }
 
@@ -11,12 +17,19 @@ class Restaurantour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RestauranTour',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<RestaurantBloc>(
+          create: (context) => RestaurantBloc()..add(LoadRestaurantsEvent()),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'RestauranTour',
+        theme: ThemeData(
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const HomeResturant(),
       ),
-      home: const HomeResturant(),
     );
   }
 }
