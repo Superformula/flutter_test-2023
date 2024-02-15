@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../models/restaurant.dart';
 import '../../../repositories/yelp_repository.dart';
 import '../../../widgets/restaurant_card_widget.dart';
 import '../view_models/restaurant_view_model.dart';
@@ -12,26 +11,29 @@ class RestaurantsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder.reactive(
+    return ViewModelBuilder<RestaurantViewModel>.reactive(
       viewModelBuilder: () => RestaurantViewModel(yelpRepo: YelpRepository()),
       onViewModelReady: (RestaurantViewModel viewModel) => viewModel.ready(),
-      builder: (context, RestaurantViewModel viewModel, child) =>
-          FutureBuilder<List<Restaurant>>(
-        future: viewModel.fetchData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.black,
-              ),
-            );
-          }
+      builder: (context, viewModel, child) {
+        if (viewModel.isBusy) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.black,
+            ),
+          );
+        }
 
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
+        if (viewModel.errorMessage != null) {
+          return Center(child: Text('Error: ${viewModel.errorMessage}'));
+        }
+
+        if (viewModel.restaurants.isNotEmpty) {
+          return RefreshIndicator(
+            onRefresh: viewModel.fetchAndCacheRestaurants,
+            child: ListView.builder(
+              itemCount: viewModel.restaurants.length,
               itemBuilder: (context, index) {
-                var restaurant = snapshot.data![index];
+                var restaurant = viewModel.restaurants[index];
                 return InkWell(
                   onTap: () => {
                     Navigator.push(
@@ -50,18 +52,17 @@ class RestaurantsListView extends StatelessWidget {
                   ),
                 );
               },
-            );
-          }
-
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-
-          return const Center(
-            child: Text('Press a button to start fetching data'),
+            ),
           );
-        },
-      ),
+        }
+
+        return Center(
+          child: ElevatedButton(
+            child: const Text('Fetch Restaurants'),
+            onPressed: () => {viewModel.fetchAndCacheRestaurants()},
+          ),
+        );
+      },
     );
   }
 }

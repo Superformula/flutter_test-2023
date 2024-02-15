@@ -5,8 +5,13 @@ import 'package:restaurantour/modules/home/views/home_view.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
 import 'common/app_theme.dart';
+import 'common/shared_pref_helper.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SharedPreferencesHelper.initializeSharedPreference();
+
   runApp(const Restaurantour());
 }
 

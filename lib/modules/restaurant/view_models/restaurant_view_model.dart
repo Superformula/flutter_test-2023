@@ -1,22 +1,41 @@
-import 'package:restaurantour/models/restaurant.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../common/shared_pref_helper.dart';
+import '../../../models/restaurant.dart';
 import '../../../repositories/yelp_repository.dart';
 
 class RestaurantViewModel extends BaseViewModel {
-  YelpRepository yelpRepo;
-  List<Restaurant>? restaurants;
+  final YelpRepository yelpRepo;
+  final SharedPreferencesHelper sharedPrefHelper =
+      SharedPreferencesHelper.instance;
+
+  List<Restaurant> restaurants = [];
+  String? errorMessage;
 
   RestaurantViewModel({required this.yelpRepo});
 
-  ready() async {}
+  Future<void> ready() async {
+    setBusy(true);
+    var cachedRestaurants = await sharedPrefHelper.getRestaurants();
+    if (cachedRestaurants.isNotEmpty) {
+      restaurants = cachedRestaurants;
+    } else {
+      await fetchAndCacheRestaurants();
+    }
+    setBusy(false);
+  }
 
-  Future<List<Restaurant>> fetchData() async {
+  Future fetchAndCacheRestaurants() async {
     try {
-      final result = await yelpRepo.getRestaurants();
-      return result!.restaurants!;
+      var response = await yelpRepo.getRestaurants();
+      if (response!.restaurants!.isNotEmpty) {
+        restaurants = response.restaurants!;
+        await sharedPrefHelper.cacheRestaurants(restaurants);
+      }
+      notifyListeners();
     } catch (e) {
-      throw Exception(e);
+      errorMessage = e.toString();
+      notifyListeners();
     }
   }
 }

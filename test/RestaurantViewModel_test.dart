@@ -13,7 +13,7 @@ void main() {
 
     test('fetchData returns a list of restaurants', () async {
       // Fetch data
-      final restaurants = await viewModel.fetchData();
+      final restaurants = await viewModel.fetchAndCacheRestaurants();
 
       // Assert that a list of restaurants is returned
       expect(restaurants, isA<List<Restaurant>>());
