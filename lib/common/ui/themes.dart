@@ -29,6 +29,12 @@ abstract class Themes {
   );
 
   static TextTheme textTheme = TextTheme(
+    displaySmall: TextStyle(
+      fontFamily: GoogleFonts.lora().fontFamily,
+      fontSize: 28,
+      fontWeight: FontWeight.w700,
+      color: colorTheme.primaryContainer,
+    ),
     headlineLarge: TextStyle(
       fontFamily: GoogleFonts.lora().fontFamily,
       fontSize: 18,
@@ -60,4 +66,7 @@ abstract class Themes {
       color: colorTheme.primaryContainer,
     ),
   );
+
+  static IconThemeData iconTheme =
+  const IconThemeData(color: Colors.black);
 }

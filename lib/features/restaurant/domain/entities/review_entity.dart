@@ -7,17 +7,20 @@ abstract class ReviewEntity extends Equatable {
   const ReviewEntity({
     this.id,
     this.rating,
+    this.text,
     this.user,
   });
 
   final String? id;
   final int? rating;
+  final String? text;
   final UserEntity? user;
 
   @override
   List<Object?> get props => [
         id,
         rating,
+    text,
         user,
       ];
 }

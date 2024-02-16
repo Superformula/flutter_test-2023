@@ -9,10 +9,12 @@ class ReviewModel extends ReviewEntity {
   const ReviewModel({
     String? id,
     int? rating,
+    String? text,
     UserModel? user,
   }) : super(
           id: id,
           rating: rating,
+          text: text,
           user: user,
         );
 

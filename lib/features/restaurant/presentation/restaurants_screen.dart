@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/common/ui/app_colors.dart';
+import 'package:restaurantour/features/restaurant/presentation/cubit/all_restaurants_cubit.dart';
+import 'package:restaurantour/features/restaurant/presentation/widgets/restaurant_list_widget.dart';
 
 class RestaurantsScreen extends StatelessWidget {
   const RestaurantsScreen({Key? key}) : super(key: key);
@@ -19,8 +22,14 @@ class RestaurantsScreen extends StatelessWidget {
           bottom: TabBar(
             isScrollable: true,
             tabs: const [
-              Tab(text: 'All Restaurants', height: 40,),
-              Tab(text: 'My Favorites', height: 40,),
+              Tab(
+                text: 'All Restaurants',
+                height: 40,
+              ),
+              Tab(
+                text: 'My Favorites',
+                height: 40,
+              ),
             ],
             indicator: UnderlineTabIndicator(
               borderRadius: BorderRadius.zero,
@@ -47,7 +56,22 @@ class RestaurantsScreen extends StatelessWidget {
   }
 
   Widget _buildAllRestaurantsWidget() {
-    return Text('all restaurants');
+    return BlocBuilder<AllRestaurantsCubit, AllRestaurantsState>(
+      builder: (context, allRestaurantsState) {
+        print(allRestaurantsState.runtimeType);
+        if (allRestaurantsState is AllRestaurantsLoaded) {
+          return RestaurantListWidget(
+            restaurants: allRestaurantsState.restaurants,
+          );
+        }
+
+        return Center(
+          child: CircularProgressIndicator(
+            color: Theme.of(context).colorScheme.primaryContainer,
+          ),
+        );
+      },
+    );
   }
 
   Widget _buildMyFavoritesWidget() {

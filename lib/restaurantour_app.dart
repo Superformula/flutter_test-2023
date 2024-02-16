@@ -16,6 +16,7 @@ class Restaurantour extends StatelessWidget {
         colorScheme: Themes.colorTheme,
         textTheme: Themes.textTheme,
       ).copyWith(
+        iconTheme: Themes.iconTheme,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MultiBlocProvider(

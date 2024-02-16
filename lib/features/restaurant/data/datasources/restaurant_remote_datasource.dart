@@ -29,6 +29,7 @@ query getRestaurants {
       reviews {
         id
         rating
+        text
         user {
           id
           image_url
