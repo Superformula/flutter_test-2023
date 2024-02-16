@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:restaurantour/modules/home/views/home_view.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
@@ -9,6 +10,7 @@ import 'common/shared_pref_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: '.env');
 
   await SharedPreferencesHelper.initializeSharedPreference();
 
