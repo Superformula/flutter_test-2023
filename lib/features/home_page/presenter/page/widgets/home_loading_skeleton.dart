@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/features/home_page/presenter/page/widgets/single_restaurant_card_skeleton.dart';
+
 class HomeLoadingSkeleton extends StatelessWidget {
-  const HomeLoadingSkeleton({
-    super.key,
-  });
+  const HomeLoadingSkeleton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        SingleRestaurantCardSkeleton(),
-        SingleRestaurantCardSkeleton(),
-        SingleRestaurantCardSkeleton(),
-        SingleRestaurantCardSkeleton(),
-        SingleRestaurantCardSkeleton(),
-        SingleRestaurantCardSkeleton(),
-      ],
+    const int itemCount = 6;
+
+    return Expanded(
+      child: ListView.builder(
+        itemCount: itemCount,
+        itemBuilder: (BuildContext context, int index) {
+          return const SingleRestaurantCardSkeleton();
+        },
+      ),
     );
   }
 }
