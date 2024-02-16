@@ -43,43 +43,43 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Material(
-              elevation: 6.0,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                topRight: Radius.circular(10.0),
-              ),
-              child: TabBar(
-                indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 2.0,
-                  ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Material(
+            elevation: 6.0,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
+            ),
+            child: TabBar(
+              indicator: UnderlineTabIndicator(
+                borderSide: BorderSide(
+                  color: Colors.black,
+                  width: 2.0,
                 ),
-                labelColor: Colors.black,
-                unselectedLabelColor: Colors.grey,
-                tabs: [
-                  Tab(text: 'All Restaurants'),
-                  Tab(text: 'My Favorites'),
-                ],
               ),
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+              tabs: [
+                Tab(text: 'All Restaurants'),
+                Tab(text: 'My Favorites'),
+              ],
             ),
-            BlocBuilder<HomeBloc, HomeState>(
-              builder: (context, state) {
-                if (state is HomeLoadingState) {
-                  return const HomeLoadingSkeleton();
-                } else {
-                  return TabViews();
-                }
-              },
-            ),
-          ],
-        ),
+          ),
+          BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state is HomeLoadingState) {
+                return const HomeLoadingSkeleton();
+              }
+              if (state is HomeDataLoadedState) {
+                return TabViews(restaurantList: state.restaurantList);
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
+        ],
       ),
     );
   }
