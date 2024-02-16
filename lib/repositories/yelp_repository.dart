@@ -61,8 +61,9 @@ class YelpRepository {
   ///   }
   /// }
   ///
-  Future<Result<RestaurantQueryResult, DioException>> getRestaurants(
-      {int offset = 0}) async {
+  Future<Result<RestaurantQueryResult, DioException>> getRestaurants({
+    int offset = 0,
+  }) async {
     try {
       final String jsonString =
           await rootBundle.loadString('assets/restaurants.json');
@@ -72,10 +73,12 @@ class YelpRepository {
 
       return Ok(result);
     } catch (e) {
-      return Err(DioException(
-        requestOptions: RequestOptions(path: 'path'),
-        error: e.toString(),
-      ));
+      return Err(
+        DioException(
+          requestOptions: RequestOptions(path: 'path'),
+          error: e.toString(),
+        ),
+      );
     }
   }
 }

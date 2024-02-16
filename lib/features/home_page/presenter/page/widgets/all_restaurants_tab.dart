@@ -17,10 +17,10 @@ class AllRestaurantsTab extends StatelessWidget {
       itemCount: restaurantList.length,
       itemBuilder: (context, index) {
         final restaurant = restaurantList[index];
-        return SingleRestaurantCard(restaurant: restaurant);
+        return SingleRestaurantCard(
+          restaurant: restaurant,
+        );
       },
     );
   }
 }
-
-

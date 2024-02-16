@@ -7,14 +7,14 @@
           "id": "vHz2RLtfUMVRPFmd7VBEHA",
           "name": "Gordon Ramsay Hell's Kitchen",
           "price": "$$$",
-          "rating": 4.4,
+          "rating": 2,
           "photos": [
             "https://s3-media2.fl.yelpcdn.com/bphoto/q771KjLzI5y638leJsnJnQ/o.jpg"
           ],
           "reviews": [
             {
               "id": "DKtLdByPmlwZET_b4BM3gQ",
-              "rating": 5,
+              "rating": 2,
               "user": {
                 "id": "dW0QJVcKiX7crMd1lYWTkg",
                 "image_url": "https://s3-media3.fl.yelpcdn.com/photo/yhQgs5pEXcKaSRxVaY9z6w/o.jpg",

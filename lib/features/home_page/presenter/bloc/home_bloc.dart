@@ -26,10 +26,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     result.when(
       ok: (data) {
-        if (data.restaurants!.isNotEmpty) {
+        if (data.restaurants.isNotEmpty) {
           emit(
             HomeDataLoadedState(
-              restaurantList: data.restaurants!,
+              restaurantList: data.restaurants,
             ),
           );
         } else {
