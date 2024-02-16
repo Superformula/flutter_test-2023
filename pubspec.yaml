@@ -16,6 +16,7 @@ dependencies:
   dio: ^5.4.0
   json_annotation: ^4.8.1
   flutter_svg: ^2.0.9
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -26,5 +27,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-#  assets:
-#    - assets/svg/
+  assets:
+    - assets/
