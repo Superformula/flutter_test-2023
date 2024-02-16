@@ -32,8 +32,20 @@ class HiveHelper {
   }
 
   List<Restaurant> getAllRestaurants() {
-    return box.values
-        .map((e) => Restaurant.fromJson(e))
-        .toList();
+    return box.values.map((e) => Restaurant.fromJson(e)).toList();
+  }
+
+  List<String> getAllFavoriteIds() {
+    // Obtener todos los valores de la caja
+    List<dynamic> values = box.values.toList();
+    List<String> favoriteIds = [];
+    // Iterar sobre los valores y agregar los IDs a la lista de favoritos
+    for (var value in values) {
+      if (value is Map<String, dynamic>) {
+        favoriteIds.add(value[
+            'id']); // Suponiendo que 'id' es la clave para el ID del restaurante
+      }
+    }
+    return favoriteIds;
   }
 }
