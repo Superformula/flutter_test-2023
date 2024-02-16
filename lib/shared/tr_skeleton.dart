@@ -6,7 +6,7 @@ class TrSkeleton extends StatelessWidget {
     Key? key,
     required this.height,
     required this.width,
-    this.marginBottom = 8.0,
+    this.marginBottom = 0.0,
     this.borderRadius = 12.0,
   }) : super(key: key);
 

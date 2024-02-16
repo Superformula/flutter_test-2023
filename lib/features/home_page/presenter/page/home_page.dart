@@ -17,9 +17,7 @@ class HomePage extends StatelessWidget {
 }
 
 class _Page extends StatelessWidget {
-  const _Page({
-    super.key,
-  });
+  const _Page();
 
   @override
   Widget build(BuildContext context) {
@@ -43,24 +41,46 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return const DefaultTabController(
       length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'All Restaurants'),
-              Tab(text: 'My Favorites'),
-            ],
+      child: Column(
+        children: [
+          Material(
+            elevation: 6.0,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                topRight: Radius.circular(10.0),
+              ),
+              child: TabBar(
+                indicator: UnderlineTabIndicator(
+                  borderSide: BorderSide(
+                    color: Colors.black,
+                    width: 2.0,
+                  ),
+                ),
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey,
+                tabs: [
+                  Tab(text: 'All Restaurants'),
+                  Tab(text: 'My Favorites'),
+                ],
+              ),
+            ),
           ),
-        ),
-        body: const TabBarView(
-          children: [
-            AllRestaurantsTab(),
-            MyFavoritesTab(),
-          ],
-        ),
+          Expanded(
+            child: TabBarView(
+              children: [
+                AllRestaurantsTab(),
+                MyFavoritesTab(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
