@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:oxidized/oxidized.dart';
 import 'package:restaurantour/core/models/restaurant.dart';
@@ -58,33 +61,27 @@ class YelpRepository {
   ///   }
   /// }
   ///
-  Future<Result<RestaurantQueryResult, DioException>> getRestaurants({
-    int offset = 0,
-  }) async {
+  Future<Result<RestaurantQueryResult, DioException>> getRestaurants(
+      {int offset = 0}) async {
     try {
-      final response = await dio.post<Map<String, dynamic>>(
-        '/v3/graphql',
-        data: _getQuery(offset),
-      );
+      final String jsonString =
+          await rootBundle.loadString('assets/restaurants.json');
+      final Map<String, dynamic> jsonResponse = json.decode(jsonString);
       final result =
-          RestaurantQueryResult.fromJson(response.data!['data']['search']);
+          RestaurantQueryResult.fromJson(jsonResponse['data']['search']);
+
       return Ok(result);
     } catch (e) {
-      if (e is DioException) {
-        return Err(e);
-      } else {
-        return Err(
-          DioException(
-            requestOptions: RequestOptions(path: '/v3/graphql'),
-            error: e,
-          ),
-        );
-      }
+      return Err(DioException(
+        requestOptions: RequestOptions(path: 'path'),
+        error: e.toString(),
+      ));
     }
   }
+}
 
-  String _getQuery(int offset) {
-    return '''
+String _getQuery(int offset) {
+  return '''
 query getRestaurants {
   search(location: "Las Vegas", limit: 20, offset: $offset) {
     total    
@@ -117,5 +114,4 @@ query getRestaurants {
   }
 }
 ''';
-  }
 }
