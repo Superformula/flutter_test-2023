@@ -1,7 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:restaurantour/modules/home/views/home_view.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
-void main() {
+import 'common/app_theme.dart';
+import 'common/shared_pref_helper.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: '.env');
+
+  await SharedPreferencesHelper.initializeSharedPreference();
+
   runApp(const Restaurantour());
 }
 
@@ -13,10 +25,8 @@ class Restaurantour extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'RestauranTour',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const HomePage(),
+      theme: lightTheme,
+      home: const HomeView(),
     );
   }
 }
