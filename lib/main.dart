@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
-void main() {
-  runApp(const Restaurantour());
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+  runApp(
+    const RestauranTour(),
+  );
 }
 
-class Restaurantour extends StatelessWidget {
-  // This widget is the root of your application.
-  const Restaurantour({Key? key}) : super(key: key);
+class RestauranTour extends StatelessWidget {
+  const RestauranTour({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
