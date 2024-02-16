@@ -8,3 +8,8 @@ class HomeInitial extends HomeState {
   @override
   List<Object> get props => [];
 }
+
+class HomeLoadingState extends HomeState {
+  @override
+  List<Object> get props => [];
+}

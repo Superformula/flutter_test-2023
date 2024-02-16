@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/shared/tr_skeleton.dart';
 
 class MyFavoritesTab extends StatelessWidget {
   const MyFavoritesTab({
@@ -14,7 +13,6 @@ class MyFavoritesTab extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            TrSkeleton(height: 50, width: 100),
             Text('My Favorites'),
           ],
         ),
