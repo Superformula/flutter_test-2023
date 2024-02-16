@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/core/models/restaurant.dart';
 
 class YelpRepository {
   late Dio dio;
