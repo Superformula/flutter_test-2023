@@ -124,7 +124,7 @@ class RestaurantDetailsScreen extends StatelessWidget {
                             color: AppColors.kScreechingWhite,
                             thickness: 2,
                           ),
-                      itemCount: restaurant.reviews?.length ?? 0),
+                      itemCount: restaurant.reviews?.length ?? 0,),
                 ],
               ),
             ),
@@ -158,8 +158,8 @@ class RestaurantDetailsScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 8),
                   child: CircleAvatar(
                     radius: 24,
-                    backgroundImage:
-                        NetworkImage(restaurant.reviews![index].user!.imageUrl!),
+                    backgroundImage: NetworkImage(
+                        restaurant.reviews![index].user!.imageUrl!,),
                   ),
                 ),
               Text(

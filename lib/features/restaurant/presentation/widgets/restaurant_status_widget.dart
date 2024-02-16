@@ -15,12 +15,9 @@ class RestaurantStatusWidget extends StatelessWidget {
       children: [
         Text(
           isOpen ? 'Open Now' : 'Closed',
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(
-            fontStyle: FontStyle.italic,
-          ),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontStyle: FontStyle.italic,
+              ),
         ),
         const SizedBox(width: 8),
         Icon(

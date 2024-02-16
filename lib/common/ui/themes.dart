@@ -67,6 +67,5 @@ abstract class Themes {
     ),
   );
 
-  static IconThemeData iconTheme =
-  const IconThemeData(color: Colors.black);
+  static IconThemeData iconTheme = const IconThemeData(color: Colors.black);
 }

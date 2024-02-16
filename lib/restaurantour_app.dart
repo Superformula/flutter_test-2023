@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/common/ui/themes.dart';
+import 'package:restaurantour/features/restaurant/presentation/cubit/favorite_restaurants_cubit/favorite_restaurants_cubit.dart';
 import 'package:restaurantour/injection_container.dart' as injection;
-import 'package:restaurantour/features/restaurant/presentation/cubit/all_restaurants_cubit.dart';
+import 'package:restaurantour/features/restaurant/presentation/cubit/all_restaurants_cubit/all_restaurants_cubit.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurants_screen.dart';
 
 class Restaurantour extends StatelessWidget {
@@ -24,6 +25,10 @@ class Restaurantour extends StatelessWidget {
           BlocProvider<AllRestaurantsCubit>(
             create: (_) => injection.dependency<AllRestaurantsCubit>()
               ..loadRestaurantsList(),
+          ),
+          BlocProvider<FavoriteRestaurantsCubit>(
+            create: (_) => injection.dependency<FavoriteRestaurantsCubit>()
+              ..loadFavoriteRestaurantsList(),
           ),
         ],
         child: const RestaurantsScreen(),

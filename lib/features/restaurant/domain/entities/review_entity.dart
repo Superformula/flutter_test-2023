@@ -20,7 +20,7 @@ abstract class ReviewEntity extends Equatable {
   List<Object?> get props => [
         id,
         rating,
-    text,
+        text,
         user,
       ];
 }

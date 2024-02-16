@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/common/ui/app_colors.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/restaurant_entity.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurant_details_screen.dart';
 import 'package:restaurantour/features/restaurant/presentation/widgets/restaurant_status_widget.dart';

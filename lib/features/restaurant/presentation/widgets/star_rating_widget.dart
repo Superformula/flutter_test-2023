@@ -13,15 +13,15 @@ class StarRatingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return rating != null
         ? Row(
-      children: List.generate(
-        rating!.round(),
-            (_) => const Icon(
-          Icons.star,
-          size: 12,
-          color: AppColors.kDandyDaffodilYellow,
-        ),
-      ),
-    )
+            children: List.generate(
+              rating!.round(),
+              (_) => const Icon(
+                Icons.star,
+                size: 12,
+                color: AppColors.kDandyDaffodilYellow,
+              ),
+            ),
+          )
         : Container();
   }
 }
