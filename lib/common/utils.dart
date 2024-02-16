@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-
-import '../../../models/restaurant.dart';
+import 'package:restaurantour/models/restaurant.dart';
 
 class Utils {
   static Future<String> get _localPath async {

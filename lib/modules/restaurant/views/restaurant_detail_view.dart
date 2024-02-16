@@ -146,15 +146,20 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
           SizedBox(
             height: 400,
             child: ListView.builder(
-              itemCount: widget.restaurant.reviews!.length,
+              itemCount: widget.restaurant.reviews?.length ?? 0,
               itemBuilder: (context, index) {
-                var review = widget.restaurant.reviews![index];
-                return ReviewListTile(
-                  stars: review.rating!,
-                  reviewText: review.user!.id!,
-                  userName: review.user!.name!,
-                  userImageUrl: review.user!.imageUrl!,
-                );
+                var review = widget.restaurant.reviews?[index];
+                if (review != null) {
+                  return ReviewListTile(
+                    stars: review.rating ?? 0,
+                    reviewText: review.reviewText ?? Constants.reviewText,
+                    userName: review.user?.name ?? Constants.anonymous,
+                    userImageUrl:
+                        review.user?.imageUrl ?? Constants.placeholder,
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
               },
             ),
           ),

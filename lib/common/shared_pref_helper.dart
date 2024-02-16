@@ -1,8 +1,7 @@
 import 'dart:convert';
 
+import 'package:restaurantour/models/restaurant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../models/restaurant.dart';
 
 class SharedPreferencesHelper {
   static final SharedPreferencesHelper instance = SharedPreferencesHelper._();

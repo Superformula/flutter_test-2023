@@ -3,7 +3,7 @@ import 'package:restaurantour/models/restaurant.dart';
 
 import 'package:restaurantour/modules/restaurant/view_models/restaurant_view_model.dart';
 
-import 'MockYelpRepository.dart';
+import 'mock_yelp_repository.dart';
 
 void main() {
   group('RestaurantViewModel Test', () {

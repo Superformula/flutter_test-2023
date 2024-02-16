@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:restaurantour/models/restaurant.dart';
-
-const _apiKey = '';
 
 class YelpRepository {
   late Dio dio;
@@ -14,7 +13,7 @@ class YelpRepository {
               BaseOptions(
                 baseUrl: 'https://api.yelp.com',
                 headers: {
-                  'Authorization': 'Bearer $_apiKey',
+                  'Authorization': 'Bearer ${dotenv.env['yelp_api_key']}',
                   'Content-Type': 'application/graphql',
                 },
               ),
@@ -53,6 +52,8 @@ class YelpRepository {
               {
                 "id": "okpO9hfpxQXssbTZTKq9hA",
                 "rating": 5,
+                "reviewText":
+                    "Review text goes here. Review text goes here. Review text goes here. This is a review. This is a review. This is a review that is 4 lines long.",
                 "user": {
                   "id": "0x9xu_b0Ct_6hG6jaxpztw",
                   "image_url": "https://i.pravatar.cc",
@@ -80,6 +81,8 @@ class YelpRepository {
               {
                 "id": "sjZoO8wcK1NeGJFDk5i82Q",
                 "rating": 5,
+                "reviewText":
+                    "Review text goes here. Review text goes here. Review text goes here. This is a review. This is a review. This is a review that is 4 lines long.",
                 "user": {
                   "id": "BuBCkWFNT_O2dbSnBZvpoQ",
                   "image_url": "https://i.pravatar.cc",
@@ -89,6 +92,8 @@ class YelpRepository {
               {
                 "id": "okpO9hfpxQXssbTZTKq9hA",
                 "rating": 5,
+                "reviewText":
+                    "Review text goes here. Review text goes here. Review text goes here. This is a review. This is a review. This is a review that is 4 lines long.",
                 "user": {
                   "id": "0x9xu_b0Ct_6hG6jaxpztw",
                   "image_url": "https://i.pravatar.cc",
@@ -116,6 +121,8 @@ class YelpRepository {
               {
                 "id": "sjZoO8wcK1NeGJFDk5i82Q",
                 "rating": 5,
+                "reviewText":
+                    "Review text goes here. Review text goes here. Review text goes here. This is a review. This is a review. This is a review that is 4 lines long.",
                 "user": {
                   "id": "BuBCkWFNT_O2dbSnBZvpoQ",
                   "image_url": "https://i.pravatar.cc",
@@ -125,6 +132,8 @@ class YelpRepository {
               {
                 "id": "okpO9hfpxQXssbTZTKq9hA",
                 "rating": 5,
+                "reviewText":
+                    "Review text goes here. Review text goes here. Review text goes here. This is a review. This is a review. This is a review that is 4 lines long.",
                 "user": {
                   "id": "0x9xu_b0Ct_6hG6jaxpztw",
                   "image_url": "https://i.pravatar.cc",
@@ -152,6 +161,8 @@ class YelpRepository {
               {
                 "id": "sjZoO8wcK1NeGJFDk5i82Q",
                 "rating": 5,
+                "reviewText":
+                    "Review text goes here. Review text goes here. Review text goes here. This is a review. This is a review. This is a review that is 4 lines long.",
                 "user": {
                   "id": "BuBCkWFNT_O2dbSnBZvpoQ",
                   "image_url": "https://i.pravatar.cc",
@@ -161,6 +172,8 @@ class YelpRepository {
               {
                 "id": "okpO9hfpxQXssbTZTKq9hA",
                 "rating": 5,
+                "reviewText":
+                    "Review text goes here. Review text goes here. Review text goes here. This is a review. This is a review. This is a review that is 4 lines long.",
                 "user": {
                   "id": "0x9xu_b0Ct_6hG6jaxpztw",
                   "image_url": "https://i.pravatar.cc",
@@ -176,16 +189,11 @@ class YelpRepository {
 
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
     try {
-      //I REACHED THE LIMIT. 🥲. SORRY.
-
-      // final response = await dio.post<Map<String, dynamic>>(
-      //   '/v3/graphql',
-      //   data: _getQuery(offset),
-      // );
-      // //return RestaurantQueryResult.fromJson(response.data!['data']['search']);
-      return RestaurantQueryResult.fromJson(
-        data['data']!['search'] as Map<String, dynamic>,
+      final response = await dio.post<Map<String, dynamic>>(
+        '/v3/graphql',
+        data: _getQuery(offset),
       );
+      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
     } catch (e) {
       return null;
     }

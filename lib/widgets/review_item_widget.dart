@@ -28,8 +28,7 @@ class ReviewListTile extends StatelessWidget {
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-              "Review text goes here. Review text goes here. Review text goes here. This is a review. This is a review. This is a review that is 4 lines long."),
+          Text(reviewText),
           const Gap(5),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
