@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get_it_mixin/get_it_mixin.dart';
 
-import '../models/restaurant.dart';
-import '../repositories/yelp_repository.dart';
-import '../widgets/restaurant_item.dart';
+import '../common/restaurant_item.dart';
 
-class RestaurantsListPage extends StatelessWidget {
-  const RestaurantsListPage({
+class RestaurantsListPage extends StatelessWidget with GetItMixin {
+  RestaurantsListPage({
     Key? key,
   }) : super(key: key);
 
@@ -19,36 +18,11 @@ class RestaurantsListPage extends StatelessWidget {
           const Text('Restaurantour'),
           ElevatedButton(
             child: const Text('Fetch Restaurants'),
-            onPressed: () async {
-              _fetchRestaurantData();
-            },
+            onPressed: () async {},
           ),
           const RestaurantItem(),
         ],
       ),
     );
-  }
-}
-
-Future<RestaurantQueryResult?> _fetchRestaurantData() async {
-  final yelpRepo = YelpRepository();
-
-  try {
-    final result = await yelpRepo.getRestaurants();
-    if (result != null) {
-      print(
-        'Fetched ${result.restaurants!.length} restaurants',
-      );
-
-      return result;
-    } else {
-      print('No restaurants fetched');
-
-      return null;
-    }
-  } catch (e) {
-    print('Failed to fetch restaurants: $e');
-
-    return null;
   }
 }

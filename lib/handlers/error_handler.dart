@@ -1,7 +1,4 @@
-import 'dart:ui';
-
-import 'package:flutter/material.dart';
-import 'package:restaurantour/utils/strings.dart';
+part of '../main.dart';
 
 void registerErrorHandlers() {
   FlutterError.onError = (FlutterErrorDetails details) {

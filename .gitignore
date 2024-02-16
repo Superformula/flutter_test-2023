@@ -3,6 +3,7 @@
 *.log
 *.pyc
 *.swp
+*.env
 .DS_Store
 .atom/
 .buildlog/
@@ -47,3 +48,6 @@ app.*.map.json
 
 # fvm
 .fvm/flutter_sdk
+
+#env
+env.g.dart

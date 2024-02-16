@@ -5,8 +5,8 @@ import 'package:restaurantour/utils/colors.dart';
 
 import '../utils/strings.dart';
 import '../utils/text_styles.dart';
-import '../widgets/details_appbar.dart';
-import '../widgets/padded_divider.dart';
+import '../common/details_appbar.dart';
+import '../common/padded_divider.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({Key? key}) : super(key: key);

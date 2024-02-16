@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 
-import '../models/restaurant.dart';
-import '../repositories/yelp_repository.dart';
+import 'package:get_it_mixin/get_it_mixin.dart';
+import 'package:restaurantour/main.dart';
 
-class FavoritesListPage extends StatelessWidget {
-  const FavoritesListPage({
+class FavoritesListPage extends StatelessWidget with GetItMixin {
+  FavoritesListPage({
     Key? key,
   }) : super(key: key);
 
@@ -19,7 +19,9 @@ class FavoritesListPage extends StatelessWidget {
           ElevatedButton(
             child: const Text('Fetch Restaurants'),
             onPressed: () async {
-              _fetchRestaurantData();
+              restaurants.getRestaurants();
+
+              debugPrint(restaurants.restaurants.value?.toJson().toString());
             },
           ),
           ListView(
@@ -70,28 +72,5 @@ class FavoritesListPage extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-Future<RestaurantQueryResult?> _fetchRestaurantData() async {
-  final yelpRepo = YelpRepository();
-
-  try {
-    final result = await yelpRepo.getRestaurants();
-    if (result != null) {
-      print(
-        'Fetched ${result.restaurants!.length} restaurants',
-      );
-
-      return result;
-    } else {
-      print('No restaurants fetched');
-
-      return null;
-    }
-  } catch (e) {
-    print('Failed to fetch restaurants: $e');
-
-    return null;
   }
 }

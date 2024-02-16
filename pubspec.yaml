@@ -5,9 +5,8 @@ publish_to: 'none'
 
 version: 1.0.0+1
 
-
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -18,6 +17,8 @@ dependencies:
   flutter_svg: ^2.0.9
   flutter_rating_stars: ^1.0.3+4
   google_fonts: ^6.1.0
+  get_it: ^7.6.7
+  get_it_mixin: ^4.2.2
 
 dev_dependencies:
   flutter_test:
@@ -25,6 +26,7 @@ dev_dependencies:
   flutter_lints: ^1.0.2
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
+  envied_generator: ^0.5.3
 
 flutter:
   uses-material-design: true
