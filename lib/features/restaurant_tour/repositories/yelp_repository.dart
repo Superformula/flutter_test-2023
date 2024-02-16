@@ -3,7 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:restaurantour/features/restaurant_tour/models/restaurant.dart';
 
 const _apiKey =
-    'XwtYYNAyjLinimPxNBejp7RQrwpmoNJROqcWNe9ATgdLTAUxaWjGOMRXJUTTVknNZAKPtWQJ7T--axaZAIyWWwEKEuTwhTxK_OZPXF76inU4isZVBBQgVwWfWw3MZXYx';
+    // 'XwtYYNAyjLinimPxNBejp7RQrwpmoNJROqcWNe9ATgdLTAUxaWjGOMRXJUTTVknNZAKPtWQJ7T--axaZAIyWWwEKEuTwhTxK_OZPXF76inU4isZVBBQgVwWfWw3MZXYx';
+    'L72HyuIheAzS2Udbq1a48QJWGU9nwd9P0jKSFAbxppNm9ir0zYCThJhP6YceYIMcdlbbnD4ha3mPzy57AOEwpiPHRcctyhzAqIEO7EUzHYTjNa9fNZf84Z05k9PPZXYx';
 
 class YelpRepository {
   late Dio dio;

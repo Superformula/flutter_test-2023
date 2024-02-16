@@ -25,11 +25,12 @@ class RestaurantBloc extends Bloc<RestaurantEvent, RestaurantState> {
       if (result != null) {
         emit(RestaurantLoaded(restaurants: result.restaurants));
       } else {
-        emit(RestaurantNotLoaded());
+        emit(RestaurantLoaded());
       }
     } catch (e) {
+      // We could use here error messages from backend
       emit(
-        RestaurantLoaded(
+        RestaurantNotLoaded(
           error: 'Could not load the restaurants, please try again later',
         ),
       );

@@ -22,6 +22,9 @@ dependencies:
   # service locator
   get_it: ^7.6.4
 
+  # shimer
+  shimmer: ^3.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -31,5 +34,59 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-#  assets:
-#    - assets/svg/
+  #  assets:
+  #    - assets/svg/
+
+  fonts:
+    - family: Lora
+      fonts:
+        - asset: assets/fonts/Lora/Lora-Regular.ttf
+        - asset: assets/fonts/Lora/Lora-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Lora/Lora-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Lora/Lora-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Lora/Lora-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Lora/Lora-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Lora/Lora-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Lora/Lora-BoldItalic.ttf
+          weight: 700
+          style: italic
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/Open_Sans/OpenSans-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Open_Sans/OpenSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Open_Sans/OpenSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Open_Sans/OpenSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Open_Sans/OpenSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Open_Sans/OpenSans-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Open_Sans/OpenSans-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Open_Sans/OpenSans-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Open_Sans/OpenSans-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Open_Sans/OpenSans-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Open_Sans/OpenSans-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Open_Sans/OpenSans-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
