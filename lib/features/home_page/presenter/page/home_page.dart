@@ -73,7 +73,9 @@ class _Body extends StatelessWidget {
                 return const HomeLoadingSkeleton();
               }
               if (state is HomeDataLoadedState) {
-                return TabViews(restaurantList: state.restaurantList);
+                return TabViews(
+                  restaurantList: state.restaurantList,
+                );
               } else {
                 return const SizedBox();
               }
