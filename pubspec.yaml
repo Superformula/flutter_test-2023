@@ -45,6 +45,23 @@ dev_dependencies:
   bloc_test: ^9.1.6
   mockito: ^5.4.4
 
+  # Logo
+  flutter_launcher_icons: "^0.13.1"
+
+  # Splash
+  flutter_native_splash: ^2.3.7
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/superformula_logo.jpeg"
+  min_sdk_android: 21
+  remove_alpha_ios: true
+flutter_native_splash:
+  color: "#232323"
+  image: "assets/images/superformula_logo.jpeg"
+  web: false
+
 flutter:
   uses-material-design: true
   assets:
