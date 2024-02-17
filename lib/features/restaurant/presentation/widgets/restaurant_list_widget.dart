@@ -10,26 +10,31 @@ class RestaurantListWidget extends StatelessWidget {
   const RestaurantListWidget({
     Key? key,
     required this.restaurants,
-    this.favoriteRestaurants,
+    this.isFavoriteList = false,
   }) : super(key: key);
 
   final List<RestaurantEntity> restaurants;
-  final List<RestaurantEntity>? favoriteRestaurants;
+  final bool isFavoriteList;
 
   @override
   Widget build(BuildContext context) {
+    if (restaurants.isEmpty) {
+      return Center(
+        child: Text(
+          'No ${isFavoriteList ? 'favorite' : null} restaurants were found.',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      );
+    }
+
     return ListView.separated(
       padding: const EdgeInsets.symmetric(vertical: 16),
       itemBuilder: (context, index) => _buildRestaurantItemWidget(
         context,
-        favoriteRestaurants != null
-            ? favoriteRestaurants![index]
-            : restaurants[index],
+        restaurants[index],
       ),
       separatorBuilder: (_, __) => const SizedBox(height: 12),
-      itemCount: favoriteRestaurants != null
-          ? favoriteRestaurants!.length
-          : restaurants.length,
+      itemCount: restaurants.length,
     );
   }
 

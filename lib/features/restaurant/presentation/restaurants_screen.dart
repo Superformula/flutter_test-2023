@@ -61,9 +61,10 @@ class RestaurantsScreen extends StatelessWidget {
       builder: (context, restaurantsState) {
         if (restaurantsState is RestaurantsLoaded) {
           return RestaurantListWidget(
-            restaurants: restaurantsState.restaurants,
-            favoriteRestaurants:
-                showOnlyFavorites ? restaurantsState.favoriteRestaurants : null,
+            restaurants: showOnlyFavorites
+                ? restaurantsState.favoriteRestaurants
+                : restaurantsState.restaurants,
+            isFavoriteList: showOnlyFavorites,
           );
         }
 

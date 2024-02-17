@@ -34,8 +34,8 @@ class RestaurantDetailsScreen extends StatelessWidget {
                 bool isFavorite = false;
 
                 if (restaurantsState is RestaurantsLoaded) {
-                  isFavorite = restaurantsState.favoriteRestaurants
-                      .contains(restaurant);
+                  isFavorite =
+                      restaurantsState.favoriteRestaurants.contains(restaurant);
                 }
 
                 return GestureDetector(
