@@ -1,5 +1,6 @@
 {
   "restaurantDetailAddress": "Address",
+  "errorMessage": "Oops! Looks like we couldn't fetch the data. Please check your connection and try again later.",
   "restaurantDetailOverallRating": "Overall Rating",
   "restaurantDetailReviews": "{count,plural, =1{{count} Review} other{{count} Reviews}}",
   "@restaurantDetailReviews": {
