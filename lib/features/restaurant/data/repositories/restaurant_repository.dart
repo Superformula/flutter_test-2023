@@ -29,7 +29,8 @@ class RestaurantRepository implements IRestaurantRepository {
       );
     } on DioException catch (dioException) {
       return Left(
-          'Error ${dioException.response?.statusCode}: ${dioException.response?.statusMessage}');
+        'Error ${dioException.response?.statusCode}: ${dioException.response?.statusMessage}',
+      );
     } catch (e) {
       return Left('Unexpected error: ${e.toString()}');
     }
