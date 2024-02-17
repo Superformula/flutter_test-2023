@@ -6,8 +6,10 @@ import 'package:restaurantour/core/text_style.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 class RestaurantItemWidget extends StatelessWidget {
-  const RestaurantItemWidget({super.key, required this.restaurant});
+  const RestaurantItemWidget({super.key, required this.restaurant, required this.isFirstItem});
+  final bool isFirstItem;
   final Restaurant restaurant;
+
   double get rating => restaurant.rating ?? 0;
   String get heroImage => restaurant.heroImage;
   String get priceLabel => restaurant.price ?? '';
@@ -16,7 +18,7 @@ class RestaurantItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0).copyWith(top: 0),
+      padding: const EdgeInsets.all(12.0).copyWith(top: isFirstItem ? 16 : 0),
       child: Material(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         elevation: 2,

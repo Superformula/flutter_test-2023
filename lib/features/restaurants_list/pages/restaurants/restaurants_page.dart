@@ -29,9 +29,14 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
 
     return ListView.builder(
       itemCount: model!.restaurants.length,
-      itemBuilder: (context, index) => RestaurantItemWidget(
-        restaurant: model!.restaurants[index],
-      ),
+      itemBuilder: (context, index) {
+        final isFirstItem = index == 0;
+
+        return RestaurantItemWidget(
+          isFirstItem: isFirstItem,
+          restaurant: model!.restaurants[index],
+        );
+      },
     );
   }
 }

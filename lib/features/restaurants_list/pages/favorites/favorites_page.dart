@@ -28,9 +28,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
     return ListView.builder(
       itemCount: model!.favorites.length,
-      itemBuilder: (context, index) => RestaurantItemWidget(
-        restaurant: model!.favorites[index],
-      ),
+      itemBuilder: (context, index) {
+        final isFirstItem = index == 0;
+
+        return RestaurantItemWidget(
+          isFirstItem: isFirstItem,
+          restaurant: model!.restaurants[index],
+        );
+      },
     );
   }
 }
