@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const Color defaultTextColor = Color(0xFF000000);
 const Color secondaryTextColor = Color(0xFF606060);
 const Color dividerColor = Color(0xFFEEEEEE);
-const Color kAccentColor = Color(0xFF000000);
+const Color accentColor = Color(0xFF000000);
 const Color backgroundColor = Color(0xFFFAFAFA);
 const Color starColor = Color(0xFFFFB800);
 const Color openColor = Color(0xFF5CD313);

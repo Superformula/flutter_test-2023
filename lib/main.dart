@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/config/routes/routes.dart';
-import 'package:restaurantour/features/restaurant_tour/bloc/restaurant_bloc.dart';
+import 'package:restaurantour/features/restaurant_tour/bloc/favorites_bloc/favorites_bloc.dart';
+import 'package:restaurantour/features/restaurant_tour/bloc/restaurant_bloc/restaurant_bloc.dart';
 import 'package:restaurantour/features/restaurant_tour/presentation/home_restaurant/home_restaurant.dart';
 import 'package:restaurantour/injection_container.dart';
 
@@ -28,6 +29,9 @@ class Restaurantour extends StatelessWidget {
       providers: [
         BlocProvider<RestaurantBloc>(
           create: (context) => RestaurantBloc()..add(LoadRestaurantsEvent()),
+        ),
+        BlocProvider<FavoritesBloc>(
+          create: (context) => FavoritesBloc()..add(LoadFavoritesEvent()),
         ),
       ],
       child: MaterialApp(

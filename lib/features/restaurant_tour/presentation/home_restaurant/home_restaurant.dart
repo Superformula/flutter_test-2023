@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurantour/features/restaurant_tour/bloc/restaurant_bloc.dart';
+import 'package:restaurantour/features/restaurant_tour/bloc/favorites_bloc/favorites_bloc.dart';
+import 'package:restaurantour/features/restaurant_tour/bloc/restaurant_bloc/restaurant_bloc.dart';
 import 'package:restaurantour/features/restaurant_tour/models/restaurant.dart';
 import 'package:restaurantour/features/restaurant_tour/presentation/widgets/restaurant_card.dart';
 import 'package:restaurantour/features/restaurant_tour/presentation/widgets/restaurant_card_shimmer.dart';
@@ -34,7 +35,7 @@ class HomeResturant extends StatelessWidget {
                 indicatorSize: TabBarIndicatorSize.label,
                 labelColor: defaultTextColor,
                 labelStyle: buttonStyle,
-                indicatorColor: kAccentColor,
+                indicatorColor: accentColor,
                 unselectedLabelColor: secondaryTextColor,
                 unselectedLabelStyle: buttonStyle,
                 tabs: [
@@ -54,14 +55,16 @@ class HomeResturant extends StatelessWidget {
         backgroundColor: backgroundColor,
         body: SafeArea(
           child: BlocBuilder<RestaurantBloc, RestaurantState>(
-            builder: (context, state) {
-              return TabBarView(
-                children: [
-                  getAllRestaurantsWidget(state),
-                  Center(
-                    child: Text('Favorites'),
-                  ),
-                ],
+            builder: (context, restaurantState) {
+              return BlocBuilder<FavoritesBloc, FavoritesState>(
+                builder: (context, favoritesState) {
+                  return TabBarView(
+                    children: [
+                      getAllRestaurantsWidget(restaurantState),
+                      getFavoritesWidget(favoritesState),
+                    ],
+                  );
+                },
               );
             },
           ),
@@ -94,15 +97,67 @@ class HomeResturant extends StatelessWidget {
           }),
         );
       } else {
-        return Text(
-          'There are not restaurants available, please try again later',
+        return Center(
+          child: Text(
+            'There are not restaurants available, please try again later',
+            style: titleStyle,
+            textAlign: TextAlign.center,
+          ),
         );
       }
     } else {
-      return Text(
-        (state as RestaurantNotLoaded).error ??
-            'Could not load the restaurants, please try again later',
+      return Center(
+        child: Text(
+          (state as RestaurantNotLoaded).error ??
+              'Could not load the restaurants, please try again later',
+          style: titleStyle,
+          textAlign: TextAlign.center,
+        ),
       );
     }
+  }
+}
+
+Widget getFavoritesWidget(FavoritesState state) {
+  if (state is FavoritesLoading) {
+    return ListView.builder(
+      itemCount: 5,
+      itemBuilder: ((context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          child: RestaurantCardShimmer(),
+        );
+      }),
+    );
+  } else if (state is FavoritesLoaded) {
+    if (state.favoritesRestaurants.isNotEmpty) {
+      final List<Restaurant> restaurants = state.favoritesRestaurants;
+      return ListView.builder(
+        itemCount: restaurants.length,
+        itemBuilder: ((context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: RestaurantCard(restaurant: restaurants[index]),
+          );
+        }),
+      );
+    } else {
+      return Center(
+        child: Text(
+          "You don't have any favorite restaurants added yet",
+          style: titleStyle,
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+  } else {
+    return Center(
+      child: Text(
+        (state as FavoritesNotLoaded).error ??
+            'Could not load your favorite restaurants, please try again later',
+        style: titleStyle,
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 }

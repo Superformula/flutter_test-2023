@@ -7,9 +7,8 @@ class RestaurantLoading extends RestaurantState {}
 
 class RestaurantLoaded extends RestaurantState {
   final List<Restaurant>? restaurants;
-  final String? error;
 
-  RestaurantLoaded({this.restaurants, this.error});
+  RestaurantLoaded({this.restaurants});
 }
 
 class RestaurantNotLoaded extends RestaurantState {

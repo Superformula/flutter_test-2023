@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurantour/features/restaurant_tour/models/restaurant.dart';
 import 'package:restaurantour/features/restaurant_tour/presentation/widgets/column_builder.dart';
 import 'package:restaurantour/features/restaurant_tour/presentation/widgets/divider_detail.dart';
+import 'package:restaurantour/features/restaurant_tour/presentation/widgets/favorited_button.dart';
 import 'package:restaurantour/features/restaurant_tour/presentation/widgets/open_now_widget.dart';
 import 'package:restaurantour/features/restaurant_tour/presentation/widgets/star_rating.dart';
 import 'package:restaurantour/theme/style.dart';
@@ -28,15 +29,7 @@ class DetailRestaurant extends StatelessWidget {
           restaurant.name ?? '',
           style: titleStyle,
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.favorite_border_rounded),
-            color: defaultTextColor,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
+        actions: [FavoritedButton(restaurant)],
         backgroundColor: backgroundColor,
       ),
       body: ListView(

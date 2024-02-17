@@ -25,6 +25,12 @@ dependencies:
   # shimer
   shimmer: ^3.0.0
 
+  # for local DB
+  shared_preferences: ^2.2.2
+
+  # toast
+  fluttertoast: ^8.2.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
