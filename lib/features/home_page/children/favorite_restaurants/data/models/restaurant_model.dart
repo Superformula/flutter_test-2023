@@ -59,7 +59,7 @@ class RestaurantModel extends RestaurantEntity {
       reviews: reviews,
       categories: categories,
       hours: hours,
-      location:location
+      location:location,
     );
   }
 

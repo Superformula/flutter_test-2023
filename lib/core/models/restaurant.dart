@@ -55,9 +55,11 @@ class Review {
   final String? id;
   final int? rating;
   final User? user;
+  final String? text;
 
   const Review({
     this.id,
+    this.text,
     this.rating,
     this.user,
   });

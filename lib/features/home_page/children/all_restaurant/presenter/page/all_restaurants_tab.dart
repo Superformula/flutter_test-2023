@@ -24,9 +24,7 @@ class AllRestaurantsTab extends StatelessWidget {
 }
 
 class _Page extends StatelessWidget {
-  const _Page({
-    super.key,
-  });
+  const _Page();
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +45,7 @@ class _Page extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  const _Body({
-    super.key,
-  });
+  const _Body();
 
   @override
   Widget build(BuildContext context) {

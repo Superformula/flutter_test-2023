@@ -9,7 +9,7 @@ class TabViews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
+    return const Flexible(
       child: TabBarView(
         children: [
           AllRestaurantsTab(),

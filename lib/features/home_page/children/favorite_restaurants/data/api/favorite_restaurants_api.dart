@@ -60,7 +60,7 @@ class FavoriteRestaurantsApi extends FavoriteRestaurantsRepository {
         return Err(DioException(
           error: 'La respuesta no contiene datos',
           requestOptions: RequestOptions(path: '/v3/graphql'),
-        ));
+        ),);
       }
     } on DioException catch (e) {
       return Err(e);
@@ -68,7 +68,7 @@ class FavoriteRestaurantsApi extends FavoriteRestaurantsRepository {
       return Err(DioException(
         error: 'Error desconocido: $e',
         requestOptions: RequestOptions(path: '/v3/graphql'),
-      ));
+      ),);
     }
   }
 }
