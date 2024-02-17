@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/core/inject.dart';
+import 'package:restaurantour/features/restaurant_list/restaurant_list_screen.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   setupInjection();
@@ -9,22 +12,27 @@ void main() {
 
 class Restaurantour extends StatelessWidget {
   // This widget is the root of your application.
-  const Restaurantour({Key? key}) : super(key: key);
+  const Restaurantour({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'RestauranTour',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      theme: ThemeData(visualDensity: VisualDensity.adaptivePlatformDensity),
       home: const HomePage(),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

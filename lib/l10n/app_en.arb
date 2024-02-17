@@ -1,0 +1,17 @@
+{
+  "restaurantDetailAddress": "Address",
+  "restaurantDetailOverallRating": "Overall Rating",
+  "restaurantDetailReviews": "{count,plural, =1{{count} Review} other{{count} Reviews}}",
+  "@restaurantDetailReviews": {
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "restaurantListAllRestaurantsTab": "All Restaurants",
+  "restaurantListAllRestaurantsTabClosed": "Closed",
+  "restaurantListAllRestaurantsTabOpenNow": "Open Now",
+  "restaurantListMyFavoritesTab": "My Favorites",
+  "restaurantListRestauranTour": "RestauranTour"
+}
