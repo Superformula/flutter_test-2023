@@ -3,27 +3,19 @@ import 'package:restaurantour/features/restaurant/data/datasources/restaurant_lo
 import 'package:restaurantour/features/restaurant/data/datasources/restaurant_remote_datasource.dart';
 import 'package:restaurantour/features/restaurant/data/repositories/restaurant_repository.dart';
 import 'package:restaurantour/features/restaurant/domain/repositories/irestaurant_repository.dart';
-import 'package:restaurantour/features/restaurant/domain/usecases/add_favorite_restaurant_usecase.dart';
-import 'package:restaurantour/features/restaurant/domain/usecases/delete_favorite_restaurant_usecase.dart';
 import 'package:restaurantour/features/restaurant/domain/usecases/get_all_restaurants_usecases.dart';
-import 'package:restaurantour/features/restaurant/domain/usecases/get_favorite_restaurants_usecase.dart';
-import 'package:restaurantour/features/restaurant/presentation/cubit/all_restaurants_cubit/all_restaurants_cubit.dart';
-import 'package:restaurantour/features/restaurant/presentation/cubit/favorite_restaurants_cubit/favorite_restaurants_cubit.dart';
+import 'package:restaurantour/features/restaurant/domain/usecases/get_favorite_restaurants_ids_usecase.dart';
+import 'package:restaurantour/features/restaurant/domain/usecases/set_favorite_restaurants_ids_usecase.dart';
+import 'package:restaurantour/features/restaurant/presentation/cubit/restaurants_cubit.dart';
 
 final dependency = GetIt.instance;
 
 Future<void> init() async {
   dependency.registerFactory(
-    () => AllRestaurantsCubit(
+    () => RestaurantsCubit(
       getAllRestaurantsUseCase: dependency(),
-    ),
-  );
-
-  dependency.registerFactory(
-    () => FavoriteRestaurantsCubit(
-      getFavoriteRestaurantsUseCase: dependency(),
-      addFavoriteRestaurantUseCase: dependency(),
-      deleteFavoriteRestaurantUseCase: dependency(),
+      getFavoriteRestaurantsIdsUseCase: dependency(),
+      setFavoriteRestaurantsIdsUseCase: dependency(),
     ),
   );
 
@@ -49,19 +41,13 @@ Future<void> init() async {
   );
 
   dependency.registerFactory(
-    () => GetFavoriteRestaurantsUseCase(
+    () => GetFavoriteRestaurantsIdsUseCase(
       restaurantRepository: dependency(),
     ),
   );
 
   dependency.registerFactory(
-    () => AddFavoriteRestaurantUseCase(
-      restaurantRepository: dependency(),
-    ),
-  );
-
-  dependency.registerFactory(
-    () => DeleteFavoriteRestaurantUseCase(
+    () => SetFavoriteRestaurantsIdsUseCase(
       restaurantRepository: dependency(),
     ),
   );

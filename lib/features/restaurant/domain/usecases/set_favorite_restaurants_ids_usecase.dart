@@ -1,16 +1,17 @@
-import 'package:restaurantour/features/restaurant/domain/entities/restaurant_entity.dart';
 import 'package:restaurantour/features/restaurant/domain/repositories/irestaurant_repository.dart';
 
-class AddFavoriteRestaurantUseCase {
-  AddFavoriteRestaurantUseCase({
+class SetFavoriteRestaurantsIdsUseCase {
+  SetFavoriteRestaurantsIdsUseCase({
     required IRestaurantRepository restaurantRepository,
   }) : _restaurantRepository = restaurantRepository;
 
   final IRestaurantRepository _restaurantRepository;
 
   Future<void> call({
-    required RestaurantEntity restaurant,
+    required List<String> favoriteRestaurantIdsList,
   }) {
-    return _restaurantRepository.addFavoriteRestaurant(restaurant: restaurant);
+    return _restaurantRepository.setFavoriteRestaurantsIds(
+      favoriteRestaurantsIdsList: favoriteRestaurantIdsList,
+    );
   }
 }

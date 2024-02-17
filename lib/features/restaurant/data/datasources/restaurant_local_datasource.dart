@@ -1,24 +1,23 @@
-import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RestaurantLocalDatasource {
-  Future<Map> fetchFavoriteRestaurants() async {
-    final favoriteRestaurantsBox = await _openFavoriteRestaurantsBox();
+  final listId = 'restaurantsIds';
 
-    return favoriteRestaurantsBox.toMap();
+  Future<List<String>?> fetchFavoriteRestaurantsIds() async {
+    final sharedPreferencesInstance = await _getSharedPreferencesInstance();
+
+    return sharedPreferencesInstance.getStringList(listId);
   }
 
-  Future<void> addFavoriteRestaurant(String? id, Map restaurantData) async {
-    final favoriteRestaurantsBox = await _openFavoriteRestaurantsBox();
+  Future<void> setFavoriteRestaurantsIds(
+      List<String> restaurantsIdsList) async {
+    final sharedPreferencesInstance = await _getSharedPreferencesInstance();
 
-    return await favoriteRestaurantsBox.put(id, restaurantData);
+    await sharedPreferencesInstance.setStringList(listId, restaurantsIdsList);
+
+    return;
   }
 
-  Future<void> deleteFavoriteRestaurant(String? id) async {
-    final favoriteRestaurantsBox = await _openFavoriteRestaurantsBox();
-
-    return await favoriteRestaurantsBox.delete(id);
-  }
-
-  Future<Box> _openFavoriteRestaurantsBox() =>
-      Hive.openBox('favoriteRestaurants');
+  Future<SharedPreferences> _getSharedPreferencesInstance() async =>
+      await SharedPreferences.getInstance();
 }

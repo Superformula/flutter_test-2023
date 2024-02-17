@@ -5,21 +5,30 @@ import 'package:restaurantour/features/restaurant/domain/entities/review_entity.
 part 'review_model.g.dart';
 
 @JsonSerializable()
-class ReviewModel extends ReviewEntity {
+class ReviewModel {
   const ReviewModel({
-    String? id,
-    int? rating,
-    String? text,
-    UserModel? user,
-  }) : super(
-          id: id,
-          rating: rating,
-          text: text,
-          user: user,
-        );
+    this.id,
+    this.rating,
+    this.text,
+    this.user,
+  });
+
+  final String? id;
+  final int? rating;
+  final String? text;
+  final UserModel? user;
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) =>
       _$ReviewModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReviewModelToJson(this);
+
+  ReviewEntity toEntity() {
+    return ReviewEntity(
+      id: id,
+      rating: rating,
+      text: text,
+      user: user?.toEntity(),
+    );
+  }
 }

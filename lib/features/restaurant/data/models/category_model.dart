@@ -4,17 +4,24 @@ import 'package:restaurantour/features/restaurant/domain/entities/category_entit
 part 'category_model.g.dart';
 
 @JsonSerializable()
-class CategoryModel extends CategoryEntity {
+class CategoryModel {
   const CategoryModel({
-    String? title,
-    String? alias,
-  }) : super(
-          title: title,
-          alias: alias,
-        );
+    this.title,
+    this.alias,
+  });
+
+  final String? alias;
+  final String? title;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
+
+  CategoryEntity toEntity() {
+    return CategoryEntity(
+      title: title,
+      alias: alias,
+    );
+  }
 }

@@ -35,8 +35,8 @@ Map<String, dynamic> _$RestaurantModelToJson(RestaurantModel instance) =>
       'price': instance.price,
       'rating': instance.rating,
       'photos': instance.photos,
-      'categories': instance.categories,
-      'hours': instance.hours,
-      'reviews': instance.reviews,
-      'location': instance.location,
+      'categories': instance.categories?.map((e) => e.toJson()).toList(),
+      'hours': instance.hours?.map((e) => e.toJson()).toList(),
+      'reviews': instance.reviews?.map((e) => e.toJson()).toList(),
+      'location': instance.location?.toJson(),
     };

@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-@JsonSerializable(explicitToJson: true)
-abstract class CategoryEntity extends Equatable {
+class CategoryEntity extends Equatable {
   const CategoryEntity({
     this.title,
     this.alias,

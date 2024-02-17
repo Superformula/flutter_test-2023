@@ -4,15 +4,22 @@ import 'package:restaurantour/features/restaurant/domain/entities/location_entit
 part 'location_model.g.dart';
 
 @JsonSerializable()
-class LocationModel extends LocationEntity {
+class LocationModel {
   const LocationModel({
-    String? formattedAddress,
-  }) : super(
-          formattedAddress: formattedAddress,
-        );
+    this.formattedAddress,
+  });
+
+  @JsonKey(name: 'formatted_address')
+  final String? formattedAddress;
 
   factory LocationModel.fromJson(Map<String, dynamic> json) =>
       _$LocationModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocationModelToJson(this);
+
+  LocationEntity toEntity() {
+    return LocationEntity(
+      formattedAddress: formattedAddress,
+    );
+  }
 }

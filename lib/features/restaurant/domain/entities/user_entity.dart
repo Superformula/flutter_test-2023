@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-@JsonSerializable(explicitToJson: true)
-abstract class UserEntity extends Equatable {
+class UserEntity extends Equatable {
   const UserEntity({
     this.id,
     this.imageUrl,
@@ -10,7 +8,6 @@ abstract class UserEntity extends Equatable {
   });
 
   final String? id;
-  @JsonKey(name: 'image_url')
   final String? imageUrl;
   final String? name;
 

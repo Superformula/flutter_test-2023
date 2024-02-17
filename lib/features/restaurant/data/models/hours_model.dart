@@ -4,15 +4,22 @@ import 'package:restaurantour/features/restaurant/domain/entities/hours_entity.d
 part 'hours_model.g.dart';
 
 @JsonSerializable()
-class HoursModel extends HoursEntity {
-  const HoursModel({
-    bool? isOpenNow,
-  }) : super(
-          isOpenNow: isOpenNow,
-        );
+class HoursModel {
+  const HoursModel(
+    this.isOpenNow,
+  );
+
+  @JsonKey(name: 'is_open_now')
+  final bool? isOpenNow;
 
   factory HoursModel.fromJson(Map<String, dynamic> json) =>
       _$HoursModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$HoursModelToJson(this);
+
+  HoursEntity toEntity() {
+    return HoursEntity(
+      isOpenNow: isOpenNow,
+    );
+  }
 }

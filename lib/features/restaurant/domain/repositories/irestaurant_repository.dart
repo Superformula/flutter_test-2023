@@ -3,9 +3,8 @@ import 'package:restaurantour/features/restaurant/domain/entities/restaurant_ent
 
 abstract class IRestaurantRepository {
   Future<Either<String, List<RestaurantEntity>>> getAllRestaurants();
-  Future<List<RestaurantEntity>> getFavoriteRestaurants();
-  Future<void> addFavoriteRestaurant({
-    required RestaurantEntity restaurant,
+  Future<List<String>> getFavoriteRestaurantsIds();
+  Future<void> setFavoriteRestaurantsIds({
+    required List<String> favoriteRestaurantsIdsList,
   });
-  Future<void> deleteFavoriteRestaurant({required String? id});
 }

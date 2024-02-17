@@ -5,17 +5,26 @@ import 'package:restaurantour/features/restaurant/domain/entities/restaurant_que
 part 'restaurant_query_result_model.g.dart';
 
 @JsonSerializable()
-class RestaurantQueryResultModel extends RestaurantQueryResultEntity {
+class RestaurantQueryResultModel {
   const RestaurantQueryResultModel({
-    int? total,
-    List<RestaurantModel>? restaurants,
-  }) : super(
-          total: total,
-          restaurants: restaurants,
-        );
+    this.total,
+    this.restaurants,
+  });
+
+  final int? total;
+  @JsonKey(name: 'business')
+  final List<RestaurantModel>? restaurants;
 
   factory RestaurantQueryResultModel.fromJson(Map<String, dynamic> json) =>
       _$RestaurantQueryResultModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantQueryResultModelToJson(this);
+
+  RestaurantQueryResultEntity toEntity() {
+    return RestaurantQueryResultEntity(
+      total: total,
+      restaurants:
+          restaurants?.map((restaurant) => restaurant.toEntity()).toList(),
+    );
+  }
 }

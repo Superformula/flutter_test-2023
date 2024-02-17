@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/restaurant_entity.dart';
+import 'package:restaurantour/features/restaurant/presentation/cubit/restaurants_cubit.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurant_details_screen.dart';
 import 'package:restaurantour/features/restaurant/presentation/widgets/restaurant_status_widget.dart';
 import 'package:restaurantour/features/restaurant/presentation/widgets/star_rating_widget.dart';
@@ -8,18 +10,31 @@ class RestaurantListWidget extends StatelessWidget {
   const RestaurantListWidget({
     Key? key,
     required this.restaurants,
+    this.favoriteRestaurantsIds,
   }) : super(key: key);
 
   final List<RestaurantEntity> restaurants;
+  final List<String>? favoriteRestaurantsIds;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      itemBuilder: (context, index) => _buildRestaurantItemWidget(
-        context,
-        restaurants[index],
-      ),
+      itemBuilder: (context, index) {
+        if (favoriteRestaurantsIds != null) {
+          return favoriteRestaurantsIds!.contains(restaurants[index].id)
+              ? _buildRestaurantItemWidget(
+                  context,
+                  restaurants[index],
+                )
+              : Container();
+        }
+
+        return _buildRestaurantItemWidget(
+          context,
+          restaurants[index],
+        );
+      },
       separatorBuilder: (_, __) => const SizedBox(height: 12),
       itemCount: restaurants.length,
     );
@@ -30,11 +45,9 @@ class RestaurantListWidget extends StatelessWidget {
     RestaurantEntity restaurant,
   ) {
     return InkWell(
-      onTap: () => Navigator.push(
+      onTap: () => _goToRestaurantDetailsScreen(
         context,
-        MaterialPageRoute(
-          builder: (_) => RestaurantDetailsScreen(restaurant: restaurant),
-        ),
+        restaurant: restaurant,
       ),
       child: Container(
         height: 104,
@@ -99,6 +112,21 @@ class RestaurantListWidget extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  void _goToRestaurantDetailsScreen(
+    BuildContext context, {
+    required RestaurantEntity restaurant,
+  }) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value: context.read<RestaurantsCubit>(),
+          child: RestaurantDetailsScreen(restaurant: restaurant),
         ),
       ),
     );

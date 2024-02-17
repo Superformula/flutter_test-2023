@@ -7,7 +7,7 @@ part of 'hours_model.dart';
 // **************************************************************************
 
 HoursModel _$HoursModelFromJson(Map<String, dynamic> json) => HoursModel(
-      isOpenNow: json['is_open_now'] as bool?,
+      json['is_open_now'] as bool?,
     );
 
 Map<String, dynamic> _$HoursModelToJson(HoursModel instance) =>

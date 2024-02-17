@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:restaurantour/features/restaurant/data/datasources/restaurant_local_datasource.dart';
 import 'package:restaurantour/features/restaurant/data/datasources/restaurant_remote_datasource.dart';
-import 'package:restaurantour/features/restaurant/data/models/restaurant_model.dart';
 import 'package:restaurantour/features/restaurant/data/models/restaurant_query_result_model.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/restaurant_entity.dart';
 import 'package:restaurantour/features/restaurant/domain/repositories/irestaurant_repository.dart';
@@ -24,7 +23,7 @@ class RestaurantRepository implements IRestaurantRepository {
       return Right(
         RestaurantQueryResultModel.fromJson(
               response.data!['data']['search'],
-            ).restaurants ??
+            ).toEntity().restaurants ??
             [],
       );
     } catch (e) {
@@ -33,47 +32,19 @@ class RestaurantRepository implements IRestaurantRepository {
   }
 
   @override
-  Future<List<RestaurantEntity>> getFavoriteRestaurants() async {
-    final List<RestaurantEntity> favoriteRestaurantsList = [];
-    final favoriteRestaurantsRawData =
-        await _restaurantLocalDatasource.fetchFavoriteRestaurants();
+  Future<List<String>> getFavoriteRestaurantsIds() async {
+    final favoriteRestaurantsIds =
+        await _restaurantLocalDatasource.fetchFavoriteRestaurantsIds() ?? [];
 
-    favoriteRestaurantsRawData.forEach(
-      (id, value) => favoriteRestaurantsList.add(
-        RestaurantModel.fromJson(value),
-      ),
-    );
-
-    return favoriteRestaurantsList;
+    return favoriteRestaurantsIds;
   }
 
   @override
-  Future<void> addFavoriteRestaurant({
-    required RestaurantEntity restaurant,
+  Future<void> setFavoriteRestaurantsIds({
+    required List<String> favoriteRestaurantsIdsList,
   }) async {
-    final newFavoriteRestaurant = RestaurantModel(
-      id: restaurant.id,
-      name: restaurant.name,
-      price: restaurant.price,
-      rating: restaurant.rating,
-      photos: restaurant.photos,
-      categories: restaurant.categories,
-      hours: restaurant.hours,
-      reviews: restaurant.reviews,
-      location: restaurant.location,
-    );
-
-    await _restaurantLocalDatasource.addFavoriteRestaurant(
-      restaurant.id,
-      newFavoriteRestaurant.toJson(),
-    );
-
-    return;
-  }
-
-  @override
-  Future<void> deleteFavoriteRestaurant({required String? id}) async {
-    await _restaurantLocalDatasource.deleteFavoriteRestaurant(id);
+    await _restaurantLocalDatasource
+        .setFavoriteRestaurantsIds(favoriteRestaurantsIdsList);
 
     return;
   }

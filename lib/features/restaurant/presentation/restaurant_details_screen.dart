@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/common/ui/app_colors.dart';
 import 'package:restaurantour/common/ui/themes.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/restaurant_entity.dart';
+import 'package:restaurantour/features/restaurant/presentation/cubit/restaurants_cubit.dart';
 import 'package:restaurantour/features/restaurant/presentation/widgets/restaurant_status_widget.dart';
 import 'package:restaurantour/features/restaurant/presentation/widgets/star_rating_widget.dart';
 
@@ -24,11 +26,30 @@ class RestaurantDetailsScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: Icon(
-              Icons.favorite,
+            padding: const EdgeInsets.only(right: 16),
+            child: BlocBuilder<RestaurantsCubit, RestaurantsState>(
+              builder: (context, restaurantsState) {
+                bool isFavorite = false;
+
+                if (restaurantsState is RestaurantsLoaded) {
+                  isFavorite = restaurantsState.favoriteRestaurantsIds
+                      .contains(restaurant.id);
+                }
+
+                return GestureDetector(
+                  onTap: () => restaurantsState is RestaurantsLoaded
+                      ? _onFavoriteTap(
+                          context,
+                          isFavorite: isFavorite,
+                        )
+                      : null,
+                  child: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border_rounded,
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -114,17 +135,18 @@ class RestaurantDetailsScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) => _buildReviewItemWidget(
-                            context,
-                            index,
-                          ),
-                      separatorBuilder: (_, __) => const Divider(
-                            color: AppColors.kScreechingWhite,
-                            thickness: 2,
-                          ),
-                      itemCount: restaurant.reviews?.length ?? 0,),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) => _buildReviewItemWidget(
+                      context,
+                      index,
+                    ),
+                    separatorBuilder: (_, __) => const Divider(
+                      color: AppColors.kScreechingWhite,
+                      thickness: 2,
+                    ),
+                    itemCount: restaurant.reviews?.length ?? 0,
+                  ),
                 ],
               ),
             ),
@@ -159,7 +181,8 @@ class RestaurantDetailsScreen extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 24,
                     backgroundImage: NetworkImage(
-                        restaurant.reviews![index].user!.imageUrl!,),
+                      restaurant.reviews![index].user!.imageUrl!,
+                    ),
                   ),
                 ),
               Text(
@@ -171,5 +194,15 @@ class RestaurantDetailsScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onFavoriteTap(BuildContext context, {required bool isFavorite}) {
+    isFavorite
+        ? context.read<RestaurantsCubit>().deleteFavoriteRestaurantId(
+              id: restaurant.id,
+            )
+        : context.read<RestaurantsCubit>().addFavoriteRestaurantId(
+              id: restaurant.id,
+            );
   }
 }

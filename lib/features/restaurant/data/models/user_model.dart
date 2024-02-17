@@ -4,19 +4,28 @@ import 'package:restaurantour/features/restaurant/domain/entities/user_entity.da
 part 'user_model.g.dart';
 
 @JsonSerializable()
-class UserModel extends UserEntity {
+class UserModel {
   const UserModel({
-    String? id,
-    String? imageUrl,
-    String? name,
-  }) : super(
-          id: id,
-          imageUrl: imageUrl,
-          name: name,
-        );
+    this.id,
+    this.imageUrl,
+    this.name,
+  });
+
+  final String? id;
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
+  final String? name;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
+
+  UserEntity toEntity() {
+    return UserEntity(
+      id: id,
+      imageUrl: imageUrl,
+      name: name,
+    );
+  }
 }

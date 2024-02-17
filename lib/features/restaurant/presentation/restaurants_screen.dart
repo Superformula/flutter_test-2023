@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/common/ui/app_colors.dart';
-import 'package:restaurantour/features/restaurant/presentation/cubit/all_restaurants_cubit/all_restaurants_cubit.dart';
+import 'package:restaurantour/features/restaurant/presentation/cubit/restaurants_cubit.dart';
 import 'package:restaurantour/features/restaurant/presentation/widgets/restaurant_list_widget.dart';
 
 class RestaurantsScreen extends StatelessWidget {
@@ -47,21 +47,23 @@ class RestaurantsScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            _buildAllRestaurantsWidget(),
-            _buildMyFavoritesWidget(),
+            _buildRestaurantsWidget(),
+            _buildRestaurantsWidget(showOnlyFavorites: true),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildAllRestaurantsWidget() {
-    return BlocBuilder<AllRestaurantsCubit, AllRestaurantsState>(
-      builder: (context, allRestaurantsState) {
-        print(allRestaurantsState.runtimeType);
-        if (allRestaurantsState is AllRestaurantsLoaded) {
+  Widget _buildRestaurantsWidget({bool showOnlyFavorites = false}) {
+    return BlocBuilder<RestaurantsCubit, RestaurantsState>(
+      builder: (context, restaurantsState) {
+        if (restaurantsState is RestaurantsLoaded) {
           return RestaurantListWidget(
-            restaurants: allRestaurantsState.restaurants,
+            restaurants: restaurantsState.restaurants,
+            favoriteRestaurantsIds: showOnlyFavorites
+                ? restaurantsState.favoriteRestaurantsIds
+                : null,
           );
         }
 
@@ -72,9 +74,5 @@ class RestaurantsScreen extends StatelessWidget {
         );
       },
     );
-  }
-
-  Widget _buildMyFavoritesWidget() {
-    return const Text('my favorites');
   }
 }

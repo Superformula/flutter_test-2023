@@ -1,12 +1,10 @@
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/category_entity.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/hours_entity.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/location_entity.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/review_entity.dart';
 
-@JsonSerializable(explicitToJson: true)
-abstract class RestaurantEntity extends Equatable {
+class RestaurantEntity extends Equatable {
   const RestaurantEntity({
     this.id,
     this.name,
