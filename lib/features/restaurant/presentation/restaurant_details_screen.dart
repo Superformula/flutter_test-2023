@@ -26,6 +26,10 @@ class RestaurantDetailsScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: const Icon(Icons.arrow_back_rounded),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
@@ -85,6 +89,11 @@ class RestaurantDetailsScreen extends StatelessWidget {
                       thickness: 2,
                     ),
                   ),
+                  Text(
+                    'Address',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  const SizedBox(height: 24),
                   Text(
                     restaurant.location?.formattedAddress ?? "",
                     style: Theme.of(context).textTheme.bodyMedium,
