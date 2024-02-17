@@ -1,16 +1,8 @@
-import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:restaurantour/common/widgets/app_error_refresh_widget.dart';
-import 'package:restaurantour/features/restaurant/data/datasources/restaurant_local_datasource.dart';
-import 'package:restaurantour/features/restaurant/data/datasources/restaurant_remote_datasource.dart';
-import 'package:restaurantour/features/restaurant/data/models/location_model.dart';
-import 'package:restaurantour/features/restaurant/data/models/restaurant_model.dart';
-import 'package:restaurantour/features/restaurant/data/models/review_model.dart';
-import 'package:restaurantour/features/restaurant/data/models/user_model.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/location_entity.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/restaurant_entity.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/review_entity.dart';
@@ -80,7 +72,7 @@ void main() {
         child: const MaterialApp(
           home: RestaurantsScreen(),
         ),
-      ));
+      ),);
       await tester.pumpAndSettle();
 
       expect(find.byType(RestaurantItemWidget), findsOneWidget);
@@ -115,7 +107,7 @@ void main() {
         child: const MaterialApp(
           home: RestaurantsScreen(),
         ),
-      ));
+      ),);
       await tester.pumpAndSettle();
 
       expect(find.text(RestaurantListWidget.noRestaurantsText), findsOneWidget);
@@ -157,7 +149,7 @@ void main() {
         child: const MaterialApp(
           home: RestaurantsScreen(),
         ),
-      ));
+      ),);
       await tester.pumpAndSettle();
 
       expect(find.byType(AppErrorRefreshWidget), findsOneWidget);
