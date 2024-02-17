@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/text_style.dart';
+import 'package:restaurantour/features/details/restaurant_details_screen.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 class RestaurantItemWidget extends StatelessWidget {
@@ -20,79 +21,91 @@ class RestaurantItemWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12.0).copyWith(top: isFirstItem ? 16 : 0),
       child: Material(
+        color: Colors.white,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         elevation: 2,
-        child: SizedBox(
-          height: 104,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  child: SizedBox(
-                    width: 88,
-                    height: 88,
-                    child: Image.network(
-                      fit: BoxFit.cover,
-                      heroImage,
-                      errorBuilder: (_, __, ___) => Container(
-                        color: RTColors.placeholder,
-                        child: const Icon(Icons.error_outline),
+        child: InkWell(
+          onTap: () => Navigator.push<void>(
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) => RestaurantDetailsScreen.create(restaurant),
+            ),
+          ),
+          child: SizedBox(
+            height: 104,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    child: SizedBox(
+                      width: 88,
+                      height: 88,
+                      child: Hero(
+                        tag: restaurant.name ?? '',
+                        child: Image.network(
+                          fit: BoxFit.cover,
+                          heroImage,
+                          errorBuilder: (_, __, ___) => Container(
+                            color: RTColors.placeholder,
+                            child: const Icon(Icons.error_outline),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          restaurant.name ?? '',
-                          maxLines: 2,
-                          style: RTTextStyle.subtitle1(color: RTColors.defaultText),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            restaurant.name ?? '',
+                            maxLines: 2,
+                            style: RTTextStyle.subtitle1(color: RTColors.defaultText),
+                          ),
                         ),
-                      ),
-                      Text(
-                        '$priceLabel ${restaurant.displayCategory}',
-                        style: RTTextStyle.caption(color: RTColors.defaultText),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(children: starRate),
-                          Row(
-                            children: [
-                              Text(
-                                restaurant.isOpen
-                                    ? AppLocalizations.of(context)!.restaurantListAllRestaurantsTabOpenNow
-                                    : AppLocalizations.of(context)!.restaurantListAllRestaurantsTabClosed,
-                                style: RTTextStyle.overline(color: RTColors.defaultText),
-                              ),
-                              const SizedBox(width: 8),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 3.0),
-                                child: Container(
-                                  width: 8,
-                                  height: 8,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: restaurant.isOpen ? RTColors.open : RTColors.closed,
+                        Text(
+                          '$priceLabel ${restaurant.displayCategory}',
+                          style: RTTextStyle.caption(color: RTColors.defaultText),
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(children: starRate),
+                            Row(
+                              children: [
+                                Text(
+                                  restaurant.isOpen
+                                      ? AppLocalizations.of(context)!.restaurantListAllRestaurantsTabOpenNow
+                                      : AppLocalizations.of(context)!.restaurantListAllRestaurantsTabClosed,
+                                  style: RTTextStyle.overline(color: RTColors.defaultText),
+                                ),
+                                const SizedBox(width: 8),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 3.0),
+                                  child: Container(
+                                    width: 8,
+                                    height: 8,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: restaurant.isOpen ? RTColors.open : RTColors.closed,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
