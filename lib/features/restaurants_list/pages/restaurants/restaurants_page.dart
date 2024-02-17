@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
 import 'package:restaurantour/components/restaurant_item_widget.dart';
+import 'package:restaurantour/components/rt_shimmer_loading.dart';
 import 'package:restaurantour/features/restaurants_list/restaurant_view_model.dart';
 
 class RestaurantsPage extends StatefulWidget {
@@ -23,7 +24,7 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
   @override
   Widget build(BuildContext context) {
     model = context.watch();
-    if (model!.status.isLoading) return const Center(child: CircularProgressIndicator());
+    if (model!.status.isLoading) return const RTShimmerLoading();
 
     if (model!.status.isError) return const RTErrorWidget();
 
