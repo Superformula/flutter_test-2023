@@ -65,12 +65,12 @@ class RestaurantItemWidget extends StatelessWidget {
                           child: Text(
                             restaurant.name ?? '',
                             maxLines: 2,
-                            style: RTTextStyle.subtitle1(color: RTColors.defaultText),
+                            style: RTTextStyle.subtitle1(),
                           ),
                         ),
                         Text(
                           '$priceLabel ${restaurant.displayCategory}',
-                          style: RTTextStyle.caption(color: RTColors.defaultText),
+                          style: RTTextStyle.caption(),
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,7 +83,7 @@ class RestaurantItemWidget extends StatelessWidget {
                                   restaurant.isOpen
                                       ? AppLocalizations.of(context)!.restaurantListAllRestaurantsTabOpenNow
                                       : AppLocalizations.of(context)!.restaurantListAllRestaurantsTabClosed,
-                                  style: RTTextStyle.overline(color: RTColors.defaultText),
+                                  style: RTTextStyle.overline(),
                                 ),
                                 const SizedBox(width: 8),
                                 Padding(

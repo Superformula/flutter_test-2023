@@ -43,7 +43,7 @@ class _RestaurantsListScreenState extends State<RestaurantsListScreen> {
             shadowColor: RTColors.primaryFill,
             title: Text(
               AppLocalizations.of(context)!.restaurantListRestauranTour,
-              style: RTTextStyle.headingH6(color: RTColors.defaultText),
+              style: RTTextStyle.headingH6(),
             ),
             bottom: TabBar(
               tabs: [
