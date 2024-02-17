@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
+const _apiKey = 'lodbv37WbR9DyxAkEWxg_5s7DnY_dShYICkuQkk0nJMPmaqCo7NabRbXdHOL_xaIe-79Bsfyyv1AuVFraWZnEcnVrqC4DqmMXo44NA3cAJ1w6Xh9uyWxErKzZy_RZXYx';
 
 class YelpRepository {
   late Dio dio;
