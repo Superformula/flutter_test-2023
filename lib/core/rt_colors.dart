@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
-  AppColors._();
+class RTColors {
+  RTColors._();
 
   static const open = Color(0xff5cd512);
   static const star = Color(0xfffeba00);
