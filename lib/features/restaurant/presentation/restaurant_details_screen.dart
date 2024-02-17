@@ -5,6 +5,7 @@ import 'package:restaurantour/common/ui/themes.dart';
 import 'package:restaurantour/features/restaurant/domain/entities/restaurant_entity.dart';
 import 'package:restaurantour/features/restaurant/presentation/cubit/restaurants_cubit.dart';
 import 'package:restaurantour/features/restaurant/presentation/widgets/restaurant_status_widget.dart';
+import 'package:restaurantour/features/restaurant/presentation/widgets/review_item_widget.dart';
 import 'package:restaurantour/features/restaurant/presentation/widgets/star_rating_widget.dart';
 
 class RestaurantDetailsScreen extends StatelessWidget {
@@ -146,10 +147,7 @@ class RestaurantDetailsScreen extends StatelessWidget {
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => _buildReviewItemWidget(
-                      context,
-                      index,
-                    ),
+                    itemBuilder: (_, index) => ReviewItemWidget(review: restaurant.reviews?[index]),
                     separatorBuilder: (_, __) => const Divider(
                       color: AppColors.kScreechingWhite,
                       thickness: 2,
