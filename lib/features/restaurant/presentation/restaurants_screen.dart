@@ -8,6 +8,10 @@ import 'package:restaurantour/features/restaurant/presentation/widgets/restauran
 class RestaurantsScreen extends StatelessWidget {
   const RestaurantsScreen({Key? key}) : super(key: key);
 
+  static const appTitle = 'RestauranTour';
+  static const allRestaurantTabTitle = 'All Restaurants';
+  static const favoriteRestaurantTabTitle = 'My Favorites';
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -24,11 +28,11 @@ class RestaurantsScreen extends StatelessWidget {
             isScrollable: true,
             tabs: const [
               Tab(
-                text: 'All Restaurants',
+                text: allRestaurantTabTitle,
                 height: 40,
               ),
               Tab(
-                text: 'My Favorites',
+                text: favoriteRestaurantTabTitle,
                 height: 40,
               ),
             ],
