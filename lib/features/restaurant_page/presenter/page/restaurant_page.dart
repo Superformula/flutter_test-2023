@@ -3,10 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/core/helpers/hive_helper.dart';
 import 'package:restaurantour/core/models/restaurant.dart';
 import 'package:restaurantour/features/restaurant_page/presenter/bloc/restaurant_bloc.dart';
-import 'package:restaurantour/features/restaurant_page/presenter/page/widgets/app_bar.dart';
-import 'package:restaurantour/features/restaurant_page/presenter/page/widgets/raiting_area.dart';
-import 'package:restaurantour/features/restaurant_page/presenter/page/widgets/restaurant_details_area.dart';
-import 'package:restaurantour/features/restaurant_page/presenter/page/widgets/reviews_area.dart';
+import 'package:restaurantour/features/restaurant_page/presenter/page/restaurant_page_export.dart';
 
 class RestaurantPage extends StatelessWidget {
   const RestaurantPage({super.key, required this.restaurant});

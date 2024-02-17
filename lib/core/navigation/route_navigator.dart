@@ -20,11 +20,7 @@ final GoRouter router = GoRouter(
       path: '/home',
       name: 'home',
       builder: (BuildContext context, GoRouterState state) {
-        return BlocProvider<HomeBloc>(
-          create: (_) =>
-              HomeBloc(hiveHelper: HiveHelper())..add(const InitialEvent()),
-          child: const HomePage(),
-        );
+        return const HomePage();
       },
     ),
     GoRoute(

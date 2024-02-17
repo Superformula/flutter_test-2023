@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/shared/tr_skeleton.dart';
+import 'package:restaurantour/shared/widgets/tr_skeleton.dart';
 
 class SingleRestaurantCardSkeleton extends StatelessWidget {
   const SingleRestaurantCardSkeleton({super.key});

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/core/helpers/hive_helper.dart';
 import 'package:restaurantour/features/home_page/presenter/bloc/home_bloc.dart';
-import 'package:restaurantour/features/home_page/presenter/page/widgets/home_loading_skeleton.dart';
-import 'package:restaurantour/features/home_page/presenter/page/widgets/tab_views.dart';
+import 'package:restaurantour/features/home_page/presenter/page/home_page_export.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const _Page();
+    return BlocProvider(
+      create: (context) => HomeBloc(
+        hiveHelper: HiveHelper(),
+      )..add(const InitialEvent()),
+      child: const _Page(),
+    );
   }
 }
 
@@ -39,7 +44,6 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-
       length: 2,
       child: Column(
         mainAxisSize: MainAxisSize.min,
