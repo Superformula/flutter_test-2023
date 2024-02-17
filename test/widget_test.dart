@@ -1,20 +1,45 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:restaurantour/features/restaurant_tour/models/restaurant.dart';
+import 'package:restaurantour/features/restaurant_tour/presentation/widgets/open_now_widget.dart';
+import 'package:restaurantour/features/restaurant_tour/presentation/widgets/restaurant_card.dart';
+import 'package:restaurantour/features/restaurant_tour/presentation/widgets/star_rating.dart';
 
-import 'package:restaurantour/main.dart';
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 void main() {
-  testWidgets('Page loads', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const Restaurantour());
+  testWidgets(
+    'RestaurantCard displays restaurant details',
+    (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
 
-    // Verify that tests will run
-    expect(find.text('Fetch Restaurants'), findsOneWidget);
-  });
+      Restaurant testRestaurant = Restaurant(
+        id: '1',
+        name: 'Test Restaurant',
+        price: '\$\$',
+        categories: [Category(title: 'Test Category')],
+        photos: [''],
+        rating: 4.5,
+        hours: [
+          const Hours(isOpenNow: true),
+        ],
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorObservers: [mockObserver],
+          home: Scaffold(
+            body: RestaurantCard(restaurant: testRestaurant, isTest: true),
+          ),
+        ),
+      );
+
+      expect(find.text('Test Restaurant'), findsOneWidget);
+      expect(find.text('\$\$'), findsOneWidget);
+      expect(find.text('Test Category'), findsOneWidget);
+      expect(find.byType(StarRating), findsOneWidget);
+      expect(find.byType(OpenNowWidget), findsOneWidget);
+    },
+  );
 }

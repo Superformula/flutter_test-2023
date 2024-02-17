@@ -7,7 +7,12 @@ import 'package:restaurantour/theme/style.dart';
 
 class RestaurantCard extends StatelessWidget {
   final Restaurant restaurant;
-  const RestaurantCard({Key? key, required this.restaurant}) : super(key: key);
+  final bool isTest;
+  const RestaurantCard({
+    Key? key,
+    required this.restaurant,
+    this.isTest = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +45,20 @@ class RestaurantCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                       child: Hero(
                         tag: 'hero-image:${restaurant.id}',
-                        child: Image.network(
-                          restaurant.heroImage,
-                          fit: BoxFit.cover,
-                          loadingBuilder: ((context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return const ShimmerBox(
-                              width: 80.0,
-                              height: 80.0,
-                            );
-                          }),
-                        ),
+                        child: isTest
+                            ? const Placeholder()
+                            : Image.network(
+                                restaurant.heroImage,
+                                fit: BoxFit.cover,
+                                loadingBuilder:
+                                    ((context, child, loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return const ShimmerBox(
+                                    width: 80.0,
+                                    height: 80.0,
+                                  );
+                                }),
+                              ),
                       ),
                     ),
                   ),

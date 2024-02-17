@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:restaurantour/features/restaurant_tour/models/restaurant.dart';
+import 'package:restaurantour/features/restaurant_tour/repositories/dummy_repository.dart';
 import 'package:restaurantour/features/restaurant_tour/repositories/yelp_repository.dart';
 import 'package:restaurantour/injection_container.dart';
 
@@ -10,7 +12,8 @@ part 'restaurant_event.dart';
 part 'restaurant_state.dart';
 
 class RestaurantBloc extends Bloc<RestaurantEvent, RestaurantState> {
-  RestaurantBloc() : super(RestaurantLoading()) {
+  DummyRepository? dummyRepository;
+  RestaurantBloc({this.dummyRepository}) : super(RestaurantLoading()) {
     on<LoadRestaurantsEvent>(_onLoadRestaurantEvent);
   }
 
@@ -20,8 +23,9 @@ class RestaurantBloc extends Bloc<RestaurantEvent, RestaurantState> {
   ) async {
     emit(RestaurantLoading());
     try {
-      RestaurantQueryResult? result =
-          await sl<YelpRepository>().getRestaurants();
+      RestaurantQueryResult? result = dummyRepository != null
+          ? await dummyRepository!.getRestaurants()
+          : await sl<YelpRepository>().getRestaurants();
       if (result != null) {
         emit(RestaurantLoaded(restaurants: result.restaurants));
       } else {

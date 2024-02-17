@@ -1,7 +1,10 @@
 part of 'restaurant_bloc.dart';
 
 @immutable
-abstract class RestaurantState {}
+abstract class RestaurantState extends Equatable {
+  @override
+  List<Object> get props => [];
+}
 
 class RestaurantLoading extends RestaurantState {}
 
