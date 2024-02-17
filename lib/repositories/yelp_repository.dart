@@ -1,24 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
-
 class YelpRepository {
-  late Dio dio;
+  final Dio dio;
 
-  YelpRepository({
-    @visibleForTesting Dio? dio,
-  }) : dio = dio ??
-            Dio(
-              BaseOptions(
-                baseUrl: 'https://api.yelp.com',
-                headers: {
-                  'Authorization': 'Bearer $_apiKey',
-                  'Content-Type': 'application/graphql',
-                },
-              ),
-            );
+  YelpRepository({required this.dio});
 
   /// Returns a response in this shape
   /// {

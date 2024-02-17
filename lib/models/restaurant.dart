@@ -12,8 +12,7 @@ class Category {
     this.title,
   });
 
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
+  factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }
@@ -23,9 +22,7 @@ class Hours {
   @JsonKey(name: 'is_open_now')
   final bool? isOpenNow;
 
-  const Hours({
-    this.isOpenNow,
-  });
+  const Hours({this.isOpenNow});
 
   factory Hours.fromJson(Map<String, dynamic> json) => _$HoursFromJson(json);
 
@@ -39,11 +36,7 @@ class User {
   final String? imageUrl;
   final String? name;
 
-  const User({
-    this.id,
-    this.imageUrl,
-    this.name,
-  });
+  const User({this.id, this.imageUrl, this.name});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
@@ -56,11 +49,7 @@ class Review {
   final int? rating;
   final User? user;
 
-  const Review({
-    this.id,
-    this.rating,
-    this.user,
-  });
+  const Review({this.id, this.rating, this.user});
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
 
@@ -72,12 +61,9 @@ class Location {
   @JsonKey(name: 'formatted_address')
   final String? formattedAddress;
 
-  Location({
-    this.formattedAddress,
-  });
+  Location({this.formattedAddress});
 
-  factory Location.fromJson(Map<String, dynamic> json) =>
-      _$LocationFromJson(json);
+  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 }
@@ -106,8 +92,7 @@ class Restaurant {
     this.location,
   });
 
-  factory Restaurant.fromJson(Map<String, dynamic> json) =>
-      _$RestaurantFromJson(json);
+  factory Restaurant.fromJson(Map<String, dynamic> json) => _$RestaurantFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantToJson(this);
 
@@ -143,13 +128,9 @@ class RestaurantQueryResult {
   @JsonKey(name: 'business')
   final List<Restaurant>? restaurants;
 
-  const RestaurantQueryResult({
-    this.total,
-    this.restaurants,
-  });
+  const RestaurantQueryResult({this.total, this.restaurants});
 
-  factory RestaurantQueryResult.fromJson(Map<String, dynamic> json) =>
-      _$RestaurantQueryResultFromJson(json);
+  factory RestaurantQueryResult.fromJson(Map<String, dynamic> json) => _$RestaurantQueryResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantQueryResultToJson(this);
 }

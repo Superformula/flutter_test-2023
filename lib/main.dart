@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
 void main() {
+  setupInjection();
   runApp(const Restaurantour());
 }
 
@@ -35,7 +37,7 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
               child: const Text('Fetch Restaurants'),
               onPressed: () async {
-                final yelpRepo = YelpRepository();
+                final yelpRepo = inject<YelpRepository>();
 
                 try {
                   final result = await yelpRepo.getRestaurants();
