@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/common/ui/app_colors.dart';
+import 'package:restaurantour/common/widgets/app_error_refresh_widget.dart';
 import 'package:restaurantour/features/restaurant/presentation/cubit/restaurants_cubit.dart';
 import 'package:restaurantour/features/restaurant/presentation/widgets/restaurant_list_widget.dart';
 
@@ -61,9 +62,16 @@ class RestaurantsScreen extends StatelessWidget {
         if (restaurantsState is RestaurantsLoaded) {
           return RestaurantListWidget(
             restaurants: restaurantsState.restaurants,
-            favoriteRestaurants: showOnlyFavorites
-                ? restaurantsState.favoriteRestaurants
-                : null,
+            favoriteRestaurants:
+                showOnlyFavorites ? restaurantsState.favoriteRestaurants : null,
+          );
+        }
+
+        if (restaurantsState is RestaurantsError) {
+          return AppErrorRefreshWidget(
+            errorMessage: restaurantsState.errorMessage,
+            onRefresh: () =>
+                context.read<RestaurantsCubit>().loadRestaurantsList(),
           );
         }
 

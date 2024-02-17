@@ -23,6 +23,8 @@ class RestaurantsCubit extends Cubit<RestaurantsState> {
   final SetFavoriteRestaurantsIdsUseCase _setFavoriteRestaurantsIdsUseCase;
 
   Future<void> loadRestaurantsList() async {
+    emit(RestaurantsLoading());
+
     final resultAllRestaurants = await _getAllRestaurantsUseCase();
     final favoriteRestaurantsIds = await _getFavoriteRestaurantsIdsUseCase();
 
