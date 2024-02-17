@@ -62,7 +62,7 @@ class _RestaurantsListScreenState extends State<RestaurantsListScreen> {
           body: const TabBarView(
             children: [
               RestaurantsPage(),
-              Placeholder(),
+              FavoritesPage(),
             ],
           ),
         ),
