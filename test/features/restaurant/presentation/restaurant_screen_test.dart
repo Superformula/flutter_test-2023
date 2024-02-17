@@ -17,9 +17,10 @@ class _MockRestaurantsCubit extends MockCubit<RestaurantsState>
     implements RestaurantsCubit {}
 
 void main() {
-  late _MockRestaurantsCubit mockRestaurantsCubit;
+  late _MockRestaurantsCubit _mockRestaurantsCubit;
 
   const tRestaurant = RestaurantEntity(
+    id: "id",
     name: "Yardbird Southern Table & Bar",
     price: "\$\$\$",
     photos: [],
@@ -58,17 +59,17 @@ void main() {
 
   group('RestaurantScreen tests', () {
     setUp(() {
-      mockRestaurantsCubit = _MockRestaurantsCubit();
+      _mockRestaurantsCubit = _MockRestaurantsCubit();
     });
 
     testWidgets('All Restaurants list containing only one restaurant is is displayed',
         (WidgetTester tester) async {
-      when(() => mockRestaurantsCubit.state).thenAnswer(
+      when(() => _mockRestaurantsCubit.state).thenAnswer(
         (_) => tLoadedState,
       );
 
       await tester.pumpWidget(BlocProvider<RestaurantsCubit>(
-        create: (_) => mockRestaurantsCubit,
+        create: (_) => _mockRestaurantsCubit,
         child: const MaterialApp(
           home: RestaurantsScreen(),
         ),
@@ -80,12 +81,12 @@ void main() {
 
     testWidgets('My Favorites list containing only one restaurant is is displayed',
             (WidgetTester tester) async {
-          when(() => mockRestaurantsCubit.state).thenAnswer(
+          when(() => _mockRestaurantsCubit.state).thenAnswer(
                 (_) => tLoadedState,
           );
 
           await tester.pumpWidget(BlocProvider<RestaurantsCubit>(
-            create: (_) => mockRestaurantsCubit,
+            create: (_) => _mockRestaurantsCubit,
             child: const MaterialApp(
               home: RestaurantsScreen(),
             ),
@@ -98,12 +99,12 @@ void main() {
 
     testWidgets('A message saying no restaurants were found is displayed',
         (WidgetTester tester) async {
-      when(() => mockRestaurantsCubit.state).thenAnswer(
+      when(() => _mockRestaurantsCubit.state).thenAnswer(
         (_) => tEmptyState,
       );
 
       await tester.pumpWidget(BlocProvider<RestaurantsCubit>(
-        create: (_) => mockRestaurantsCubit,
+        create: (_) => _mockRestaurantsCubit,
         child: const MaterialApp(
           home: RestaurantsScreen(),
         ),
@@ -116,13 +117,13 @@ void main() {
     testWidgets(
         'A message saying no favorite restaurants were found is displayed',
         (WidgetTester tester) async {
-      when(() => mockRestaurantsCubit.state).thenAnswer(
+      when(() => _mockRestaurantsCubit.state).thenAnswer(
         (_) => tEmptyState,
       );
 
       await tester.pumpWidget(
         BlocProvider<RestaurantsCubit>(
-          create: (_) => mockRestaurantsCubit,
+          create: (_) => _mockRestaurantsCubit,
           child: const MaterialApp(
             home: RestaurantsScreen(),
           ),
@@ -140,12 +141,12 @@ void main() {
     testWidgets(
         'A widget displaying a error message and a button to refresh the screen is displayed',
         (WidgetTester tester) async {
-      when(() => mockRestaurantsCubit.state).thenAnswer(
+      when(() => _mockRestaurantsCubit.state).thenAnswer(
         (_) => tErrorState,
       );
 
       await tester.pumpWidget(BlocProvider<RestaurantsCubit>(
-        create: (_) => mockRestaurantsCubit,
+        create: (_) => _mockRestaurantsCubit,
         child: const MaterialApp(
           home: RestaurantsScreen(),
         ),
