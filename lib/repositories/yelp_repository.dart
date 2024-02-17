@@ -85,9 +85,9 @@ class YelpRepository {
 
 String _getQuery(int offset) {
   return '''
-query getRestaurants {
+query getRestaurants($offset: Int) {
   search(location: "Las Vegas", limit: 20, offset: $offset) {
-    total    
+    total
     business {
       id
       name
@@ -97,6 +97,7 @@ query getRestaurants {
       reviews {
         id
         rating
+        text  
         user {
           id
           image_url
@@ -111,10 +112,11 @@ query getRestaurants {
         is_open_now
       }
       location {
-        formatted_address
+        formatted_address  
       }
     }
   }
 }
+
 ''';
 }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/core/helpers/hive_helper.dart';
@@ -36,8 +37,7 @@ class _Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          CustomAppBar(title: restaurant.name!, restaurant: restaurant),
+      appBar: CustomAppBar(title: restaurant.name!, restaurant: restaurant),
       body: _Body(restaurant: restaurant),
     );
   }
@@ -57,11 +57,16 @@ class _Body extends StatelessWidget {
         children: [
           Hero(
             tag: 'restaurant-image-${restaurant.id}',
-            child: Image.network(
-              restaurant.photos!.first,
+            child: CachedNetworkImage(
+              imageUrl: restaurant.photos!.first,
               fit: BoxFit.cover,
               width: width,
               height: width,
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => const Icon(
+                Icons.error,
+              ),
             ),
           ),
           Padding(

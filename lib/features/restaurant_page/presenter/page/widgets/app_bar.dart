@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:restaurantour/core/models/restaurant.dart';
+import 'package:restaurantour/features/home_page/children/favorite_restaurants/presenter/bloc/favorite_restaurants_bloc.dart';
 import 'package:restaurantour/features/restaurant_page/presenter/bloc/restaurant_bloc.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -19,10 +20,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isFavorited = false;
     return AppBar(
       leading: BackButton(
         onPressed: () {
-          context.pop();
+          context.pop(!isFavorited);
         },
       ),
       title: Text(title),
@@ -32,26 +34,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (state is LoadingState) {
               return const CircularProgressIndicator();
             } else if (state is VerifiedState) {
+              isFavorited = state.isFavorited;
               return IconButton(
                 icon: Icon(
-                  state.isFavorited ? Icons.favorite : Icons.favorite_border,
-                  color: state.isFavorited ? Colors.red : null,
+                  isFavorited ? Icons.favorite : Icons.favorite_border,
+                  color: isFavorited ? Colors.red : null,
                 ),
                 onPressed: () {
-                  if (!state.isFavorited) {
-                    context.read<RestaurantBloc>().add(
-                          AddFavoriteEvent(restaurantId: restaurant.id!),
-                        );
-                    context.read<RestaurantBloc>().add(
-                          CheckFavoriteEvent(restaurant: restaurant),
-                        );
+                  if (!isFavorited) {
+                    context
+                        .read<RestaurantBloc>()
+                        .add(AddFavoriteEvent(restaurantId: restaurant.id!));
                   } else {
-                    context.read<RestaurantBloc>().add(
-                          RemoveFavoriteEvent(restaurantId: restaurant.id!),
-                        );
-                    context.read<RestaurantBloc>().add(
-                          CheckFavoriteEvent(restaurant: restaurant),
-                        );
+                    context
+                        .read<RestaurantBloc>()
+                        .add(RemoveFavoriteEvent(restaurantId: restaurant.id!));
                   }
                 },
               );

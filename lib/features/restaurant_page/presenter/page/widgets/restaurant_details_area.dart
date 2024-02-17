@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/core/models/restaurant.dart';
-import 'package:restaurantour/features/home_page/presenter/page/widgets/single_restaurant_card/status_indicator.dart';
+import 'package:restaurantour/features/home_page/children/all_restaurant/presenter/page/widgets/single_restaurant_card/status_indicator.dart';
 
 class RestaurantDetailsArea extends StatelessWidget {
   const RestaurantDetailsArea({super.key, required this.restaurant});

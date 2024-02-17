@@ -34,8 +34,8 @@ class HomeEmptyDataState extends HomeState {
   List<Object> get props => [];
 }
 
-class ErrorState extends HomeState {
-  const ErrorState({required this.error});
+class HomeErrorState extends HomeState {
+  const HomeErrorState({required this.error});
 
   final String error;
 

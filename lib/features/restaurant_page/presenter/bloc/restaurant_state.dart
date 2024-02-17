@@ -9,8 +9,8 @@ class RestaurantInitial extends RestaurantState {
   List<Object> get props => [];
 }
 
-class LoadingState extends RestaurantState {
-  const LoadingState();
+class AppBarLoadingState extends RestaurantState {
+  const AppBarLoadingState();
 
   @override
   List<Object> get props => [];

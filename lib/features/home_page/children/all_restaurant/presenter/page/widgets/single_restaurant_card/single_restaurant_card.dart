@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:restaurantour/core/models/restaurant.dart';
-import 'package:restaurantour/features/home_page/presenter/page/widgets/single_restaurant_card/status_indicator.dart';
+import 'package:restaurantour/features/home_page/children/all_restaurant/presenter/page/widgets/single_restaurant_card/status_indicator.dart';
+import 'package:restaurantour/features/home_page/children/favorite_restaurants/presenter/bloc/favorite_restaurants_bloc.dart';
 import 'package:restaurantour/shared/widgets/rating_stars.dart';
-
 
 class SingleRestaurantCard extends StatelessWidget {
   const SingleRestaurantCard({
@@ -17,7 +19,11 @@ class SingleRestaurantCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.pushNamed('restaurant-page', extra: restaurant);
+        context.pushNamed('restaurant-page', extra: restaurant).then((result) {
+          if (result == true) {
+            context.read<FavoriteRestaurantsBloc>().add(const InitialEvent());
+          }
+        });
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -37,9 +43,15 @@ class SingleRestaurantCard extends StatelessWidget {
                       height: 90,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: Image.network(
-                          restaurant.photos!.first,
+                        child: CachedNetworkImage(
+                          imageUrl: restaurant.photos!.first,
                           fit: BoxFit.cover,
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          errorWidget: (context, url, error) => const Center(
+                            child: Icon(Icons.error),
+                          ),
                         ),
                       ),
                     ),
