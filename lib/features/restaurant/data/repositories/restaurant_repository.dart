@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:restaurantour/features/restaurant/data/datasources/restaurant_local_datasource.dart';
 import 'package:restaurantour/features/restaurant/data/datasources/restaurant_remote_datasource.dart';
 import 'package:restaurantour/features/restaurant/data/models/restaurant_query_result_model.dart';
@@ -26,8 +27,11 @@ class RestaurantRepository implements IRestaurantRepository {
             ).toEntity().restaurants ??
             [],
       );
+    } on DioException catch (dioException) {
+      return Left(
+          'Error ${dioException.response?.statusCode}: ${dioException.response?.statusMessage}');
     } catch (e) {
-      return Left(e.toString());
+      return Left('Unexpected error: ${e.toString()}');
     }
   }
 
