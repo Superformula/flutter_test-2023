@@ -29,7 +29,16 @@ dev_dependencies:
   json_serializable: ^6.7.1
 
 flutter:
-  generate: true
   uses-material-design: true
+  generate: true
   assets:
     - assets/svg/
+  fonts:
+    - family: Lora
+      fonts:
+        - asset: assets/fonts/Lora-Bold.ttf
+        - asset: assets/fonts/Lora-Medium.ttf
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-SemiBold.ttf
