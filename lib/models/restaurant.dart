@@ -13,6 +13,7 @@ class Category {
   });
 
   factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
+  factory Category.fixture() => Category(alias: 'newamerican', title: 'New American');
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }
@@ -25,6 +26,7 @@ class Hours {
   const Hours({this.isOpenNow});
 
   factory Hours.fromJson(Map<String, dynamic> json) => _$HoursFromJson(json);
+  factory Hours.fixture() => const Hours(isOpenNow: true);
 
   Map<String, dynamic> toJson() => _$HoursToJson(this);
 }
@@ -39,6 +41,11 @@ class User {
   const User({this.id, this.imageUrl, this.name});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fixture() => const User(
+        id: 'userId',
+        name: 'George M.',
+        imageUrl: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/400.jpg',
+      );
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }
@@ -52,6 +59,7 @@ class Review {
   const Review({this.id, this.rating, this.user});
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
+  factory Review.fixture() => Review(id: 'reviewId', rating: 3, user: User.fixture());
 
   Map<String, dynamic> toJson() => _$ReviewToJson(this);
 }
@@ -64,6 +72,7 @@ class Location {
   Location({this.formattedAddress});
 
   factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
+  factory Location.fixture() => Location(formattedAddress: 'address');
 
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 }
@@ -93,6 +102,17 @@ class Restaurant {
   });
 
   factory Restaurant.fromJson(Map<String, dynamic> json) => _$RestaurantFromJson(json);
+  factory Restaurant.fixture() => Restaurant(
+        id: 'restaurantId',
+        name: 'Restaurant Name',
+        price: '\$\$',
+        rating: 3.5,
+        photos: ['http://placeimg.com/640/480/business'],
+        categories: [Category.fixture()],
+        hours: [Hours.fixture()],
+        reviews: [Review.fixture()],
+        location: Location.fixture(),
+      );
 
   Map<String, dynamic> toJson() => _$RestaurantToJson(this);
 
@@ -131,6 +151,7 @@ class RestaurantQueryResult {
   const RestaurantQueryResult({this.total, this.restaurants});
 
   factory RestaurantQueryResult.fromJson(Map<String, dynamic> json) => _$RestaurantQueryResultFromJson(json);
+  factory RestaurantQueryResult.fixture() => RestaurantQueryResult(restaurants: [Restaurant.fixture()]);
 
   Map<String, dynamic> toJson() => _$RestaurantQueryResultToJson(this);
 }
