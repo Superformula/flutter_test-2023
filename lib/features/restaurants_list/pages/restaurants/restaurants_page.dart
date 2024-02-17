@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
 import 'package:restaurantour/components/restaurant_item_widget.dart';
-import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/features/restaurants_list/restaurant_view_model.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
 
 class RestaurantsPage extends StatefulWidget {
   const RestaurantsPage({super.key});
