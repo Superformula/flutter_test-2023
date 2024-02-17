@@ -12,16 +12,16 @@ class RestaurantsLoading extends RestaurantsState {}
 class RestaurantsLoaded extends RestaurantsState {
   RestaurantsLoaded({
     required this.restaurants,
-    required this.favoriteRestaurantsIds,
+    required this.favoriteRestaurants,
   });
 
   final List<RestaurantEntity> restaurants;
-  final List<String> favoriteRestaurantsIds;
+  final List<RestaurantEntity> favoriteRestaurants;
 
   @override
   List<Object> get props => [
         restaurants,
-        favoriteRestaurantsIds,
+        favoriteRestaurants,
       ];
 }
 

@@ -10,33 +10,26 @@ class RestaurantListWidget extends StatelessWidget {
   const RestaurantListWidget({
     Key? key,
     required this.restaurants,
-    this.favoriteRestaurantsIds,
+    this.favoriteRestaurants,
   }) : super(key: key);
 
   final List<RestaurantEntity> restaurants;
-  final List<String>? favoriteRestaurantsIds;
+  final List<RestaurantEntity>? favoriteRestaurants;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      itemBuilder: (context, index) {
-        if (favoriteRestaurantsIds != null) {
-          return favoriteRestaurantsIds!.contains(restaurants[index].id)
-              ? _buildRestaurantItemWidget(
-                  context,
-                  restaurants[index],
-                )
-              : Container();
-        }
-
-        return _buildRestaurantItemWidget(
-          context,
-          restaurants[index],
-        );
-      },
+      itemBuilder: (context, index) => _buildRestaurantItemWidget(
+        context,
+        favoriteRestaurants != null
+            ? favoriteRestaurants![index]
+            : restaurants[index],
+      ),
       separatorBuilder: (_, __) => const SizedBox(height: 12),
-      itemCount: restaurants.length,
+      itemCount: favoriteRestaurants != null
+          ? favoriteRestaurants!.length
+          : restaurants.length,
     );
   }
 

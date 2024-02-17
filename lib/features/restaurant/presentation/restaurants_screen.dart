@@ -61,8 +61,8 @@ class RestaurantsScreen extends StatelessWidget {
         if (restaurantsState is RestaurantsLoaded) {
           return RestaurantListWidget(
             restaurants: restaurantsState.restaurants,
-            favoriteRestaurantsIds: showOnlyFavorites
-                ? restaurantsState.favoriteRestaurantsIds
+            favoriteRestaurants: showOnlyFavorites
+                ? restaurantsState.favoriteRestaurants
                 : null,
           );
         }

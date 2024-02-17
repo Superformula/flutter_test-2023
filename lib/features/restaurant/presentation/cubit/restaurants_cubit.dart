@@ -33,7 +33,13 @@ class RestaurantsCubit extends Cubit<RestaurantsState> {
       (restaurants) => emit(
         RestaurantsLoaded(
           restaurants: restaurants,
-          favoriteRestaurantsIds: favoriteRestaurantsIds,
+          favoriteRestaurants: restaurants
+              .where(
+                (restaurant) => favoriteRestaurantsIds.contains(
+                  restaurant.id,
+                ),
+              )
+              .toList(),
         ),
       ),
     );
@@ -43,19 +49,16 @@ class RestaurantsCubit extends Cubit<RestaurantsState> {
     final currentState = state;
 
     if (currentState is RestaurantsLoaded && id != null) {
-      final newFavoriteRestaurantsIds = [
-        ...currentState.favoriteRestaurantsIds,
-        id
+      final newFavoriteRestaurants = [
+        ...currentState.favoriteRestaurants,
+        currentState.restaurants
+            .where((restaurant) => restaurant.id == id)
+            .first,
       ];
 
-      await _setFavoriteRestaurantsIdsUseCase(
-        favoriteRestaurantIdsList: newFavoriteRestaurantsIds,
-      );
-      emit(
-        RestaurantsLoaded(
-          restaurants: currentState.restaurants,
-          favoriteRestaurantsIds: newFavoriteRestaurantsIds,
-        ),
+      _setRestaurantsLoadedState(
+        restaurantsState: currentState,
+        newFavoriteRestaurants: newFavoriteRestaurants,
       );
     }
   }
@@ -63,19 +66,36 @@ class RestaurantsCubit extends Cubit<RestaurantsState> {
   Future<void> deleteFavoriteRestaurantId({required String? id}) async {
     final currentState = state;
 
-    if (currentState is RestaurantsLoaded) {
-      final newFavoriteRestaurantsIds = [...currentState.favoriteRestaurantsIds]
-        ..remove(id);
+    if (currentState is RestaurantsLoaded && id != null) {
+      final newFavoriteRestaurants = [
+        ...currentState.favoriteRestaurants,
+      ]..remove(
+          currentState.favoriteRestaurants
+              .where((restaurant) => restaurant.id == id)
+              .first,
+        );
 
-      await _setFavoriteRestaurantsIdsUseCase(
-        favoriteRestaurantIdsList: newFavoriteRestaurantsIds,
-      );
-      emit(
-        RestaurantsLoaded(
-          restaurants: currentState.restaurants,
-          favoriteRestaurantsIds: newFavoriteRestaurantsIds,
-        ),
+      _setRestaurantsLoadedState(
+        restaurantsState: currentState,
+        newFavoriteRestaurants: newFavoriteRestaurants,
       );
     }
+  }
+
+  Future<void> _setRestaurantsLoadedState({
+    required RestaurantsLoaded restaurantsState,
+    required List<RestaurantEntity> newFavoriteRestaurants,
+  }) async {
+    await _setFavoriteRestaurantsIdsUseCase(
+      favoriteRestaurantIdsList: newFavoriteRestaurants
+          .map((restaurant) => restaurant.id ?? "")
+          .toList(),
+    );
+    emit(
+      RestaurantsLoaded(
+        restaurants: restaurantsState.restaurants,
+        favoriteRestaurants: newFavoriteRestaurants,
+      ),
+    );
   }
 }
