@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/core/helpers/hive_helper.dart';
 import 'package:restaurantour/features/home_page/presenter/bloc/home_bloc.dart';
 import 'package:restaurantour/features/home_page/presenter/page/home_page_export.dart';
+import 'package:restaurantour/repositories/yelp_repository.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeBloc(
         hiveHelper: HiveHelper(),
+        yelpRepository: YelpRepository(),
       )..add(const InitialEvent()),
       child: const _Page(),
     );

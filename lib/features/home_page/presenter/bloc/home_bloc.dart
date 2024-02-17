@@ -11,17 +11,19 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc({required this.hiveHelper}) : super(HomeInitial()) {
+  HomeBloc({required this.hiveHelper, required this.yelpRepository})
+      : super(HomeInitial()) {
     on<InitialEvent>(_onInitialEvent);
   }
 
   final HiveHelper hiveHelper;
+  final YelpRepository yelpRepository;
 
   Future<void> _onInitialEvent(
     InitialEvent event,
     Emitter<HomeState> emit,
   ) async {
-    final yelpRepo = YelpRepository();
+    final yelpRepo = yelpRepository;
     final result = await yelpRepo.getRestaurants();
     emit(
       const HomeLoadingState(),
