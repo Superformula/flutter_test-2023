@@ -5,7 +5,7 @@ import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/text_style.dart';
 import 'package:restaurantour/features/restaurants_list/pages/favorites/favorites_page.dart';
-import 'package:restaurantour/features/restaurants_list/pages/all_restaurants/all_restaurants_page.dart';
+import 'package:restaurantour/features/restaurants_list/pages/restaurants/restaurants_page.dart';
 import 'package:restaurantour/features/restaurants_list/restaurant_view_model.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
@@ -61,7 +61,7 @@ class _RestaurantsListScreenState extends State<RestaurantsListScreen> {
           ),
           body: const TabBarView(
             children: [
-              Placeholder(),
+              RestaurantsPage(),
               Placeholder(),
             ],
           ),
