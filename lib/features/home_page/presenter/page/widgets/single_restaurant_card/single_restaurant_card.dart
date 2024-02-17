@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:restaurantour/core/models/restaurant.dart';
 import 'package:restaurantour/features/home_page/presenter/page/widgets/single_restaurant_card/status_indicator.dart';
+import 'package:restaurantour/shared/widgets/rating_stars.dart';
 
-import '../../../../../../shared/widgets/rating_stars.dart';
 
 class SingleRestaurantCard extends StatelessWidget {
   const SingleRestaurantCard({

@@ -5,7 +5,7 @@ import 'package:restaurantour/features/home_page/presenter/page/widgets/my_favor
 
 class TabViews extends StatelessWidget {
   const TabViews(
-      {super.key, required this.restaurantList, required this.favoriteList});
+      {super.key, required this.restaurantList, required this.favoriteList,});
 
   final List<Restaurant> restaurantList;
   final List<Restaurant> favoriteList;

@@ -65,7 +65,7 @@ class ReviewsArea extends StatelessWidget {
                         height: 1,
                         width: MediaQuery.sizeOf(context).width*0.9,
                       ),
-                    )
+                    ),
                   ],
                 ),
 

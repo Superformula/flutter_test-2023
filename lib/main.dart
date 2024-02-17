@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:restaurantour/core/app_init.dart';
 import 'package:restaurantour/core/navigation/route_navigator.dart';
 
