@@ -62,40 +62,46 @@ void main() {
       _mockRestaurantsCubit = _MockRestaurantsCubit();
     });
 
-    testWidgets('All Restaurants list containing only one restaurant is is displayed',
+    testWidgets(
+        'All Restaurants list containing only one restaurant is is displayed',
         (WidgetTester tester) async {
       when(() => _mockRestaurantsCubit.state).thenAnswer(
         (_) => tLoadedState,
       );
 
-      await tester.pumpWidget(BlocProvider<RestaurantsCubit>(
-        create: (_) => _mockRestaurantsCubit,
-        child: const MaterialApp(
-          home: RestaurantsScreen(),
+      await tester.pumpWidget(
+        BlocProvider<RestaurantsCubit>(
+          create: (_) => _mockRestaurantsCubit,
+          child: const MaterialApp(
+            home: RestaurantsScreen(),
+          ),
         ),
-      ),);
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(RestaurantItemWidget), findsOneWidget);
     });
 
-    testWidgets('My Favorites list containing only one restaurant is is displayed',
-            (WidgetTester tester) async {
-          when(() => _mockRestaurantsCubit.state).thenAnswer(
-                (_) => tLoadedState,
-          );
+    testWidgets(
+        'My Favorites list containing only one restaurant is is displayed',
+        (WidgetTester tester) async {
+      when(() => _mockRestaurantsCubit.state).thenAnswer(
+        (_) => tLoadedState,
+      );
 
-          await tester.pumpWidget(BlocProvider<RestaurantsCubit>(
-            create: (_) => _mockRestaurantsCubit,
-            child: const MaterialApp(
-              home: RestaurantsScreen(),
-            ),
-          ),);
-          await tester.tap(find.text(RestaurantsScreen.favoriteRestaurantTabTitle));
-          await tester.pumpAndSettle();
+      await tester.pumpWidget(
+        BlocProvider<RestaurantsCubit>(
+          create: (_) => _mockRestaurantsCubit,
+          child: const MaterialApp(
+            home: RestaurantsScreen(),
+          ),
+        ),
+      );
+      await tester.tap(find.text(RestaurantsScreen.favoriteRestaurantTabTitle));
+      await tester.pumpAndSettle();
 
-          expect(find.byType(RestaurantItemWidget), findsOneWidget);
-        });
+      expect(find.byType(RestaurantItemWidget), findsOneWidget);
+    });
 
     testWidgets('A message saying no restaurants were found is displayed',
         (WidgetTester tester) async {
@@ -103,12 +109,14 @@ void main() {
         (_) => tEmptyState,
       );
 
-      await tester.pumpWidget(BlocProvider<RestaurantsCubit>(
-        create: (_) => _mockRestaurantsCubit,
-        child: const MaterialApp(
-          home: RestaurantsScreen(),
+      await tester.pumpWidget(
+        BlocProvider<RestaurantsCubit>(
+          create: (_) => _mockRestaurantsCubit,
+          child: const MaterialApp(
+            home: RestaurantsScreen(),
+          ),
         ),
-      ),);
+      );
       await tester.pumpAndSettle();
 
       expect(find.text(RestaurantListWidget.noRestaurantsText), findsOneWidget);
@@ -145,12 +153,14 @@ void main() {
         (_) => tErrorState,
       );
 
-      await tester.pumpWidget(BlocProvider<RestaurantsCubit>(
-        create: (_) => _mockRestaurantsCubit,
-        child: const MaterialApp(
-          home: RestaurantsScreen(),
+      await tester.pumpWidget(
+        BlocProvider<RestaurantsCubit>(
+          create: (_) => _mockRestaurantsCubit,
+          child: const MaterialApp(
+            home: RestaurantsScreen(),
+          ),
         ),
-      ),);
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(AppErrorRefreshWidget), findsOneWidget);

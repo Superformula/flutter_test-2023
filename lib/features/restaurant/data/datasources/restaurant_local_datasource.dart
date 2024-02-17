@@ -10,7 +10,8 @@ class RestaurantLocalDatasource {
   }
 
   Future<void> setFavoriteRestaurantsIds(
-      List<String> restaurantsIdsList,) async {
+    List<String> restaurantsIdsList,
+  ) async {
     final sharedPreferencesInstance = await _getSharedPreferencesInstance();
 
     await sharedPreferencesInstance.setStringList(listId, restaurantsIdsList);

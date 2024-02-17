@@ -101,7 +101,7 @@ void main() {
         build: () {
           final List<RestaurantEntity> tRestaurantList = [tRestaurant];
           final List<String> tFavoriteList = [];
-          
+
           when(
             () => _mockGetAllRestaurantsUseCase(),
           ).thenAnswer(
@@ -148,23 +148,23 @@ void main() {
           final List<String> tFavoriteList = [tRestaurant.id!];
 
           when(
-                () => _mockGetAllRestaurantsUseCase(),
+            () => _mockGetAllRestaurantsUseCase(),
           ).thenAnswer(
-                (_) async => Right(tRestaurantList),
+            (_) async => Right(tRestaurantList),
           );
           when(
-                () => _mockGetFavoriteRestaurantsIdsUseCase(),
+            () => _mockGetFavoriteRestaurantsIdsUseCase(),
           ).thenAnswer(
-                (_) async => tFavoriteList,
+            (_) async => tFavoriteList,
           );
           when(
-                () => _mockSetFavoriteRestaurantsIdsUseCase(
+            () => _mockSetFavoriteRestaurantsIdsUseCase(
               favoriteRestaurantIdsList: any(
                 named: 'favoriteRestaurantIdsList',
               ),
             ),
           ).thenAnswer(
-                (_) async => tFavoriteList..remove(tRestaurant.id!),
+            (_) async => tFavoriteList..remove(tRestaurant.id!),
           );
 
           return cubit;
