@@ -55,7 +55,11 @@ class RestaurantBloc extends Bloc<RestaurantEvent, RestaurantState> {
       await hiveHelper.removeFavorite(event.restaurantId);
       emit(const VerifiedState(isFavorited: false));
     } catch (e) {
-      emit(FavoriteOperationError(message: e.toString()));
+      emit(
+        FavoriteOperationError(
+          message: e.toString(),
+        ),
+      );
     }
   }
 }

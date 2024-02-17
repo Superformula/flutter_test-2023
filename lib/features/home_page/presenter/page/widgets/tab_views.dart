@@ -4,9 +4,11 @@ import 'package:restaurantour/features/home_page/presenter/page/widgets/all_rest
 import 'package:restaurantour/features/home_page/presenter/page/widgets/my_favorites_tab.dart';
 
 class TabViews extends StatelessWidget {
-  const TabViews({super.key, required this.restaurantList});
+  const TabViews(
+      {super.key, required this.restaurantList, required this.favoriteList});
 
   final List<Restaurant> restaurantList;
+  final List<Restaurant> favoriteList;
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +16,9 @@ class TabViews extends StatelessWidget {
       child: TabBarView(
         children: [
           AllRestaurantsTab(restaurantList: restaurantList),
-          MyFavoritesTab(),
+          MyFavoritesTab(favoriteList: favoriteList),
         ],
       ),
     );
   }
 }
-

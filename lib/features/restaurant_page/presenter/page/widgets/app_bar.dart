@@ -42,12 +42,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     context.read<RestaurantBloc>().add(
                           AddFavoriteEvent(restaurantId: restaurant.id!),
                         );
-
+                    context.read<RestaurantBloc>().add(
+                          CheckFavoriteEvent(restaurant: restaurant),
+                        );
                   } else {
                     context.read<RestaurantBloc>().add(
                           RemoveFavoriteEvent(restaurantId: restaurant.id!),
                         );
-
+                    context.read<RestaurantBloc>().add(
+                          CheckFavoriteEvent(restaurant: restaurant),
+                        );
                   }
                 },
               );

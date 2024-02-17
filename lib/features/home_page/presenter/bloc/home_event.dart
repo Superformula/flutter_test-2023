@@ -9,3 +9,10 @@ class InitialEvent extends HomeEvent {
   @override
   List<Object> get props => [];
 }
+
+class LoadFavoritesEvent extends HomeEvent {
+  const LoadFavoritesEvent();
+
+  @override
+  List<Object> get props => [];
+}

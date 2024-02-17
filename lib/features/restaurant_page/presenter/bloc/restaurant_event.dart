@@ -30,3 +30,11 @@ class RemoveFavoriteEvent extends RestaurantEvent {
   @override
   List<Object> get props => [restaurantId];
 }
+
+class UpdateListEvent extends RestaurantEvent {
+  const UpdateListEvent();
+
+
+  @override
+  List<Object> get props => [];
+}

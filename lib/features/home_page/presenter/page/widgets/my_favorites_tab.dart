@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/core/models/restaurant.dart';
+import 'package:restaurantour/features/home_page/presenter/page/widgets/single_restaurant_card.dart';
 
 class MyFavoritesTab extends StatelessWidget {
   const MyFavoritesTab({
     super.key,
+    required this.favoriteList,
   });
+
+  final List<Restaurant> favoriteList;
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Padding(
-        padding: EdgeInsets.only(top: 32.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text('My Favorites'),
-          ],
-        ),
-      ),
+    return ListView.builder(
+      padding: const EdgeInsets.only(top: 8.0),
+      itemCount: favoriteList.length,
+      itemBuilder: (context, index) {
+        final restaurant = favoriteList[index];
+        return SingleRestaurantCard(
+          restaurant: restaurant,
+        );
+      },
     );
   }
 }

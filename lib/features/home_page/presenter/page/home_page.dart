@@ -9,10 +9,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<HomeBloc>(
-      create: (context) => HomeBloc()..add(const InitialEvent()),
-      child: const _Page(),
-    );
+    return const _Page();
   }
 }
 
@@ -42,6 +39,7 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+
       length: 2,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -62,7 +60,9 @@ class _Body extends StatelessWidget {
               labelColor: Colors.black,
               unselectedLabelColor: Colors.grey,
               tabs: [
-                Tab(text: 'All Restaurants'),
+                Tab(
+                  text: 'All Restaurants',
+                ),
                 Tab(text: 'My Favorites'),
               ],
             ),
@@ -75,6 +75,7 @@ class _Body extends StatelessWidget {
               if (state is HomeDataLoadedState) {
                 return TabViews(
                   restaurantList: state.restaurantList,
+                  favoriteList: state.favoriteList,
                 );
               } else {
                 return const SizedBox();
