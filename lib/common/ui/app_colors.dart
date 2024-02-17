@@ -1,7 +1,3 @@
-/// This is the color sheet for the App
-///
-/// Define the color with code
-
 import 'package:flutter/material.dart';
 
 abstract class AppColors {

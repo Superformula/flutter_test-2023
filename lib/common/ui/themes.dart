@@ -1,7 +1,3 @@
-/// This is the color sheet for the App
-///
-/// Define the color with code
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurantour/common/ui/app_colors.dart';
