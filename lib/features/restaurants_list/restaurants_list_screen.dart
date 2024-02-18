@@ -6,7 +6,7 @@ import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/text_style.dart';
 import 'package:restaurantour/features/restaurants_list/pages/favorites/favorites_page.dart';
 import 'package:restaurantour/features/restaurants_list/pages/restaurants/restaurants_page.dart';
-import 'package:restaurantour/features/restaurants_list/restaurant_view_model.dart';
+import 'package:restaurantour/features/restaurants_list/restaurant_list_view_model.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorites_service.dart';
 

@@ -6,7 +6,7 @@ import 'package:restaurantour/components/restaurant_item_widget.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/components/rt_shimmer_loading.dart';
 import 'package:restaurantour/core/inject.dart';
-import 'package:restaurantour/features/restaurants_list/restaurant_view_model.dart';
+import 'package:restaurantour/features/restaurants_list/restaurant_list_view_model.dart';
 
 class RestaurantsPage extends StatefulWidget {
   const RestaurantsPage({super.key});

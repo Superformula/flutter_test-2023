@@ -8,7 +8,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/features/restaurants_list/pages/favorites/favorites_page.dart';
-import 'package:restaurantour/features/restaurants_list/restaurant_view_model.dart';
+import 'package:restaurantour/features/restaurants_list/restaurant_list_view_model.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorites_service.dart';

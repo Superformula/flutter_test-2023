@@ -2,9 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
-import 'package:restaurantour/main.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
+import 'package:restaurantour/restauran_tour.dart';
 import 'package:restaurantour/services/favorites_service.dart';
 
 import '../mocks/mocks.dart';
