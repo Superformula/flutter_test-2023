@@ -90,6 +90,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
                   child: SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2)),
                 )
               : IconButton(
+                  key: const Key('favorite-button'),
                   icon: Icon(
                     (model!.isFavorite) ? Icons.favorite : Icons.favorite_border,
                     color: RTColors.primaryFill,
