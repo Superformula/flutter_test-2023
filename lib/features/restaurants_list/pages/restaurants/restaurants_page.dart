@@ -31,17 +31,20 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
 
     if (model!.status.isRestaurantsEmpty) return const RTEmptyWidget();
 
-    return ListView.builder(
-      itemCount: model!.restaurants.length,
-      itemBuilder: (context, index) {
-        final isFirstItem = index == 0;
+    return RefreshIndicator(
+      onRefresh: () => model!.load(),
+      child: ListView.builder(
+        itemCount: model!.restaurants.length,
+        itemBuilder: (context, index) {
+          final isFirstItem = index == 0;
 
-        return RestaurantItemWidget(
-          key: Key('restaurant-$index'),
-          isFirstItem: isFirstItem,
-          restaurant: model!.restaurants[index],
-        );
-      },
+          return RestaurantItemWidget(
+            key: Key('restaurant-$index'),
+            isFirstItem: isFirstItem,
+            restaurant: model!.restaurants[index],
+          );
+        },
+      ),
     );
   }
 }
