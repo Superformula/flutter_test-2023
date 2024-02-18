@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurantour/components/rt_empty_widget.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
 import 'package:restaurantour/components/restaurant_item_widget.dart';
 import 'package:restaurantour/components/rt_shimmer_loading.dart';
@@ -27,6 +28,8 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
     if (model!.status.isLoading) return const RTShimmerLoading();
 
     if (model!.status.isError) return const RTErrorWidget();
+
+    if (model!.status.isRestaurantsEmpty) return const RTEmptyWidget();
 
     return ListView.builder(
       itemCount: model!.restaurants.length,

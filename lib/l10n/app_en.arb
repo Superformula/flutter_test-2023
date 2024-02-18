@@ -1,6 +1,7 @@
 {
   "restaurantDetailAddress": "Address",
   "errorMessage": "Oops! Looks like we couldn't fetch the data. Please check your connection and try again later.",
+  "emptyMessage": "Oops! It seems like there are no items to display at the moment. Check back later for updates or add some items to your list to get started!",
   "restaurantDetailOverallRating": "Overall Rating",
   "restaurantDetailReviews": "{count,plural, =1{{count} Review} other{{count} Reviews}}",
   "@restaurantDetailReviews": {
