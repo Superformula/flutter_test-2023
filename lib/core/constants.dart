@@ -1,9 +1,9 @@
 class Urls {
-  static const String baseUrl = '';
-  static const String apiKey = 'https://api.yelp.com';
+  static const String baseUrl = 'https://api.yelp.com';
+  static const String apiKey = '';
   static String bearerToken = 'Bearer $apiKey'; 
 
-  static String getQuery(int offset) => '''
+  static String getQuery({int offset = 0}) => '''
 query getRestaurants {
   search(location: "Las Vegas", limit: 20, offset: $offset) {
     total    

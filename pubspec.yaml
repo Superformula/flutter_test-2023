@@ -30,6 +30,7 @@ dev_dependencies:
   bloc_test: ^9.0.2
   mockito: ^5.0.15
   mocktail: ^0.2.0
+  http_mock_adapter: ^0.6.1
 
 
 flutter:

@@ -14,6 +14,7 @@ import 'package:restaurantour/data/models/restaurant_model.dart' as _i8;
 import 'package:restaurantour/domain/entities/restaurant_entity.dart' as _i6;
 import 'package:restaurantour/domain/repositories/restaurant_repository.dart'
     as _i3;
+import 'package:restaurantour/domain/usecases/get_restaurants.dart' as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -30,6 +31,17 @@ import 'package:restaurantour/domain/repositories/restaurant_repository.dart'
 
 class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
   _FakeEither_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeRestaurantsRepository_1 extends _i1.SmartFake
+    implements _i3.RestaurantsRepository {
+  _FakeRestaurantsRepository_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -88,4 +100,44 @@ class MockRestaurantsRemoteDataSource extends _i1.Mock
         returnValue: _i4.Future<List<_i8.RestaurantModel>>.value(
             <_i8.RestaurantModel>[]),
       ) as _i4.Future<List<_i8.RestaurantModel>>);
+}
+
+/// A class which mocks [GetRestaurantsUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetRestaurantsUseCase extends _i1.Mock
+    implements _i9.GetRestaurantsUseCase {
+  MockGetRestaurantsUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.RestaurantsRepository get restaurantsRepository => (super.noSuchMethod(
+        Invocation.getter(#restaurantsRepository),
+        returnValue: _FakeRestaurantsRepository_1(
+          this,
+          Invocation.getter(#restaurantsRepository),
+        ),
+      ) as _i3.RestaurantsRepository);
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.RestaurantEntity>>> execute(
+          {int? offset = 0}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+          {#offset: offset},
+        ),
+        returnValue: _i4
+            .Future<_i2.Either<_i5.Failure, List<_i6.RestaurantEntity>>>.value(
+            _FakeEither_0<_i5.Failure, List<_i6.RestaurantEntity>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+            {#offset: offset},
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.RestaurantEntity>>>);
 }

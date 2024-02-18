@@ -23,12 +23,13 @@ class RestaurantRemoteDataSourceImpl extends RestaurantsRemoteDataSource {
 
     final response = await dio.post<Map<String, dynamic>>(
       '/v3/graphql',
-      data: Urls.getQuery(offset),
+      data: Urls.getQuery(offset: offset),
     );
     if (response.statusCode == 200) {
-      return response.data!['data']['search']['business']
+      final result = List<RestaurantModel>.from(response.data!['data']['search']['business']
           .map((data) => RestaurantModel.fromJson(data))
-          .toList();
+          .toList(),);
+      return result;
     } else {
       throw ServerException();
     }
