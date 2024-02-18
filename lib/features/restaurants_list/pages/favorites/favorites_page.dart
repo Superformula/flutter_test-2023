@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
 import 'package:restaurantour/components/restaurant_item_widget.dart';
+import 'package:restaurantour/components/rt_shimmer_loading.dart';
 import 'package:restaurantour/features/restaurants_list/restaurant_view_model.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -18,13 +19,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
   void initState() {
     super.initState();
     model = context.read();
+    WidgetsBinding.instance.addPostFrameCallback((_) async => await model!.loadFavorites());
   }
 
   @override
   Widget build(BuildContext context) {
     model = context.watch();
 
-    if (model!.status.isError) return const RTErrorWidget();
+    if (model!.status.isLoading) return const RTShimmerLoading();
+
+    if (model!.status.isFavoriteError) return const RTErrorWidget();
 
     return ListView.builder(
       itemCount: model!.favorites.length,
@@ -32,8 +36,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
         final isFirstItem = index == 0;
 
         return RestaurantItemWidget(
+          key: Key('favorite-restaurant-$index'),
           isFirstItem: isFirstItem,
-          restaurant: model!.restaurants[index],
+          restaurant: model!.favorites[index],
+          onFinishNavigation: model!.loadFavorites,
         );
       },
     );

@@ -7,7 +7,8 @@ import 'package:restaurantour/features/details/restaurant_details_screen.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 class RestaurantItemWidget extends StatelessWidget {
-  const RestaurantItemWidget({super.key, required this.restaurant, required this.isFirstItem});
+  const RestaurantItemWidget({super.key, required this.restaurant, required this.isFirstItem, this.onFinishNavigation});
+  final VoidCallback? onFinishNavigation;
   final bool isFirstItem;
   final Restaurant restaurant;
 
@@ -25,12 +26,15 @@ class RestaurantItemWidget extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         elevation: 2,
         child: InkWell(
-          onTap: () => Navigator.push<void>(
-            context,
-            MaterialPageRoute<void>(
-              builder: (BuildContext context) => RestaurantDetailsScreen.create(restaurant),
-            ),
-          ),
+          onTap: () async {
+            await Navigator.push<void>(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => RestaurantDetailsScreen.create(restaurant),
+              ),
+            );
+            if (onFinishNavigation != null) onFinishNavigation!();
+          },
           child: SizedBox(
             height: 104,
             child: Padding(
@@ -50,7 +54,7 @@ class RestaurantItemWidget extends StatelessWidget {
                           heroImage,
                           errorBuilder: (_, __, ___) => Container(
                             color: RTColors.placeholder,
-                            child: const Icon(Icons.error_outline),
+                            child: const Icon(Icons.image_not_supported_rounded),
                           ),
                         ),
                       ),
