@@ -2,12 +2,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:restaurantour/animated_splash_screen.dart';
 import 'package:restaurantour/app/data/repositories/yelp_repository.dart';
 import 'package:restaurantour/config.dart';
 
 String jsonString = '';
 
 Future<void> main() async {
+  runApp(const AnimatedSplashScreen());
+
+  //Demonstrates the splashscreen gif using a delay
+  if (!kDebugMode) {
+    await Future.delayed(const Duration(seconds: 3));
+  }
+
   await dotenv.load(fileName: ".env");
 
   WidgetsFlutterBinding.ensureInitialized();
