@@ -14,6 +14,7 @@ dependencies:
   dio: ^5.4.0
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.1.0
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.9
@@ -21,23 +22,24 @@ dependencies:
   golden_toolkit: ^0.15.0
   intl: any
   json_annotation: ^4.8.1
-  mocktail: ^1.0.3
   provider: ^6.1.1
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
 
 dev_dependencies:
+  build_runner: ^2.4.8
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.2
-  build_runner: ^2.4.8
   json_serializable: ^6.7.1
+  mocktail: ^1.0.3
 
 flutter:
   uses-material-design: true
   generate: true
   assets:
     - assets/svg/
+    - .env
   fonts:
     - family: Lora
       fonts:

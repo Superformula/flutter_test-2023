@@ -4,12 +4,14 @@ import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorites_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 GetIt inject = GetIt.instance;
 
 Future<void> setupInjection() async {
-  // this key can be stored within a remote config
-  const _apiKey = '<PUT YOUR API KEY HERE>';
+  await dotenv.load(fileName: ".env");
+
+  final _apiKey = dotenv.env['API_KEY'];
 
   await inject.reset();
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
