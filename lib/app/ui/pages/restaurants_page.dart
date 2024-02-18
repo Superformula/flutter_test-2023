@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/app/ui/pages/details_page.dart';
 
+import '../../interactor/models/restaurant.dart';
 import '../widgets/restaurant_card.dart';
 
 class RestaurantsPage extends StatefulWidget {
@@ -51,31 +53,67 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
         tabs: tabs,
       ),
     );
+
+    const review1 = Review(
+      rating: 4,
+      user: User(
+        imageUrl: 'https://s3-media4.fl.yelpcdn.com/photo/o36eZXAvfV5y7Ww-LyGkig/o.jpg',
+        name: 'Lucas Tinoco',
+      ),
+    );
+    const review2 = Review(
+      rating: 4,
+      user: User(
+        name: 'Gabriel Ribeiro',
+      ),
+    );
+    final restaurant = Restaurant(
+      name: 'Gordon Ramsay Hell\'s Kitchen',
+      categories: [Category(title: 'New American')],
+      price: '\$\$\$',
+      rating: 4.4,
+      photos: ['https://s3-media2.fl.yelpcdn.com/bphoto/q771KjLzI5y638leJsnJnQ/o.jpg'],
+      reviews: [
+        review1,
+        review2,
+      ],
+      location: Location(formattedAddress: '3500 Las Vegas Blvd SLas Vegas, NV 89109'),
+    );
+    final restaurantCard = InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            transitionsBuilder: (
+              BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child,
+            ) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+            transitionDuration: const Duration(seconds: 1),
+            reverseTransitionDuration: const Duration(milliseconds: 500),
+            pageBuilder: (_, __, ___) => DetailsPage(
+              restaurant: restaurant,
+            ),
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+        child: RestaurantCard(
+          restaurant: restaurant,
+        ),
+      ),
+    );
     var testListView = Center(
       child: ListView(
-        children: const [
-          Padding(
-            padding: EdgeInsets.fromLTRB(12, 12, 12, 0),
-            child: RestaurantCard(
-              name: 'Gordon Ramsay Hell\'s Kitchen',
-              foodCategories: ['New American', 'Seafood'],
-              priceRange: '\$\$\$',
-              ratingStars: 4.4,
-              isOpenNow: true,
-              imageUrl: 'https://s3-media2.fl.yelpcdn.com/bphoto/q771KjLzI5y638leJsnJnQ/o.jpg',
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(12, 12, 12, 0),
-            child: RestaurantCard(
-              name: 'Gordon Ramsay Hell\'s Kitchen',
-              foodCategories: ['New American', 'Seafood'],
-              priceRange: '\$\$\$',
-              ratingStars: 4.4,
-              isOpenNow: false,
-              imageUrl: 'https://s3-media2.fl.yelpcdn.com/bphoto/q771KjLzI5y638leJsnJnQ/o.jpg',
-            ),
-          ),
+        children: [
+          restaurantCard,
         ],
       ),
     );
