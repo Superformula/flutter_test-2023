@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorites_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,7 +24,7 @@ Future<void> setupInjection() async {
     ),
   );
 
-  inject.registerLazySingleton<YelpRepository>(() => YelpRepository(dio: inject<Dio>()));
+  inject.registerLazySingleton<RestaurantRepository>(() => RestaurantRepository(dio: inject<Dio>()));
 
   inject.registerLazySingleton<SharedPreferences>(() => sharedPref);
 

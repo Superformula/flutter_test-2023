@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/models/restaurant.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorites_service.dart';
 
 enum RestaurantListStatus { loading, content, error, favoritesEmpty, restaurantsEmpty, favoritesError }
@@ -14,9 +14,9 @@ extension RestaurantListStatusExt on RestaurantListStatus {
 }
 
 class RestaurantListViewModel with ChangeNotifier {
-  final YelpRepository yelpRepo;
+  final RestaurantRepository restaurantRepository;
   final FavoritesService favoritesService;
-  RestaurantListViewModel({required this.favoritesService, required this.yelpRepo});
+  RestaurantListViewModel({required this.favoritesService, required this.restaurantRepository});
 
   RestaurantListStatus status = RestaurantListStatus.loading;
   RestaurantQueryResult? _restaurants;
@@ -29,7 +29,7 @@ class RestaurantListViewModel with ChangeNotifier {
     try {
       _emitLoading();
       await Future<void>.delayed(const Duration(milliseconds: 500));
-      _restaurants = await yelpRepo.getRestaurants();
+      _restaurants = await restaurantRepository.getRestaurants();
 
       restaurants.isEmpty ? _emitRestaurantsEmpty() : _emitContent();
     } catch (e) {
