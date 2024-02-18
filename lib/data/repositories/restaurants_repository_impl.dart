@@ -12,7 +12,7 @@ class RestaurantsRepositoryImpl extends RestaurantsRepository{
   RestaurantsRepositoryImpl({required this.restaurantsRemoteDataSource});
   
   @override
-  Future<Either<Failure, List<RestaurantEntity>>> getRestaurantsList(int offset) async{
+  Future<Either<Failure, List<RestaurantEntity>>> getRestaurantsList({int offset=0}) async{
 
     try {
       final result = await restaurantsRemoteDataSource.getRestaurants(offset: offset);

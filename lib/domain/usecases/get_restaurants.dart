@@ -9,7 +9,7 @@ class GetRestaurantsUseCase {
   GetRestaurantsUseCase(this.restaurantsRepository);
 
   Future<Either<Failure,List<RestaurantEntity>>> execute({int offset = 0}){
-    return restaurantsRepository.getRestaurantsList(offset);
+    return restaurantsRepository.getRestaurantsList(offset: offset);
   }
 
 }

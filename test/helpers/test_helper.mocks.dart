@@ -49,10 +49,11 @@ class MockRestaurantsRepository extends _i1.Mock
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, List<_i6.RestaurantEntity>>>
-      getRestaurantsList(int? offset) => (super.noSuchMethod(
+      getRestaurantsList({int? offset = 0}) => (super.noSuchMethod(
             Invocation.method(
               #getRestaurantsList,
-              [offset],
+              [],
+              {#offset: offset},
             ),
             returnValue: _i4.Future<
                     _i2.Either<_i5.Failure, List<_i6.RestaurantEntity>>>.value(
@@ -60,7 +61,8 @@ class MockRestaurantsRepository extends _i1.Mock
               this,
               Invocation.method(
                 #getRestaurantsList,
-                [offset],
+                [],
+                {#offset: offset},
               ),
             )),
           ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.RestaurantEntity>>>);
