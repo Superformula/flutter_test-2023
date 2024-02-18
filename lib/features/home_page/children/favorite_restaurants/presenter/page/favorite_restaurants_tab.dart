@@ -77,7 +77,7 @@ class _Body extends StatelessWidget {
         if (state is NoFavoritesState) {
           return const Center(
             child: Text(
-              'No favorite restaurantes were added',
+              'No favorite restaurants were added',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
