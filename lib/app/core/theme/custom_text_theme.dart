@@ -7,10 +7,10 @@ abstract class CustomTextTheme {
     //Title
     //AppBar
     titleLarge: GoogleFonts.lora(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.black),
+    //Restaurant Name
+    titleMedium: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
     //
-    titleMedium: GoogleFonts.lora(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),
-    //
-    titleSmall: GoogleFonts.lora(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
+    titleSmall: GoogleFonts.lora(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
 
     //Label
     //Rating number
