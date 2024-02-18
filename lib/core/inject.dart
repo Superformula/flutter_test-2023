@@ -8,7 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 GetIt inject = GetIt.instance;
 
 Future<void> setupInjection() async {
-  const _apiKey = 'vssWzyNh4aMaf2s8z8jOVuVkDI1OERKDaPXgMIn0qYDNB_1DseUsTytTzRmQzlADj4b_S5XfkaR1Kv4N4SGwOtu8lH-0yaNze1M-KhBL8EIGVkOT55vGIRjnwfHQZXYx';
+  // this key can be stored within a remote config
+  const _apiKey = '<PUT YOUR API KEY HERE>';
 
   await inject.reset();
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
