@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
-import 'package:restaurantour/features/details/restaurant_details_screen.dart';
+import 'package:restaurantour/features/restaurant_details/restaurant_details_screen.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorites_service.dart';

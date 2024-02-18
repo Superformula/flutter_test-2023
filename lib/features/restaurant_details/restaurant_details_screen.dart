@@ -8,7 +8,7 @@ import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/text_style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:restaurantour/features/details/restaurant_details_view_model.dart';
+import 'package:restaurantour/features/restaurant_details/restaurant_details_view_model.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/services/favorites_service.dart';
 

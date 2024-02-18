@@ -5,7 +5,7 @@ import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/text_style.dart';
-import 'package:restaurantour/features/details/restaurant_details_screen.dart';
+import 'package:restaurantour/features/restaurant_details/restaurant_details_screen.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 class RestaurantItemWidget extends StatelessWidget {
