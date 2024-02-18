@@ -8,6 +8,7 @@ import 'package:restaurantour/app/data/repositories/yelp_repository.dart';
 import 'package:restaurantour/app/ui/pages/restaurants_page.dart';
 import 'package:restaurantour/config.dart';
 
+import 'app/core/theme/custom_app_bar_theme.dart';
 import 'app/core/theme/custom_icon_theme.dart';
 
 String jsonString = '';
@@ -48,6 +49,7 @@ class Restaurantour extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: CustomTextTheme.textTheme,
         iconTheme: CustomIconTheme.iconTheme,
+        appBarTheme: CustomAppBarTheme.appBarTheme,
       ),
       home: const RestaurantsPage(),
     );
