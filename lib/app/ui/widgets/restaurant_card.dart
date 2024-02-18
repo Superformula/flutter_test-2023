@@ -83,7 +83,10 @@ class RestaurantCard extends StatelessWidget {
                 children: [
                   Text(restaurant.name ?? '', style: theme.textTheme.titleMedium, maxLines: 2),
                   const SizedBox(height: 8),
-                  Text(restaurantDescription, style: theme.textTheme.labelSmall),
+                  Hero(
+                    tag: 'restaurantDescription$restaurantDescription${restaurant.name}',
+                    child: Text(restaurantDescription, style: theme.textTheme.labelSmall),
+                  ),
                   const SizedBox(height: 8),
                   bottomRow,
                 ],
