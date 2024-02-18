@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part '../../models/restaurant.g.dart';
+part 'restaurant.g.dart';
 
 @JsonSerializable()
 class Category {
@@ -12,8 +12,7 @@ class Category {
     this.title,
   });
 
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
+  factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }
@@ -76,8 +75,7 @@ class Location {
     this.formattedAddress,
   });
 
-  factory Location.fromJson(Map<String, dynamic> json) =>
-      _$LocationFromJson(json);
+  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 }
@@ -106,8 +104,7 @@ class Restaurant {
     this.location,
   });
 
-  factory Restaurant.fromJson(Map<String, dynamic> json) =>
-      _$RestaurantFromJson(json);
+  factory Restaurant.fromJson(Map<String, dynamic> json) => _$RestaurantFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantToJson(this);
 
