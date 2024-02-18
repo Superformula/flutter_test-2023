@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:restaurantour/animated_splash_screen.dart';
+import 'package:restaurantour/app/core/theme/custom_text_theme.dart';
 import 'package:restaurantour/app/data/repositories/yelp_repository.dart';
+import 'package:restaurantour/app/ui/pages/restaurants_page.dart';
 import 'package:restaurantour/config.dart';
+
+import 'app/core/theme/custom_icon_theme.dart';
 
 String jsonString = '';
 
@@ -39,10 +43,13 @@ class Restaurantour extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: Config.appName,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: CustomTextTheme.textTheme,
+        iconTheme: CustomIconTheme.iconTheme,
       ),
-      home: const HomePage(),
+      home: const RestaurantsPage(),
     );
   }
 }
