@@ -16,6 +16,7 @@ class RestaurantDetailsScreen extends StatefulWidget {
   const RestaurantDetailsScreen({super.key, required this.restaurant, required this.imageNetwork});
   final Restaurant restaurant;
   final RTImageNetwork imageNetwork;
+
   static Widget create({required Restaurant restaurant, required RTImageNetwork imageNetwork}) => ChangeNotifierProvider(
         create: (context) => RestaurantDetailsViewModel(
           restaurantId: restaurant.id ?? '',

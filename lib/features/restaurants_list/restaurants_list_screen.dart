@@ -52,12 +52,14 @@ class _RestaurantsListScreenState extends State<RestaurantsListScreen> {
             bottom: TabBar(
               tabs: [
                 Tab(
+                  key: const Key('all-restaurants-tab'),
                   child: Text(
                     AppLocalizations.of(context)!.restaurantListAllRestaurantsTab,
                     style: RTTextStyle.button(),
                   ),
                 ),
                 Tab(
+                  key: const Key('my-favorites-tab'),
                   child: Text(
                     AppLocalizations.of(context)!.restaurantListMyFavoritesTab,
                     style: RTTextStyle.button(),
