@@ -1,13 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:restaurantour/services/favorites_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 GetIt inject = GetIt.instance;
 
 Future<void> setupInjection() async {
-  const _apiKey = 'AO8TkgbRdw0-6gxWaLeDx6s6OYsJaAhoN8_PuNREHCvccZWmqO1w1KiO63ted9E7lE6EHoAvslqtyl_fXcet39TiPkmnKVNzpUV51cyC0Tr5XxSQ1_BT4n0NN-XPZXYx';
+  const _apiKey = 'vssWzyNh4aMaf2s8z8jOVuVkDI1OERKDaPXgMIn0qYDNB_1DseUsTytTzRmQzlADj4b_S5XfkaR1Kv4N4SGwOtu8lH-0yaNze1M-KhBL8EIGVkOT55vGIRjnwfHQZXYx';
 
   await inject.reset();
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
 
   inject.registerLazySingleton<Dio>(
     () => Dio(
@@ -22,4 +25,8 @@ Future<void> setupInjection() async {
   );
 
   inject.registerLazySingleton<YelpRepository>(() => YelpRepository(dio: inject<Dio>()));
+
+  inject.registerLazySingleton<SharedPreferences>(() => sharedPref);
+
+  inject.registerLazySingleton<FavoritesService>(() => FavoritesService(sharedPreferences: inject<SharedPreferences>()));
 }
