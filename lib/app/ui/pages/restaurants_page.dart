@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/restaurant_card.dart';
+
 class RestaurantsPage extends StatefulWidget {
   const RestaurantsPage({Key? key}) : super(key: key);
 
@@ -49,23 +51,47 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
         tabs: tabs,
       ),
     );
+    var testListView = Center(
+      child: ListView(
+        children: const [
+          Padding(
+            padding: EdgeInsets.fromLTRB(12, 12, 12, 0),
+            child: RestaurantCard(
+              name: 'Gordon Ramsay Hell\'s Kitchen',
+              foodCategories: ['New American', 'Seafood'],
+              priceRange: '\$\$\$',
+              ratingStars: 4.4,
+              isOpenNow: true,
+              imageUrl: 'https://s3-media2.fl.yelpcdn.com/bphoto/q771KjLzI5y638leJsnJnQ/o.jpg',
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(12, 12, 12, 0),
+            child: RestaurantCard(
+              name: 'Gordon Ramsay Hell\'s Kitchen',
+              foodCategories: ['New American', 'Seafood'],
+              priceRange: '\$\$\$',
+              ratingStars: 4.4,
+              isOpenNow: false,
+              imageUrl: 'https://s3-media2.fl.yelpcdn.com/bphoto/q771KjLzI5y638leJsnJnQ/o.jpg',
+            ),
+          ),
+        ],
+      ),
+    );
     return DefaultTabController(
       initialIndex: 0,
       length: tabs.length,
       child: Scaffold(
         appBar: appbar,
-        body: TabBarView(
-          children: <Widget>[
-            Center(
-              child: Text(
-                "It's cloudy here",
-                style: theme.textTheme.labelMedium,
-              ),
-            ),
-            const Center(
-              child: Text("It's rainy here"),
-            ),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.only(top: 4),
+          child: TabBarView(
+            children: <Widget>[
+              testListView,
+              testListView,
+            ],
+          ),
         ),
       ),
     );
