@@ -3,5 +3,5 @@ import 'package:restaurantour/core/errors/failures.dart';
 import 'package:restaurantour/domain/entities/restaurant_entity.dart';
 
 abstract class RestaurantsRepository{
-  Future<Either<Failure,List<RestaurantEntity>>> getRestaurantsList(String query);
+  Future<Either<Failure,List<RestaurantEntity>>> getRestaurantsList(int offset);
 }

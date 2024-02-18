@@ -1,12 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-class UserEntity extends Equatable{
-
+class UserEntity extends Equatable {
   const UserEntity({
     required this.id,
     required this.imageUrl,
     required this.name,
-
   });
 
   final String id;
@@ -15,6 +13,9 @@ class UserEntity extends Equatable{
 
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-
+  List<Object?> get props => [
+        id,
+        imageUrl,
+        name,
+      ];
 }

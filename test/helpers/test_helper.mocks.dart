@@ -8,6 +8,9 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:restaurantour/core/errors/failures.dart' as _i5;
+import 'package:restaurantour/data/data_source/restaurants_remote_data_source.dart'
+    as _i7;
+import 'package:restaurantour/data/models/restaurant_model.dart' as _i8;
 import 'package:restaurantour/domain/entities/restaurant_entity.dart' as _i6;
 import 'package:restaurantour/domain/repositories/restaurant_repository.dart'
     as _i3;
@@ -46,10 +49,10 @@ class MockRestaurantsRepository extends _i1.Mock
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, List<_i6.RestaurantEntity>>>
-      getRestaurantsList(String? query) => (super.noSuchMethod(
+      getRestaurantsList(int? offset) => (super.noSuchMethod(
             Invocation.method(
               #getRestaurantsList,
-              [query],
+              [offset],
             ),
             returnValue: _i4.Future<
                     _i2.Either<_i5.Failure, List<_i6.RestaurantEntity>>>.value(
@@ -57,8 +60,30 @@ class MockRestaurantsRepository extends _i1.Mock
               this,
               Invocation.method(
                 #getRestaurantsList,
-                [query],
+                [offset],
               ),
             )),
           ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.RestaurantEntity>>>);
+}
+
+/// A class which mocks [RestaurantsRemoteDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRestaurantsRemoteDataSource extends _i1.Mock
+    implements _i7.RestaurantsRemoteDataSource {
+  MockRestaurantsRemoteDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<List<_i8.RestaurantModel>> getRestaurants({int? offset = 0}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getRestaurants,
+          [],
+          {#offset: offset},
+        ),
+        returnValue: _i4.Future<List<_i8.RestaurantModel>>.value(
+            <_i8.RestaurantModel>[]),
+      ) as _i4.Future<List<_i8.RestaurantModel>>);
 }

@@ -3,6 +3,7 @@ import 'package:restaurantour/domain/entities/review_entity.dart';
 
 class RestaurantEntity extends Equatable {
   const RestaurantEntity({
+    required this.id,
     required this.name,
     required this.price,
     required this.rating,
@@ -10,6 +11,7 @@ class RestaurantEntity extends Equatable {
     required this.review,
   });
 
+  final String id;
   final String name;
   final String price;
   final double rating;

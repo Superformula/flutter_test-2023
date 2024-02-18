@@ -8,8 +8,8 @@ class GetRestaurantsUseCase {
 
   GetRestaurantsUseCase(this.restaurantsRepository);
 
-  Future<Either<Failure,List<RestaurantEntity>>> execute(String query){
-    return restaurantsRepository.getRestaurantsList(query);
+  Future<Either<Failure,List<RestaurantEntity>>> execute({int offset = 0}){
+    return restaurantsRepository.getRestaurantsList(offset);
   }
 
 }

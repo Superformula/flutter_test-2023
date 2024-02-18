@@ -17,6 +17,7 @@ void main() {
   });
 
   const restaurantTest =  RestaurantEntity(
+    id: '',
     name: "Gordon Ramsay Hell's Kitchen'",
     price:  r"$$$",
     rating: 4.4,
@@ -25,9 +26,9 @@ void main() {
   );
 
   test('Should get a restaurant list', () async{
-    when(getRestaurantsUseCase.execute('')).thenAnswer((realInvocation) async=>  const Right([restaurantTest]));
+    when(getRestaurantsUseCase.execute()).thenAnswer((realInvocation) async=>  const Right([restaurantTest]));
   
-    final result = await getRestaurantsUseCase.execute('');
+    final result = await getRestaurantsUseCase.execute();
   
     expect(result, const Right([restaurantTest]));
 
