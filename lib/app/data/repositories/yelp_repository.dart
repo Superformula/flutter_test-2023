@@ -1,14 +1,12 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:restaurantour/app/interactor/models/restaurant.dart';
 
-import '../main.dart';
+import '../../../main.dart';
 
-const _apiKey =
-    '8aOl_fssUsS9e_S9fPVrR57KlbW88m29_u2jBetx8C2Z1EfGkXyB31LB9sno3hhCNElwfHFrbuBrbekolB1Q4Ip_v4FieBssl5EdF6WWxgTEPIOW3fW3G-54Z7_PZXYx';
+const _apiKey = '';
 
 class YelpRepository {
   late Dio dio;
@@ -66,9 +64,8 @@ class YelpRepository {
   ///
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
     try {
-      if (jsonString.isNotEmpty) {
+      if (jsonString.isNotEmpty && kDebugMode) {
         final Map<String, dynamic> jsonData = json.decode(jsonString);
-        print(jsonData);
         return RestaurantQueryResult.fromJson(jsonData['data']['search']);
       }
 
