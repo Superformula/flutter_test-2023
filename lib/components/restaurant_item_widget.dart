@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:restaurantour/components/rt_image_network.dart';
+import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/text_style.dart';
 import 'package:restaurantour/features/details/restaurant_details_screen.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 class RestaurantItemWidget extends StatelessWidget {
-  const RestaurantItemWidget({super.key, required this.restaurant, required this.isFirstItem, this.onFinishNavigation});
-  final VoidCallback? onFinishNavigation;
+  const RestaurantItemWidget({super.key, required this.restaurant, required this.isFirstItem, this.onFinishNavigation, required this.imageNetwork});
   final bool isFirstItem;
   final Restaurant restaurant;
+  final VoidCallback? onFinishNavigation;
+  final RTImageNetwork imageNetwork;
 
   double get rating => restaurant.rating ?? 0;
   String get heroImage => restaurant.heroImage;
@@ -30,7 +33,10 @@ class RestaurantItemWidget extends StatelessWidget {
             await Navigator.push<void>(
               context,
               MaterialPageRoute<void>(
-                builder: (BuildContext context) => RestaurantDetailsScreen.create(restaurant),
+                builder: (BuildContext context) => RestaurantDetailsScreen.create(
+                  restaurant: restaurant,
+                  imageNetwork: inject<RTImageNetwork>(),
+                ),
               ),
             );
             if (onFinishNavigation != null) onFinishNavigation!();
@@ -49,10 +55,9 @@ class RestaurantItemWidget extends StatelessWidget {
                       height: 88,
                       child: Hero(
                         tag: restaurant.name ?? '',
-                        child: Image.network(
-                          fit: BoxFit.cover,
-                          heroImage,
-                          errorBuilder: (_, __, ___) => Container(
+                        child: imageNetwork.build(
+                          location: heroImage,
+                          errorWidget: Container(
                             color: RTColors.placeholder,
                             child: const Icon(Icons.image_not_supported_rounded),
                           ),

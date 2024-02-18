@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/text_style.dart';
 
 import 'package:restaurantour/models/restaurant.dart';
 
 class RestaurantReviewWidget extends StatelessWidget {
-  const RestaurantReviewWidget({super.key, required this.review, required this.isFirstItem});
+  const RestaurantReviewWidget({super.key, required this.review, required this.isFirstItem, required this.imageNetwork});
   final bool isFirstItem;
   final Review review;
   final String reviewText = 'Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.';
-
+  final RTImageNetwork imageNetwork;
   int get rating => review.rating ?? 0;
   List<Widget> get starRate => List.generate(rating > 5 ? 5 : rating.toInt(), (_) => SvgPicture.asset('assets/svg/star.svg'));
 
@@ -40,10 +41,9 @@ class RestaurantReviewWidget extends StatelessWidget {
                       height: 40,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(300),
-                        child: Image.network(
-                          fit: BoxFit.cover,
-                          review.user?.imageUrl ?? '',
-                          errorBuilder: (_, __, ___) => Container(
+                        child: imageNetwork.build(
+                          location: review.user?.imageUrl ?? '',
+                          errorWidget: Container(
                             color: RTColors.placeholder,
                             child: const Icon(Icons.person),
                           ),

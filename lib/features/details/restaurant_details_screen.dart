@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/components/restaurant_review_widget.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
+import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/text_style.dart';
@@ -12,12 +13,18 @@ import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/services/favorites_service.dart';
 
 class RestaurantDetailsScreen extends StatefulWidget {
-  const RestaurantDetailsScreen({super.key, required this.restaurant});
+  const RestaurantDetailsScreen({super.key, required this.restaurant, required this.imageNetwork});
   final Restaurant restaurant;
-
-  static Widget create(Restaurant restaurant) => ChangeNotifierProvider(
-        create: (context) => RestaurantDetailsViewModel(restaurantId: restaurant.id ?? '', favoriteService: inject<FavoritesService>()),
-        child: RestaurantDetailsScreen(restaurant: restaurant),
+  final RTImageNetwork imageNetwork;
+  static Widget create({required Restaurant restaurant, required RTImageNetwork imageNetwork}) => ChangeNotifierProvider(
+        create: (context) => RestaurantDetailsViewModel(
+          restaurantId: restaurant.id ?? '',
+          favoriteService: inject<FavoritesService>(),
+        ),
+        child: RestaurantDetailsScreen(
+          restaurant: restaurant,
+          imageNetwork: imageNetwork,
+        ),
       );
 
   @override
@@ -29,7 +36,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
   List<Review> get reviewsList => widget.restaurant.reviews ?? [];
   List<Widget> get reviews => List.generate(reviewsCount, (index) {
         final bool isFirstItem = index == 0;
-        return RestaurantReviewWidget(isFirstItem: isFirstItem, review: reviewsList[index]);
+        return RestaurantReviewWidget(imageNetwork: widget.imageNetwork, isFirstItem: isFirstItem, review: reviewsList[index]);
       });
 
   RestaurantDetailsViewModel? model;
@@ -97,10 +104,9 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
             height: 360,
             child: Hero(
               tag: widget.restaurant.name ?? '',
-              child: Image.network(
-                fit: BoxFit.cover,
-                widget.restaurant.heroImage,
-                errorBuilder: (_, __, ___) => const Icon(Icons.image_not_supported_rounded, size: 120),
+              child: widget.imageNetwork.build(
+                location: widget.restaurant.heroImage,
+                errorWidget: const Icon(Icons.image_not_supported_rounded, size: 120),
               ),
             ),
           ),

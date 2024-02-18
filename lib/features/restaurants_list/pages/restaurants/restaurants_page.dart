@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_empty_widget.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
 import 'package:restaurantour/components/restaurant_item_widget.dart';
+import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/components/rt_shimmer_loading.dart';
+import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/features/restaurants_list/restaurant_view_model.dart';
 
 class RestaurantsPage extends StatefulWidget {
@@ -41,6 +43,7 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
           return RestaurantItemWidget(
             key: Key('restaurant-$index'),
             isFirstItem: isFirstItem,
+            imageNetwork: inject<RTImageNetwork>(),
             restaurant: model!.restaurants[index],
           );
         },
