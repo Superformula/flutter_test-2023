@@ -1,7 +1,21 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:flutter/services.dart';
+import 'package:restaurantour/app/data/repositories/yelp_repository.dart';
+import 'package:restaurantour/config.dart';
 
-void main() {
+String jsonString = '';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    jsonString = await rootBundle.loadString('assets/mock_restaurant_response.json');
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error loading mock_restaurant_response.json: $e');
+    }
+  }
+
   runApp(const Restaurantour());
 }
 
@@ -12,7 +26,7 @@ class Restaurantour extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'RestauranTour',
+      title: Config.appName,
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -31,7 +45,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Restaurantour'),
+            const Text(Config.appName),
             ElevatedButton(
               child: const Text('Fetch Restaurants'),
               onPressed: () async {
