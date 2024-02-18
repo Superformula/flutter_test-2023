@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/core/helpers/hive_helper.dart';
 import 'package:restaurantour/core/models/restaurant.dart';
-import 'package:restaurantour/features/home_page/children/all_restaurant/presenter/page/widgets/widgets_export.dart';
 import 'package:restaurantour/features/home_page/children/favorite_restaurants/data/api/favorite_restaurants_api.dart';
 import 'package:restaurantour/features/home_page/children/favorite_restaurants/presenter/bloc/favorite_restaurants_bloc.dart';
+import 'package:restaurantour/shared/widgets/home_loading_skeleton.dart';
+import 'package:restaurantour/shared/widgets/single_restaurant_card/single_restaurant_card_export.dart';
 
 class FavoriteRestaurantsTab extends StatelessWidget {
   const FavoriteRestaurantsTab({super.key});
@@ -65,6 +66,7 @@ class _Body extends StatelessWidget {
               final int delay = index * 500;
               return FadeInRight(
                 child: SingleRestaurantCard(
+                  isFromFavorites:true,
                   restaurant: parseRestaurant,
                 ),
                 delay: Duration(milliseconds: delay),

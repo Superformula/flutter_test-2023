@@ -34,7 +34,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (state is LoadingState) {
               return const CircularProgressIndicator();
             } else if (state is VerifiedState) {
-              isFavorited = state.isFavorited;
+              isFavorited = state
+                  .isFavorited;
               return IconButton(
                 icon: Icon(
                   isFavorited ? Icons.favorite : Icons.favorite_border,
@@ -50,6 +51,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         .read<RestaurantBloc>()
                         .add(RemoveFavoriteEvent(restaurantId: restaurant.id!));
                   }
+                  // No se necesita actualizar 'isFavorited' aquí porque el estado se actualizará y reconstruirá el widget
                 },
               );
             } else {

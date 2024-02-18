@@ -3,28 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:restaurantour/core/models/restaurant.dart';
-import 'package:restaurantour/features/home_page/children/all_restaurant/presenter/page/widgets/single_restaurant_card/status_indicator.dart';
 import 'package:restaurantour/features/home_page/children/favorite_restaurants/presenter/bloc/favorite_restaurants_bloc.dart';
 import 'package:restaurantour/shared/widgets/rating_stars.dart';
+import 'package:restaurantour/shared/widgets/single_restaurant_card/single_restaurant_card_export.dart';
 
 class SingleRestaurantCard extends StatelessWidget {
   const SingleRestaurantCard({
     super.key,
     required this.restaurant,
+    required this.isFromFavorites,
   });
 
   final Restaurant restaurant;
+  final bool isFromFavorites;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        context.pushNamed('restaurant-page', extra: restaurant).then((result) {
-          if (result == true) {
-            context.read<FavoriteRestaurantsBloc>().add(const InitialEvent());
-          }
-        });
-      },
+      onTap: () => onTap(context,
+          restaurant: restaurant, isFromFavorites: isFromFavorites),
       child: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 4.0,
@@ -125,4 +122,22 @@ class SingleRestaurantCard extends StatelessWidget {
       ),
     );
   }
+}
+
+onTap(BuildContext context,
+    {required Restaurant restaurant, required bool isFromFavorites}) {
+  context
+      .pushNamed(
+    'restaurant-page',
+    extra: restaurant,
+  )
+      .then(
+    (result) {
+      if (result == true && isFromFavorites) {
+        context.read<FavoriteRestaurantsBloc>().add(
+              const InitialEvent(),
+            );
+      }
+    },
+  );
 }

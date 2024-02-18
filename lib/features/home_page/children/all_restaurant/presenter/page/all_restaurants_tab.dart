@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/core/helpers/hive_helper.dart';
 import 'package:restaurantour/features/home_page/children/all_restaurant/presenter/bloc/all_restaurant/all_restaurant_bloc.dart';
-import 'package:restaurantour/features/home_page/children/all_restaurant/presenter/page/widgets/widgets_export.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:restaurantour/shared/widgets/home_loading_skeleton.dart';
+import 'package:restaurantour/shared/widgets/single_restaurant_card/single_restaurant_card_export.dart';
 
 class AllRestaurantsTab extends StatelessWidget {
   const AllRestaurantsTab({
@@ -64,6 +65,7 @@ class _Body extends StatelessWidget {
               return FadeInRight(
                 child: SingleRestaurantCard(
                   restaurant: restaurant,
+                  isFromFavorites: false,
                 ),
                 delay: Duration(milliseconds: delay),
               );
