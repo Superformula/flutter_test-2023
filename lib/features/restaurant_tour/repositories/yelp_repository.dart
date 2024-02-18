@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/features/restaurant_tour/models/restaurant.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
+const _apiKey =
+    // 'XwtYYNAyjLinimPxNBejp7RQrwpmoNJROqcWNe9ATgdLTAUxaWjGOMRXJUTTVknNZAKPtWQJ7T--axaZAIyWWwEKEuTwhTxK_OZPXF76inU4isZVBBQgVwWfWw3MZXYx';
+    'L72HyuIheAzS2Udbq1a48QJWGU9nwd9P0jKSFAbxppNm9ir0zYCThJhP6YceYIMcdlbbnD4ha3mPzy57AOEwpiPHRcctyhzAqIEO7EUzHYTjNa9fNZf84Z05k9PPZXYx';
 
 class YelpRepository {
   late Dio dio;

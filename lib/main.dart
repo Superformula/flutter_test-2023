@@ -1,7 +1,21 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/config/routes/routes.dart';
+import 'package:restaurantour/features/restaurant_tour/bloc/favorites_bloc/favorites_bloc.dart';
+import 'package:restaurantour/features/restaurant_tour/bloc/restaurant_bloc/restaurant_bloc.dart';
+import 'package:restaurantour/features/restaurant_tour/presentation/home_restaurant/home_restaurant.dart';
+import 'package:restaurantour/injection_container.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDependencies();
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
+
   runApp(const Restaurantour());
 }
 
@@ -11,46 +25,22 @@ class Restaurantour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RestauranTour',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Restaurantour'),
-            ElevatedButton(
-              child: const Text('Fetch Restaurants'),
-              onPressed: () async {
-                final yelpRepo = YelpRepository();
-
-                try {
-                  final result = await yelpRepo.getRestaurants();
-                  if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
-                  } else {
-                    print('No restaurants fetched');
-                  }
-                } catch (e) {
-                  print('Failed to fetch restaurants: $e');
-                }
-              },
-            ),
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<RestaurantBloc>(
+          create: (context) => RestaurantBloc()..add(LoadRestaurantsEvent()),
         ),
+        BlocProvider<FavoritesBloc>(
+          create: (context) => FavoritesBloc()..add(LoadFavoritesEvent()),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'RestauranTour',
+        onGenerateRoute: AppRoutes.onGenerateRoute,
+        theme: ThemeData(
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const HomeResturant(),
       ),
     );
   }

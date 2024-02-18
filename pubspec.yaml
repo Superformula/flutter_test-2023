@@ -1,10 +1,9 @@
 name: restaurantour
 description: Flutter developer coding challenge starter project.
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
-
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -17,6 +16,24 @@ dependencies:
   json_annotation: ^4.8.1
   flutter_svg: ^2.0.9
 
+  # state management
+  flutter_bloc: ^8.1.4
+
+  # service locator
+  get_it: ^7.6.4
+
+  # shimer
+  shimmer: ^3.0.0
+
+  # for local DB
+  shared_preferences: ^2.2.2
+
+  # toast
+  fluttertoast: ^8.2.4
+
+  # comparing dart objects
+  equatable: ^2.0.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -24,7 +41,83 @@ dev_dependencies:
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
 
+  # for bloc testing
+  bloc_test: ^9.1.6
+  mockito: ^5.4.4
+
+  # Logo
+  flutter_launcher_icons: "^0.13.1"
+
+  # Splash
+  flutter_native_splash: ^2.3.7
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/superformula_logo.jpeg"
+  min_sdk_android: 21
+  remove_alpha_ios: true
+flutter_native_splash:
+  color: "#232323"
+  image: "assets/images/superformula_logo.jpeg"
+  web: false
+
 flutter:
   uses-material-design: true
-#  assets:
-#    - assets/svg/
+  assets:
+    - assets/images/
+  #    - assets/svg/
+
+  fonts:
+    - family: Lora
+      fonts:
+        - asset: assets/fonts/Lora/Lora-Regular.ttf
+        - asset: assets/fonts/Lora/Lora-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Lora/Lora-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Lora/Lora-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Lora/Lora-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Lora/Lora-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Lora/Lora-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Lora/Lora-BoldItalic.ttf
+          weight: 700
+          style: italic
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/Open_Sans/OpenSans-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Open_Sans/OpenSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Open_Sans/OpenSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Open_Sans/OpenSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Open_Sans/OpenSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Open_Sans/OpenSans-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Open_Sans/OpenSans-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Open_Sans/OpenSans-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Open_Sans/OpenSans-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Open_Sans/OpenSans-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Open_Sans/OpenSans-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Open_Sans/OpenSans-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
