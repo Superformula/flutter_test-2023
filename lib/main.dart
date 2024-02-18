@@ -1,10 +1,13 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurantour/injection_container.dart';
-import 'package:restaurantour/presentation/bloc/RestaurantsBloc.dart';
+import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart';
 import 'package:restaurantour/presentation/pages/restaurant_list_page.dart';
 
 void main() {
+  setUpLocator();
   runApp(const Restaurantour());
 }
 
@@ -17,6 +20,7 @@ class Restaurantour extends StatelessWidget {
     return MaterialApp(
       title: 'RestauranTour',
       theme: ThemeData(
+        textTheme: GoogleFonts.loraTextTheme(),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const HomePage(),
@@ -29,11 +33,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MultiBlocProvider(
-        providers: [BlocProvider(create: (context) => locator<RestaurantsBloc>(),)],
-        child: const RestaurantListPage(),
-      )
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => locator<RestaurantsBloc>(),
+        ),
+      ],
+      child: const RestaurantListPage(),
+      
       // Center(
       //   child: Column(
       //     mainAxisAlignment: MainAxisAlignment.center,

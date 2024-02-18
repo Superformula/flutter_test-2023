@@ -5,7 +5,7 @@ import 'package:restaurantour/data/data_source/restaurants_remote_data_source.da
 import 'package:restaurantour/data/repositories/restaurants_repository_impl.dart';
 import 'package:restaurantour/domain/repositories/restaurant_repository.dart';
 import 'package:restaurantour/domain/usecases/get_restaurants.dart';
-import 'package:restaurantour/presentation/bloc/RestaurantsBloc.dart';
+import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart';
 
 final locator = GetIt.instance;
 

@@ -16,9 +16,9 @@ import 'package:restaurantour/domain/entities/restaurant_entity.dart' as _i8;
 import 'package:restaurantour/domain/repositories/restaurant_repository.dart'
     as _i3;
 import 'package:restaurantour/domain/usecases/get_restaurants.dart' as _i4;
+import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart' as _i11;
 import 'package:restaurantour/presentation/bloc/restaurants_event.dart' as _i12;
 import 'package:restaurantour/presentation/bloc/restaurants_state.dart' as _i5;
-import 'package:restaurantour/presentation/bloc/RestaurantsBloc.dart' as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

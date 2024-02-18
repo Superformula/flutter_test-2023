@@ -5,9 +5,11 @@ import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:restaurantour/core/constants.dart';
 import 'package:restaurantour/core/errors/exceptions.dart';
 import 'package:restaurantour/data/data_source/restaurants_remote_data_source.dart';
+import 'package:restaurantour/data/models/category_model.dart';
 import 'package:restaurantour/data/models/restaurant_model.dart';
 import 'package:restaurantour/data/models/review_model.dart';
 import 'package:restaurantour/data/models/user_model.dart';
+import 'package:restaurantour/domain/entities/category_entity.dart';
 
 import '../../helpers/json_reader.dart';
 
@@ -57,6 +59,10 @@ void main() {
       'https:///s3-media4.fl.yelpcdn.com/bphoto/_zXRdYX4r1OBfF86xKMbDw/o.jpg',
     ],
     review: reviewTestList,
+    isOpenNow: true,
+    categories: <CategoryEntity>[
+      CategoryModel(title: "New American", alias: "newamerican"),
+    ],
   );
 
   dioAdapter.onPost(
@@ -91,7 +97,7 @@ void main() {
         (server) {
           return server.reply(
             201,
-            {'Error' : 'erro'},
+            {'Error': 'erro'},
           );
         },
         data: Urls.getQuery(),

@@ -2,15 +2,18 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:restaurantour/core/errors/failures.dart';
+import 'package:restaurantour/data/models/category_model.dart';
 import 'package:restaurantour/data/models/review_model.dart';
 import 'package:restaurantour/data/models/user_model.dart';
+import 'package:restaurantour/domain/entities/category_entity.dart';
 import 'package:restaurantour/domain/entities/restaurant_entity.dart';
-import 'package:restaurantour/presentation/bloc/RestaurantsBloc.dart';
+import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart';
 import 'package:restaurantour/presentation/bloc/restaurants_event.dart';
 import 'package:restaurantour/presentation/bloc/restaurants_state.dart';
 import 'package:bloc_test/bloc_test.dart';
 
 import '../../helpers/test_helper.mocks.dart';
+
 
 void main() {
   late MockGetRestaurantsUseCase mockRestaurantsRemoteDataSource;
@@ -48,7 +51,7 @@ void main() {
     ),
   ];
 
-  const restaurantTest = RestaurantEntity(
+ const restaurantEntity = RestaurantEntity(
     id: "faPVqws-x-5k2CQKDNtHxw",
     name: "Yardbird Southern Table & Bar",
     price: r"$$",
@@ -57,9 +60,13 @@ void main() {
       'https:///s3-media4.fl.yelpcdn.com/bphoto/_zXRdYX4r1OBfF86xKMbDw/o.jpg',
     ],
     review: reviewTestList,
+    isOpenNow: true,
+    categories: <CategoryEntity>[
+      CategoryModel(title: "New American", alias: "newamerican"),
+    ],
   );
 
-  const restaurantEntityList = <RestaurantEntity>[restaurantTest];
+  const restaurantEntityList = <RestaurantEntity>[restaurantEntity];
 
   test('Initial State should be  RestaurantsEmpty', () {
     expect(restaurantsBloc.state, RestaurantsEmpty());
@@ -74,7 +81,7 @@ void main() {
       return restaurantsBloc;
     },
     act: ((bloc) => bloc.add(
-          const OnRequestedRestaurants(restaurantEntityList),
+          const OnRequestedRestaurants(),
         )),
     expect: () => [
       RestaurantsLoading(),
@@ -91,7 +98,7 @@ void main() {
       return restaurantsBloc;
     },
     act: ((bloc) => bloc.add(
-          const OnRequestedRestaurants(restaurantEntityList),
+          const OnRequestedRestaurants(),
         )),
     expect: () => [
       RestaurantsLoading(),

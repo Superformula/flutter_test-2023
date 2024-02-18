@@ -20,6 +20,7 @@ dependencies:
   equatable: ^2.0.3
   flutter_bloc: ^8.0.1
   get_it: ^7.2.0
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -31,9 +32,11 @@ dev_dependencies:
   mockito: ^5.0.15
   mocktail: ^0.2.0
   http_mock_adapter: ^0.6.1
+  network_image_mock: ^2.0.1
+
 
 
 flutter:
   uses-material-design: true
-#  assets:
-#    - assets/svg/
+  assets:
+      - assets/google_fonts/

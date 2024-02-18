@@ -1,15 +1,20 @@
+import 'dart:io';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:network_image_mock/network_image_mock.dart';
+import 'package:restaurantour/data/models/category_model.dart';
 import 'package:restaurantour/data/models/review_model.dart';
 import 'package:restaurantour/data/models/user_model.dart';
+import 'package:restaurantour/domain/entities/category_entity.dart';
 import 'package:restaurantour/domain/entities/restaurant_entity.dart';
-import 'package:restaurantour/presentation/bloc/RestaurantsBloc.dart';
+import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart';
 import 'package:restaurantour/presentation/bloc/restaurants_event.dart';
 import 'package:restaurantour/presentation/bloc/restaurants_state.dart';
-import 'package:restaurantour/presentation/pages/restaurant_list_page.dart';
+import 'package:restaurantour/presentation/pages/widgets/restaurant_list_widget.dart';
 
 class MockRestaurantsBloc extends MockBloc<RestaurantsEvent, RestaurantsState>
     implements RestaurantsBloc {}
@@ -19,6 +24,7 @@ main() {
 
   setUp(() {
     mockRestaurantsBloc = MockRestaurantsBloc();
+    HttpOverrides.global = null;
   });
 
   Widget _makeTestableWidget(Widget body) {
@@ -64,42 +70,47 @@ main() {
       'https:///s3-media4.fl.yelpcdn.com/bphoto/_zXRdYX4r1OBfF86xKMbDw/o.jpg',
     ],
     review: reviewTestList,
+    isOpenNow: true,
+    categories: <CategoryEntity>[
+      CategoryModel(title: "New American", alias: "newamerican"),
+    ],
+  );
+  testWidgets(
+    'test should trigger loading',
+    (widgetTester) async {
+      when(() => mockRestaurantsBloc.state).thenReturn(RestaurantsLoading());
+
+      await widgetTester
+          .pumpWidget(_makeTestableWidget(const RestaurantListWidget()));
+
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    },
   );
 
   testWidgets(
-    'test should trigger loading',
-    (widgetTester) async{
-      when(()=> mockRestaurantsBloc.state).thenReturn(RestaurantsLoading());
-    
-    await widgetTester.pumpWidget(_makeTestableWidget(const RestaurantListPage()));
-
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
-
-    },
-    
-  );
-
-   testWidgets(
     'test should trigger loading and then show data',
-    (widgetTester) async{
-      when(()=> mockRestaurantsBloc.state).thenReturn(const RestaurantsLoaded([restaurantEntity]));
-    
-    await widgetTester.pumpWidget(_makeTestableWidget(const RestaurantListPage()));
+    (widgetTester) async {
+      when(() => mockRestaurantsBloc.state)
+          .thenReturn(const RestaurantsLoaded([restaurantEntity]));
+      await mockNetworkImagesFor(
+        () async => widgetTester
+            .pumpWidget(_makeTestableWidget(const RestaurantListWidget())),
+      );
 
-    expect(find.byType(ListView), findsOneWidget);
-
+      expect(find.byType(ListView), findsOneWidget);
     },
   );
 
-   testWidgets(
+  testWidgets(
     'test should trigger loading and then show data',
-    (widgetTester) async{
-      when(()=> mockRestaurantsBloc.state).thenReturn(const RestaurantsLoadFail('Error'));
-    
-    await widgetTester.pumpWidget(_makeTestableWidget(const RestaurantListPage()));
+    (widgetTester) async {
+      when(() => mockRestaurantsBloc.state)
+          .thenReturn(const RestaurantsLoadFail('Error'));
 
-    expect(find.byKey(const Key('error')), findsOneWidget);
+      await widgetTester
+          .pumpWidget(_makeTestableWidget(const RestaurantListWidget()));
 
+      expect(find.byKey(const Key('error')), findsOneWidget);
     },
   );
 }

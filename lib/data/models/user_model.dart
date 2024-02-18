@@ -13,8 +13,8 @@ class UserModel extends UserEntity {
         );
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    id: json['id'],
-    imageUrl: json['image_url'],
-    name: json['name'],
+    id: json['id'] ?? '',
+    imageUrl: json['image_url'] ?? '',
+    name: json['name'] ?? '',
   );
 }

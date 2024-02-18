@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:restaurantour/data/models/category_model.dart';
 import 'package:restaurantour/data/models/restaurant_model.dart';
 import 'package:restaurantour/data/models/review_model.dart';
 import 'package:restaurantour/data/models/user_model.dart';
+import 'package:restaurantour/domain/entities/category_entity.dart';
 import 'package:restaurantour/domain/entities/restaurant_entity.dart';
 
 import '../../helpers/json_reader.dart';
@@ -40,9 +42,13 @@ void main() {
     price: r"$$",
     rating: 4.5,
     photos: [
-      'https:///s3-media4.fl.yelpcdn.com/bphoto/_zXRdYX4r1OBfF86xKMbDw/o.jpg'
-    ,],
+      'https:///s3-media4.fl.yelpcdn.com/bphoto/_zXRdYX4r1OBfF86xKMbDw/o.jpg',
+    ],
     review: reviewTestList,
+    isOpenNow: true,
+    categories: <CategoryEntity>[
+      CategoryModel(title: "New American", alias: "newamerican"),
+    ],
   );
 
   test('Shoud be a ReviewEntity', () {

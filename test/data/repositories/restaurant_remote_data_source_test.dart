@@ -5,10 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:restaurantour/core/errors/exceptions.dart';
 import 'package:restaurantour/core/errors/failures.dart';
+import 'package:restaurantour/data/models/category_model.dart';
 import 'package:restaurantour/data/models/restaurant_model.dart';
 import 'package:restaurantour/data/models/review_model.dart';
 import 'package:restaurantour/data/models/user_model.dart';
 import 'package:restaurantour/data/repositories/restaurants_repository_impl.dart';
+import 'package:restaurantour/domain/entities/category_entity.dart';
 import 'package:restaurantour/domain/entities/restaurant_entity.dart';
 
 import '../../helpers/test_helper.mocks.dart';
@@ -59,6 +61,10 @@ void main() {
       'https:///s3-media4.fl.yelpcdn.com/bphoto/_zXRdYX4r1OBfF86xKMbDw/o.jpg',
     ],
     review: reviewTestList,
+    isOpenNow: true,
+    categories: <CategoryEntity>[
+      CategoryModel(title: "New American", alias: "newamerican"),
+    ],
   );
 
   const restaurantEntity = RestaurantEntity(
@@ -70,6 +76,10 @@ void main() {
       'https:///s3-media4.fl.yelpcdn.com/bphoto/_zXRdYX4r1OBfF86xKMbDw/o.jpg',
     ],
     review: reviewTestList,
+    isOpenNow: true,
+    categories: <CategoryEntity>[
+      CategoryModel(title: "New American", alias: "newamerican"),
+    ],
   );
 
   const restaurantModelList = <RestaurantModel>[restaurantTest];

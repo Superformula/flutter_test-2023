@@ -14,6 +14,7 @@ class RestaurantRemoteDataSourceImpl extends RestaurantsRemoteDataSource {
   @override
   Future<List<RestaurantModel>> getRestaurants({int offset = 0}) async {
     dio.options = BaseOptions(
+      validateStatus: (status) => true,
       baseUrl: Urls.baseUrl,
       headers: {
         'Authorization': Urls.bearerToken,
@@ -29,6 +30,7 @@ class RestaurantRemoteDataSourceImpl extends RestaurantsRemoteDataSource {
       final result = List<RestaurantModel>.from(response.data!['data']['search']['business']
           .map((data) => RestaurantModel.fromJson(data))
           .toList(),);
+      print(response.data);
       return result;
     } else {
       throw ServerException();

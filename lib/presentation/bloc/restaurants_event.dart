@@ -10,10 +10,8 @@ abstract class RestaurantsEvent extends Equatable{
 }
 
 class OnRequestedRestaurants extends RestaurantsEvent{
-  final List<RestaurantEntity> restaurantsList;
-
-  const OnRequestedRestaurants(this.restaurantsList);
+  const OnRequestedRestaurants();
   
   @override
-  List<Object?> get props => [restaurantsList];
+  List<Object?> get props => [];
 }

@@ -30,6 +30,17 @@
                                 "name": "Crystal L."
                             }
                         }
+                    ],
+                    "categories": [
+                        {
+                            "title": "New American",
+                            "alias": "newamerican"
+                        }
+                    ],
+                    "hours": [
+                        {
+                            "is_open_now": true
+                        }
                     ]
                 }
             ]

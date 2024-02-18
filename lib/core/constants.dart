@@ -1,9 +1,10 @@
 class Urls {
   static const String baseUrl = 'https://api.yelp.com';
-  static const String apiKey = '';
+  static const String apiKey = 'jqqiz9wXomxYboRgZ_GgiwlHcN_CJAQagyAKYryrldzoID6iwSV3FG5Jsonu8KB_2BF-BM0k1QFPhv0vyMJuDG_NeNp3B2tYIT6kEVRriy3EiHJhBq5XgjDPVWLRZXYx';
   static String bearerToken = 'Bearer $apiKey'; 
 
-  static String getQuery({int offset = 0}) => '''
+  static String getQuery({int offset = 0}) => ''
+  '''
 query getRestaurants {
   search(location: "Las Vegas", limit: 20, offset: $offset) {
     total    
