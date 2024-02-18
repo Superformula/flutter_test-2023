@@ -7,6 +7,6 @@ abstract class CustomAppBarTheme {
     centerTitle: true,
     titleTextStyle: CustomTextTheme.textTheme.titleLarge,
     backgroundColor: Colors.white,
-    elevation: 20,
+    elevation: 2,
   );
 }
