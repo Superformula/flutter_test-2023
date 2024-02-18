@@ -7,15 +7,15 @@ class RTEmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(18.0),
+      padding: const EdgeInsets.symmetric(horizontal: 18.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(
-            height: 100,
-            child: Icon(Icons.search, size: 100),
+            height: 80,
+            child: Icon(Icons.search, size: 80),
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 20),
           Text(
             AppLocalizations.of(context)!.emptyMessage,
             textAlign: TextAlign.center,
