@@ -28,7 +28,6 @@ class RestaurantListViewModel with ChangeNotifier {
   Future<void> load() async {
     try {
       _emitLoading();
-      await Future<void>.delayed(const Duration(milliseconds: 500));
       _restaurants = await restaurantRepository.getRestaurants();
 
       restaurants.isEmpty ? _emitRestaurantsEmpty() : _emitContent();
