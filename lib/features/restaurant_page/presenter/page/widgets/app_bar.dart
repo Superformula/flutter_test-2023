@@ -22,24 +22,37 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     bool isFavorited = false;
     return AppBar(
+      backgroundColor: Colors.white,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
       leading: BackButton(
+        color: Colors.black,
         onPressed: () {
           context.pop(!isFavorited);
         },
       ),
-      title: Text(title),
       actions: [
         BlocBuilder<RestaurantBloc, RestaurantState>(
           builder: (context, state) {
             if (state is LoadingState) {
               return const CircularProgressIndicator();
             } else if (state is VerifiedState) {
-              isFavorited = state
-                  .isFavorited;
+              isFavorited = state.isFavorited;
               return IconButton(
                 icon: Icon(
                   isFavorited ? Icons.favorite : Icons.favorite_border,
-                  color: isFavorited ? Colors.red : null,
+                  color: isFavorited ? Colors.red : Colors.black,
                 ),
                 onPressed: () {
                   if (!isFavorited) {
@@ -51,7 +64,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         .read<RestaurantBloc>()
                         .add(RemoveFavoriteEvent(restaurantId: restaurant.id!));
                   }
-                  // No se necesita actualizar 'isFavorited' aquí porque el estado se actualizará y reconstruirá el widget
                 },
               );
             } else {
