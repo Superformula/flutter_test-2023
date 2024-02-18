@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:restaurantour/core/errors/failures.dart';
-import 'package:restaurantour/data/models/restaurant_model.dart';
 import 'package:restaurantour/data/models/review_model.dart';
 import 'package:restaurantour/data/models/user_model.dart';
 import 'package:restaurantour/domain/entities/restaurant_entity.dart';
