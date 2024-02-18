@@ -20,6 +20,7 @@ dependencies:
   get_it: ^7.6.7
   intl: any
   json_annotation: ^4.8.1
+  mocktail: ^1.0.3
   provider: ^6.1.1
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
