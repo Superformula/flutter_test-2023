@@ -1,30 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/services/favorites_service.dart';
 
-enum RestaurantDetailsStatus { loading, content, error, addingFavorite }
+enum RestaurantDetailsStatus { loading, content, error, updatingFavorite }
 
 extension RestaurantDetailsStatusExt on RestaurantDetailsStatus {
   bool get isLoading => this == RestaurantDetailsStatus.loading;
-  bool get isAddingFavorite => this == RestaurantDetailsStatus.addingFavorite;
+  bool get isAddingFavorite => this == RestaurantDetailsStatus.updatingFavorite;
   bool get isError => this == RestaurantDetailsStatus.error;
 }
 
 class RestaurantDetailsViewModel with ChangeNotifier {
   RestaurantDetailsStatus status = RestaurantDetailsStatus.loading;
-  bool? isFavorite;
+  final String restaurantId;
+  final FavoritesService favoriteService;
+  bool isFavorite = false;
 
-  RestaurantDetailsViewModel({this.isFavorite});
+  List<String> _favoriteList = [];
+
+  RestaurantDetailsViewModel({required this.favoriteService, required this.restaurantId});
   void toggleFavorite() async {
-    _emitChangingFavorite();
-    await Future<void>.delayed(const Duration(milliseconds: 1500));
+    try {
+      _emitChangingFavorite();
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      isFavorite ? await favoriteService.removeFavorite(restaurantId) : await favoriteService.addFavorite(restaurantId);
 
-    isFavorite = (isFavorite == null) ? true : !isFavorite!;
-    _emitContent();
+      isFavorite = !isFavorite;
+    } catch (e) {
+      print(e);
+    } finally {
+      _emitContent();
+    }
   }
 
   Future<void> load() async {
     try {
       _emitLoading();
-      await Future<void>.delayed(const Duration(milliseconds: 1500));
+
+      _favoriteList = await favoriteService.loadFavorites();
+      isFavorite = _favoriteList.contains(restaurantId);
+      await Future<void>.delayed(const Duration(milliseconds: 300));
 
       _emitContent();
     } catch (e) {
@@ -39,7 +53,7 @@ class RestaurantDetailsViewModel with ChangeNotifier {
   }
 
   void _emitChangingFavorite() {
-    status = RestaurantDetailsStatus.addingFavorite;
+    status = RestaurantDetailsStatus.updatingFavorite;
     notifyListeners();
   }
 

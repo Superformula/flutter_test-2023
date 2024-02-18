@@ -8,12 +8,13 @@ import 'package:restaurantour/features/restaurants_list/pages/favorites/favorite
 import 'package:restaurantour/features/restaurants_list/pages/restaurants/restaurants_page.dart';
 import 'package:restaurantour/features/restaurants_list/restaurant_view_model.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:restaurantour/services/favorites_service.dart';
 
 class RestaurantsListScreen extends StatefulWidget {
   const RestaurantsListScreen({super.key});
 
   static Widget create() => ChangeNotifierProvider(
-        create: (context) => RestaurantListViewModel(yelpRepo: inject<YelpRepository>()),
+        create: (context) => RestaurantListViewModel(yelpRepo: inject<YelpRepository>(), favoritesService: inject<FavoritesService>()),
         child: const RestaurantsListScreen(),
       );
 

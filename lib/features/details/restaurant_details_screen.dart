@@ -3,18 +3,20 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/components/restaurant_review_widget.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
+import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/text_style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:restaurantour/features/details/restaurant_details_view_model.dart';
 import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/services/favorites_service.dart';
 
 class RestaurantDetailsScreen extends StatefulWidget {
   const RestaurantDetailsScreen({super.key, required this.restaurant});
   final Restaurant restaurant;
 
   static Widget create(Restaurant restaurant) => ChangeNotifierProvider(
-        create: (context) => RestaurantDetailsViewModel(),
+        create: (context) => RestaurantDetailsViewModel(restaurantId: restaurant.id ?? '', favoriteService: inject<FavoritesService>()),
         child: RestaurantDetailsScreen(restaurant: restaurant),
       );
 
@@ -82,7 +84,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
                 )
               : IconButton(
                   icon: Icon(
-                    (model!.isFavorite ?? false) ? Icons.favorite : Icons.favorite_border,
+                    (model!.isFavorite) ? Icons.favorite : Icons.favorite_border,
                     color: RTColors.primaryFill,
                   ),
                   onPressed: () => model!.toggleFavorite(),
@@ -93,7 +95,14 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
         children: [
           SizedBox(
             height: 360,
-            child: Hero(tag: widget.restaurant.name ?? '', child: Image.network(fit: BoxFit.cover, widget.restaurant.heroImage)),
+            child: Hero(
+              tag: widget.restaurant.name ?? '',
+              child: Image.network(
+                fit: BoxFit.cover,
+                widget.restaurant.heroImage,
+                errorBuilder: (_, __, ___) => const Icon(Icons.image_not_supported_rounded, size: 120),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(24.0),

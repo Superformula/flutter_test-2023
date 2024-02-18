@@ -34,6 +34,7 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
         final isFirstItem = index == 0;
 
         return RestaurantItemWidget(
+          key: Key('restaurant-$index'),
           isFirstItem: isFirstItem,
           restaurant: model!.restaurants[index],
         );
