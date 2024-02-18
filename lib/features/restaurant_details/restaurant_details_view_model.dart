@@ -18,7 +18,7 @@ class RestaurantDetailsViewModel with ChangeNotifier {
   List<String> _favoriteList = [];
 
   RestaurantDetailsViewModel({required this.favoriteService, required this.restaurantId});
-  void toggleFavorite() async {
+  Future<void> toggleFavorite() async {
     try {
       _emitChangingFavorite();
       await Future<void>.delayed(const Duration(milliseconds: 500));
