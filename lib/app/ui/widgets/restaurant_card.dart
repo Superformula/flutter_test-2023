@@ -1,56 +1,48 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:restaurantour/app/interactor/models/restaurant.dart';
+import 'package:restaurantour/app/ui/widgets/status_row.dart';
 
 class RestaurantCard extends StatelessWidget {
-  final String name;
-  final List<String> foodCategories;
-  final String priceRange;
-  final double ratingStars;
-  final bool isOpenNow;
-  final String imageUrl;
+  final Restaurant restaurant;
 
   const RestaurantCard({
     Key? key,
-    required this.name,
-    required this.foodCategories,
-    required this.priceRange,
-    required this.ratingStars,
-    required this.isOpenNow,
-    required this.imageUrl,
+    required this.restaurant,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final categoriesString = foodCategories.length > 1
-        ? '${foodCategories.sublist(0, foodCategories.length - 1).join(', ')} and ${foodCategories.last}'
-        : foodCategories.first;
-    final restaurantDescription = '$priceRange $categoriesString';
+    final restaurantDescription = '${restaurant.price} ${restaurant.displayCategory}';
 
-    final cachedNetworkImage = CachedNetworkImage(
-      imageUrl: imageUrl,
-      imageBuilder: (context, imageProvider) => ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        clipBehavior: Clip.hardEdge,
-        child: Container(
-          width: 88,
-          height: 88,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
+    final cachedNetworkImage = Hero(
+      tag: restaurant.heroImage,
+      child: CachedNetworkImage(
+        imageUrl: restaurant.heroImage,
+        imageBuilder: (context, imageProvider) => ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          clipBehavior: Clip.hardEdge,
+          child: Container(
+            width: 88,
+            height: 88,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
+        placeholder: (context, url) => const CircularProgressIndicator(),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
-      placeholder: (context, url) => const CircularProgressIndicator(),
-      errorWidget: (context, url, error) => const Icon(Icons.error),
     );
 
     final ratingBarIndicator = RatingBarIndicator(
-      rating: ratingStars,
+      rating: restaurant.rating ?? 0,
       itemBuilder: (context, index) => const Icon(
         Icons.star,
         color: Color(0xFFFFB800),
@@ -65,7 +57,10 @@ class RestaurantCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ratingBarIndicator,
-        _buildStatusRow(isOpenNow, theme),
+        Hero(
+          tag: 'isOpenNow${restaurant.isOpen}${restaurant.name}',
+          child: StatusRow(isOpenNow: restaurant.isOpen),
+        ),
       ],
     );
 
@@ -86,7 +81,7 @@ class RestaurantCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name, style: theme.textTheme.titleMedium, maxLines: 2),
+                  Text(restaurant.name ?? '', style: theme.textTheme.titleMedium, maxLines: 2),
                   const SizedBox(height: 8),
                   Text(restaurantDescription, style: theme.textTheme.labelSmall),
                   const SizedBox(height: 8),
@@ -99,22 +94,4 @@ class RestaurantCard extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget _buildStatusRow(bool isOpenNow, ThemeData theme) {
-  final color = isOpenNow ? const Color(0xFF5CD313) : const Color(0xFFEA5E5E);
-  final text = isOpenNow ? 'Open Now' : 'Closed';
-
-  return Row(
-    children: [
-      Text(
-        text,
-        style: theme.textTheme.labelSmall?.copyWith(
-          fontStyle: FontStyle.italic,
-        ),
-      ),
-      const SizedBox(width: 4),
-      Icon(Icons.circle, color: color, size: 16),
-    ],
-  );
 }
