@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
 enum DetailsStatus { loading, content, error, updatingFavorite }
@@ -11,9 +12,10 @@ extension DetailsStatusExt on DetailsStatus {
 
 class DetailsViewModel with ChangeNotifier {
   DetailsStatus status = DetailsStatus.loading;
+  bool isFavorite = false;
+  Restaurant restaurant = Restaurant.fixture();
   final String restaurantId;
   final FavoriteService favoriteService;
-  bool isFavorite = false;
 
   List<String> _favoriteList = [];
 

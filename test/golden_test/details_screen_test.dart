@@ -30,7 +30,7 @@ void main() {
   final deviceBuilder = DeviceBuilder()
     ..overrideDevicesForAllScenarios(devices: [Device.iphone11.copyWith(size: const Size(414, 1100))])
     ..addScenario(
-      widget: widgetBuilder(DetailsScreen.create(restaurant: Restaurant.fixture(), imageNetwork: RTImageNetworkMock())),
+      widget: widgetBuilder(DetailsScreen.create(restaurantId: Restaurant.fixture().id)),
     );
 
   testGoldens('when [DetailsScreen] loads should show the title, favorite icon, and other details', (WidgetTester tester) async {

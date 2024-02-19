@@ -30,7 +30,7 @@ void main() {
   Widget widgetBuilder() => MaterialApp(
         localizationsDelegates: localizationsDelegates,
         debugShowCheckedModeBanner: false,
-        home: DetailsScreen.create(restaurant: Restaurant.fixture(), imageNetwork: RTImageNetworkMock()),
+        home: DetailsScreen.create(restaurantId: Restaurant.fixture().id),
       );
 
   testWidgets('''when successfully load the [DetailsScreen] 

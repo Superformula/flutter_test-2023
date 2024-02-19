@@ -47,8 +47,7 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
                 context,
                 MaterialPageRoute<void>(
                   builder: (BuildContext context) => DetailsScreen.create(
-                    restaurant: model!.restaurantsList[index],
-                    imageNetwork: inject<RTImageNetwork>(),
+                    restaurantId: model!.restaurantsList[index].id,
                   ),
                 ),
               );

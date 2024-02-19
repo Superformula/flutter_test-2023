@@ -11,19 +11,14 @@ import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({super.key, required this.restaurant, required this.imageNetwork});
-  final Restaurant restaurant;
-  final RTImageNetwork imageNetwork;
+  const DetailsScreen({super.key});
 
-  static Widget create({required Restaurant restaurant, required RTImageNetwork imageNetwork}) => ChangeNotifierProvider(
+  static Widget create({required String? restaurantId}) => ChangeNotifierProvider(
         create: (context) => DetailsViewModel(
-          restaurantId: restaurant.id ?? '',
+          restaurantId: restaurantId ?? '',
           favoriteService: inject<FavoriteService>(),
         ),
-        child: DetailsScreen(
-          restaurant: restaurant,
-          imageNetwork: imageNetwork,
-        ),
+        child: const DetailsScreen(),
       );
 
   @override
@@ -31,12 +26,11 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  final RTImageNetwork imageNetwork = inject<RTImageNetwork>();
+
   int get reviewsCount => reviewsList.length;
-  List<Review> get reviewsList => widget.restaurant.reviews ?? [];
-  List<Widget> get reviews => List.generate(reviewsCount, (index) {
-        final bool isFirstItem = index == 0;
-        return RTReviewWidget(imageNetwork: widget.imageNetwork, isFirstItem: isFirstItem, review: reviewsList[index]);
-      });
+  List<Review> get reviewsList => model!.restaurant.reviews ?? [];
+  Restaurant get restaurant => model!.restaurant;
 
   DetailsViewModel? model;
 
@@ -79,7 +73,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         surfaceTintColor: RTColors.background,
         shadowColor: RTColors.primaryFill,
         title: Text(
-          widget.restaurant.name ?? '',
+          model!.restaurant.name ?? '',
           style: RTTextStyle.headingH6(),
         ),
         actions: [
@@ -103,9 +97,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
           SizedBox(
             height: 360,
             child: Hero(
-              tag: widget.restaurant.name ?? '',
-              child: widget.imageNetwork.build(
-                location: widget.restaurant.heroImage,
+              tag: restaurant.name ?? '',
+              child: imageNetwork.build(
+                location: restaurant.heroImage,
                 errorWidget: const Icon(Icons.image_not_supported_rounded, size: 120),
               ),
             ),
@@ -119,14 +113,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '${widget.restaurant.price} ${widget.restaurant.displayCategory}',
-                      style: RTTextStyle.caption(),
+                    Row(
+                      children: [
+                        Text(
+                          restaurant.price ?? '',
+                          style: RTTextStyle.caption(),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          restaurant.displayCategory,
+                          style: RTTextStyle.caption(),
+                        ),
+                      ],
                     ),
                     Row(
                       children: [
                         Text(
-                          widget.restaurant.isOpen
+                          restaurant.isOpen
                               ? AppLocalizations.of(context)!.restaurantListAllRestaurantsTabOpenNow
                               : AppLocalizations.of(context)!.restaurantListAllRestaurantsTabClosed,
                           style: RTTextStyle.overline(),
@@ -139,7 +142,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             height: 8,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: widget.restaurant.isOpen ? RTColors.open : RTColors.closed,
+                              color: restaurant.isOpen ? RTColors.open : RTColors.closed,
                             ),
                           ),
                         ),
@@ -154,7 +157,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  widget.restaurant.location?.formattedAddress ?? '',
+                  restaurant.location?.formattedAddress ?? '',
                   style: RTTextStyle.body2(),
                 ),
                 const _Divider(),
@@ -167,7 +170,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   child: Row(
                     children: [
                       Text(
-                        '${widget.restaurant.rating ?? 0.0}',
+                        '${restaurant.rating ?? 0.0}',
                         style: RTTextStyle.headingH4(),
                       ),
                       Padding(
@@ -182,7 +185,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   AppLocalizations.of(context)!.restaurantDetailReviews(reviewsCount),
                   style: RTTextStyle.caption(),
                 ),
-                ...reviews,
+                _Reviews(reviewsList: reviewsList),
               ],
             ),
           ),
@@ -200,6 +203,28 @@ class _Divider extends StatelessWidget {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 24.0),
       child: Divider(color: RTColors.dividerLine),
+    );
+  }
+}
+
+class _Reviews extends StatefulWidget {
+  final List<Review> reviewsList;
+
+  const _Reviews({required this.reviewsList});
+  @override
+  State<_Reviews> createState() => _ReviewsState();
+}
+
+class _ReviewsState extends State<_Reviews> {
+  final RTImageNetwork imageNetwork = inject<RTImageNetwork>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: List.generate(widget.reviewsList.length, (index) {
+        final bool isFirstItem = index == 0;
+        return RTReviewWidget(imageNetwork: imageNetwork, isFirstItem: isFirstItem, review: widget.reviewsList[index]);
+      }),
     );
   }
 }

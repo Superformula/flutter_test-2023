@@ -46,8 +46,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               context,
               MaterialPageRoute<void>(
                 builder: (BuildContext context) => DetailsScreen.create(
-                  restaurant: model!.favoritesRestaurantList[index],
-                  imageNetwork: inject<RTImageNetwork>(),
+                  restaurantId: model!.favoritesRestaurantList[index].id,
                 ),
               ),
             );
