@@ -1,3 +1,4 @@
+import 'package:restaurantour/app/core/error/error_messages.dart';
 import 'package:restaurantour/app/core/error/exceptions.dart';
 import 'package:restaurantour/app/core/error/failures.dart';
 import 'package:restaurantour/app/data/services/network_info_service.dart';
@@ -6,25 +7,25 @@ import 'package:restaurantour/app/interactor/repositories/restaurants_repository
 
 import '../data_sources/resturants_remote_data_source.dart';
 
-class YelpRestaurantsRepositoryImpl implements RestaurantsRepository {
+class RestaurantsRepositoryImpl implements RestaurantsRepository {
   final RestaurantsRemoteDataSource remoteDataSource;
   final NetworkInfoService networkInfo;
 
-  const YelpRestaurantsRepositoryImpl(this.remoteDataSource, this.networkInfo);
+  const RestaurantsRepositoryImpl(this.remoteDataSource, this.networkInfo);
 
   @override
   Future<(List<Restaurant>?, RestaurantListFailure?)> getRestaurants({int offset = 0}) async {
     final bool isConnected = await networkInfo.isConnected();
 
     if (!isConnected) {
-      return (null, const RestaurantListFailure('Unable to establish an internet connection'));
+      return (null, const RestaurantListFailure(ErrorMessages.noInternetConnection));
     }
     try {
       final result = await remoteDataSource.getRestaurants(offset: offset);
 
       return (result.restaurants, null);
     } on ServerException {
-      return (null, const RestaurantListFailure('Oops! We had an internal problem. Try again!'));
+      return (null, const RestaurantListFailure(ErrorMessages.serverException));
     }
   }
 
