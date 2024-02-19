@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurantour/components/rt_review_widget.dart';
-import 'package:restaurantour/components/rt_error_widget.dart';
-import 'package:restaurantour/components/rt_image_network.dart';
+import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/rt_text_style.dart';

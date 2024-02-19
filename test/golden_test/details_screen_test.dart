@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:restaurantour/components/rt_image_network.dart';
+import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/features/details/details_screen.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';

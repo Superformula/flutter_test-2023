@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurantour/components/rt_empty_widget.dart';
-import 'package:restaurantour/components/rt_error_widget.dart';
-import 'package:restaurantour/components/rt_item_widget.dart';
-import 'package:restaurantour/components/rt_image_network.dart';
-import 'package:restaurantour/components/rt_shimmer_loading.dart';
+import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/core/inject.dart';
+import 'package:restaurantour/features/details/details_screen.dart';
 import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
 
 class RestaurantsPage extends StatefulWidget {
@@ -45,6 +42,17 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
             isFirstItem: isFirstItem,
             imageNetwork: inject<RTImageNetwork>(),
             restaurant: model!.restaurantsList[index],
+            openDetails: () {
+              Navigator.push<void>(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => DetailsScreen.create(
+                    restaurant: model!.restaurantsList[index],
+                    imageNetwork: inject<RTImageNetwork>(),
+                  ),
+                ),
+              );
+            },
             onFinishNavigation: () => model!.loadFavorites(),
           );
         },

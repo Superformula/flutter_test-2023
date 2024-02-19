@@ -2,17 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
-import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/rt_text_style.dart';
-import 'package:restaurantour/features/details/details_screen.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 class RTItemWidget extends StatelessWidget {
-  const RTItemWidget({super.key, required this.restaurant, required this.isFirstItem, this.onFinishNavigation, required this.imageNetwork});
+  const RTItemWidget({
+    super.key,
+    required this.restaurant,
+    required this.isFirstItem,
+    this.onFinishNavigation,
+    required this.imageNetwork,
+    required this.openDetails,
+  });
   final bool isFirstItem;
   final Restaurant restaurant;
   final VoidCallback? onFinishNavigation;
+  final Function openDetails;
   final RTImageNetwork imageNetwork;
 
   double get rating => restaurant.rating ?? 0;
@@ -30,15 +36,7 @@ class RTItemWidget extends StatelessWidget {
         elevation: 2,
         child: InkWell(
           onTap: () async {
-            await Navigator.push<void>(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => DetailsScreen.create(
-                  restaurant: restaurant,
-                  imageNetwork: inject<RTImageNetwork>(),
-                ),
-              ),
-            );
+            await openDetails();
             if (onFinishNavigation != null) onFinishNavigation!();
           },
           child: SizedBox(
