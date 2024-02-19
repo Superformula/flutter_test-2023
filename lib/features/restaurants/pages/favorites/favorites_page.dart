@@ -41,8 +41,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
           isFirstItem: isFirstItem,
           imageNetwork: inject<RTImageNetwork>(),
           restaurant: model!.favoritesRestaurantList[index],
-          openDetails: () {
-            Navigator.push<void>(
+          openDetails: () async {
+            await Navigator.push<void>(
               context,
               MaterialPageRoute<void>(
                 builder: (BuildContext context) => DetailsScreen.create(

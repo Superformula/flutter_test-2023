@@ -18,7 +18,7 @@ class RTItemWidget extends StatelessWidget {
   final bool isFirstItem;
   final Restaurant restaurant;
   final VoidCallback? onFinishNavigation;
-  final Function openDetails;
+  final Future<void> Function() openDetails;
   final RTImageNetwork imageNetwork;
 
   double get rating => restaurant.rating ?? 0;

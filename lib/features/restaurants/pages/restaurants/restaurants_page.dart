@@ -42,8 +42,8 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
             isFirstItem: isFirstItem,
             imageNetwork: inject<RTImageNetwork>(),
             restaurant: model!.restaurantsList[index],
-            openDetails: () {
-              Navigator.push<void>(
+            openDetails: () async {
+              await Navigator.push<void>(
                 context,
                 MaterialPageRoute<void>(
                   builder: (BuildContext context) => DetailsScreen.create(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
