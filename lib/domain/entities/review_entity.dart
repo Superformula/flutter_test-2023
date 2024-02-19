@@ -6,11 +6,13 @@ class ReviewEntity extends Equatable {
     required this.id,
     required this.rating,
     required this.user,
+    this.text= '',
   });
 
   final String id;
   final double rating;
   final UserEntity user;
+  final String text;
 
   @override
   // TODO: implement props

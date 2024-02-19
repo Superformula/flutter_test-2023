@@ -6,8 +6,8 @@ import 'package:restaurantour/presentation/bloc/restaurants_state.dart';
 import 'package:restaurantour/presentation/pages/widgets/custom_progress_indicator.dart';
 import 'package:restaurantour/presentation/pages/widgets/restaurant_card.dart';
 
-class RestaurantListWidget extends StatelessWidget {
-  const RestaurantListWidget({Key? key}) : super(key: key);
+class RestaurantFavListWidget extends StatelessWidget {
+  const RestaurantFavListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +43,19 @@ class RestaurantListWidget extends StatelessWidget {
               );
             }
             if (state is RestaurantsLoaded) {
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: state.result.length,
-                itemBuilder: (context, index) {
-                  return RestaurantListCard(
-                    restaurantEntity: state.result[index],
-                  );
-                },
-              );
+              if (state.favouritesList.isNotEmpty) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: state.favouritesList.length,
+                  itemBuilder: (context, index) {
+                    return RestaurantListCard(
+                      restaurantEntity: state.result[index],
+                    );
+                  },
+                );
+              }
+              return const Center(
+                  child: Text("You don´t have any favourites added"));
             }
             return Container();
           },

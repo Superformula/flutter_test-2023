@@ -3,10 +3,13 @@ import 'package:restaurantour/core/constants.dart';
 import 'package:restaurantour/core/errors/exceptions.dart';
 import 'package:restaurantour/data/models/restaurant_details_model.dart';
 import 'package:restaurantour/data/models/restaurant_model.dart';
+import 'package:restaurantour/data/models/review_model.dart';
 
 abstract class RestaurantsRemoteDataSource {
   Future<List<RestaurantModel>> getRestaurants({int offset = 0});
   Future<RestaurantDetailsModel> getRestaurantDetails({required String id});
+  Future<List<ReviewModel>> getReviewsList({required String id});
+
 }
 
 class RestaurantRemoteDataSourceImpl extends RestaurantsRemoteDataSource {
@@ -53,6 +56,29 @@ class RestaurantRemoteDataSourceImpl extends RestaurantsRemoteDataSource {
        final result = RestaurantDetailsModel.fromJson(response.data);
        return result;
     }else{
+      throw ServerException();
+    }
+  }
+   
+   @override
+   Future<List<ReviewModel>> getReviewsList({required String id}) async {
+    dio.options = BaseOptions(
+      validateStatus: (status) => true,
+      baseUrl: Urls.baseUrl,
+      headers: {
+        'Authorization': Urls.bearerToken,
+        'Content-Type': 'application/graphql',
+      },
+    );
+
+    final response = await dio.get(Urls.getDetailsUr(id));
+
+    if (response.statusCode == 200) {
+      final result = List<ReviewModel>.from(response.data!['reviews']
+          .map((data) => ReviewModel.fromJson(data))
+          .toList(),);
+      return result;
+    } else {
       throw ServerException();
     }
   }

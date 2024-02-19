@@ -42,11 +42,13 @@ void main() {
       id: 'sjZoO8wcK1NeGJFDk5i82Q',
       rating: 5,
       user: userTest,
+      text: ''
     ),
     ReviewModel(
       id: 'okpO9hfpxQXssbTZTKq9hA',
       rating: 5,
       user: userTest2,
+      text: ''
     ),
   ];
 

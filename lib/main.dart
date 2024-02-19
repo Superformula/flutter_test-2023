@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurantour/injection_container.dart';
+import 'package:restaurantour/presentation/bloc/restaurant_details_bloc/restaurant_details_bloc.dart';
 import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart';
 import 'package:restaurantour/presentation/pages/restaurant_list_page.dart';
 
@@ -38,9 +39,10 @@ class HomePage extends StatelessWidget {
         BlocProvider(
           create: (context) => locator<RestaurantsBloc>(),
         ),
+     
       ],
       child: const RestaurantListPage(),
-      
+
       // Center(
       //   child: Column(
       //     mainAxisAlignment: MainAxisAlignment.center,

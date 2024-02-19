@@ -1,0 +1,54 @@
+{
+    "reviews": [
+        {
+            "id": "PdS4Fv6RKyBQ1nB0L0wpsg",
+            "url": "https://www.yelp.com/biz/gordon-ramsay-hells-kitchen-las-vegas-5?adjust_creative=gQDk9FTj4CDaIjoeq4i_Cg&hrid=PdS4Fv6RKyBQ1nB0L0wpsg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_reviews&utm_source=gQDk9FTj4CDaIjoeq4i_Cg",
+            "text": "Fantastic place to enjoy all the favorites from the show. Foie gras was super soft and buttery - the highlight of my brunch.",
+            "rating": 5,
+            "time_created": "2024-01-24 13:19:13",
+            "user": {
+                "id": "TVnNlNYw5uFp-D-lv9REXA",
+                "profile_url": "https://www.yelp.com/user_details?userid=TVnNlNYw5uFp-D-lv9REXA",
+                "image_url": null,
+                "name": "Chubby T."
+            }
+        },
+        {
+            "id": "9rADlcW-gfmu-F_bHK6WOw",
+            "url": "https://www.yelp.com/biz/gordon-ramsay-hells-kitchen-las-vegas-5?adjust_creative=gQDk9FTj4CDaIjoeq4i_Cg&hrid=9rADlcW-gfmu-F_bHK6WOw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_reviews&utm_source=gQDk9FTj4CDaIjoeq4i_Cg",
+            "text": "I was so disappointed being Hell's Kitchen TV fan. Food was ok and waiter was not really attentive (never checked on us). The manager walked by but didn't...",
+            "rating": 3,
+            "time_created": "2024-01-08 08:26:18",
+            "user": {
+                "id": "YKh3b-qojo4vjtHEZoIjKA",
+                "profile_url": "https://www.yelp.com/user_details?userid=YKh3b-qojo4vjtHEZoIjKA",
+                "image_url": null,
+                "name": "Jeheon L."
+            }
+        },
+        {
+            "id": "3kACPCeDQUesPD6Dj7pHHQ",
+            "url": "https://www.yelp.com/biz/gordon-ramsay-hells-kitchen-las-vegas-5?adjust_creative=gQDk9FTj4CDaIjoeq4i_Cg&hrid=3kACPCeDQUesPD6Dj7pHHQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_reviews&utm_source=gQDk9FTj4CDaIjoeq4i_Cg",
+            "text": "The food was great, the atmosphere is incredible and the service is beyond. I've been 4 times and will keep going back.",
+            "rating": 5,
+            "time_created": "2024-01-23 22:08:38",
+            "user": {
+                "id": "InFweVBJ5d6dL6wVwUpmjQ",
+                "profile_url": "https://www.yelp.com/user_details?userid=InFweVBJ5d6dL6wVwUpmjQ",
+                "image_url": null,
+                "name": "Marelyn R."
+            }
+        }
+    ],
+    "total": 11045,
+    "possible_languages": [
+        "en",
+        "da",
+        "es",
+        "zh",
+        "de",
+        "fr",
+        "ja",
+        "pt"
+    ]
+}

@@ -15,3 +15,11 @@ class OnRequestedRestaurants extends RestaurantsEvent{
   @override
   List<Object?> get props => [];
 }
+
+class OnAddToFavorite extends RestaurantsEvent {
+  final RestaurantEntity restaurant;
+  const OnAddToFavorite(this.restaurant);
+
+  @override
+  List<Object?> get props => [];
+}
