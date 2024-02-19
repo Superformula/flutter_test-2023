@@ -37,7 +37,7 @@ void main() {
   should create a have the favorite Icon, the name of restaurant''', (WidgetTester tester) async {
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
     when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
-    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value([Review.fixture()]));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResult.fixture()));
 
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
@@ -63,7 +63,7 @@ void main() {
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([restaurantId]));
     when(() => favoritesService.removeFavorite(any())).thenAnswer((_) => Future<void>.value());
     when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
-    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value([Review.fixture()]));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResult.fixture()));
 
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();

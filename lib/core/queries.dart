@@ -1,8 +1,8 @@
 class RTQueries {
   static String getRestaurantsQuery(int offset) {
     return '''
-query getRestaurants {
-  search(location: "Las Vegas", limit: 20, offset: 0) {
+query restaurantsQuery {
+  search(location: "Las Vegas", limit: 20, offset: $offset) {
     business {
       id
       name
@@ -17,15 +17,15 @@ query getRestaurants {
         is_open_now
       }
     }
+    total
   }
 }
-
 ''';
   }
 
   static String getReviewsQuery({required String restaurantId, required int offset}) {
     return '''
-query MyQuery {
+query reviewsQuery {
     reviews(business: "$restaurantId", limit: 10, offset: $offset) {
     total
     review {
@@ -44,7 +44,7 @@ query MyQuery {
 
   static String getRestaurantDetailsQuery({required String restaurantId}) {
     return '''
-query MyQuery {
+query restaurantDetailsQuery {
   business(id: "$restaurantId") {
     alias
     categories {
@@ -62,6 +62,16 @@ query MyQuery {
     photos
     name
     price
+  }
+}
+''';
+  }
+
+  static String getTotalReviewForRestaurantQuery({required String restaurantId}) {
+    return '''
+query totalReviewForRestaurantQuery {
+  reviews(business: "$restaurantId") {
+    total
   }
 }
 ''';

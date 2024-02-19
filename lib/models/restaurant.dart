@@ -161,3 +161,17 @@ class RestaurantQueryResult {
 
   Map<String, dynamic> toJson() => _$RestaurantQueryResultToJson(this);
 }
+
+@JsonSerializable()
+class ReviewQueryResult {
+  final int? total;
+  @JsonKey(name: 'review')
+  final List<Review>? review;
+
+  const ReviewQueryResult({this.total, this.review});
+
+  factory ReviewQueryResult.fromJson(Map<String, dynamic> json) => _$ReviewQueryResultFromJson(json);
+  factory ReviewQueryResult.fixture() => ReviewQueryResult(total: 1, review: [Review.fixture()]);
+
+  Map<String, dynamic> toJson() => _$ReviewQueryResultToJson(this);
+}

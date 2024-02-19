@@ -3,10 +3,11 @@ import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
-enum RestaurantsStatus { loading, content, error, empty }
+enum RestaurantsStatus { paginating, loading, content, error, empty }
 
 extension RestaurantsStatusExt on RestaurantsStatus {
   bool get isLoading => this == RestaurantsStatus.loading;
+  bool get isPaginating => this == RestaurantsStatus.paginating;
   bool get isError => this == RestaurantsStatus.error;
   bool get isEmpty => this == RestaurantsStatus.empty;
 }
@@ -22,16 +23,19 @@ extension FavoritesStatusExt on FavoritesStatus {
 class RestaurantsViewModel with ChangeNotifier {
   final RestaurantRepository restaurantRepository;
   final FavoriteService favoritesService;
+  final int paginationSize = 20;
   RestaurantsViewModel({required this.favoritesService, required this.restaurantRepository});
 
   RestaurantsStatus restaurantsStatus = RestaurantsStatus.loading;
   FavoritesStatus favoritesStatus = FavoritesStatus.loading;
 
-  RestaurantQueryResult? _restaurants;
+  RestaurantQueryResult? _restaurantsQuery;
   List<Restaurant> _favorites = [];
 
+  int get allRestaurantsQueryTotal => _restaurantsQuery?.total ?? 0;
   List<Restaurant> get favoritesRestaurantList => _favorites;
-  List<Restaurant> get restaurantsList => _restaurants?.restaurants ?? [];
+  List<Restaurant> get restaurantsList => _restaurantsQuery?.restaurants ?? [];
+  bool get shouldPaginate => restaurantsList.length < allRestaurantsQueryTotal && allRestaurantsQueryTotal > paginationSize;
 
   Future<void> load() async {
     await loadRestaurants();
@@ -41,7 +45,7 @@ class RestaurantsViewModel with ChangeNotifier {
   Future<void> loadRestaurants() async {
     try {
       _emitRestaurantLoading();
-      _restaurants = await restaurantRepository.getRestaurants();
+      _restaurantsQuery = await restaurantRepository.getRestaurants();
       restaurantsList.isEmpty ? _emitRestaurantEmpty() : _emitRestaurantContent();
     } catch (e) {
       print(e);
@@ -62,6 +66,19 @@ class RestaurantsViewModel with ChangeNotifier {
     }
   }
 
+  Future<void> paginateRestaurants() async {
+    if (restaurantsStatus.isPaginating || !shouldPaginate) return;
+    try {
+      _emitRestaurantPaginating();
+      final paginated = await restaurantRepository.getRestaurants(offset: restaurantsList.length);
+      restaurantsList.addAll(paginated?.restaurants ?? []);
+    } catch (e) {
+      print(e);
+    } finally {
+      _emitRestaurantContent();
+    }
+  }
+
   void _emitRestaurantContent() {
     restaurantsStatus = RestaurantsStatus.content;
     notifyListeners();
@@ -69,6 +86,11 @@ class RestaurantsViewModel with ChangeNotifier {
 
   void _emitRestaurantLoading() {
     restaurantsStatus = RestaurantsStatus.loading;
+    notifyListeners();
+  }
+
+  void _emitRestaurantPaginating() {
+    restaurantsStatus = RestaurantsStatus.paginating;
     notifyListeners();
   }
 

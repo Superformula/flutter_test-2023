@@ -109,3 +109,17 @@ Map<String, dynamic> _$RestaurantQueryResultToJson(
       'total': instance.total,
       'business': instance.restaurants,
     };
+
+ReviewQueryResult _$ReviewQueryResultFromJson(Map<String, dynamic> json) =>
+    ReviewQueryResult(
+      total: json['total'] as int?,
+      review: (json['review'] as List<dynamic>?)
+          ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$ReviewQueryResultToJson(ReviewQueryResult instance) =>
+    <String, dynamic>{
+      'total': instance.total,
+      'review': instance.review,
+    };

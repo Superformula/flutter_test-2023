@@ -35,12 +35,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Restaurant get restaurant => model!.restaurant;
 
   DetailsViewModel? model;
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     model = context.read();
     WidgetsBinding.instance.addPostFrameCallback((_) async => await model!.load());
+    scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  _scrollListener() {
+    const spaceBeforeEndOfScroll = 50;
+    if (scrollController.offset >= scrollController.position.maxScrollExtent - spaceBeforeEndOfScroll && !scrollController.position.outOfRange) {
+      model!.paginateReviews();
+    }
   }
 
   @override
@@ -95,6 +110,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         ],
       ),
       body: ListView(
+        controller: scrollController,
         children: [
           SizedBox(
             height: 360,
@@ -184,10 +200,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
                 const _Divider(),
                 Text(
-                  AppLocalizations.of(context)!.restaurantDetailReviews(reviewsCount),
+                  AppLocalizations.of(context)!.restaurantDetailReviews(model!.totalReviews),
                   style: RTTextStyle.caption(),
                 ),
-                _Reviews(reviewsList: reviewsList),
+                _Reviews(reviewsList: reviewsList, isPaginating: model!.status.isPaginating),
               ],
             ),
           ),
@@ -211,8 +227,8 @@ class _Divider extends StatelessWidget {
 
 class _Reviews extends StatefulWidget {
   final List<Review> reviewsList;
-
-  const _Reviews({required this.reviewsList});
+  final bool isPaginating;
+  const _Reviews({required this.reviewsList, required this.isPaginating});
   @override
   State<_Reviews> createState() => _ReviewsState();
 }
@@ -225,7 +241,23 @@ class _ReviewsState extends State<_Reviews> {
     return Column(
       children: List.generate(widget.reviewsList.length, (index) {
         final bool isFirstItem = index == 0;
-        return RTReviewWidget(imageNetwork: imageNetwork, isFirstItem: isFirstItem, review: widget.reviewsList[index]);
+        return Column(
+          children: [
+            RTReviewWidget(imageNetwork: imageNetwork, isFirstItem: isFirstItem, review: widget.reviewsList[index]),
+            if (index + 1 == widget.reviewsList.length)
+              Visibility(
+                visible: widget.isPaginating,
+                child: const Padding(
+                  padding: EdgeInsets.only(bottom: 12.0),
+                  child: SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                ),
+              ),
+          ],
+        );
       }),
     );
   }

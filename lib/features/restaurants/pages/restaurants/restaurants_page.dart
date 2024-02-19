@@ -14,16 +14,32 @@ class RestaurantsPage extends StatefulWidget {
 
 class _RestaurantsPageState extends State<RestaurantsPage> {
   RestaurantsViewModel? model;
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     model = context.read();
+    scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  _scrollListener() {
+    const spaceBeforeEndOfScroll = 50;
+    if (scrollController.offset >= scrollController.position.maxScrollExtent - spaceBeforeEndOfScroll && !scrollController.position.outOfRange) {
+      model!.paginateRestaurants();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     model = context.watch();
+
     if (model!.restaurantsStatus.isLoading) return const RTShimmerLoading();
 
     if (model!.restaurantsStatus.isError) return const RTErrorWidget();
@@ -33,26 +49,42 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
     return RefreshIndicator(
       onRefresh: () => model!.load(),
       child: ListView.builder(
+        controller: scrollController,
         itemCount: model!.restaurantsList.length,
         itemBuilder: (context, index) {
           final isFirstItem = index == 0;
-
-          return RTItemWidget(
-            key: Key('restaurant-$index'),
-            isFirstItem: isFirstItem,
-            imageNetwork: inject<RTImageNetwork>(),
-            restaurant: model!.restaurantsList[index],
-            openDetails: () async {
-              await Navigator.push<void>(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => DetailsScreen.create(
-                    restaurantId: model!.restaurantsList[index].id,
+          return Column(
+            children: [
+              RTItemWidget(
+                key: Key('restaurant-$index'),
+                isFirstItem: isFirstItem,
+                imageNetwork: inject<RTImageNetwork>(),
+                restaurant: model!.restaurantsList[index],
+                openDetails: () async {
+                  await Navigator.push<void>(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => DetailsScreen.create(
+                        restaurantId: model!.restaurantsList[index].id,
+                      ),
+                    ),
+                  );
+                },
+                onFinishNavigation: () => model!.loadFavorites(),
+              ),
+              if (index + 1 == model!.restaurantsList.length)
+                Visibility(
+                  visible: model!.restaurantsStatus.isPaginating,
+                  child: const Padding(
+                    padding: EdgeInsets.only(bottom: 12.0),
+                    child: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
                   ),
                 ),
-              );
-            },
-            onFinishNavigation: () => model!.loadFavorites(),
+            ],
           );
         },
       ),
