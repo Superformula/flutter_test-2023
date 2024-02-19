@@ -1,10 +1,14 @@
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant.g.dart';
 
+@HiveType(typeId: 2)
 @JsonSerializable()
 class Category {
+  @HiveField(0)
   final String? alias;
+  @HiveField(1)
   final String? title;
 
   Category({
@@ -18,8 +22,10 @@ class Category {
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }
 
+@HiveType(typeId: 3)
 @JsonSerializable()
 class Hours {
+  @HiveField(0)
   @JsonKey(name: 'is_open_now')
   final bool? isOpenNow;
 
@@ -32,11 +38,15 @@ class Hours {
   Map<String, dynamic> toJson() => _$HoursToJson(this);
 }
 
+@HiveType(typeId: 4)
 @JsonSerializable()
 class User {
+  @HiveField(0)
   final String? id;
+  @HiveField(1)
   @JsonKey(name: 'image_url')
   final String? imageUrl;
+  @HiveField(2)
   final String? name;
 
   const User({
@@ -50,10 +60,14 @@ class User {
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }
 
+@HiveType(typeId: 5)
 @JsonSerializable()
 class Review {
+  @HiveField(0)
   final String? id;
+  @HiveField(1)
   final int? rating;
+  @HiveField(2)
   final User? user;
 
   const Review({
@@ -67,8 +81,10 @@ class Review {
   Map<String, dynamic> toJson() => _$ReviewToJson(this);
 }
 
+@HiveType(typeId: 6)
 @JsonSerializable()
 class Location {
+  @HiveField(0)
   @JsonKey(name: 'formatted_address')
   final String? formattedAddress;
 
@@ -82,16 +98,26 @@ class Location {
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 }
 
+@HiveType(typeId: 1)
 @JsonSerializable()
 class Restaurant {
+  @HiveField(0)
   final String? id;
+  @HiveField(1)
   final String? name;
+  @HiveField(2)
   final String? price;
+  @HiveField(3)
   final double? rating;
+  @HiveField(4)
   final List<String>? photos;
+  @HiveField(5)
   final List<Category>? categories;
+  @HiveField(6)
   final List<Hours>? hours;
+  @HiveField(7)
   final List<Review>? reviews;
+  @HiveField(8)
   final Location? location;
 
   const Restaurant({

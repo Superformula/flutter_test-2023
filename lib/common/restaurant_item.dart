@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/utils/colors.dart';
+import 'package:restaurantour/utils/strings.dart';
+
+import 'package:restaurantour/utils/text_styles.dart';
 
 class RestaurantItem extends StatelessWidget {
   const RestaurantItem({
     Key? key,
+    required this.item,
   }) : super(key: key);
+
+  final Restaurant item;
 
   @override
   Widget build(BuildContext context) {
+    final cleanIsOpen = item.isOpen ? AppStrings.openNow : AppStrings.closed;
+    final circleColor = item.isOpen ? AppColors.green : AppColors.red;
+
     return Card(
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
@@ -19,7 +31,7 @@ class RestaurantItem extends StatelessWidget {
           children: [
             ClipRRect(
               child: Image.network(
-                'https://picsum.photos/250?image=9',
+                item.heroImage,
                 height: 88,
                 width: 88,
                 fit: BoxFit.cover,
@@ -32,48 +44,37 @@ class RestaurantItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Restaurant name goes here and wrap two lines',
-                    style: GoogleFonts.lora(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
+                    item.name!,
+                    style: AppTextStyles.lora16,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(
-                      '\$\$\$\$ Italian',
-                      style: GoogleFonts.openSans(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        color: Colors.black,
-                      ),
+                      item.displayCategory,
+                      style: AppTextStyles.openSans12,
                     ),
                   ),
                   Row(
                     children: [
-                      const RatingStars(
+                      RatingStars(
                         starCount: 5,
-                        starColor: Color(0xffFFB800),
+                        starColor: AppColors.yellow,
                         valueLabelVisibility: false,
-                        value: 5,
+                        value: item.rating!.roundToDouble(),
                         starSize: 12,
                         starSpacing: 0,
                       ),
                       const Spacer(),
                       Text(
-                        'Open Now',
-                        style: GoogleFonts.openSans(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
+                        cleanIsOpen,
+                        style: AppTextStyles.openSans12.copyWith(
                           fontStyle: FontStyle.italic,
-                          color: Colors.black,
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Icon(
+                      Icon(
                         Icons.circle_rounded,
-                        color: Color(0xff5CD313),
+                        color: circleColor,
                         size: 12,
                       ),
                     ],

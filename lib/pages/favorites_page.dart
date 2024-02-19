@@ -1,8 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 
 import 'package:get_it_mixin/get_it_mixin.dart';
-import 'package:restaurantour/main.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '../common/restaurant_item.dart';
+import '../main.dart';
+import '../services/router_service.dart';
+import '../utils/strings.dart';
+import '../utils/text_styles.dart';
 
 class FavoritesListPage extends StatelessWidget with GetItMixin {
   FavoritesListPage({
@@ -11,66 +17,33 @@ class FavoritesListPage extends StatelessWidget with GetItMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Restaurantour'),
-          ElevatedButton(
-            child: const Text('Fetch Restaurants'),
-            onPressed: () async {
-              restaurants.getRestaurants();
+    return ValueListenableBuilder(
+      valueListenable: fManager.favList,
+      builder: (context, Box box, child) {
+        if (fManager.favList.value.isEmpty) {
+          return Center(
+            child: Text(
+              AppStrings.noFavorites,
+              style: AppTextStyles.lora18,
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
 
-              debugPrint(restaurants.restaurants.value?.toJson().toString());
-            },
-          ),
-          ListView(
-            shrinkWrap: true,
-            children: [
-              Card(
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(8),
-                  leading: ClipRRect(
-                    child: Image.network('https://picsum.photos/250?image=9'),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  title: const Text(
-                    'Restaurant name goes here and wrap two lines',
-                  ),
-                  subtitle: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 4),
-                        child: Text('\$\$\$\$ Italian'),
-                      ),
-                      Row(
-                        children: [
-                          RatingStars(
-                            starCount: 5,
-                            starColor: Colors.amber,
-                            valueLabelVisibility: false,
-                            value: 5,
-                          ),
-                          Spacer(),
-                          Text('Open Now'),
-                          SizedBox(width: 8),
-                          Icon(
-                            Icons.circle_rounded,
-                            color: Colors.green,
-                            size: 12,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  isThreeLine: true,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+        return ListView.builder(
+          itemCount: fManager.favList.value.length,
+          itemBuilder: (context, index) {
+            final fObjectIndex = box.getAt(index);
+
+            return GestureDetector(
+              onTap: () {
+                context.router.push(DetailsRoute(item: fObjectIndex));
+              },
+              child: RestaurantItem(item: fObjectIndex),
+            );
+          },
+        );
+      },
     );
   }
 }

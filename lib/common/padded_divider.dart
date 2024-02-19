@@ -5,13 +5,16 @@ import '../utils/colors.dart';
 class PaddedDivider extends StatelessWidget {
   const PaddedDivider({
     Key? key,
+    this.vertical = 24,
   }) : super(key: key);
+
+  final double vertical;
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 24),
-      child: Divider(
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: vertical),
+      child: const Divider(
         color: AppColors.gray,
       ),
     );
