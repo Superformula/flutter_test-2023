@@ -29,7 +29,9 @@ class RTReviewWidget extends StatelessWidget {
                 Row(children: starRate),
                 const SizedBox(height: 8),
                 Text(
-                  review.review ?? '',
+                  review.text ?? '',
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                   style: RTTextStyle.body1(),
                 ),
                 const SizedBox(height: 8),

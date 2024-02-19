@@ -8,6 +8,7 @@ import 'package:restaurantour/core/rt_text_style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:restaurantour/features/details/details_view_model.dart';
 import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class DetailsScreen extends StatefulWidget {
   static Widget create({required String? restaurantId}) => ChangeNotifierProvider(
         create: (context) => DetailsViewModel(
           restaurantId: restaurantId ?? '',
+          restaurantRepository: inject<RestaurantRepository>(),
           favoriteService: inject<FavoriteService>(),
         ),
         child: const DetailsScreen(),
@@ -28,8 +30,8 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   final RTImageNetwork imageNetwork = inject<RTImageNetwork>();
 
-  int get reviewsCount => reviewsList.length;
-  List<Review> get reviewsList => model!.restaurant.reviews ?? [];
+  int get reviewsCount => model!.reviews.length;
+  List<Review> get reviewsList => model!.reviews;
   Restaurant get restaurant => model!.restaurant;
 
   DetailsViewModel? model;

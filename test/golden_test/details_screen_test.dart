@@ -35,6 +35,8 @@ void main() {
 
   testGoldens('when [DetailsScreen] loads should show the title, favorite icon, and other details', (WidgetTester tester) async {
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
+    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value([Review.fixture()]));
 
     await loadAppFonts();
 
@@ -46,7 +48,8 @@ void main() {
 
   testGoldens('when [DetailsScreen] loads a favorite restaurant should show the favorite icon filled', (WidgetTester tester) async {
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
-
+    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value([Review.fixture()]));
     await loadAppFonts();
 
     await tester.pumpDeviceBuilder(deviceBuilder);
@@ -57,7 +60,8 @@ void main() {
 
   testGoldens('when [DetailsScreen] loads a non favorite restaurant should show the favorite icon not filled', (WidgetTester tester) async {
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
-
+    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value([Review.fixture()]));
     await loadAppFonts();
 
     await tester.pumpDeviceBuilder(deviceBuilder);
@@ -71,7 +75,8 @@ void main() {
     and tap to favorite update the status and show the favorite icon filled''', (WidgetTester tester) async {
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       when(() => favoritesService.addFavorite(any())).thenAnswer((_) => Future.value());
-
+      when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
+      when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value([Review.fixture()]));
       await loadAppFonts();
 
       await tester.pumpDeviceBuilder(deviceBuilder);
@@ -86,6 +91,8 @@ void main() {
     and tap to remove favorite update the status and show the favorite icon not filled''', (WidgetTester tester) async {
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
       when(() => favoritesService.removeFavorite(any())).thenAnswer((_) => Future.value());
+      when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
+      when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value([Review.fixture()]));
 
       await loadAppFonts();
 

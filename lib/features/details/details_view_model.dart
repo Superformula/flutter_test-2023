@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
 enum DetailsStatus { loading, content, error, updatingFavorite }
@@ -14,12 +16,15 @@ class DetailsViewModel with ChangeNotifier {
   DetailsStatus status = DetailsStatus.loading;
   bool isFavorite = false;
   Restaurant restaurant = Restaurant.fixture();
+  List<Review> reviews = [];
+
   final String restaurantId;
   final FavoriteService favoriteService;
+  final RestaurantRepository restaurantRepository;
 
   List<String> _favoriteList = [];
 
-  DetailsViewModel({required this.favoriteService, required this.restaurantId});
+  DetailsViewModel({required this.favoriteService, required this.restaurantRepository, required this.restaurantId});
   Future<void> toggleFavorite() async {
     try {
       _emitChangingFavorite();
@@ -36,10 +41,10 @@ class DetailsViewModel with ChangeNotifier {
   Future<void> load() async {
     try {
       _emitLoading();
-
+      restaurant = await restaurantRepository.getRestaurantDetails(restaurantId: restaurantId);
+      reviews = await restaurantRepository.getReviews(restaurantId: restaurantId);
       _favoriteList = await favoriteService.loadFavorites();
       isFavorite = _favoriteList.contains(restaurantId);
-
       _emitContent();
     } catch (e) {
       print(e);
