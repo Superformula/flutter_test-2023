@@ -1,13 +1,14 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant.g.dart';
 
 @JsonSerializable()
-class Category {
+class Category extends Equatable {
   final String? alias;
   final String? title;
 
-  Category({
+  const Category({
     this.alias,
     this.title,
   });
@@ -15,10 +16,13 @@ class Category {
   factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
+
+  @override
+  List<Object?> get props => [alias, title];
 }
 
 @JsonSerializable()
-class Hours {
+class Hours extends Equatable {
   @JsonKey(name: 'is_open_now')
   final bool? isOpenNow;
 
@@ -29,10 +33,13 @@ class Hours {
   factory Hours.fromJson(Map<String, dynamic> json) => _$HoursFromJson(json);
 
   Map<String, dynamic> toJson() => _$HoursToJson(this);
+
+  @override
+  List<Object?> get props => [isOpenNow];
 }
 
 @JsonSerializable()
-class User {
+class User extends Equatable {
   final String? id;
   @JsonKey(name: 'image_url')
   final String? imageUrl;
@@ -47,10 +54,13 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  @override
+  List<Object?> get props => [id, imageUrl, name];
 }
 
 @JsonSerializable()
-class Review {
+class Review extends Equatable {
   final String? id;
   final int? rating;
   final User? user;
@@ -66,24 +76,30 @@ class Review {
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReviewToJson(this);
+
+  @override
+  List<Object?> get props => [id, rating, user, text];
 }
 
 @JsonSerializable()
-class Location {
+class Location extends Equatable {
   @JsonKey(name: 'formatted_address')
   final String? formattedAddress;
 
-  Location({
+  const Location({
     this.formattedAddress,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocationToJson(this);
+
+  @override
+  List<Object?> get props => [formattedAddress];
 }
 
 @JsonSerializable()
-class Restaurant {
+class Restaurant extends Equatable {
   final String? id;
   final String? name;
   final String? price;
@@ -109,6 +125,10 @@ class Restaurant {
   factory Restaurant.fromJson(Map<String, dynamic> json) => _$RestaurantFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantToJson(this);
+
+  @override
+  List<Object?> get props =>
+      [id, name, price, rating, photos, categories, hours, reviews, location];
 
   /// Use the first category for the category shown to the user
   String get displayCategory {
@@ -137,7 +157,7 @@ class Restaurant {
 }
 
 @JsonSerializable()
-class RestaurantQueryResult {
+class RestaurantQueryResult extends Equatable {
   final int? total;
   @JsonKey(name: 'business')
   final List<Restaurant>? restaurants;
@@ -151,4 +171,7 @@ class RestaurantQueryResult {
       _$RestaurantQueryResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantQueryResultToJson(this);
+
+  @override
+  List<Object?> get props => [total];
 }
