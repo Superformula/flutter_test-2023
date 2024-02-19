@@ -6,19 +6,19 @@ import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
-import 'package:restaurantour/features/restaurant_details/restaurant_details_screen.dart';
+import 'package:restaurantour/features/details/details_screen.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
-import 'package:restaurantour/services/favorites_service.dart';
+import 'package:restaurantour/services/favorite_service.dart';
 
 import '../mocks/mocks.dart';
 
 void main() {
   RestaurantRepository restaurantRepository = RestaurantRepositoryMock();
-  FavoritesService favoritesService = FavoritesServiceMock();
+  FavoriteService favoritesService = FavoritesServiceMock();
   setUp(() {
     GetIt.I.registerFactory<RestaurantRepository>(() => restaurantRepository);
-    GetIt.I.registerFactory<FavoritesService>(() => favoritesService);
+    GetIt.I.registerFactory<FavoriteService>(() => favoritesService);
     GetIt.I.registerFactory<RTImageNetwork>(() => RTImageNetworkMock());
   });
 
@@ -31,10 +31,10 @@ void main() {
   Widget widgetBuilder() => MaterialApp(
         localizationsDelegates: localizationsDelegates,
         debugShowCheckedModeBanner: false,
-        home: RestaurantDetailsScreen.create(restaurant: Restaurant.fixture(), imageNetwork: RTImageNetworkMock()),
+        home: DetailsScreen.create(restaurant: Restaurant.fixture(), imageNetwork: RTImageNetworkMock()),
       );
 
-  testWidgets('''when successfully load the [RestaurantDetailsScreen] 
+  testWidgets('''when successfully load the [DetailsScreen] 
   should create a have the favorite Icon, the name of restaurant''', (WidgetTester tester) async {
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
 
@@ -46,7 +46,7 @@ void main() {
     expect(find.bySubtype<Icon>(), findsAtLeast(1));
   });
 
-  testWidgets('''when successfully load the [RestaurantDetailsScreen] but fails to load favorites
+  testWidgets('''when successfully load the [DetailsScreen] but fails to load favorites
   should display the error screen''', (WidgetTester tester) async {
     when(() => favoritesService.loadFavorites()).thenThrow('error mock');
 
@@ -56,7 +56,7 @@ void main() {
     expect(find.bySubtype<RTErrorWidget>(), findsOne);
   });
 
-  testWidgets('''if successfully load the [RestaurantDetailsScreen] and the restaurant is already favorite, 
+  testWidgets('''if successfully load the [DetailsScreen] and the restaurant is already favorite, 
   when tap on favorite button should call the service to remove from favorites passing the id''', (WidgetTester tester) async {
     final restaurantId = Restaurant.fixture().id!;
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([restaurantId]));

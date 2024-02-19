@@ -1,46 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurantour/components/restaurant_review_widget.dart';
+import 'package:restaurantour/components/rt_review_widget.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/rt_colors.dart';
-import 'package:restaurantour/core/text_style.dart';
+import 'package:restaurantour/core/rt_text_style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:restaurantour/features/restaurant_details/restaurant_details_view_model.dart';
+import 'package:restaurantour/features/details/details_view_model.dart';
 import 'package:restaurantour/models/restaurant.dart';
-import 'package:restaurantour/services/favorites_service.dart';
+import 'package:restaurantour/services/favorite_service.dart';
 
-class RestaurantDetailsScreen extends StatefulWidget {
-  const RestaurantDetailsScreen({super.key, required this.restaurant, required this.imageNetwork});
+class DetailsScreen extends StatefulWidget {
+  const DetailsScreen({super.key, required this.restaurant, required this.imageNetwork});
   final Restaurant restaurant;
   final RTImageNetwork imageNetwork;
 
   static Widget create({required Restaurant restaurant, required RTImageNetwork imageNetwork}) => ChangeNotifierProvider(
-        create: (context) => RestaurantDetailsViewModel(
+        create: (context) => DetailsViewModel(
           restaurantId: restaurant.id ?? '',
-          favoriteService: inject<FavoritesService>(),
+          favoriteService: inject<FavoriteService>(),
         ),
-        child: RestaurantDetailsScreen(
+        child: DetailsScreen(
           restaurant: restaurant,
           imageNetwork: imageNetwork,
         ),
       );
 
   @override
-  State<RestaurantDetailsScreen> createState() => _RestaurantDetailsScreenState();
+  State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
-class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
+class _DetailsScreenState extends State<DetailsScreen> {
   int get reviewsCount => reviewsList.length;
   List<Review> get reviewsList => widget.restaurant.reviews ?? [];
   List<Widget> get reviews => List.generate(reviewsCount, (index) {
         final bool isFirstItem = index == 0;
-        return RestaurantReviewWidget(imageNetwork: widget.imageNetwork, isFirstItem: isFirstItem, review: reviewsList[index]);
+        return RTReviewWidget(imageNetwork: widget.imageNetwork, isFirstItem: isFirstItem, review: reviewsList[index]);
       });
 
-  RestaurantDetailsViewModel? model;
+  DetailsViewModel? model;
 
   @override
   void initState() {

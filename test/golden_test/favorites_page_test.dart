@@ -4,18 +4,18 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
-import 'package:restaurantour/features/restaurants_list/pages/favorites/favorites_page.dart';
-import 'package:restaurantour/features/restaurants_list/restaurant_list_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page.dart';
+import 'package:restaurantour/features/restaurants/restaurant_view_model.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
-import 'package:restaurantour/services/favorites_service.dart';
+import 'package:restaurantour/services/favorite_service.dart';
 
 import '../mocks/mocks.dart';
 import '../widget_for_tests.dart';
 
 void main() {
   RestaurantRepository restaurantRepository = RestaurantRepositoryMock();
-  FavoritesService favoritesService = FavoritesServiceMock();
+  FavoriteService favoritesService = FavoritesServiceMock();
   setUp(() {
     GetIt.I.registerFactory<RTImageNetwork>(() => RTImageNetworkMock());
   });
@@ -32,7 +32,7 @@ void main() {
       widget: widgetBuilder(
         ChangeNotifierProvider(
           create: (context) {
-            final model = RestaurantListViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
+            final model = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
             model.load();
             return model;
           },
@@ -42,7 +42,7 @@ void main() {
     );
 
   testGoldens('''when successfully fetch the [RestaurantQueryResult] and has data, and also load the favorites fetch the data
-  should create a [RestaurantItemWidget] for each favorite [Restaurant]''', (WidgetTester tester) async {
+  should create a [RTItemWidget] for each favorite [Restaurant]''', (WidgetTester tester) async {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
     await loadAppFonts();

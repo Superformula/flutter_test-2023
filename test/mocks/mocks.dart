@@ -4,11 +4,11 @@ import 'package:restaurantour/components/rt_image_network.dart';
 
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:restaurantour/services/favorites_service.dart';
+import 'package:restaurantour/services/favorite_service.dart';
 
 class RestaurantRepositoryMock extends Mock implements RestaurantRepository {}
 
-class FavoritesServiceMock extends Mock implements FavoritesService {}
+class FavoritesServiceMock extends Mock implements FavoriteService {}
 
 class DioMock extends Mock implements Dio {}
 

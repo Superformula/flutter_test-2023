@@ -4,12 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/rt_colors.dart';
-import 'package:restaurantour/core/text_style.dart';
-import 'package:restaurantour/features/restaurant_details/restaurant_details_screen.dart';
+import 'package:restaurantour/core/rt_text_style.dart';
+import 'package:restaurantour/features/details/details_screen.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
-class RestaurantItemWidget extends StatelessWidget {
-  const RestaurantItemWidget({super.key, required this.restaurant, required this.isFirstItem, this.onFinishNavigation, required this.imageNetwork});
+class RTItemWidget extends StatelessWidget {
+  const RTItemWidget({super.key, required this.restaurant, required this.isFirstItem, this.onFinishNavigation, required this.imageNetwork});
   final bool isFirstItem;
   final Restaurant restaurant;
   final VoidCallback? onFinishNavigation;
@@ -33,7 +33,7 @@ class RestaurantItemWidget extends StatelessWidget {
             await Navigator.push<void>(
               context,
               MaterialPageRoute<void>(
-                builder: (BuildContext context) => RestaurantDetailsScreen.create(
+                builder: (BuildContext context) => DetailsScreen.create(
                   restaurant: restaurant,
                   imageNetwork: inject<RTImageNetwork>(),
                 ),

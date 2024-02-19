@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/core/rt_colors.dart';
-import 'package:restaurantour/features/restaurants_list/restaurants_list_screen.dart';
+import 'package:restaurantour/features/restaurants/restaurants_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -25,7 +25,7 @@ class RestauranTour extends StatelessWidget {
           background: RTColors.background,
         ),
       ),
-      home: RestaurantsListScreen.create(),
+      home: RestaurantsScreen.create(),
     );
   }
 }

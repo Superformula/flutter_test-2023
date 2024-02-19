@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_empty_widget.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
-import 'package:restaurantour/components/restaurant_item_widget.dart';
+import 'package:restaurantour/components/rt_item_widget.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/components/rt_shimmer_loading.dart';
 import 'package:restaurantour/core/inject.dart';
-import 'package:restaurantour/features/restaurants_list/restaurant_list_view_model.dart';
+import 'package:restaurantour/features/restaurants/restaurant_view_model.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -16,7 +16,7 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  RestaurantListViewModel? model;
+  RestaurantsViewModel? model;
 
   @override
   void initState() {
@@ -28,22 +28,22 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     model = context.watch();
 
-    if (model!.restaurantFavoriteListStatus.isLoading) return const RTShimmerLoading();
+    if (model!.favoriteStatus.isLoading) return const RTShimmerLoading();
 
-    if (model!.restaurantFavoriteListStatus.isError) return const RTErrorWidget();
+    if (model!.favoriteStatus.isError) return const RTErrorWidget();
 
-    if (model!.restaurantFavoriteListStatus.isEmpty) return const RTEmptyWidget();
+    if (model!.favoriteStatus.isEmpty) return const RTEmptyWidget();
 
     return ListView.builder(
-      itemCount: model!.favorites.length,
+      itemCount: model!.favoritesRestaurantList.length,
       itemBuilder: (context, index) {
         final isFirstItem = index == 0;
 
-        return RestaurantItemWidget(
+        return RTItemWidget(
           key: Key('favorite-restaurant-$index'),
           isFirstItem: isFirstItem,
           imageNetwork: inject<RTImageNetwork>(),
-          restaurant: model!.favorites[index],
+          restaurant: model!.favoritesRestaurantList[index],
           onFinishNavigation: model!.loadFavorites,
         );
       },

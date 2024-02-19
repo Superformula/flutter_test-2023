@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_empty_widget.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
-import 'package:restaurantour/components/restaurant_item_widget.dart';
+import 'package:restaurantour/components/rt_item_widget.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/components/rt_shimmer_loading.dart';
 import 'package:restaurantour/core/inject.dart';
-import 'package:restaurantour/features/restaurants_list/restaurant_list_view_model.dart';
+import 'package:restaurantour/features/restaurants/restaurant_view_model.dart';
 
 class RestaurantsPage extends StatefulWidget {
   const RestaurantsPage({super.key});
@@ -16,7 +16,7 @@ class RestaurantsPage extends StatefulWidget {
 }
 
 class _RestaurantsPageState extends State<RestaurantsPage> {
-  RestaurantListViewModel? model;
+  RestaurantsViewModel? model;
 
   @override
   void initState() {
@@ -27,24 +27,24 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
   @override
   Widget build(BuildContext context) {
     model = context.watch();
-    if (model!.restaurantListStatus.isLoading) return const RTShimmerLoading();
+    if (model!.restaurantStatus.isLoading) return const RTShimmerLoading();
 
-    if (model!.restaurantListStatus.isError) return const RTErrorWidget();
+    if (model!.restaurantStatus.isError) return const RTErrorWidget();
 
-    if (model!.restaurantListStatus.isEmpty) return const RTEmptyWidget();
+    if (model!.restaurantStatus.isEmpty) return const RTEmptyWidget();
 
     return RefreshIndicator(
       onRefresh: () => model!.load(),
       child: ListView.builder(
-        itemCount: model!.restaurants.length,
+        itemCount: model!.restaurantsList.length,
         itemBuilder: (context, index) {
           final isFirstItem = index == 0;
 
-          return RestaurantItemWidget(
+          return RTItemWidget(
             key: Key('restaurant-$index'),
             isFirstItem: isFirstItem,
             imageNetwork: inject<RTImageNetwork>(),
-            restaurant: model!.restaurants[index],
+            restaurant: model!.restaurantsList[index],
             onFinishNavigation: () => model!.loadFavorites(),
           );
         },

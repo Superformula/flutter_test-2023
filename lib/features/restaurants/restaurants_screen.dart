@@ -3,38 +3,36 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/inject.dart';
-import 'package:restaurantour/core/text_style.dart';
-import 'package:restaurantour/features/restaurants_list/pages/favorites/favorites_page.dart';
-import 'package:restaurantour/features/restaurants_list/pages/restaurants/restaurants_page.dart';
-import 'package:restaurantour/features/restaurants_list/restaurant_list_view_model.dart';
+import 'package:restaurantour/core/rt_text_style.dart';
+import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page.dart';
+import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page.dart';
+import 'package:restaurantour/features/restaurants/restaurant_view_model.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
-import 'package:restaurantour/services/favorites_service.dart';
+import 'package:restaurantour/services/favorite_service.dart';
 
-class RestaurantsListScreen extends StatefulWidget {
-  const RestaurantsListScreen({super.key});
+class RestaurantsScreen extends StatefulWidget {
+  const RestaurantsScreen({super.key});
 
   static Widget create() => ChangeNotifierProvider(
-        create: (context) => RestaurantListViewModel(
-          favoritesService: inject<FavoritesService>(),
+        create: (context) => RestaurantsViewModel(
+          favoritesService: inject<FavoriteService>(),
           restaurantRepository: inject<RestaurantRepository>(),
         ),
-        child: const RestaurantsListScreen(),
+        child: const RestaurantsScreen(),
       );
 
   @override
-  State<RestaurantsListScreen> createState() => _RestaurantsListScreenState();
+  State<RestaurantsScreen> createState() => _RestaurantsScreenState();
 }
 
-class _RestaurantsListScreenState extends State<RestaurantsListScreen> {
-  RestaurantListViewModel? model;
+class _RestaurantsScreenState extends State<RestaurantsScreen> {
+  RestaurantsViewModel? model;
 
   @override
   void initState() {
     super.initState();
     model = context.read();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await model!.load();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) async => await model!.load());
   }
 
   @override

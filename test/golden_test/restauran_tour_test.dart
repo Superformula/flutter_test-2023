@@ -7,16 +7,16 @@ import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/restauran_tour.dart';
-import 'package:restaurantour/services/favorites_service.dart';
+import 'package:restaurantour/services/favorite_service.dart';
 
 import '../mocks/mocks.dart';
 
 void main() {
   RestaurantRepository restaurantRepository = RestaurantRepositoryMock();
-  FavoritesService favoritesService = FavoritesServiceMock();
+  FavoriteService favoritesService = FavoritesServiceMock();
   setUp(() {
     GetIt.I.registerFactory<RestaurantRepository>(() => restaurantRepository);
-    GetIt.I.registerFactory<FavoritesService>(() => favoritesService);
+    GetIt.I.registerFactory<FavoriteService>(() => favoritesService);
     GetIt.I.registerFactory<RTImageNetwork>(() => RTImageNetworkMock());
   });
 

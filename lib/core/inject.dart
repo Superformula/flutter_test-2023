@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
-import 'package:restaurantour/services/favorites_service.dart';
+import 'package:restaurantour/services/favorite_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -32,7 +32,7 @@ Future<void> setupInjection() async {
 
   inject.registerLazySingleton<SharedPreferences>(() => sharedPref);
 
-  inject.registerLazySingleton<FavoritesService>(() => FavoritesService(sharedPreferences: inject<SharedPreferences>()));
+  inject.registerLazySingleton<FavoriteService>(() => FavoriteService(sharedPreferences: inject<SharedPreferences>()));
 
   inject.registerLazySingleton<RTImageNetwork>(() => RTImageNetwork());
 }

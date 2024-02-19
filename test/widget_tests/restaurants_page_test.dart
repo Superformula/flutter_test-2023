@@ -5,21 +5,21 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurantour/components/restaurant_item_widget.dart';
+import 'package:restaurantour/components/rt_item_widget.dart';
 import 'package:restaurantour/components/rt_empty_widget.dart';
 import 'package:restaurantour/components/rt_error_widget.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
-import 'package:restaurantour/features/restaurants_list/pages/restaurants/restaurants_page.dart';
-import 'package:restaurantour/features/restaurants_list/restaurant_list_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page.dart';
+import 'package:restaurantour/features/restaurants/restaurant_view_model.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
-import 'package:restaurantour/services/favorites_service.dart';
+import 'package:restaurantour/services/favorite_service.dart';
 
 import '../mocks/mocks.dart';
 
 void main() {
   RestaurantRepository restaurantRepository = RestaurantRepositoryMock();
-  FavoritesService favoritesService = FavoritesServiceMock();
+  FavoriteService favoritesService = FavoritesServiceMock();
   setUp(() {
     GetIt.I.registerFactory<RTImageNetwork>(() => RTImageNetworkMock());
   });
@@ -35,7 +35,7 @@ void main() {
         debugShowCheckedModeBanner: false,
         home: ChangeNotifierProvider(
           create: (context) {
-            final model = RestaurantListViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
+            final model = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
             model.load();
             return model;
           },
@@ -44,7 +44,7 @@ void main() {
       );
 
   testWidgets('''when successfully fetch the [RestaurantQueryResult] and has data, 
-  should create a [RestaurantItemWidget] for each [Restaurant]''', (WidgetTester tester) async {
+  should create a [RTItemWidget] for each [Restaurant]''', (WidgetTester tester) async {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
 
@@ -52,7 +52,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Restaurant Name'), findsAtLeast(1));
-    expect(find.bySubtype<RestaurantItemWidget>(), findsAtLeast(1));
+    expect(find.bySubtype<RTItemWidget>(), findsAtLeast(1));
     expect(find.byKey(const Key('restaurant-0')), findsOne);
     verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
   });

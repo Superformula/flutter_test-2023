@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/services/favorites_service.dart';
+import 'package:restaurantour/services/favorite_service.dart';
 
-enum RestaurantDetailsStatus { loading, content, error, updatingFavorite }
+enum DetailsStatus { loading, content, error, updatingFavorite }
 
-extension RestaurantDetailsStatusExt on RestaurantDetailsStatus {
-  bool get isLoading => this == RestaurantDetailsStatus.loading;
-  bool get isAddingFavorite => this == RestaurantDetailsStatus.updatingFavorite;
-  bool get isError => this == RestaurantDetailsStatus.error;
+extension DetailsStatusExt on DetailsStatus {
+  bool get isLoading => this == DetailsStatus.loading;
+  bool get isAddingFavorite => this == DetailsStatus.updatingFavorite;
+  bool get isError => this == DetailsStatus.error;
 }
 
-class RestaurantDetailsViewModel with ChangeNotifier {
-  RestaurantDetailsStatus status = RestaurantDetailsStatus.loading;
+class DetailsViewModel with ChangeNotifier {
+  DetailsStatus status = DetailsStatus.loading;
   final String restaurantId;
-  final FavoritesService favoriteService;
+  final FavoriteService favoriteService;
   bool isFavorite = false;
 
   List<String> _favoriteList = [];
 
-  RestaurantDetailsViewModel({required this.favoriteService, required this.restaurantId});
+  DetailsViewModel({required this.favoriteService, required this.restaurantId});
   Future<void> toggleFavorite() async {
     try {
       _emitChangingFavorite();
@@ -46,22 +46,22 @@ class RestaurantDetailsViewModel with ChangeNotifier {
   }
 
   void _emitContent() {
-    status = RestaurantDetailsStatus.content;
+    status = DetailsStatus.content;
     notifyListeners();
   }
 
   void _emitChangingFavorite() {
-    status = RestaurantDetailsStatus.updatingFavorite;
+    status = DetailsStatus.updatingFavorite;
     notifyListeners();
   }
 
   void _emitLoading() {
-    status = RestaurantDetailsStatus.loading;
+    status = DetailsStatus.loading;
     notifyListeners();
   }
 
   void _emitError() {
-    status = RestaurantDetailsStatus.error;
+    status = DetailsStatus.error;
     notifyListeners();
   }
 }

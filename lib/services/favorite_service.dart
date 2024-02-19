@@ -1,10 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FavoritesService {
+class FavoriteService {
   final SharedPreferences sharedPreferences;
   final String favoritesKey = 'favorites';
 
-  FavoritesService({required this.sharedPreferences});
+  FavoriteService({required this.sharedPreferences});
 
   Future<List<String>> loadFavorites() async {
     List<String>? favoriteItems = sharedPreferences.getStringList(favoritesKey);
