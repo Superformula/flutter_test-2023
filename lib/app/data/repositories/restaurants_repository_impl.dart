@@ -30,14 +30,20 @@ class RestaurantsRepositoryImpl implements RestaurantsRepository {
   }
 
   @override
+  Future<(Restaurant?, RestaurantDetailsFailure?)> getRestaurantDetails(String id) {
+    // TODO: implement getRestaurantDetails
+    throw UnimplementedError();
+  }
+
+  @override
   Future<(List<Restaurant>?, FavoriteRestaurantsFailure?)> getFavoriteRestaurants() {
     // TODO: implement getFavoriteRestaurants
     throw UnimplementedError();
   }
 
   @override
-  Future<(Restaurant?, RestaurantDetailsFailure?)> getRestaurantDetails(String id) {
-    // TODO: implement getRestaurantDetails
+  Future<(void, FavoriteRestaurantsFailure?)> addFavoriteRestaurant(Restaurant restaurant) {
+    // TODO: implement addFavoriteRestaurant
     throw UnimplementedError();
   }
 }
