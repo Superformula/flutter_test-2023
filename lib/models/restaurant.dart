@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant.g.dart';
@@ -93,8 +95,9 @@ class Restaurant {
   final List<Hours>? hours;
   final List<Review>? reviews;
   final Location? location;
+  bool isFavorite;
 
-  const Restaurant({
+  Restaurant({
     this.id,
     this.name,
     this.price,
@@ -104,6 +107,7 @@ class Restaurant {
     this.hours,
     this.reviews,
     this.location,
+    this.isFavorite = false,
   });
 
   factory Restaurant.fromJson(Map<String, dynamic> json) =>
@@ -152,4 +156,14 @@ class RestaurantQueryResult {
       _$RestaurantQueryResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantQueryResultToJson(this);
+
+  static String encode(List<RestaurantQueryResult> musics) => jsonEncode(
+        musics.map<Map<String, dynamic>>((music) => music.toJson()).toList(),
+      );
+
+  static List<RestaurantQueryResult> decode(String musics) =>
+      (json.decode(musics) as List<dynamic>)
+          .map<RestaurantQueryResult>(
+              (item) => RestaurantQueryResult.fromJson(item))
+          .toList();
 }
