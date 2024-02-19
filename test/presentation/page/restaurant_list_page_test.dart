@@ -104,7 +104,7 @@ main() {
   );
 
   testWidgets(
-    'test should trigger loading and then show data',
+    'test should get error',
     (widgetTester) async {
       when(() => mockRestaurantsBloc.state)
           .thenReturn(const RestaurantsLoadFail('Error'));
@@ -112,7 +112,7 @@ main() {
       await widgetTester
           .pumpWidget(_makeTestableWidget(const RestaurantListWidget()));
 
-      expect(find.byKey(const Key('error')), findsOneWidget);
+      expect(find.text('Error'), findsOneWidget);
     },
   );
 }

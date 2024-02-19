@@ -15,3 +15,4 @@ class OnRequestedRestaurantDetails extends RestaurantDetailsEvent{
   @override
   List<Object?> get props => [];
 }
+

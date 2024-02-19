@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:restaurantour/domain/entities/category_entity.dart';
 import 'package:restaurantour/domain/entities/review_entity.dart';
 
@@ -13,6 +12,7 @@ class RestaurantEntity extends Equatable {
     required this.review,
     required this.categories,
     required this.isOpenNow,
+    this.fav,
   });
 
   final String id;
@@ -23,7 +23,7 @@ class RestaurantEntity extends Equatable {
   final List<ReviewEntity> review;
   final bool? isOpenNow;
   final List<CategoryEntity> categories;
-
+  final bool? fav;
 
   @override
   List<Object?> get props => [

@@ -13,9 +13,8 @@ class RestaurantsEmpty extends RestaurantsState {}
 class RestaurantsLoading extends RestaurantsState{}
 
 class RestaurantsLoaded extends RestaurantsState {
-  final List<RestaurantEntity> favouritesList;
   final List<RestaurantEntity> result;
-  const RestaurantsLoaded(this.result, {this.favouritesList = const <RestaurantEntity>[]});
+  const RestaurantsLoaded(this.result);
 
   @override
   List<Object?> get props => [result];

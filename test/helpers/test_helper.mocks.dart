@@ -3,22 +3,24 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i7;
 
-import 'package:bloc/bloc.dart' as _i13;
+import 'package:bloc/bloc.dart' as _i15;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:restaurantour/core/errors/failures.dart' as _i7;
+import 'package:restaurantour/core/errors/failures.dart' as _i8;
 import 'package:restaurantour/data/data_source/restaurants_remote_data_source.dart'
-    as _i9;
-import 'package:restaurantour/data/models/restaurant_model.dart' as _i10;
-import 'package:restaurantour/domain/entities/restaurant_entity.dart' as _i8;
+    as _i10;
+import 'package:restaurantour/data/models/restaurant_details_model.dart' as _i3;
+import 'package:restaurantour/data/models/restaurant_model.dart' as _i11;
+import 'package:restaurantour/data/models/review_model.dart' as _i12;
+import 'package:restaurantour/domain/entities/restaurant_entity.dart' as _i9;
 import 'package:restaurantour/domain/repositories/restaurant_repository.dart'
-    as _i3;
-import 'package:restaurantour/domain/usecases/get_restaurants.dart' as _i4;
-import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart' as _i11;
-import 'package:restaurantour/presentation/bloc/restaurants_event.dart' as _i12;
-import 'package:restaurantour/presentation/bloc/restaurants_state.dart' as _i5;
+    as _i4;
+import 'package:restaurantour/domain/usecases/get_restaurants.dart' as _i5;
+import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart' as _i13;
+import 'package:restaurantour/presentation/bloc/restaurants_event.dart' as _i14;
+import 'package:restaurantour/presentation/bloc/restaurants_state.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -43,9 +45,9 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-class _FakeRestaurantsRepository_1 extends _i1.SmartFake
-    implements _i3.RestaurantsRepository {
-  _FakeRestaurantsRepository_1(
+class _FakeRestaurantDetailsModel_1 extends _i1.SmartFake
+    implements _i3.RestaurantDetailsModel {
+  _FakeRestaurantDetailsModel_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -54,9 +56,9 @@ class _FakeRestaurantsRepository_1 extends _i1.SmartFake
         );
 }
 
-class _FakeGetRestaurantsUseCase_2 extends _i1.SmartFake
-    implements _i4.GetRestaurantsUseCase {
-  _FakeGetRestaurantsUseCase_2(
+class _FakeRestaurantsRepository_2 extends _i1.SmartFake
+    implements _i4.RestaurantsRepository {
+  _FakeRestaurantsRepository_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -65,9 +67,20 @@ class _FakeGetRestaurantsUseCase_2 extends _i1.SmartFake
         );
 }
 
-class _FakeRestaurantsState_3 extends _i1.SmartFake
-    implements _i5.RestaurantsState {
-  _FakeRestaurantsState_3(
+class _FakeGetRestaurantsUseCase_3 extends _i1.SmartFake
+    implements _i5.GetRestaurantsUseCase {
+  _FakeGetRestaurantsUseCase_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeRestaurantsState_4 extends _i1.SmartFake
+    implements _i6.RestaurantsState {
+  _FakeRestaurantsState_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -80,22 +93,22 @@ class _FakeRestaurantsState_3 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRestaurantsRepository extends _i1.Mock
-    implements _i3.RestaurantsRepository {
+    implements _i4.RestaurantsRepository {
   MockRestaurantsRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, List<_i8.RestaurantEntity>>>
+  _i7.Future<_i2.Either<_i8.Failure, List<_i9.RestaurantEntity>>>
       getRestaurantsList({int? offset = 0}) => (super.noSuchMethod(
             Invocation.method(
               #getRestaurantsList,
               [],
               {#offset: offset},
             ),
-            returnValue: _i6.Future<
-                    _i2.Either<_i7.Failure, List<_i8.RestaurantEntity>>>.value(
-                _FakeEither_0<_i7.Failure, List<_i8.RestaurantEntity>>(
+            returnValue: _i7.Future<
+                    _i2.Either<_i8.Failure, List<_i9.RestaurantEntity>>>.value(
+                _FakeEither_0<_i8.Failure, List<_i9.RestaurantEntity>>(
               this,
               Invocation.method(
                 #getRestaurantsList,
@@ -103,51 +116,83 @@ class MockRestaurantsRepository extends _i1.Mock
                 {#offset: offset},
               ),
             )),
-          ) as _i6.Future<_i2.Either<_i7.Failure, List<_i8.RestaurantEntity>>>);
+          ) as _i7.Future<_i2.Either<_i8.Failure, List<_i9.RestaurantEntity>>>);
 }
 
 /// A class which mocks [RestaurantsRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRestaurantsRemoteDataSource extends _i1.Mock
-    implements _i9.RestaurantsRemoteDataSource {
+    implements _i10.RestaurantsRemoteDataSource {
   MockRestaurantsRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<List<_i10.RestaurantModel>> getRestaurants({int? offset = 0}) =>
+  _i7.Future<List<_i11.RestaurantModel>> getRestaurants({int? offset = 0}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getRestaurants,
           [],
           {#offset: offset},
         ),
-        returnValue: _i6.Future<List<_i10.RestaurantModel>>.value(
-            <_i10.RestaurantModel>[]),
-      ) as _i6.Future<List<_i10.RestaurantModel>>);
+        returnValue: _i7.Future<List<_i11.RestaurantModel>>.value(
+            <_i11.RestaurantModel>[]),
+      ) as _i7.Future<List<_i11.RestaurantModel>>);
+
+  @override
+  _i7.Future<_i3.RestaurantDetailsModel> getRestaurantDetails(
+          {required String? id}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getRestaurantDetails,
+          [],
+          {#id: id},
+        ),
+        returnValue: _i7.Future<_i3.RestaurantDetailsModel>.value(
+            _FakeRestaurantDetailsModel_1(
+          this,
+          Invocation.method(
+            #getRestaurantDetails,
+            [],
+            {#id: id},
+          ),
+        )),
+      ) as _i7.Future<_i3.RestaurantDetailsModel>);
+
+  @override
+  _i7.Future<List<_i12.ReviewModel>> getReviewsList({required String? id}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getReviewsList,
+          [],
+          {#id: id},
+        ),
+        returnValue:
+            _i7.Future<List<_i12.ReviewModel>>.value(<_i12.ReviewModel>[]),
+      ) as _i7.Future<List<_i12.ReviewModel>>);
 }
 
 /// A class which mocks [GetRestaurantsUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetRestaurantsUseCase extends _i1.Mock
-    implements _i4.GetRestaurantsUseCase {
+    implements _i5.GetRestaurantsUseCase {
   MockGetRestaurantsUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.RestaurantsRepository get restaurantsRepository => (super.noSuchMethod(
+  _i4.RestaurantsRepository get restaurantsRepository => (super.noSuchMethod(
         Invocation.getter(#restaurantsRepository),
-        returnValue: _FakeRestaurantsRepository_1(
+        returnValue: _FakeRestaurantsRepository_2(
           this,
           Invocation.getter(#restaurantsRepository),
         ),
-      ) as _i3.RestaurantsRepository);
+      ) as _i4.RestaurantsRepository);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, List<_i8.RestaurantEntity>>> execute(
+  _i7.Future<_i2.Either<_i8.Failure, List<_i9.RestaurantEntity>>> execute(
           {int? offset = 0}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -155,9 +200,9 @@ class MockGetRestaurantsUseCase extends _i1.Mock
           [],
           {#offset: offset},
         ),
-        returnValue: _i6
-            .Future<_i2.Either<_i7.Failure, List<_i8.RestaurantEntity>>>.value(
-            _FakeEither_0<_i7.Failure, List<_i8.RestaurantEntity>>(
+        returnValue: _i7
+            .Future<_i2.Either<_i8.Failure, List<_i9.RestaurantEntity>>>.value(
+            _FakeEither_0<_i8.Failure, List<_i9.RestaurantEntity>>(
           this,
           Invocation.method(
             #execute,
@@ -165,40 +210,46 @@ class MockGetRestaurantsUseCase extends _i1.Mock
             {#offset: offset},
           ),
         )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, List<_i8.RestaurantEntity>>>);
+      ) as _i7.Future<_i2.Either<_i8.Failure, List<_i9.RestaurantEntity>>>);
 }
 
 /// A class which mocks [RestaurantsBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRestaurantsBloc extends _i1.Mock implements _i11.RestaurantsBloc {
+class MockRestaurantsBloc extends _i1.Mock implements _i13.RestaurantsBloc {
   MockRestaurantsBloc() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.GetRestaurantsUseCase get getRestaurantsUseCase => (super.noSuchMethod(
+  _i5.GetRestaurantsUseCase get getRestaurantsUseCase => (super.noSuchMethod(
         Invocation.getter(#getRestaurantsUseCase),
-        returnValue: _FakeGetRestaurantsUseCase_2(
+        returnValue: _FakeGetRestaurantsUseCase_3(
           this,
           Invocation.getter(#getRestaurantsUseCase),
         ),
-      ) as _i4.GetRestaurantsUseCase);
+      ) as _i5.GetRestaurantsUseCase);
 
   @override
-  _i5.RestaurantsState get state => (super.noSuchMethod(
+  List<_i9.RestaurantEntity> get favList => (super.noSuchMethod(
+        Invocation.getter(#favList),
+        returnValue: <_i9.RestaurantEntity>[],
+      ) as List<_i9.RestaurantEntity>);
+
+  @override
+  _i6.RestaurantsState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _FakeRestaurantsState_3(
+        returnValue: _FakeRestaurantsState_4(
           this,
           Invocation.getter(#state),
         ),
-      ) as _i5.RestaurantsState);
+      ) as _i6.RestaurantsState);
 
   @override
-  _i6.Stream<_i5.RestaurantsState> get stream => (super.noSuchMethod(
+  _i7.Stream<_i6.RestaurantsState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i6.Stream<_i5.RestaurantsState>.empty(),
-      ) as _i6.Stream<_i5.RestaurantsState>);
+        returnValue: _i7.Stream<_i6.RestaurantsState>.empty(),
+      ) as _i7.Stream<_i6.RestaurantsState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -207,7 +258,7 @@ class MockRestaurantsBloc extends _i1.Mock implements _i11.RestaurantsBloc {
       ) as bool);
 
   @override
-  void add(_i12.RestaurantsEvent? event) => super.noSuchMethod(
+  void add(_i14.RestaurantsEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -216,7 +267,7 @@ class MockRestaurantsBloc extends _i1.Mock implements _i11.RestaurantsBloc {
       );
 
   @override
-  void onEvent(_i12.RestaurantsEvent? event) => super.noSuchMethod(
+  void onEvent(_i14.RestaurantsEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -225,7 +276,7 @@ class MockRestaurantsBloc extends _i1.Mock implements _i11.RestaurantsBloc {
       );
 
   @override
-  void emit(_i5.RestaurantsState? state) => super.noSuchMethod(
+  void emit(_i6.RestaurantsState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -234,9 +285,9 @@ class MockRestaurantsBloc extends _i1.Mock implements _i11.RestaurantsBloc {
       );
 
   @override
-  void on<E extends _i12.RestaurantsEvent>(
-    _i13.EventHandler<E, _i5.RestaurantsState>? handler, {
-    _i13.EventTransformer<E>? transformer,
+  void on<E extends _i14.RestaurantsEvent>(
+    _i15.EventHandler<E, _i6.RestaurantsState>? handler, {
+    _i15.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -249,7 +300,7 @@ class MockRestaurantsBloc extends _i1.Mock implements _i11.RestaurantsBloc {
 
   @override
   void onTransition(
-          _i13.Transition<_i12.RestaurantsEvent, _i5.RestaurantsState>?
+          _i15.Transition<_i14.RestaurantsEvent, _i6.RestaurantsState>?
               transition) =>
       super.noSuchMethod(
         Invocation.method(
@@ -260,17 +311,17 @@ class MockRestaurantsBloc extends _i1.Mock implements _i11.RestaurantsBloc {
       );
 
   @override
-  _i6.Future<void> close() => (super.noSuchMethod(
+  _i7.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
-  void onChange(_i13.Change<_i5.RestaurantsState>? change) =>
+  void onChange(_i15.Change<_i6.RestaurantsState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,

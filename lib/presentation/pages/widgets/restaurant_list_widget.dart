@@ -33,24 +33,28 @@ class RestaurantListWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  IconButton(
-                    onPressed: () => context
-                        .read<RestaurantsBloc>()
-                        .add(const OnRequestedRestaurants()),
-                    icon: const Icon(Icons.refresh),
+                  Material(
+                    child: IconButton(
+                      onPressed: () => context
+                          .read<RestaurantsBloc>()
+                          .add(const OnRequestedRestaurants()),
+                      icon: const Icon(Icons.refresh),
+                    ),
                   ),
                 ],
               );
             }
             if (state is RestaurantsLoaded) {
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: state.result.length,
-                itemBuilder: (context, index) {
-                  return RestaurantListCard(
-                    restaurantEntity: state.result[index],
-                  );
-                },
+              return Material(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: state.result.length,
+                  itemBuilder: (context, index) {
+                    return RestaurantListCard(
+                      restaurantEntity: state.result[index],
+                    );
+                  },
+                ),
               );
             }
             return Container();

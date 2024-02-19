@@ -5,6 +5,8 @@ import 'package:restaurantour/domain/entities/restaurant_entity.dart';
 import 'package:restaurantour/injection_container.dart';
 import 'package:restaurantour/presentation/bloc/restaurant_details_bloc/restaurant_details_bloc.dart';
 import 'package:restaurantour/presentation/bloc/restaurant_details_page/restaurant_details_page.dart';
+import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart';
+import 'package:restaurantour/presentation/bloc/reviews_bloc/reviews_bloc.dart';
 import 'package:restaurantour/presentation/pages/widgets/is_open_widget.dart';
 import 'package:restaurantour/presentation/pages/widgets/rating_icon_widget.dart';
 
@@ -13,20 +15,26 @@ class RestaurantListCard extends StatelessWidget {
   const RestaurantListCard({Key? key, required this.restaurantEntity})
       : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => {
-        Navigator.of(context).push(
+      onTap: () =>  {
+         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) => locator<RestaurantDetailsBloc>(),
-                ),
-              ],
-              child: RestaurantDetailsPage(restaurantEntity: restaurantEntity),
-            ),
+            builder: (context) =>
+            //  MultiBlocProvider(
+            //   providers: [
+            //     BlocProvider(
+            //       create: (context) => locator<RestaurantDetailsBloc>(),
+            //     ),
+            //     BlocProvider(
+            //       create: (context) => locator<ReviewBloc>(),
+            //     ),
+            //   ],
+            //   child: 
+              RestaurantDetailsPage(restaurantEntity: restaurantEntity),
+            // ),
           ),
         ),
       },

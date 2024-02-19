@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/domain/entities/restaurant_entity.dart';
+import 'package:restaurantour/presentation/bloc/favourite_restaurants_bloc/restaurants_bloc.dart';
+import 'package:restaurantour/presentation/bloc/favourite_restaurants_bloc/restaurants_state.dart';
 import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart';
 import 'package:restaurantour/presentation/bloc/restaurants_event.dart';
 import 'package:restaurantour/presentation/bloc/restaurants_state.dart';
@@ -15,15 +18,17 @@ class RestaurantFavListWidget extends StatelessWidget {
       length: 2,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: BlocBuilder<RestaurantsBloc, RestaurantsState>(
+        child: BlocBuilder<FavouriteRestaurantsBloc, FavouriteRestaurantsState>(
           builder: (context, state) {
-            if (state is RestaurantsEmpty) {
-              return Container();
+            if (state is FavouriteRestaurantsEmpty) {
+              return const Center(
+                child: Text("You don´t have any favourites added"),
+              );
             }
-            if (state is RestaurantsLoading) {
+            if (state is FavouriteRestaurantsLoading) {
               return const Center(child: CustomProgressIndicator());
             }
-            if (state is RestaurantsLoadFail) {
+            if (state is FavouriteRestaurantsLoadFail) {
               return Column(
                 children: [
                   const Center(
@@ -33,20 +38,22 @@ class RestaurantFavListWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  IconButton(
-                    onPressed: () => context
-                        .read<RestaurantsBloc>()
-                        .add(const OnRequestedRestaurants()),
-                    icon: const Icon(Icons.refresh),
+                  Material(
+                    child: IconButton(
+                      onPressed: () => context
+                          .read<RestaurantsBloc>()
+                          .add(const OnRequestedRestaurants()),
+                      icon: const Icon(Icons.refresh),
+                    ),
                   ),
                 ],
               );
             }
-            if (state is RestaurantsLoaded) {
-              if (state.favouritesList.isNotEmpty) {
+            if (state is FavouriteRestaurantsLoaded) {
+              if (state.result.isNotEmpty) {
                 return ListView.builder(
                   shrinkWrap: true,
-                  itemCount: state.favouritesList.length,
+                  itemCount: state.result.length,
                   itemBuilder: (context, index) {
                     return RestaurantListCard(
                       restaurantEntity: state.result[index],
@@ -55,7 +62,8 @@ class RestaurantFavListWidget extends StatelessWidget {
                 );
               }
               return const Center(
-                  child: Text("You don´t have any favourites added"));
+                child: Text("You don´t have any favourites added"),
+              );
             }
             return Container();
           },

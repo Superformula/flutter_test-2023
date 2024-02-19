@@ -20,7 +20,7 @@ class ReviewModel extends ReviewEntity {
                 imageUrl: '',
                 name: '',
               ),
-        text: json['text'],
+        text: json['text'] ?? '',
       );
 
   ReviewEntity toEntity() => ReviewEntity(

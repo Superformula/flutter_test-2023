@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:restaurantour/data/models/restaurant_model.dart';
 import 'package:restaurantour/domain/entities/restaurant_entity.dart';
 
 abstract class RestaurantsEvent extends Equatable{
@@ -12,14 +11,6 @@ abstract class RestaurantsEvent extends Equatable{
 class OnRequestedRestaurants extends RestaurantsEvent{
   const OnRequestedRestaurants();
   
-  @override
-  List<Object?> get props => [];
-}
-
-class OnAddToFavorite extends RestaurantsEvent {
-  final RestaurantEntity restaurant;
-  const OnAddToFavorite(this.restaurant);
-
   @override
   List<Object?> get props => [];
 }

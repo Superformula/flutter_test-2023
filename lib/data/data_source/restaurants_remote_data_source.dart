@@ -71,10 +71,11 @@ class RestaurantRemoteDataSourceImpl extends RestaurantsRemoteDataSource {
       },
     );
 
-    final response = await dio.get(Urls.getDetailsUr(id));
+    final response = await dio.get(Urls.getReviewsUr(id));
 
     if (response.statusCode == 200) {
-      final result = List<ReviewModel>.from(response.data!['reviews']
+      print(response.data);
+      final result = List<ReviewModel>.from(response.data['reviews']
           .map((data) => ReviewModel.fromJson(data))
           .toList(),);
       return result;

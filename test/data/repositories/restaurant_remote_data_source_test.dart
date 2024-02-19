@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:restaurantour/core/errors/exceptions.dart';
@@ -22,7 +21,8 @@ void main() {
   setUp(() {
     mockRestaurantsRemoteDataSource = MockRestaurantsRemoteDataSource();
     restaurantsRepositoryImpl = RestaurantsRepositoryImpl(
-        restaurantsRemoteDataSource: mockRestaurantsRemoteDataSource);
+      restaurantsRemoteDataSource: mockRestaurantsRemoteDataSource,
+    );
   });
 
   const userTest = UserModel(
@@ -41,17 +41,9 @@ void main() {
 
   const reviewTestList = [
     ReviewModel(
-      id: 'sjZoO8wcK1NeGJFDk5i82Q',
-      rating: 5,
-      user: userTest,
-      text: ''
-    ),
+        id: 'sjZoO8wcK1NeGJFDk5i82Q', rating: 5, user: userTest, text: ''),
     ReviewModel(
-      id: 'okpO9hfpxQXssbTZTKq9hA',
-      rating: 5,
-      user: userTest2,
-      text: ''
-    ),
+        id: 'okpO9hfpxQXssbTZTKq9hA', rating: 5, user: userTest2, text: ''),
   ];
 
   const restaurantTest = RestaurantModel(
@@ -98,7 +90,8 @@ void main() {
       });
     });
 
-    test('Should Return ServerFailure when remote throw ServerException', () async {
+    test('Should Return ServerFailure when remote throw ServerException',
+        () async {
       when(mockRestaurantsRemoteDataSource.getRestaurants())
           .thenThrow(ServerException());
 
@@ -112,8 +105,8 @@ void main() {
       );
     });
 
-
-    test('Should Return ServerFailure when remote throw SocketException', () async {
+    test('Should Return ServerFailure when remote throw SocketException',
+        () async {
       when(mockRestaurantsRemoteDataSource.getRestaurants())
           .thenThrow(const SocketException('Could not Connect'));
 

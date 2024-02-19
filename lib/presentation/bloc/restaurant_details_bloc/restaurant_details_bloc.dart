@@ -23,5 +23,7 @@ class RestaurantDetailsBloc extends Bloc<RestaurantDetailsEvent, RestaurantDetai
         });
       },
     );
+
+   
   }
 }

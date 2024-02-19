@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:restaurantour/domain/entities/restaurant_details_entity.dart';
 import 'package:restaurantour/domain/entities/restaurant_entity.dart';
 import 'package:restaurantour/domain/usecases/get_restaurants.dart';
 import 'package:restaurantour/presentation/bloc/restaurants_event.dart';
@@ -22,8 +21,5 @@ class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
       },
     );
 
-    on<OnAddToFavorite>((event, emit) {
-      favList.add(event.restaurant);
-    });
   }
 }

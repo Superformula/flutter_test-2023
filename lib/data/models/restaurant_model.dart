@@ -14,6 +14,7 @@ class RestaurantModel extends RestaurantEntity {
     required List<ReviewEntity> review,
     required List<CategoryEntity> categories,
     required bool isOpenNow,
+    bool? fav
   }) : super(
           id: id,
           name: name,
@@ -23,6 +24,7 @@ class RestaurantModel extends RestaurantEntity {
           review: review,
           categories: categories,
           isOpenNow: isOpenNow,
+          fav: fav
         );
 
   factory RestaurantModel.fromJson(Map<String, dynamic> json) =>
@@ -56,5 +58,6 @@ class RestaurantModel extends RestaurantEntity {
         review: review,
         categories: categories,
         isOpenNow: isOpenNow,
+        fav: fav,
       );
 }
