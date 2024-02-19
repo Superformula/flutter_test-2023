@@ -6,7 +6,7 @@ import 'package:restaurantour/components/rt_item_widget.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/components/rt_shimmer_loading.dart';
 import 'package:restaurantour/core/inject.dart';
-import 'package:restaurantour/features/restaurants/restaurant_view_model.dart';
+import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -28,11 +28,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     model = context.watch();
 
-    if (model!.favoriteStatus.isLoading) return const RTShimmerLoading();
+    if (model!.favoritesStatus.isLoading) return const RTShimmerLoading();
 
-    if (model!.favoriteStatus.isError) return const RTErrorWidget();
+    if (model!.favoritesStatus.isError) return const RTErrorWidget();
 
-    if (model!.favoriteStatus.isEmpty) return const RTEmptyWidget();
+    if (model!.favoritesStatus.isEmpty) return const RTEmptyWidget();
 
     return ListView.builder(
       itemCount: model!.favoritesRestaurantList.length,

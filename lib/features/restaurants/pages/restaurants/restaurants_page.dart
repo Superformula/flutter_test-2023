@@ -6,7 +6,7 @@ import 'package:restaurantour/components/rt_item_widget.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/components/rt_shimmer_loading.dart';
 import 'package:restaurantour/core/inject.dart';
-import 'package:restaurantour/features/restaurants/restaurant_view_model.dart';
+import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
 
 class RestaurantsPage extends StatefulWidget {
   const RestaurantsPage({super.key});
@@ -27,11 +27,11 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
   @override
   Widget build(BuildContext context) {
     model = context.watch();
-    if (model!.restaurantStatus.isLoading) return const RTShimmerLoading();
+    if (model!.restaurantsStatus.isLoading) return const RTShimmerLoading();
 
-    if (model!.restaurantStatus.isError) return const RTErrorWidget();
+    if (model!.restaurantsStatus.isError) return const RTErrorWidget();
 
-    if (model!.restaurantStatus.isEmpty) return const RTEmptyWidget();
+    if (model!.restaurantsStatus.isEmpty) return const RTEmptyWidget();
 
     return RefreshIndicator(
       onRefresh: () => model!.load(),
