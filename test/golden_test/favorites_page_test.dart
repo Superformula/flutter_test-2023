@@ -1,6 +1,3 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -14,6 +11,7 @@ import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorites_service.dart';
 
 import '../mocks/mocks.dart';
+import '../widget_for_tests.dart';
 
 void main() {
   RestaurantRepository restaurantRepository = RestaurantRepositoryMock();
@@ -28,25 +26,19 @@ void main() {
     GetIt.I.reset();
   });
 
-  Widget widgetBuilder() => MaterialApp(
-        localizationsDelegates: localizationsDelegates,
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          body: ChangeNotifierProvider(
-            create: (context) {
-              final model = RestaurantListViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
-              model.load();
-              return model;
-            },
-            child: const FavoritesPage(),
-          ),
-        ),
-      );
-
   final deviceBuilder = DeviceBuilder()
     ..overrideDevicesForAllScenarios(devices: [Device.iphone11])
     ..addScenario(
-      widget: widgetBuilder(),
+      widget: widgetBuilder(
+        ChangeNotifierProvider(
+          create: (context) {
+            final model = RestaurantListViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
+            model.load();
+            return model;
+          },
+          child: const FavoritesPage(),
+        ),
+      ),
     );
 
   testGoldens('''when successfully fetch the [RestaurantQueryResult] and has data, and also load the favorites fetch the data
@@ -86,10 +78,3 @@ void main() {
     await screenMatchesGolden(tester, "favorite_page_empty");
   });
 }
-
-final localizationsDelegates = [
-  AppLocalizations.delegate,
-  GlobalMaterialLocalizations.delegate,
-  GlobalCupertinoLocalizations.delegate,
-  GlobalWidgetsLocalizations.delegate,
-];

@@ -8,10 +8,9 @@ import 'package:restaurantour/features/restaurant_details/restaurant_details_scr
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorites_service.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../mocks/mocks.dart';
+import '../widget_for_tests.dart';
 
 void main() {
   RestaurantRepository restaurantRepository = RestaurantRepositoryMock();
@@ -28,22 +27,10 @@ void main() {
     GetIt.I.reset();
   });
 
-  Widget widgetBuilder() => MaterialApp(
-        localizationsDelegates: localizationsDelegates,
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(body: RestaurantDetailsScreen.create(restaurant: Restaurant.fixture(), imageNetwork: RTImageNetworkMock())),
-      );
-
   final deviceBuilder = DeviceBuilder()
-    ..overrideDevicesForAllScenarios(
-      devices: [
-        Device.iphone11.copyWith(
-          size: const Size(414, 1100),
-        ),
-      ],
-    )
+    ..overrideDevicesForAllScenarios(devices: [Device.iphone11.copyWith(size: const Size(414, 1100))])
     ..addScenario(
-      widget: widgetBuilder(),
+      widget: widgetBuilder(RestaurantDetailsScreen.create(restaurant: Restaurant.fixture(), imageNetwork: RTImageNetworkMock())),
     );
 
   testGoldens('when [RestaurantDetailsScreen] loads should show the title, favorite icon, and other details', (WidgetTester tester) async {
@@ -111,10 +98,3 @@ void main() {
     });
   });
 }
-
-final localizationsDelegates = [
-  AppLocalizations.delegate,
-  GlobalMaterialLocalizations.delegate,
-  GlobalCupertinoLocalizations.delegate,
-  GlobalWidgetsLocalizations.delegate,
-];
