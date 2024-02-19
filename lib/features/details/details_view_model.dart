@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
+import 'package:restaurantour/models/dto.dart';
 
 enum DetailsStatus { loading, paginating, content, error, updatingFavorite }
 
@@ -15,9 +15,9 @@ extension DetailsStatusExt on DetailsStatus {
 class DetailsViewModel with ChangeNotifier {
   DetailsStatus status = DetailsStatus.loading;
   bool isFavorite = false;
-  Restaurant restaurant = const Restaurant();
-  ReviewQueryResult? reviewsQuery;
-  List<Review> reviews = [];
+  RestaurantDto restaurant = const RestaurantDto();
+  ReviewQueryResultDto? reviewsQuery;
+  List<ReviewDto> reviews = [];
 
   final paginationSize = 20;
   final String restaurantId;

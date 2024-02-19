@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page.dart';
 import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
@@ -42,8 +42,8 @@ void main() {
 
   testWidgets('''when successfully fetch the [RestaurantQueryResult] and has data, and also load the favorites fetch the data
   should create a [RTItemWidget] for each favorite [Restaurant]''', (WidgetTester tester) async {
-    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
-    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
+    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
+    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
 
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
@@ -57,7 +57,7 @@ void main() {
 
   testWidgets('''when get some error while fetch the favorites, 
   should render [RTErrorWidget] to inform to the user that something fails''', (WidgetTester tester) async {
-    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
     when(() => favoritesService.loadFavorites()).thenThrow('error mock');
 
     await tester.pumpWidget(widgetBuilder());
@@ -71,7 +71,7 @@ void main() {
   testWidgets('''when successfully fetch the [RestaurantQueryResult] and has no data, 
   and also when load the favorites and has no favorites,
   should render [RTEmptyWidget] to inform to the user that has no results''', (WidgetTester tester) async {
-    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResult(restaurants: [])));
+    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResultDto(restaurants: [])));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
@@ -84,7 +84,7 @@ void main() {
   testWidgets('''when successfully fetch the [RestaurantQueryResult] and has data, 
   but when load the favorites and has no favorites,
   should render [RTEmptyWidget] to inform to the user that has no results''', (WidgetTester tester) async {
-    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
@@ -97,8 +97,8 @@ void main() {
   testWidgets('''when successfully fetch the [RestaurantQueryResult] and has no data, 
   but when load the favorites and has favorites,
   should render [RTEmptyWidget] to inform to the user that has no results''', (WidgetTester tester) async {
-    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResult(restaurants: [])));
-    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
+    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResultDto(restaurants: [])));
+    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
 

@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/features/details/details_view_model.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
@@ -35,8 +35,8 @@ void main() {
 
   test('when [load] is called should call once time the [loadFavorites] on [FavoritesService]', () async {
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
-    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
-    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResult.fixture()));
+    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(RestaurantDto.fixture()));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResultDto.fixture()));
     final sut = DetailsViewModel(favoriteService: favoritesService, restaurantId: restaurantId, restaurantRepository: restaurantRepository);
 
     await sut.load();
@@ -47,8 +47,8 @@ void main() {
   test('''when [load] get successfully the data from favoriteService 
   the [status] should be [DetailsStatus.content]''', () async {
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
-    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
-    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResult.fixture()));
+    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(RestaurantDto.fixture()));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResultDto.fixture()));
     final sut = DetailsViewModel(favoriteService: favoritesService, restaurantId: restaurantId, restaurantRepository: restaurantRepository);
 
     await sut.load();
@@ -59,8 +59,8 @@ void main() {
   test('when [load] get some error from favoriteService the [status] should be [DetailsStatus.error]', () async {
     when(() => favoritesService.loadFavorites()).thenThrow('error mock');
     final sut = DetailsViewModel(favoriteService: favoritesService, restaurantId: restaurantId, restaurantRepository: restaurantRepository);
-    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
-    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResult.fixture()));
+    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(RestaurantDto.fixture()));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResultDto.fixture()));
 
     await sut.load();
 
@@ -71,8 +71,8 @@ void main() {
   [detailsViewModel.isFavorite] should be [true]''', () async {
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([restaurantId]));
     final sut = DetailsViewModel(favoriteService: favoritesService, restaurantId: restaurantId, restaurantRepository: restaurantRepository);
-    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
-    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResult.fixture()));
+    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(RestaurantDto.fixture()));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResultDto.fixture()));
 
     await sut.load();
 
@@ -95,8 +95,8 @@ void main() {
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([restaurantId]));
     when(() => favoritesService.addFavorite(any())).thenAnswer((_) => Future.value());
     when(() => favoritesService.removeFavorite(any())).thenAnswer((_) => Future.value());
-    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
-    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResult.fixture()));
+    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(RestaurantDto.fixture()));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResultDto.fixture()));
 
     final sut = DetailsViewModel(favoriteService: favoritesService, restaurantId: restaurantId, restaurantRepository: restaurantRepository);
 

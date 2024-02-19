@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/components/rt_components.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/restauran_tour.dart';
 import 'package:restaurantour/services/favorite_service.dart';
@@ -34,7 +34,7 @@ void main() {
   autoUpdateGoldenFiles = true;
 
   testGoldens('when [RestaurantTour] loads should show the title on the page and fetch the data', (WidgetTester tester) async {
-    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
 
     await loadAppFonts();
@@ -46,8 +46,8 @@ void main() {
   });
 
   testGoldens('when [RestaurantTour] loads should show the title on the page and fetch the data', (WidgetTester tester) async {
-    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
-    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
+    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
+    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
     await loadAppFonts();
 
     await tester.pumpDeviceBuilder(deviceBuilder);

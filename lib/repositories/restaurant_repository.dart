@@ -1,36 +1,36 @@
 import 'package:dio/dio.dart';
 import 'package:restaurantour/core/queries.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/models/dto.dart';
 
 class RestaurantRepository {
   final Dio dio;
 
   RestaurantRepository({required this.dio});
 
-  Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
+  Future<RestaurantQueryResultDto?> getRestaurants({int offset = 0}) async {
     final response = await dio.post<Map<String, dynamic>>(
       '/v3/graphql',
       data: RTQueries.getRestaurantsQuery(offset),
     );
-    return RestaurantQueryResult.fromJson(response.data!['data']['search']);
+    return RestaurantQueryResultDto.fromJson(response.data!['data']['search']);
   }
 
-  Future<ReviewQueryResult?> getReviews({required String restaurantId, int offset = 0}) async {
+  Future<ReviewQueryResultDto?> getReviews({required String restaurantId, int offset = 0}) async {
     final response = await dio.post<Map<String, dynamic>>(
       '/v3/graphql',
       data: RTQueries.getReviewsQuery(restaurantId: restaurantId, offset: offset),
     );
     final result = response.data!['data']['reviews'];
 
-    return ReviewQueryResult.fromJson(result);
+    return ReviewQueryResultDto.fromJson(result);
   }
 
-  Future<Restaurant> getRestaurantDetails({required String restaurantId, int offset = 0}) async {
+  Future<RestaurantDto> getRestaurantDetails({required String restaurantId, int offset = 0}) async {
     final response = await dio.post<Map<String, dynamic>>(
       '/v3/graphql',
       data: RTQueries.getRestaurantDetailsQuery(restaurantId: restaurantId),
     );
     final result = response.data!['data']['business'];
-    return Restaurant.fromJson(result);
+    return RestaurantDto.fromJson(result);
   }
 }

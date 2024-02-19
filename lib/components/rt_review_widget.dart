@@ -3,13 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/rt_text_style.dart';
-
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/models/dto.dart';
 
 class RTReviewWidget extends StatelessWidget {
   const RTReviewWidget({super.key, required this.review, required this.isFirstItem, required this.imageNetwork});
   final bool isFirstItem;
-  final Review review;
+  final ReviewDto review;
   final RTImageNetwork imageNetwork;
   int get rating => review.rating ?? 0;
   List<Widget> get starRate => List.generate(rating > 5 ? 5 : rating.toInt(), (_) => SvgPicture.asset('assets/svg/star.svg'));

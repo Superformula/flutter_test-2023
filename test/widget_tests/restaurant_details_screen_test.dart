@@ -6,9 +6,9 @@ import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/features/details/details_screen.dart';
-import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
+import 'package:restaurantour/models/dto.dart';
 
 import '../mocks/mocks.dart';
 
@@ -30,14 +30,14 @@ void main() {
   Widget widgetBuilder() => MaterialApp(
         localizationsDelegates: localizationsDelegates,
         debugShowCheckedModeBanner: false,
-        home: DetailsScreen.create(restaurantId: Restaurant.fixture().id),
+        home: DetailsScreen.create(restaurantId: RestaurantDto.fixture().id),
       );
 
   testWidgets('''when successfully load the [DetailsScreen] 
   should create a have the favorite Icon, the name of restaurant''', (WidgetTester tester) async {
-    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
-    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
-    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResult.fixture()));
+    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
+    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(RestaurantDto.fixture()));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResultDto.fixture()));
 
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
@@ -59,11 +59,11 @@ void main() {
 
   testWidgets('''if successfully load the [DetailsScreen] and the restaurant is already favorite, 
   when tap on favorite button should call the service to remove from favorites passing the id''', (WidgetTester tester) async {
-    final restaurantId = Restaurant.fixture().id!;
+    final restaurantId = RestaurantDto.fixture().id!;
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([restaurantId]));
     when(() => favoritesService.removeFavorite(any())).thenAnswer((_) => Future<void>.value());
-    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(Restaurant.fixture()));
-    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResult.fixture()));
+    when(() => restaurantRepository.getRestaurantDetails(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(RestaurantDto.fixture()));
+    when(() => restaurantRepository.getReviews(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(ReviewQueryResultDto.fixture()));
 
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();

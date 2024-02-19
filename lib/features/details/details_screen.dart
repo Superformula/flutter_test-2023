@@ -7,7 +7,7 @@ import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/rt_text_style.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:restaurantour/features/details/details_view_model.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
@@ -31,8 +31,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
   final RTImageNetwork imageNetwork = inject<RTImageNetwork>();
 
   int get reviewsCount => model!.reviews.length;
-  List<Review> get reviewsList => model!.reviews;
-  Restaurant get restaurant => model!.restaurant;
+  List<ReviewDto> get reviewsList => model!.reviews;
+  RestaurantDto get restaurant => model!.restaurant;
 
   DetailsViewModel? model;
   final ScrollController scrollController = ScrollController();
@@ -226,7 +226,7 @@ class _Divider extends StatelessWidget {
 }
 
 class _Reviews extends StatefulWidget {
-  final List<Review> reviewsList;
+  final List<ReviewDto> reviewsList;
   final bool isPaginating;
   const _Reviews({required this.reviewsList, required this.isPaginating});
   @override

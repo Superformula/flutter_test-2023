@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
+import 'package:restaurantour/models/dto.dart';
 
 enum RestaurantsStatus { paginating, loading, content, error, empty }
 
@@ -29,12 +29,12 @@ class RestaurantsViewModel with ChangeNotifier {
   RestaurantsStatus restaurantsStatus = RestaurantsStatus.loading;
   FavoritesStatus favoritesStatus = FavoritesStatus.loading;
 
-  RestaurantQueryResult? _restaurantsQuery;
-  List<Restaurant> _favorites = [];
+  RestaurantQueryResultDto? _restaurantsQuery;
+  List<RestaurantDto> _favorites = [];
 
   int get allRestaurantsQueryTotal => _restaurantsQuery?.total ?? 0;
-  List<Restaurant> get favoritesRestaurantList => _favorites;
-  List<Restaurant> get restaurantsList => _restaurantsQuery?.restaurants ?? [];
+  List<RestaurantDto> get favoritesRestaurantList => _favorites;
+  List<RestaurantDto> get restaurantsList => _restaurantsQuery?.restaurants ?? [];
   bool get shouldPaginate => restaurantsList.length < allRestaurantsQueryTotal && allRestaurantsQueryTotal > paginationSize;
 
   Future<void> load() async {

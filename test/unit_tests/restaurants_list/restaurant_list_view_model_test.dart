@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
@@ -27,7 +27,7 @@ void main() {
   group('tests on restaurantViewModel.load() ->', () {
     test('''when [RestaurantViewModel] is created the [restaurantsStatus] should starts with [RestaurantStatus.loading]
    and no call to [restaurantRepository.getRestaurants] should be triggered''', () async {
-      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
@@ -36,7 +36,7 @@ void main() {
     });
 
     test('when [load] is called should call once time the [getRestaurants] on [RestaurantRepository]', () async {
-      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
@@ -46,7 +46,7 @@ void main() {
     });
 
     test('when [load] get successfully the data from repository the [restaurantsStatus] should be [RestaurantStatus.content]', () async {
-      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
@@ -57,7 +57,7 @@ void main() {
 
     test('''when [load] get successfully the data from repository but the [Restaurant] list is [empty]
     the [restaurantsStatus] should be [RestaurantStatus.empty]''', () async {
-      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResult(restaurants: [])));
+      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResultDto(restaurants: [])));
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
@@ -91,7 +91,7 @@ void main() {
   group('tests on restaurantViewModel.loadFavorites() ->', () {
     test('''when [RestaurantViewModel] is created the [favoritesStatus] should starts with [FavoriteStatus.loading]
      and no call to [favoritesService.loadFavorites] should be triggered''', () async {
-      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
@@ -111,7 +111,7 @@ void main() {
     test('''when [RestaurantViewModel] is created the [Restaurant] list has items, 
     if [loadFavorites] get successfully the data from favoritesService
     the [favoritesStatus] should be [FavoriteStatus.empty]''', () async {
-      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
+      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
       await sut.loadFavorites();
@@ -122,8 +122,8 @@ void main() {
     test('''when [load] get successfully the data from repository but the [Restaurant] list is [empty], 
     when [loadFavorites] get successfully the data from favoritesService the [favoritesStatus] 
     should be [FavoriteStatus.empty]''', () async {
-      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResult(restaurants: [])));
-      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
+      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResultDto(restaurants: [])));
+      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
       await sut.load();
@@ -135,7 +135,7 @@ void main() {
     test('''when [load] get successfully the data from repository 
     and [loadFavorites] get successfully the data from favoritesService but finds no matching ID in the lists, 
     the [favoritesStatus] should be [FavoriteStatus.empty]''', () async {
-      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value(['another-restaurant-id']));
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
@@ -148,8 +148,8 @@ void main() {
     test('''when [load] get successfully the data from repository 
     and [loadFavorites] get successfully the data from favoritesService and finds a matching ID in the lists, 
     the [favoritesStatus] should be [FavoriteStatus.content]''', () async {
-      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
-      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([Restaurant.fixture().id ?? '']));
+      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
+      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
       await sut.load();

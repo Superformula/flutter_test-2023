@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/components/rt_components.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/restauran_tour.dart';
 import 'package:restaurantour/services/favorite_service.dart';
@@ -25,7 +25,7 @@ void main() {
   });
 
   testWidgets('when [RestaurantTour] loads should show the title on the page and fetch the data', (WidgetTester tester) async {
-    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
 
     await tester.pumpWidget(const RestauranTour());
@@ -35,7 +35,7 @@ void main() {
   });
 
   testWidgets('when [RestaurantTour] loads should show the tabs [All Restaurants] and [My Favorites] on the page and fetch the data', (WidgetTester tester) async {
-    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+    when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
 
     await tester.pumpWidget(const RestauranTour());
