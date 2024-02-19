@@ -22,6 +22,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   get_it: ^7.6.7
   equatable: ^2.0.5
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
