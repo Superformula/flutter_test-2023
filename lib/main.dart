@@ -6,9 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 import 'managers/favorites_manager.dart';
-import 'managers/favorites_manager_mock.dart';
 import 'managers/restaurants_manager.dart';
-import 'managers/restaurants_manager_mock.dart';
 import 'services/router_service.dart';
 import 'services/yelp_service.dart';
 import 'utils/strings.dart';
