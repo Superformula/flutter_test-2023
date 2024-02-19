@@ -23,6 +23,7 @@ dependencies:
   get_it: ^7.6.7
   equatable: ^2.0.5
   shared_preferences: ^2.2.2
+  internet_connection_checker_plus: ^2.2.0
 
 dev_dependencies:
   flutter_test:
