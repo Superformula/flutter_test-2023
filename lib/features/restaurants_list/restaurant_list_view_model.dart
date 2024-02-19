@@ -3,14 +3,20 @@ import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorites_service.dart';
 
-enum RestaurantListStatus { loading, content, error, favoritesEmpty, restaurantsEmpty, favoritesError }
+enum RestaurantListStatus { loading, content, error, empty }
 
 extension RestaurantListStatusExt on RestaurantListStatus {
   bool get isLoading => this == RestaurantListStatus.loading;
   bool get isError => this == RestaurantListStatus.error;
-  bool get isFavoritesEmpty => this == RestaurantListStatus.favoritesEmpty;
-  bool get isRestaurantsEmpty => this == RestaurantListStatus.restaurantsEmpty;
-  bool get isFavoritesError => this == RestaurantListStatus.favoritesError;
+  bool get isEmpty => this == RestaurantListStatus.empty;
+}
+
+enum RestaurantFavoriteListStatus { loading, content, error, empty }
+
+extension RestaurantFavoriteListStatusExt on RestaurantFavoriteListStatus {
+  bool get isLoading => this == RestaurantFavoriteListStatus.loading;
+  bool get isError => this == RestaurantFavoriteListStatus.error;
+  bool get isEmpty => this == RestaurantFavoriteListStatus.empty;
 }
 
 class RestaurantListViewModel with ChangeNotifier {
@@ -18,7 +24,9 @@ class RestaurantListViewModel with ChangeNotifier {
   final FavoritesService favoritesService;
   RestaurantListViewModel({required this.favoritesService, required this.restaurantRepository});
 
-  RestaurantListStatus status = RestaurantListStatus.loading;
+  RestaurantListStatus restaurantListStatus = RestaurantListStatus.loading;
+  RestaurantFavoriteListStatus restaurantFavoriteListStatus = RestaurantFavoriteListStatus.loading;
+
   RestaurantQueryResult? _restaurants;
   List<Restaurant> _favorites = [];
 
@@ -26,58 +34,71 @@ class RestaurantListViewModel with ChangeNotifier {
   List<Restaurant> get restaurants => _restaurants?.restaurants ?? [];
 
   Future<void> load() async {
-    try {
-      _emitLoading();
-      _restaurants = await restaurantRepository.getRestaurants();
+    await loadRestaurants();
+    await loadFavorites();
+  }
 
-      restaurants.isEmpty ? _emitRestaurantsEmpty() : _emitContent();
+  Future<void> loadRestaurants() async {
+    try {
+      _emitRestaurantListLoading();
+      _restaurants = await restaurantRepository.getRestaurants();
+      restaurants.isEmpty ? _emitRestaurantListEmpty() : _emitRestaurantListContent();
     } catch (e) {
       print(e);
-      _emitError();
+      _emitRestaurantListError();
     }
   }
 
   Future<void> loadFavorites() async {
     try {
-      _emitLoading();
-      await Future<void>.delayed(const Duration(milliseconds: 200));
+      _emitRestaurantFavoriteListLoading();
       _favorites = [];
       final favoritesIds = await favoritesService.loadFavorites();
       _favorites = restaurants.where((restaurant) => favoritesIds.contains(restaurant.id)).toList();
-      _favorites.isEmpty ? _emitFavoritesEmpty() : _emitContent();
+      _favorites.isEmpty ? _emitRestaurantFavoriteListEmpty() : _emitRestaurantFavoriteListContent();
     } catch (e) {
       print(e);
-      _emitFavoriteError();
+      _emitRestaurantFavoriteListError();
     }
   }
 
-  void _emitContent() {
-    status = RestaurantListStatus.content;
+  void _emitRestaurantListContent() {
+    restaurantListStatus = RestaurantListStatus.content;
     notifyListeners();
   }
 
-  void _emitLoading() {
-    status = RestaurantListStatus.loading;
+  void _emitRestaurantListLoading() {
+    restaurantListStatus = RestaurantListStatus.loading;
     notifyListeners();
   }
 
-  void _emitError() {
-    status = RestaurantListStatus.error;
+  void _emitRestaurantListError() {
+    restaurantListStatus = RestaurantListStatus.error;
     notifyListeners();
   }
 
-  void _emitFavoriteError() {
-    status = RestaurantListStatus.favoritesError;
+  void _emitRestaurantListEmpty() {
+    restaurantListStatus = RestaurantListStatus.empty;
     notifyListeners();
   }
 
-  void _emitRestaurantsEmpty() {
-    status = RestaurantListStatus.restaurantsEmpty;
+  void _emitRestaurantFavoriteListContent() {
+    restaurantFavoriteListStatus = RestaurantFavoriteListStatus.content;
     notifyListeners();
   }
 
-  void _emitFavoritesEmpty() {
-    status = RestaurantListStatus.favoritesEmpty;
+  void _emitRestaurantFavoriteListLoading() {
+    restaurantFavoriteListStatus = RestaurantFavoriteListStatus.loading;
+    notifyListeners();
+  }
+
+  void _emitRestaurantFavoriteListError() {
+    restaurantFavoriteListStatus = RestaurantFavoriteListStatus.error;
+    notifyListeners();
+  }
+
+  void _emitRestaurantFavoriteListEmpty() {
+    restaurantFavoriteListStatus = RestaurantFavoriteListStatus.empty;
     notifyListeners();
   }
 }

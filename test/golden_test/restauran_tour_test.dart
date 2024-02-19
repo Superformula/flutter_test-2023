@@ -35,6 +35,8 @@ void main() {
 
   testGoldens('when [RestaurantTour] loads should show the title on the page and fetch the data', (WidgetTester tester) async {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
+
     await loadAppFonts();
 
     await tester.pumpDeviceBuilder(deviceBuilder);

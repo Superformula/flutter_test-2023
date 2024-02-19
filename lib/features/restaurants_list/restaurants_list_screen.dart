@@ -32,7 +32,9 @@ class _RestaurantsListScreenState extends State<RestaurantsListScreen> {
   void initState() {
     super.initState();
     model = context.read();
-    WidgetsBinding.instance.addPostFrameCallback((_) async => await model!.load());
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await model!.load();
+    });
   }
 
   @override

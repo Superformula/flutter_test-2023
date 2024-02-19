@@ -21,7 +21,6 @@ class RestaurantDetailsViewModel with ChangeNotifier {
   Future<void> toggleFavorite() async {
     try {
       _emitChangingFavorite();
-      await Future<void>.delayed(const Duration(milliseconds: 500));
       isFavorite ? await favoriteService.removeFavorite(restaurantId) : await favoriteService.addFavorite(restaurantId);
 
       isFavorite = !isFavorite;
@@ -38,7 +37,6 @@ class RestaurantDetailsViewModel with ChangeNotifier {
 
       _favoriteList = await favoriteService.loadFavorites();
       isFavorite = _favoriteList.contains(restaurantId);
-      await Future<void>.delayed(const Duration(milliseconds: 300));
 
       _emitContent();
     } catch (e) {

@@ -25,17 +25,19 @@ void main() {
   });
 
   group('tests on restaurantListViewModel.load() ->', () {
-    test('''when [RestaurantListViewModel] is created the [status] should starts with [RestaurantListStatus.loading]
+    test('''when [RestaurantListViewModel] is created the [restaurantListStatus] should starts with [RestaurantListStatus.loading]
    and no call to [restaurantRepository.getRestaurants] should be triggered''', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantListViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
-      expect(sut.status, RestaurantListStatus.loading);
+      expect(sut.restaurantListStatus, RestaurantListStatus.loading);
       verifyNever(() => restaurantRepository.getRestaurants(offset: any(named: 'offset')));
     });
 
     test('when [load] is called should call once time the [getRestaurants] on [RestaurantRepository]', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantListViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
       await sut.load();
@@ -43,37 +45,41 @@ void main() {
       verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
     });
 
-    test('when [load] get successfully the data from repository the [status] should be [RestaurantListStatus.content]', () async {
+    test('when [load] get successfully the data from repository the [restaurantListStatus] should be [RestaurantListStatus.content]', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResult.fixture()));
+      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantListViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
       await sut.load();
 
-      expect(sut.status, RestaurantListStatus.content);
+      expect(sut.restaurantListStatus, RestaurantListStatus.content);
     });
 
     test('''when [load] get successfully the data from repository but the [Restaurant] list is [empty]
-    the [status] should be [RestaurantListStatus.restaurantsEmpty]''', () async {
+    the [restaurantListStatus] should be [RestaurantListStatus.restaurantsEmpty]''', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResult(restaurants: [])));
+      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantListViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
       await sut.load();
 
-      expect(sut.status, RestaurantListStatus.restaurantsEmpty);
+      expect(sut.restaurantListStatus, RestaurantListStatus.empty);
     });
 
-    test('when [load] get some error from repository the [status] should be [RestaurantListStatus.error]', () async {
+    test('when [load] get some error from repository the [restaurantListStatus] should be [RestaurantListStatus.error]', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenThrow('error mock');
+      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantListViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
       await sut.load();
 
-      expect(sut.status, RestaurantListStatus.error);
+      expect(sut.restaurantListStatus, RestaurantListStatus.error);
     });
 
     test('''when [load] get some error from repository
     no more calls should be triggered to [restaurantRepository.getRestaurants]''', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenThrow('error mock');
+      when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantListViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
       await sut.load();
@@ -89,7 +95,7 @@ void main() {
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantListViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
-      expect(sut.status, RestaurantListStatus.loading);
+      expect(sut.restaurantFavoriteListStatus, RestaurantFavoriteListStatus.loading);
       verifyNever(() => favoritesService.loadFavorites());
     });
 
@@ -110,7 +116,7 @@ void main() {
 
       await sut.loadFavorites();
 
-      expect(sut.status, RestaurantListStatus.favoritesEmpty);
+      expect(sut.restaurantFavoriteListStatus, RestaurantFavoriteListStatus.empty);
     });
 
     test('''when [load] get successfully the data from repository but the [Restaurant] list is [empty], 
@@ -123,7 +129,7 @@ void main() {
       await sut.load();
       await sut.loadFavorites();
 
-      expect(sut.status, RestaurantListStatus.favoritesEmpty);
+      expect(sut.restaurantFavoriteListStatus, RestaurantFavoriteListStatus.empty);
     });
 
     test('''when [load] get successfully the data from repository 
@@ -136,7 +142,7 @@ void main() {
       await sut.load();
       await sut.loadFavorites();
 
-      expect(sut.status, RestaurantListStatus.favoritesEmpty);
+      expect(sut.restaurantFavoriteListStatus, RestaurantFavoriteListStatus.empty);
     });
 
     test('''when [load] get successfully the data from repository 
@@ -149,7 +155,7 @@ void main() {
       await sut.load();
       await sut.loadFavorites();
 
-      expect(sut.status, RestaurantListStatus.content);
+      expect(sut.restaurantFavoriteListStatus, RestaurantFavoriteListStatus.content);
     });
 
     test('''when [loadFavorites] get successfully the data from favoritesService but the list is [empty]
@@ -159,7 +165,7 @@ void main() {
 
       await sut.loadFavorites();
 
-      expect(sut.status, RestaurantListStatus.favoritesEmpty);
+      expect(sut.restaurantFavoriteListStatus, RestaurantFavoriteListStatus.empty);
     });
 
     test('''when [loadFavorites] get some error from favoritesService
@@ -169,7 +175,7 @@ void main() {
 
       await sut.loadFavorites();
 
-      expect(sut.status, RestaurantListStatus.favoritesError);
+      expect(sut.restaurantFavoriteListStatus, RestaurantFavoriteListStatus.error);
     });
 
     test('''when [loadFavorites] get some error from favoritesService

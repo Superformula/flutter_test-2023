@@ -27,11 +27,11 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
   @override
   Widget build(BuildContext context) {
     model = context.watch();
-    if (model!.status.isLoading) return const RTShimmerLoading();
+    if (model!.restaurantListStatus.isLoading) return const RTShimmerLoading();
 
-    if (model!.status.isError) return const RTErrorWidget();
+    if (model!.restaurantListStatus.isError) return const RTErrorWidget();
 
-    if (model!.status.isRestaurantsEmpty) return const RTEmptyWidget();
+    if (model!.restaurantListStatus.isEmpty) return const RTEmptyWidget();
 
     return RefreshIndicator(
       onRefresh: () => model!.load(),
@@ -45,6 +45,7 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
             isFirstItem: isFirstItem,
             imageNetwork: inject<RTImageNetwork>(),
             restaurant: model!.restaurants[index],
+            onFinishNavigation: () => model!.loadFavorites(),
           );
         },
       ),

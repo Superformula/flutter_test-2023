@@ -22,18 +22,17 @@ class _FavoritesPageState extends State<FavoritesPage> {
   void initState() {
     super.initState();
     model = context.read();
-    WidgetsBinding.instance.addPostFrameCallback((_) async => await model!.loadFavorites());
   }
 
   @override
   Widget build(BuildContext context) {
     model = context.watch();
 
-    if (model!.status.isLoading) return const RTShimmerLoading();
+    if (model!.restaurantFavoriteListStatus.isLoading) return const RTShimmerLoading();
 
-    if (model!.status.isFavoritesError) return const RTErrorWidget();
+    if (model!.restaurantFavoriteListStatus.isError) return const RTErrorWidget();
 
-    if (model!.status.isFavoritesEmpty) return const RTEmptyWidget();
+    if (model!.restaurantFavoriteListStatus.isEmpty) return const RTEmptyWidget();
 
     return ListView.builder(
       itemCount: model!.favorites.length,
