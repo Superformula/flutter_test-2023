@@ -10,7 +10,6 @@ class RTReviewWidget extends StatelessWidget {
   const RTReviewWidget({super.key, required this.review, required this.isFirstItem, required this.imageNetwork});
   final bool isFirstItem;
   final Review review;
-  final String reviewText = 'Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.';
   final RTImageNetwork imageNetwork;
   int get rating => review.rating ?? 0;
   List<Widget> get starRate => List.generate(rating > 5 ? 5 : rating.toInt(), (_) => SvgPicture.asset('assets/svg/star.svg'));
@@ -30,7 +29,7 @@ class RTReviewWidget extends StatelessWidget {
                 Row(children: starRate),
                 const SizedBox(height: 8),
                 Text(
-                  reviewText,
+                  review.review ?? '',
                   style: RTTextStyle.body1(),
                 ),
                 const SizedBox(height: 8),
