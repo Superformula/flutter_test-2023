@@ -52,20 +52,18 @@ class User {
 
 @JsonSerializable()
 class Review {
-  static const _review = 'Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.';
-
   final String? id;
   final int? rating;
-  final String? review;
+  final String? text;
   final User? user;
 
-  const Review({this.review = _review, this.id, this.rating, this.user});
+  const Review({this.text, this.id, this.rating, this.user});
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
   factory Review.fixture() => Review(
         id: 'reviewId',
         rating: 3,
-        review: 'Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.',
+        text: 'Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.',
         user: User.fixture(),
       );
 
