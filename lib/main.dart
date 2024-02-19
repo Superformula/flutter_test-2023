@@ -1,57 +1,41 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:get_it/get_it.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:restaurantour/models/restaurant.dart';
+
+import 'managers/favorites_manager.dart';
+import 'managers/restaurants_manager.dart';
+import 'services/router_service.dart';
+import 'services/yelp_service.dart';
+import 'utils/strings.dart';
+
+part 'handlers/manager_handler.dart';
+part 'handlers/error_handler.dart';
+part 'handlers/hive_handler.dart';
 
 void main() {
-  runApp(const Restaurantour());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  registerHiveHandler();
+  registerErrorHandlers();
+  registerManagerHandlers();
+
+  runApp(const RestauranTour());
 }
 
-class Restaurantour extends StatelessWidget {
-  // This widget is the root of your application.
-  const Restaurantour({Key? key}) : super(key: key);
+class RestauranTour extends StatelessWidget {
+  const RestauranTour({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RestauranTour',
+    return MaterialApp.router(
+      title: AppStrings.title,
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Restaurantour'),
-            ElevatedButton(
-              child: const Text('Fetch Restaurants'),
-              onPressed: () async {
-                final yelpRepo = YelpRepository();
-
-                try {
-                  final result = await yelpRepo.getRestaurants();
-                  if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
-                  } else {
-                    print('No restaurants fetched');
-                  }
-                } catch (e) {
-                  print('Failed to fetch restaurants: $e');
-                }
-              },
-            ),
-          ],
-        ),
-      ),
+      routerConfig: rService.config(),
     );
   }
 }
