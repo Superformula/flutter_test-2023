@@ -1,7 +1,8 @@
 class Urls {
   static const String baseUrl = 'https://api.yelp.com';
-  static const String apiKey = 'jqqiz9wXomxYboRgZ_GgiwlHcN_CJAQagyAKYryrldzoID6iwSV3FG5Jsonu8KB_2BF-BM0k1QFPhv0vyMJuDG_NeNp3B2tYIT6kEVRriy3EiHJhBq5XgjDPVWLRZXYx';
+  static const String apiKey = '';
   static String bearerToken = 'Bearer $apiKey'; 
+  static String getDetailsUr(String id) => '$baseUrl/v3/businesses/$id';
 
   static String getQuery({int offset = 0}) => ''
   '''

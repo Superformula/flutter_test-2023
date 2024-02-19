@@ -1,0 +1,100 @@
+{
+    "id": "vHz2RLtfUMVRPFmd7VBEHA",
+    "alias": "gordon-ramsay-hells-kitchen-las-vegas-5",
+    "name": "Gordon Ramsay Hell's Kitchen",
+    "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/q771KjLzI5y638leJsnJnQ/o.jpg",
+    "is_claimed": true,
+    "is_closed": false,
+    "url": "https://www.yelp.com/biz/gordon-ramsay-hells-kitchen-las-vegas-5?adjust_creative=gQDk9FTj4CDaIjoeq4i_Cg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=gQDk9FTj4CDaIjoeq4i_Cg",
+    "phone": "+17027317373",
+    "display_phone": "(702) 731-7373",
+    "review_count": 11043,
+    "categories": [
+        {
+            "alias": "newamerican",
+            "title": "New American"
+        },
+        {
+            "alias": "seafood",
+            "title": "Seafood"
+        }
+    ],
+    "rating": 4.4,
+    "location": {
+        "address1": "3570 Las Vegas Blvd S",
+        "address2": "",
+        "address3": null,
+        "city": "Las Vegas",
+        "zip_code": "89109",
+        "country": "US",
+        "state": "NV",
+        "display_address": [
+            "3570 Las Vegas Blvd S",
+            "Las Vegas, NV 89109"
+        ],
+        "cross_streets": ""
+    },
+    "coordinates": {
+        "latitude": 36.11611867,
+        "longitude": -115.17645117
+    },
+    "photos": [
+        "https://s3-media2.fl.yelpcdn.com/bphoto/q771KjLzI5y638leJsnJnQ/o.jpg",
+        "https://s3-media1.fl.yelpcdn.com/bphoto/aQIjYFCfbscC2i8nyYVgZw/o.jpg",
+        "https://s3-media4.fl.yelpcdn.com/bphoto/oqebRWEqFToMOPAcZ54sYA/o.jpg"
+    ],
+    "price": "$$$",
+    "hours": [
+        {
+            "open": [
+                {
+                    "is_overnight": false,
+                    "start": "1100",
+                    "end": "2330",
+                    "day": 0
+                },
+                {
+                    "is_overnight": false,
+                    "start": "1100",
+                    "end": "2330",
+                    "day": 1
+                },
+                {
+                    "is_overnight": false,
+                    "start": "1100",
+                    "end": "2330",
+                    "day": 2
+                },
+                {
+                    "is_overnight": false,
+                    "start": "1100",
+                    "end": "2330",
+                    "day": 3
+                },
+                {
+                    "is_overnight": false,
+                    "start": "1100",
+                    "end": "2330",
+                    "day": 4
+                },
+                {
+                    "is_overnight": false,
+                    "start": "1100",
+                    "end": "2330",
+                    "day": 5
+                },
+                {
+                    "is_overnight": false,
+                    "start": "1100",
+                    "end": "2330",
+                    "day": 6
+                }
+            ],
+            "hours_type": "REGULAR",
+            "is_open_now": true
+        }
+    ],
+    "transactions": [
+        "delivery"
+    ]
+}
