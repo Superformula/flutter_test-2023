@@ -54,8 +54,8 @@ class ShimmerAtom extends StatelessWidget {
 
   Widget _shimmer() {
     return Shimmer.fromColors(
-      baseColor: Colors.grey[200]!,
-      highlightColor: Colors.grey[500]!,
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade700,
       child: _child,
     );
   }
