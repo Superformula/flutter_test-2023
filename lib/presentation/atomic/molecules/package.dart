@@ -7,4 +7,5 @@ import '../../pages/package.dart';
 import '../atoms/package.dart';
 
 part 'restaurant_card_molecule.dart';
+part 'review_card_molecule.dart';
 part 'rating_molecule.dart';
