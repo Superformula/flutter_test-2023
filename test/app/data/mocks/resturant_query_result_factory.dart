@@ -6,6 +6,54 @@ class ModelFactory {
   static RestaurantQueryResult makeRestaurantQueryResult() {
     return RestaurantQueryResult.fromJson(jsonDecode(jsonRestaurantQueryResult)['data']['search']);
   }
+  static RestaurantQueryResult makeRestaurantQueryResultNull() {
+    return RestaurantQueryResult.fromJson(jsonDecode(jsonRestaurantQueryResultNull)['data']['search']);
+  }
+
+  static Restaurant makeRestaurant() {
+    const review1 = Review(
+      id: 'DKtLdByPmlwZET_b4BM3gQ',
+      rating: 5,
+      user: User(
+        id: 'dW0QJVcKiX7crMd1lYWTkg',
+        imageUrl: 'https://s3-media3.fl.yelpcdn.com/photo/yhQgs5pEXcKaSRxVaY9z6w/o.jpg',
+        name: 'Misty C.',
+      ),
+    );
+    const review2 = Review(
+      id: 'PdS4Fv6RKyBQ1nB0L0wpsg',
+      rating: 5,
+      user: User(
+        id: 'TVnNlNYw5uFp-D-lv9REXA',
+        imageUrl: null,
+        name: 'Chubby T.',
+      ),
+    );
+    const review3 = Review(
+      id: '9rADlcW-gfmu-F_bHK6WOw',
+      rating: 3,
+      user: User(
+        id: 'YKh3b-qojo4vjtHEZoIjKA',
+        imageUrl: null,
+        name: 'Jeheon L.',
+      ),
+    );
+    const restaurant = Restaurant(
+      hours: [Hours(isOpenNow: true)],
+      id: 'vHz2RLtfUMVRPFmd7VBEHA',
+      name: "Gordon Ramsay Hell's Kitchen",
+      categories: [
+        Category(title: 'New American', alias: 'newamerican'),
+        Category(title: 'Seafood', alias: 'seafood'),
+      ],
+      price: r"$$$",
+      rating: 4.4,
+      photos: ["https://s3-media2.fl.yelpcdn.com/bphoto/q771KjLzI5y638leJsnJnQ/o.jpg"],
+      reviews: [review1, review2, review3],
+      location: Location(formattedAddress: "3570 Las Vegas Blvd S\nLas Vegas, NV 89109"),
+    );
+    return restaurant;
+  }
 }
 
 const jsonRestaurantQueryResult = r'''
@@ -366,6 +414,17 @@ const jsonRestaurantQueryResult = r'''
             "formatted_address": "3355 South Las Vegas Blvd\nSte 106\nLas Vegas, NV 89109"
           }
         }
+      ]
+    }
+  }
+}''';
+const jsonRestaurantQueryResultNull = r'''
+{
+  "data": {
+    "search": {
+      "total": 6185,
+      "business": [
+       
       ]
     }
   }
