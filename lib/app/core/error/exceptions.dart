@@ -15,3 +15,12 @@ class CacheException implements Exception {
   @override
   toString() => message;
 }
+
+class EmptyDataException implements Exception {
+  final String message;
+
+  EmptyDataException(this.message);
+
+  @override
+  toString() => message;
+}
