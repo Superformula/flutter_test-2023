@@ -7,8 +7,8 @@ class RatingMolecule extends StatelessWidget {
   const RatingMolecule({
     super.key,
     required this.rating,
-    required this.starSize,
-    required this.starCount,
+    this.starSize = 15,
+    this.starCount = 5,
   });
 
   @override

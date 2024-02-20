@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'application/list_restaurants_provider.dart';
-import 'presentation/pages/list_page.dart';
+import 'presentation/pages/package.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");

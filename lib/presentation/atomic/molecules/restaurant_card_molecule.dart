@@ -6,43 +6,46 @@ class RestaurantCardMolecule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // late double cardWidth;
-    // late double height;
-    // if (MediaQuery.of(context).size.width > 728) {
-    //   height = MediaQuery.of(context).size.width * 0.15;
-    //   cardWidth = MediaQuery.of(context).size.width * 0.2;
-    // } else {
-    //   height = 110;
-    //   cardWidth = 120;
-    // }
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      elevation: 5,
-      margin: const EdgeInsets.all(10),
-      child: Container(
-        height: 105,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
+    return GestureDetector(
+      onTap: () {
+        context
+            .read<ListRestaurantsProvider>()
+            .setCurrentRestaurant(restaurant.id);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const DetailViewPage(),
           ),
+        );
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
         ),
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ImageRoundedAtom(
-              height: 88,
-              width: 88,
-              url: restaurant.heroImage,
+        elevation: 5,
+        margin: const EdgeInsets.all(10),
+        child: Container(
+          height: 105,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(child: _getBottomInformation()),
-          ],
+          ),
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ImageRoundedAtom(
+                height: 88,
+                width: 88,
+                url: restaurant.heroImage,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(child: _getBottomInformation()),
+            ],
+          ),
         ),
       ),
     );
