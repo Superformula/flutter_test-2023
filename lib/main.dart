@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurantour/application/list_restaurants_provider.dart';
+import 'package:restaurantour/presentation/list_page.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -13,12 +16,17 @@ class Restaurantour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RestauranTour',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ListRestaurantsProvider()),
+      ],
+      child: MaterialApp(
+        title: 'RestauranTour',
+        theme: ThemeData(
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const HomePage(),
       ),
-      home: const HomePage(),
     );
   }
 }
@@ -38,11 +46,19 @@ class HomePage extends StatelessWidget {
               child: const Text('Fetch Restaurants'),
               onPressed: () async {
                 final yelpRepo = YelpRepository();
-
                 try {
                   final result = await yelpRepo.getRestaurants();
                   if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
+                    if (context.mounted) {
+                      context
+                          .read<ListRestaurantsProvider>()
+                          .addRestaurants(result.restaurants!);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const ListViewPage(),
+                        ),
+                      );
+                    }
                   } else {
                     print('No restaurants fetched');
                   }
