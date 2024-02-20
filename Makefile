@@ -12,7 +12,7 @@ lcov-ignore :
 	lcov --remove coverage/lcov.info 'lib/core/*' 'lib/models/*.g.dart' -o coverage/lcov.info
 
 
-lcov : lcov-ignore
+lcov : tests lcov-ignore
 	genhtml -q -o coverage coverage/lcov.info && open coverage/index.html
 
 update-goldens : remove-goldens-failures

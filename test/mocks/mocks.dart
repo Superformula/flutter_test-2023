@@ -5,6 +5,7 @@ import 'package:restaurantour/core/routes.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/services/favorite_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RestaurantRepositoryMock extends Mock implements RestaurantRepository {}
 
@@ -15,6 +16,8 @@ class DioMock extends Mock implements Dio {}
 class RequestOptionsMock extends Mock implements RequestOptions {}
 
 class GoRouterConfigMock extends Mock implements GoRouterConfig {}
+
+class SharedPreferencesMock extends Mock implements SharedPreferences {}
 
 class RTImageNetworkMock extends Mock implements RTImageNetwork {
   @override
