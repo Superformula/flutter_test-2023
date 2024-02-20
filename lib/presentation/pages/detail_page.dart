@@ -78,6 +78,7 @@ class _DetailViewPageState extends State<DetailViewPage> {
 
   _reviews() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('${restaurant!.reviews!.length} reviews'),
         ...restaurant!.reviews!.map((e) => ReviewCardMolecule(review: e))
