@@ -23,6 +23,7 @@ class RestaurantCardMolecule extends StatelessWidget {
       margin: const EdgeInsets.all(10),
       child: Container(
         height: 105,
+        color: Colors.white,
         padding: const EdgeInsets.all(8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
