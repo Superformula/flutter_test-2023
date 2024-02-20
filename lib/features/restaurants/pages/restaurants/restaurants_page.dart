@@ -42,7 +42,7 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
 
     if (model!.restaurantsStatus.isLoading) return const RTShimmerLoading();
 
-    if (model!.restaurantsStatus.isError) return const RTErrorWidget();
+    if (model!.restaurantsStatus.isError) return RTErrorWidget(onTryAgain: () => model!.load());
 
     if (model!.restaurantsStatus.isEmpty) return const RTEmptyWidget();
 

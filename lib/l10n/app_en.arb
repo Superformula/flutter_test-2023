@@ -15,5 +15,6 @@
   "restaurantListAllRestaurantsTabClosed": "Closed",
   "restaurantListAllRestaurantsTabOpenNow": "Open Now",
   "restaurantListMyFavoritesTab": "My Favorites",
-  "restaurantListRestauranTour": "RestauranTour"
+  "restaurantListRestauranTour": "RestauranTour",
+  "rtTryAgain": "Try Again"
 }
