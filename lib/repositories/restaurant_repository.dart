@@ -33,4 +33,13 @@ class RestaurantRepository {
     final result = response.data!['data']['business'];
     return RestaurantDto.fromJson(result);
   }
+
+  Future<RestaurantDto> getSingleRestaurant({required String restaurantId, int offset = 0}) async {
+    final response = await dio.post<Map<String, dynamic>>(
+      '/v3/graphql',
+      data: RTQueries.getSingleRestaurantQuery(restaurantId: restaurantId),
+    );
+    final result = response.data!['data']['business'];
+    return RestaurantDto.fromJson(result);
+  }
 }

@@ -67,6 +67,28 @@ query restaurantDetailsQuery {
 ''';
   }
 
+  static String getSingleRestaurantQuery({required String restaurantId}) {
+    return '''
+query singleRestaurantQuery {
+  business(id: "$restaurantId") {
+    alias
+    categories {
+      alias
+      title
+    }
+    hours {
+      is_open_now
+    }
+    rating
+    id
+    photos
+    name
+    price
+  }
+}
+''';
+  }
+
   static String getTotalReviewForRestaurantQuery({required String restaurantId}) {
     return '''
 query totalReviewForRestaurantQuery {

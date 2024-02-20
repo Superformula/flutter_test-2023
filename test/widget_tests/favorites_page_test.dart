@@ -96,15 +96,15 @@ void main() {
 
   testWidgets('''when successfully fetch the [RestaurantQueryResult] and has no data, 
   but when load the favorites and has favorites,
-  should render [RTEmptyWidget] to inform to the user that has no results''', (WidgetTester tester) async {
+  but the [Restaurant] don't have all the restaurants of favorites list
+  them should get each one from repository and the favoritesStatus should be content''', (WidgetTester tester) async {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResultDto(restaurants: [])));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
 
-    expect(find.bySubtype<RTEmptyWidget>(), findsAtLeast(1));
-    verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
-    verify(() => favoritesService.loadFavorites()).called(1);
+    expect(find.bySubtype<RTItemWidget>(), findsAtLeast(1));
+    expect(find.byKey(const Key('favorite-restaurant-0')), findsOne);
   });
 }
 

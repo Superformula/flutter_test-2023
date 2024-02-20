@@ -43,7 +43,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
           imageNetwork: inject<RTImageNetwork>(),
           restaurant: model!.favoritesRestaurantList[index],
           openDetails: () async {
-            context.pushNamed(
+            await context.pushNamed(
               DetailsScreen.route,
               pathParameters: {DetailsScreen.restaurantIdParams: model!.favoritesRestaurantList[index].id ?? ''},
             );

@@ -108,20 +108,24 @@ void main() {
       verify(() => favoritesService.loadFavorites()).called(1);
     });
 
-    test('''when [RestaurantViewModel] is created the [Restaurant] list has items, 
+    test('''when [RestaurantViewModel] is created the [Restaurant] list has no items, 
     if [loadFavorites] get successfully the data from favoritesService
-    the [favoritesStatus] should be [FavoriteStatus.empty]''', () async {
+    but the [Restaurant] don't have all the restaurants of favorites list
+    them should get each one from repository and the favoritesStatus should be content''', () async {
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
+      when(() => restaurantRepository.getSingleRestaurant(restaurantId: any(named: 'restaurantId'))).thenAnswer((_) => Future.value(RestaurantDto.fixture()));
+
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
 
       await sut.loadFavorites();
 
-      expect(sut.favoritesStatus, FavoritesStatus.empty);
+      expect(sut.favoritesStatus, FavoritesStatus.content);
     });
 
     test('''when [load] get successfully the data from repository but the [Restaurant] list is [empty], 
-    when [loadFavorites] get successfully the data from favoritesService the [favoritesStatus] 
-    should be [FavoriteStatus.empty]''', () async {
+    when [loadFavorites] get successfully the data from favoritesService
+    but the [Restaurant] don't have all the restaurants of favorites list
+    them should get each one from repository and the favoritesStatus should be content''', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResultDto(restaurants: [])));
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
@@ -129,12 +133,12 @@ void main() {
       await sut.load();
       await sut.loadFavorites();
 
-      expect(sut.favoritesStatus, FavoritesStatus.empty);
+      expect(sut.favoritesStatus, FavoritesStatus.content);
     });
 
     test('''when [load] get successfully the data from repository 
     and [loadFavorites] get successfully the data from favoritesService but finds no matching ID in the lists, 
-    the [favoritesStatus] should be [FavoriteStatus.empty]''', () async {
+    them should get each one from repository and the favoritesStatus should be content''', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
       when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value(['another-restaurant-id']));
       final sut = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
@@ -142,7 +146,7 @@ void main() {
       await sut.load();
       await sut.loadFavorites();
 
-      expect(sut.favoritesStatus, FavoritesStatus.empty);
+      expect(sut.favoritesStatus, FavoritesStatus.content);
     });
 
     test('''when [load] get successfully the data from repository 

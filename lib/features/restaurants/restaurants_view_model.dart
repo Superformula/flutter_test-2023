@@ -31,6 +31,7 @@ class RestaurantsViewModel with ChangeNotifier {
 
   RestaurantQueryResultDto? _restaurantsQuery;
   List<RestaurantDto> _favorites = [];
+  List<RestaurantDto> _restaurantsCache = [];
 
   int get allRestaurantsQueryTotal => _restaurantsQuery?.total ?? 0;
   List<RestaurantDto> get favoritesRestaurantList => _favorites;
@@ -53,19 +54,6 @@ class RestaurantsViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> loadFavorites() async {
-    try {
-      _emitFavoriteLoading();
-      _favorites = [];
-      final favoritesIds = await favoritesService.loadFavorites();
-      _favorites = restaurantsList.where((restaurant) => favoritesIds.contains(restaurant.id)).toList();
-      _favorites.isEmpty ? _emitFavoriteEmpty() : _emitFavoriteContent();
-    } catch (e) {
-      print(e);
-      _emitFavoriteError();
-    }
-  }
-
   Future<void> paginateRestaurants() async {
     if (restaurantsStatus.isPaginating || !shouldPaginate) return;
     try {
@@ -76,6 +64,45 @@ class RestaurantsViewModel with ChangeNotifier {
       print(e);
     } finally {
       _emitRestaurantContent();
+    }
+  }
+
+  Future<void> loadFavorites() async {
+    try {
+      _emitFavoriteLoading();
+      final favoritesIds = await favoritesService.loadFavorites();
+      _favorites = restaurantsList.where((restaurant) => favoritesIds.contains(restaurant.id)).toList();
+      final favoritesToFetchInCache = await _findFavoritesNotLoadedInMemory(inMemory: restaurantsList, favoritesIds: favoritesIds);
+      _favorites.addAll(_restaurantsCache.where((restaurant) => favoritesToFetchInCache.contains(restaurant.id)).toList());
+      final favoritesToFetch = await _findFavoritesNotLoadedInMemory(inMemory: _restaurantsCache, favoritesIds: favoritesIds);
+      await _loadFavoritesInMemory(favoritesToFetch);
+      _favorites.isEmpty ? _emitFavoriteEmpty() : _emitFavoriteContent();
+    } catch (e) {
+      print(e);
+      _emitFavoriteError();
+    }
+  }
+
+  Future<List<String>> _findFavoritesNotLoadedInMemory({required List<RestaurantDto> inMemory, required List<String> favoritesIds}) async {
+    inMemory.map((restaurant) {
+      if (favoritesIds.contains(restaurant.id)) favoritesIds.remove(restaurant.id);
+    }).toList();
+    return favoritesIds;
+  }
+
+  Future<void> _loadFavoritesInMemory(List<String> favorites) async {
+    for (var favoriteId in favorites) {
+      await _loadSingleFavorite(favoriteId);
+    }
+  }
+
+  Future<void> _loadSingleFavorite(String favoriteId) async {
+    try {
+      final _restaurant = await restaurantRepository.getSingleRestaurant(restaurantId: favoriteId);
+      _favorites.add(_restaurant);
+      _restaurantsCache.add(_restaurant);
+    } catch (e) {
+      _favorites.add(RestaurantDto(id: favoriteId));
     }
   }
 

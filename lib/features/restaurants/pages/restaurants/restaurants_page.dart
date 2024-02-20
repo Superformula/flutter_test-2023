@@ -62,7 +62,7 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
                 imageNetwork: inject<RTImageNetwork>(),
                 restaurant: model!.restaurantsList[index],
                 openDetails: () async {
-                  context.pushNamed(
+                  await context.pushNamed(
                     DetailsScreen.route,
                     pathParameters: {DetailsScreen.restaurantIdParams: model!.restaurantsList[index].id ?? ''},
                   );
