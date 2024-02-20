@@ -10,6 +10,7 @@
 .svn/
 # automated_tests related
 **/failures/
+**/coverage/
 # IntelliJ related
 *.iml
 *.ipr
