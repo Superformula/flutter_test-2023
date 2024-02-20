@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:collection/collection.dart';
 
 part 'restaurant.g.dart';
 
@@ -99,7 +100,7 @@ class Location extends Equatable {
 }
 
 @JsonSerializable()
-class Restaurant extends Equatable {
+class Restaurant {
   final String? id;
   final String? name;
   final String? price;
@@ -127,8 +128,31 @@ class Restaurant extends Equatable {
   Map<String, dynamic> toJson() => _$RestaurantToJson(this);
 
   @override
-  List<Object?> get props =>
-      [id, name, price, rating, photos, categories, hours, reviews, location];
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Restaurant &&
+              runtimeType == other.runtimeType &&
+              id == other.id &&
+              name == other.name &&
+              price == other.price &&
+              rating == other.rating &&
+              const ListEquality<String>().equals(photos, other.photos) &&
+              const ListEquality<Category>().equals(categories, other.categories) &&
+              const ListEquality<Hours>().equals(hours, other.hours) &&
+              const ListEquality<Review>().equals(reviews, other.reviews) &&
+              location == other.location;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      price.hashCode ^
+      rating.hashCode ^
+      const ListEquality().hash(photos) ^
+      const ListEquality().hash(categories) ^
+      const ListEquality().hash(hours) ^
+      const ListEquality().hash(reviews) ^
+      location.hashCode;
 
   /// Use the first category for the category shown to the user
   String get displayCategory {
