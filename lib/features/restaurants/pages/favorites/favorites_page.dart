@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/core/inject.dart';
@@ -42,13 +43,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
           imageNetwork: inject<RTImageNetwork>(),
           restaurant: model!.favoritesRestaurantList[index],
           openDetails: () async {
-            await Navigator.push<void>(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => DetailsScreen.create(
-                  restaurantId: model!.favoritesRestaurantList[index].id,
-                ),
-              ),
+            context.pushNamed(
+              DetailsScreen.route,
+              pathParameters: {DetailsScreen.restaurantIdParams: model!.favoritesRestaurantList[index].id ?? ''},
             );
           },
           onFinishNavigation: model!.loadFavorites,

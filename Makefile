@@ -11,8 +11,11 @@ integration-tests :
 lcov : 
 	genhtml -q -o coverage coverage/lcov.info && open coverage/index.html
 
-update-goldens : 
+update-goldens : remove-goldens-failures
 	flutter test --update-goldens
+
+remove-goldens-failures : 
+	rm test/golden_test/failures/*
 
 # CODE GENERATION
 

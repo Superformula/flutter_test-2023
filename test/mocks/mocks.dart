@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
-
+import 'package:restaurantour/core/routes.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/services/favorite_service.dart';
@@ -13,6 +13,8 @@ class FavoritesServiceMock extends Mock implements FavoriteService {}
 class DioMock extends Mock implements Dio {}
 
 class RequestOptionsMock extends Mock implements RequestOptions {}
+
+class GoRouterConfigMock extends Mock implements GoRouterConfig {}
 
 class RTImageNetworkMock extends Mock implements RTImageNetwork {
   @override

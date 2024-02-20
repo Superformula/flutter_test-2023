@@ -2,12 +2,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/components/rt_components.dart';
+import 'package:restaurantour/features/restaurants/restaurants_screen.dart';
 import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
-import 'package:restaurantour/restauran_tour.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
 import '../mocks/mocks.dart';
+import '../widget_for_tests.dart';
 
 void main() {
   RestaurantRepository restaurantRepository = RestaurantRepositoryMock();
@@ -28,7 +29,7 @@ void main() {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
 
-    await tester.pumpWidget(const RestauranTour());
+    await tester.pumpWidget(widgetBuilder(RestaurantsScreen.create()));
 
     expect(find.text('RestauranTour'), findsOneWidget);
     verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
@@ -38,7 +39,7 @@ void main() {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
 
-    await tester.pumpWidget(const RestauranTour());
+    await tester.pumpWidget(widgetBuilder(RestaurantsScreen.create()));
 
     expect(find.text('All Restaurants'), findsOneWidget);
     expect(find.text('My Favorites'), findsOneWidget);

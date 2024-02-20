@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurantour/core/routes.dart';
 import 'package:restaurantour/core/rt_colors.dart';
 import 'package:restaurantour/core/inject.dart';
 import 'package:restaurantour/core/rt_text_style.dart';
@@ -12,6 +13,7 @@ import 'package:restaurantour/services/favorite_service.dart';
 
 class RestaurantsScreen extends StatefulWidget {
   const RestaurantsScreen({super.key});
+  static RTRoute route = GoRouterConfig.home;
 
   static Widget create() => ChangeNotifierProvider(
         create: (context) => RestaurantsViewModel(

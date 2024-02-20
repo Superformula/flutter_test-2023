@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:restaurantour/components/rt_components.dart';
+import 'package:restaurantour/core/routes.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,4 +36,6 @@ Future<void> setupInjection() async {
   inject.registerLazySingleton<FavoriteService>(() => FavoriteService(sharedPreferences: inject<SharedPreferences>()));
 
   inject.registerLazySingleton<RTImageNetwork>(() => RTImageNetwork());
+
+  inject.registerLazySingleton<GoRouterConfig>(() => GoRouterConfig());
 }
