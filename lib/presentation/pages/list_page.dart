@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../application/list_restaurants_provider.dart';
-import 'atomic/atomic.dart';
+import '../../application/list_restaurants_provider.dart';
+import '../atomic/atomic.dart';
 
 class ListViewPage extends StatelessWidget {
   const ListViewPage({super.key});

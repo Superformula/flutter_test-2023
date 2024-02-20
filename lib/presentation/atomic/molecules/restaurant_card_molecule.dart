@@ -68,6 +68,7 @@ class RestaurantCardMolecule extends StatelessWidget {
                   children: [
                     Text(
                       restaurant.isOpen ? 'Open now' : 'Closed',
+                      style: const TextStyle(fontStyle: FontStyle.italic),
                     ),
                     Container(
                       height: 10,

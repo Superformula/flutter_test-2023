@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurantour/application/list_restaurants_provider.dart';
-import 'package:restaurantour/presentation/list_page.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'application/list_restaurants_provider.dart';
+import 'presentation/pages/list_page.dart';
+import 'repositories/yelp_repository.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
