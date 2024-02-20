@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurantour/providers/restaurantProvider.dart';
+import 'package:restaurantour/screens/homeScreen.dart';
 
 void main() {
-  runApp(const Restaurantour());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => RestaurantProvider(),
+      child: const Restaurantour(),
+    ),
+  );
 }
 
 class Restaurantour extends StatelessWidget {
-  // This widget is the root of your application.
   const Restaurantour({Key? key}) : super(key: key);
 
   @override
@@ -14,44 +20,50 @@ class Restaurantour extends StatelessWidget {
     return MaterialApp(
       title: 'RestauranTour',
       theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.white, // Color de fondo de la barra de aplicación
+        appBarTheme: AppBarTheme(
+          color: Colors.white,
+          toolbarTextStyle: ThemeData.light()
+              .textTheme
+              .copyWith(
+                titleLarge: const TextStyle(
+                  color: Colors
+                      .black, // Color del texto del título de la barra de aplicación
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+              .bodyMedium,
+          titleTextStyle: ThemeData.light()
+              .textTheme
+              .copyWith(
+                titleLarge: const TextStyle(
+                  color: Colors
+                      .black, // Color del texto del título de la barra de aplicación
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+              .titleLarge,
+        ),
+        colorScheme: const ColorScheme(
+          // Configuración de colores general
+          primary: Colors.black,
+          secondary: Colors.black,
+          brightness: Brightness.light,
+          onBackground: Colors.white,
+          onPrimary: Colors.black,
+          surface: Colors.white,
+          onSurface: Colors.white,
+          error: Colors.white,
+          onError: Colors.white,
+          onSecondary: Colors.white,
+          background: Colors.white,
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Restaurantour'),
-            ElevatedButton(
-              child: const Text('Fetch Restaurants'),
-              onPressed: () async {
-                final yelpRepo = YelpRepository();
-
-                try {
-                  final result = await yelpRepo.getRestaurants();
-                  if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
-                  } else {
-                    print('No restaurants fetched');
-                  }
-                } catch (e) {
-                  print('Failed to fetch restaurants: $e');
-                }
-              },
-            ),
-          ],
-        ),
-      ),
+      home: const HomeScreen(),
     );
   }
 }
