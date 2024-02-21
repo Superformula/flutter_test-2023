@@ -138,9 +138,8 @@ class DetailsPage extends StatelessWidget {
                   summarySection,
                   addressSection,
                   overallRatingSection,
-                  if (restaurant.reviews != null && restaurant.reviews!.isNotEmpty) ...[
+                  if (restaurant.reviews != null && restaurant.reviews!.isNotEmpty)
                     _buildReviewList(restaurant.reviews!, theme),
-                  ],
                 ],
               ),
             ),
@@ -152,6 +151,8 @@ class DetailsPage extends StatelessWidget {
 }
 
 Column _buildReviewList(List<Review> reviews, ThemeData theme) {
+  //We could use ListView.builder with softwrap = true, but Column is more optimized.
+  //softwrap beacuse this page needs a SingleChildScrollView
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
