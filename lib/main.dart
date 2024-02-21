@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:restaurantour/resources/resources_exports.dart';
+import 'package:restaurantour/resources/routes_manager.dart';
 import 'package:restaurantour/resources/theme_manager.dart';
 
 void main() async {
@@ -10,16 +11,17 @@ void main() async {
 }
 
 class Restaurantour extends StatelessWidget {
-  // This widget is the root of your application.
   const Restaurantour({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: (context, child) => MaterialApp(
-        title: 'RestauranTour',
+        title: AppStrings.appName,
         theme: getApplicationTheme(false, context),
-        home: const HomePage(),
+        onGenerateRoute: RouteGenerator.getRoute,
+        initialRoute: Routes.homeRoute,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

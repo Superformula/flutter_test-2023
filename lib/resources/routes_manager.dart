@@ -1,8 +1,12 @@
+import 'package:restaurantour/screens/restaurant_detail.dart';
+import 'package:restaurantour/screens/restaurants_screen.dart';
+
 import '/resources/strings_manager.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
-  static const String splashRoute = "/";
+  static const String homeRoute = "/";
+  static const String restaurantDetailRoute = "/restaurantDetail";
 }
 
 class RouteGenerator {
@@ -14,15 +18,8 @@ class RouteGenerator {
       settings: routeSettings,
       pageBuilder: (_, __, ___) => screen,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.ease;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
+        return FadeTransition(
+          opacity: animation,
           child: child,
         );
       },
@@ -40,6 +37,11 @@ class RouteGenerator {
 
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
+      case Routes.homeRoute:
+        return slideTransitionTo(const RestaurantsScreen());
+      case Routes.restaurantDetailRoute:
+        return slideTransitionTo(const RestaurantDetail(), routeSettings: routeSettings);
+
       default:
         return unDefinedRoute();
     }
