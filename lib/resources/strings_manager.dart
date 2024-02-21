@@ -7,4 +7,9 @@ class AppStrings {
   static const String myFavorites = "My Favorites";
   static const String isOpen = "Open Now";
   static const String isClosed = "Closed";
+  static const String restaurantDetail = "Restaurant Detail";
+  static const String address = "Address";
+  static const String overallRating = "Overall Rating";
+  static const String review = "Review";
+  static const String reviews = "Reviews";
 }

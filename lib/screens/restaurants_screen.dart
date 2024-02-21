@@ -58,13 +58,16 @@ class _RestaurantsScreenState extends State<RestaurantsScreen> {
                   }
 
                   return SingleChildScrollView(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: _restaurants?.length,
-                      itemBuilder: (context, index) {
-                        return RestaurantTile(index: index, restaurant: _restaurants![index]);
-                      },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: AppPadding.padding8.h),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: _restaurants?.length,
+                        itemBuilder: (context, index) {
+                          return RestaurantTile(restaurant: _restaurants![index]);
+                        },
+                      ),
                     ),
                   );
                 } else {
