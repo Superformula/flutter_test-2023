@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/app/core/error/exceptions.dart';
 import 'package:restaurantour/app/data/data_sources/resturants_local_data_source.dart';
 import 'package:restaurantour/app/data/storage/local_storage.dart';
-import 'package:collection/collection.dart';
 
 import '../../../../.fvm/versions/3.13.9/packages/flutter_tools/lib/src/convert.dart';
 import '../mocks/resturant_query_result_factory.dart';
@@ -17,7 +15,7 @@ void main() {
 
   setUp(() {
     mockLocalStorage = MockLocalStorage();
-    localDataSource = SharedPreferencesRestaurantsLocalDataSource(mockLocalStorage);
+    localDataSource = RestaurantsLocalDataSourceImpl(mockLocalStorage);
   });
 
   final tRestaurant = ModelFactory.makeRestaurant();
@@ -37,8 +35,8 @@ void main() {
 
       //assert
       expect(result, tRestaurant);
-      verify(() => mockLocalStorage
-          .fetchData(SharedPreferencesRestaurantsLocalDataSource.restaurantsCacheKey)).called(1);
+      verify(() => mockLocalStorage.fetchData(RestaurantsLocalDataSourceImpl.restaurantsCacheKey))
+          .called(1);
       verifyNoMoreInteractions(mockLocalStorage);
     });
 
@@ -53,8 +51,8 @@ void main() {
 
       //assert
       expect(() => call(tRestaurant.id!), throwsA(isA<EmptyDataException>()));
-      verify(() => mockLocalStorage
-          .fetchData(SharedPreferencesRestaurantsLocalDataSource.restaurantsCacheKey)).called(1);
+      verify(() => mockLocalStorage.fetchData(RestaurantsLocalDataSourceImpl.restaurantsCacheKey))
+          .called(1);
       verifyNoMoreInteractions(mockLocalStorage);
     });
 
@@ -69,8 +67,8 @@ void main() {
 
       //assert
       expect(() => call(tRestaurant.id!), throwsA(isA<CacheException>()));
-      verify(() => mockLocalStorage
-          .fetchData(SharedPreferencesRestaurantsLocalDataSource.restaurantsCacheKey)).called(1);
+      verify(() => mockLocalStorage.fetchData(RestaurantsLocalDataSourceImpl.restaurantsCacheKey))
+          .called(1);
       verifyNoMoreInteractions(mockLocalStorage);
     });
   });
@@ -84,9 +82,45 @@ void main() {
       await localDataSource.saveRestaurants(tRestaurantsQueryResult);
 
       //assert
-      verify(() => mockLocalStorage.saveData(
-          SharedPreferencesRestaurantsLocalDataSource.restaurantsCacheKey,
+      verify(() => mockLocalStorage.saveData(RestaurantsLocalDataSourceImpl.restaurantsCacheKey,
           json.encode(tRestaurantsQueryResult))).called(1);
+      verifyNoMoreInteractions(mockLocalStorage);
+    });
+  });
+
+  var tRestaurantIdList = ['id1, id2, id3'];
+
+  group('addFavoriteRestaurant: ', () {
+    test(
+        'should add new restaurant id to the list when addFavoriteRestaurant'
+        'is called', () async {
+      //arrange
+      when(() => mockLocalStorage.fetchListData(any())).thenAnswer((_) async => tRestaurantIdList);
+      when(() => mockLocalStorage.saveList(any(), any())).thenAnswer((_) async => Future.value());
+
+      //act
+      await localDataSource.addFavoriteRestaurant(tRestaurant.id!);
+      tRestaurantIdList.add(tRestaurant.id!);
+
+      //assert
+      verify(() => mockLocalStorage
+          .fetchListData(RestaurantsLocalDataSourceImpl.favoriteRestaurantsCacheKey)).called(1);
+      verify(() => mockLocalStorage.saveList(
+          RestaurantsLocalDataSourceImpl.favoriteRestaurantsCacheKey, tRestaurantIdList)).called(1);
+      verifyNoMoreInteractions(mockLocalStorage);
+    });
+
+    test('should throw CacheException when localStorage throws CacheException', () async {
+      //arrange
+      when(() => mockLocalStorage.fetchListData(any())).thenThrow(CacheException(''));
+
+      //act
+      final call = localDataSource.addFavoriteRestaurant;
+
+      //assert
+      expect(() => call(tRestaurant.id!), throwsA(isA<CacheException>()));
+      verify(() => mockLocalStorage
+          .fetchListData(RestaurantsLocalDataSourceImpl.favoriteRestaurantsCacheKey)).called(1);
       verifyNoMoreInteractions(mockLocalStorage);
     });
   });

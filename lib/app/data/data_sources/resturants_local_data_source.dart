@@ -13,17 +13,20 @@ abstract interface class RestaurantsLocalDataSource {
   Future<void> saveRestaurants(RestaurantQueryResult restaurantQueryResult);
 
   Future<Restaurant> getRestaurantDetails(String id);
+
+  Future<void> addFavoriteRestaurant(String id);
 }
 
 /// Calls the SharedPreferences Local Data Source
 ///
 /// Throws a [CacheException] in case of Exception.
 ///
-class SharedPreferencesRestaurantsLocalDataSource implements RestaurantsLocalDataSource {
+class RestaurantsLocalDataSourceImpl implements RestaurantsLocalDataSource {
   final LocalStorage localStorage;
   static const restaurantsCacheKey = 'restaurant_details';
+  static const favoriteRestaurantsCacheKey = 'favorite_restaurants';
 
-  SharedPreferencesRestaurantsLocalDataSource(this.localStorage);
+  RestaurantsLocalDataSourceImpl(this.localStorage);
 
   @override
   Future<Restaurant> getRestaurantDetails(String id) async {
@@ -53,5 +56,17 @@ class SharedPreferencesRestaurantsLocalDataSource implements RestaurantsLocalDat
   @override
   Future<void> saveRestaurants(RestaurantQueryResult restaurantQueryResult) async {
     localStorage.saveData(restaurantsCacheKey, json.encode(restaurantQueryResult.toJson()));
+  }
+
+  @override
+  Future<void> addFavoriteRestaurant(String id) async {
+    try {
+      var result = await localStorage.fetchListData(favoriteRestaurantsCacheKey);
+      result.add(id);
+      localStorage.saveList(favoriteRestaurantsCacheKey, result);
+      return;
+    } on CacheException {
+      throw CacheException(ErrorMessages.cacheException);
+    }
   }
 }
