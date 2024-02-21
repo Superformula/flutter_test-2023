@@ -15,6 +15,8 @@ abstract interface class RestaurantsLocalDataSource {
   Future<Restaurant> getRestaurantDetails(String id);
 
   Future<void> addFavoriteRestaurant(String id);
+
+  Future<List<Restaurant>> getFavoriteRestaurants();
 }
 
 /// Calls the SharedPreferences Local Data Source
@@ -35,7 +37,7 @@ class RestaurantsLocalDataSourceImpl implements RestaurantsLocalDataSource {
       final Map<String, dynamic> jsonData = json.decode(result);
       final queryResult = RestaurantQueryResult.fromJson(jsonData);
 
-      if (queryResult.restaurants == null) {
+      if (queryResult.restaurants == null || queryResult.restaurants!.isEmpty) {
         throw EmptyDataException(ErrorMessages.noRestaurantData);
       }
 
@@ -67,6 +69,32 @@ class RestaurantsLocalDataSourceImpl implements RestaurantsLocalDataSource {
       return;
     } on CacheException {
       throw CacheException(ErrorMessages.cacheException);
+    }
+  }
+
+  @override
+  Future<List<Restaurant>> getFavoriteRestaurants() async {
+    try {
+      final allRestaurants = await localStorage.fetchData(restaurantsCacheKey);
+
+      final Map<String, dynamic> jsonData = json.decode(allRestaurants);
+      final queryResult = RestaurantQueryResult.fromJson(jsonData);
+
+      if (queryResult.restaurants == null || queryResult.restaurants!.isEmpty) {
+        throw EmptyDataException(ErrorMessages.noRestaurantData);
+      }
+
+      final List<String> favoriteRestaurantsIds =
+          await localStorage.fetchListData(favoriteRestaurantsCacheKey);
+
+      final favoriteRestaurants = queryResult.restaurants!
+          .where((restaurant) => favoriteRestaurantsIds.contains(restaurant.id))
+          .toList();
+
+      return favoriteRestaurants;
+    } catch (_) {
+      rethrow;
+      //CacheException, EmptyDataException or generic
     }
   }
 }

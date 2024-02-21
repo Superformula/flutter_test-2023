@@ -42,7 +42,7 @@ void main() {
 
     test(
         'should throw EmptyDataException when'
-        'queryResult.restaurants == null', () async {
+        'queryResult.restaurants == null || queryResult.restaurants!.isEmpty', () async {
       //arrange
       when(() => mockLocalStorage.fetchData(any())).thenAnswer((_) async => tJsonRestaurantsNull);
 
@@ -51,6 +51,22 @@ void main() {
 
       //assert
       expect(() => call(tRestaurant.id!), throwsA(isA<EmptyDataException>()));
+      verify(() => mockLocalStorage.fetchData(RestaurantsLocalDataSourceImpl.restaurantsCacheKey))
+          .called(1);
+      verifyNoMoreInteractions(mockLocalStorage);
+    });
+
+    test(
+        'should throw EmptyDataException when'
+        'any id matches', () async {
+      //arrange
+      when(() => mockLocalStorage.fetchData(any())).thenAnswer((_) async => tJsonRestaurants);
+
+      //act
+      final call = localDataSource.getRestaurantDetails;
+
+      //assert
+      expect(() => call('anyId'), throwsA(isA<EmptyDataException>()));
       verify(() => mockLocalStorage.fetchData(RestaurantsLocalDataSourceImpl.restaurantsCacheKey))
           .called(1);
       verifyNoMoreInteractions(mockLocalStorage);
@@ -88,7 +104,7 @@ void main() {
     });
   });
 
-  var tRestaurantIdList = ['id1, id2, id3'];
+  var tRestaurantIdList = ['id1, id2, vHz2RLtfUMVRPFmd7VBEHA'];
 
   group('addFavoriteRestaurant: ', () {
     test(
@@ -121,6 +137,59 @@ void main() {
       expect(() => call(tRestaurant.id!), throwsA(isA<CacheException>()));
       verify(() => mockLocalStorage
           .fetchListData(RestaurantsLocalDataSourceImpl.favoriteRestaurantsCacheKey)).called(1);
+      verifyNoMoreInteractions(mockLocalStorage);
+    });
+  });
+
+  group('getFavoriteRestaurants: ', () {
+    test(
+        'should return List<Restaurant> from getFavoriteRestaurants when'
+        'has data available', () async {
+      //arrange
+      when(() => mockLocalStorage.fetchListData(any())).thenAnswer((_) async => tRestaurantIdList);
+      when(() => mockLocalStorage.fetchData(any())).thenAnswer((_) async => tJsonRestaurants);
+
+      //act
+      final result = await localDataSource.getFavoriteRestaurants();
+
+      //assert
+      expect(result, [tRestaurant]);
+      verify(() => mockLocalStorage.fetchData(RestaurantsLocalDataSourceImpl.restaurantsCacheKey))
+          .called(1);
+      verify(() => mockLocalStorage
+          .fetchListData(RestaurantsLocalDataSourceImpl.favoriteRestaurantsCacheKey)).called(1);
+      verifyNoMoreInteractions(mockLocalStorage);
+    });
+
+    test(
+        'should throw EmptyDataException when'
+        'queryResult.restaurants == null || queryResult.restaurants!.isEmpty', () async {
+      //arrange
+      when(() => mockLocalStorage.fetchData(any())).thenAnswer((_) async => tJsonRestaurantsNull);
+
+      //act
+      final call = localDataSource.getFavoriteRestaurants;
+
+      //assert
+      expect(() => call(), throwsA(isA<EmptyDataException>()));
+      verify(() => mockLocalStorage.fetchData(RestaurantsLocalDataSourceImpl.restaurantsCacheKey))
+          .called(1);
+      verifyNoMoreInteractions(mockLocalStorage);
+    });
+
+    test(
+        'should throw CacheException when'
+        'localStorage throws CacheException', () async {
+      //arrange
+      when(() => mockLocalStorage.fetchData(any())).thenThrow(CacheException(''));
+
+      //act
+      final call = localDataSource.getFavoriteRestaurants;
+
+      //assert
+      expect(() => call(), throwsA(isA<CacheException>()));
+      verify(() => mockLocalStorage.fetchData(RestaurantsLocalDataSourceImpl.restaurantsCacheKey))
+          .called(1);
       verifyNoMoreInteractions(mockLocalStorage);
     });
   });
