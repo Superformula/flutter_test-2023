@@ -13,7 +13,7 @@ class _DetailViewPageState extends State<DetailViewPage> {
   Future<void> fetchRestaurant() async {
     final restaurantId =
         context.read<ListRestaurantsProvider>().selectedRestaurantId!;
-    final yelpRepo = YelpRepository();
+    final yelpRepo = getIt<YelpRepository>();
     final result = await yelpRepo.getRestaurantDetail(id: restaurantId);
     restaurant = result;
     setState(() {});
@@ -78,6 +78,7 @@ class _DetailViewPageState extends State<DetailViewPage> {
 
   _reviews() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('${restaurant!.reviews!.length} reviews'),
         ...restaurant!.reviews!.map((e) => ReviewCardMolecule(review: e))

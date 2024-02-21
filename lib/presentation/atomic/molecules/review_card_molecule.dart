@@ -13,7 +13,7 @@ class ReviewCardMolecule extends StatelessWidget {
           Radius.circular(10),
         ),
       ),
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -26,11 +26,9 @@ class ReviewCardMolecule extends StatelessWidget {
           ),
           Row(
             children: [
-              CircleAvatar(
+              CircleAvatarAtom(
                 radius: 40,
-                backgroundImage: NetworkImage(
-                  review.user!.imageUrl!,
-                ),
+                url: review.user!.imageUrl!,
               ),
               const SizedBox(
                 width: 10,

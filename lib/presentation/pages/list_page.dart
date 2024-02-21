@@ -39,7 +39,9 @@ class AllRestaurantsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     if (context.watch<ListRestaurantsProvider>().isLoading) {
       return const Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          key: Key('progress-indicator'),
+        ),
       );
     } else if (context.watch<ListRestaurantsProvider>().restaurants != null) {
       return _restaurantsList(context);
