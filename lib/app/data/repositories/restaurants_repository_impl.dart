@@ -64,9 +64,13 @@ class RestaurantsRepositoryImpl implements RestaurantsRepository {
   }
 
   @override
-  Future<(void, FavoriteRestaurantsFailure?)> addFavoriteRestaurant(String id) {
-    // TODO: implement addFavoriteRestaurant
-    throw UnimplementedError();
+  Future<(void, FavoriteRestaurantFailure?)> addFavoriteRestaurant(String id) async {
+    try {
+      localDataSource.addFavoriteRestaurant(id);
+      return (Future<void>.value(), null);
+    } on CacheException {
+      return (Future<void>.value(), const FavoriteRestaurantFailure(ErrorMessages.cacheException));
+    }
   }
 
   @override

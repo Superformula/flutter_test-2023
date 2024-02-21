@@ -77,7 +77,7 @@ void main() {
       when(() => mockRemoteDataSource.getRestaurants())
           .thenAnswer((_) async => tRestaurantQueryResult);
       when(() => mockLocalDataSource.saveRestaurants(any()))
-          .thenAnswer((_) async => Future.value());
+          .thenAnswer((_) async => Future<void>.value());
 
       //act
       final result = await repository.getRestaurants();
@@ -202,9 +202,6 @@ void main() {
 
       //act
       final result = await repository.getFavoriteRestaurants();
-      print(result.$1.toString());
-      print([tRestaurant].toString());
-      print(result.$1 == [tRestaurant]);
 
       //assert
       expect(const ListEquality().equals(result.$1, [tRestaurant]), true);
@@ -269,5 +266,46 @@ void main() {
       verifyZeroInteractions(mockRemoteDataSource);
       verifyZeroInteractions(mockNetworkInfoService);
     });
+  });
+
+  group('addFavoriteRestaurant: ', () {
+    test(
+        'should return (Future<void>.value(), null) '
+        'when LocalDataSource addFavoriteRestaurant successfully', () async {
+      //arrange
+      when(() => mockLocalDataSource.addFavoriteRestaurant(any()))
+          .thenAnswer((_) async => Future<void>.value());
+
+      //act
+      final result = await repository.addFavoriteRestaurant('id');
+
+      //assert
+      expect(result.$2, null);
+
+      verify(() => mockLocalDataSource.addFavoriteRestaurant('id')).called(1);
+      verifyNoMoreInteractions(mockLocalDataSource);
+      verifyZeroInteractions(mockRemoteDataSource);
+      verifyZeroInteractions(mockNetworkInfoService);
+    });
+
+    test(
+        'should return (null, FavoriteRestaurantFailure) '
+        'and localDataSource throws CacheException', () async {
+      //arrange
+      when(() => mockLocalDataSource.addFavoriteRestaurant(any()))
+          .thenThrow(CacheException('message'));
+
+      //act
+      final result = await repository.addFavoriteRestaurant('id');
+
+      //assert
+      expect(result, isA<(Future<void>, FavoriteRestaurantFailure?)>());
+
+      verify(() => mockLocalDataSource.addFavoriteRestaurant('id')).called(1);
+      verifyNoMoreInteractions(mockLocalDataSource);
+      verifyZeroInteractions(mockRemoteDataSource);
+      verifyZeroInteractions(mockNetworkInfoService);
+    });
+
   });
 }
