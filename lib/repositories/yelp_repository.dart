@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:restaurantour/utils/mock_data.dart';
 
 String? _apiKey = dotenv.env['YELP_API_KEY'];
 
@@ -61,13 +63,28 @@ class YelpRepository {
   ///
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
     try {
-      final response = await dio.post<Map<String, dynamic>>(
-        '/v3/graphql',
-        data: _getQuery(offset),
-      );
-      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
+      // final response = await dio.post<Map<String, dynamic>>(
+      //   '/v3/graphql',
+      //   data: _getQuery(offset),
+      // );
+      // final data = response.data!['data']['search'];
+
+      final data = await fakeApiCall();
+      return RestaurantQueryResult.fromJson(data);
     } catch (e) {
       return null;
+    }
+  }
+
+  Future<Map<String, dynamic>> fakeApiCall() async {
+    await Future.delayed(const Duration(seconds: 1));
+
+    try {
+      Map<String, dynamic> parsed = jsonDecode(MockData.yelpResponse);
+      return parsed;
+    } catch (e) {
+      print('Fake api call failed: $e');
+      return {};
     }
   }
 
