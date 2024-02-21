@@ -74,8 +74,11 @@ class RestaurantsRepositoryImpl implements RestaurantsRepository {
   }
 
   @override
-  Future<bool> checkIfItIsFavoriteRestaurant(String id) {
-    // TODO: implement checkIfItIsFavoriteRestaurant
-    throw UnimplementedError();
+  Future<bool> checkIfItIsFavoriteRestaurant(String id) async {
+    try {
+      return await localDataSource.checkIfItIsFavoriteRestaurant(id);
+    } on CacheException {
+      return Future.value(false);
+    }
   }
 }

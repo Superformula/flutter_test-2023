@@ -306,6 +306,63 @@ void main() {
       verifyZeroInteractions(mockRemoteDataSource);
       verifyZeroInteractions(mockNetworkInfoService);
     });
+  });
 
+  group('checkIfItIsFavoriteRestaurant: ', () {
+    test(
+        'should return true '
+        'when LocalDataSource checkIfItIsFavoriteRestaurant returns true', () async {
+      //arrange
+      when(() => mockLocalDataSource.checkIfItIsFavoriteRestaurant(any()))
+          .thenAnswer((_) async => true);
+
+      //act
+      final result = await repository.checkIfItIsFavoriteRestaurant('id');
+
+      //assert
+      expect(result, true);
+
+      verify(() => mockLocalDataSource.checkIfItIsFavoriteRestaurant('id')).called(1);
+      verifyNoMoreInteractions(mockLocalDataSource);
+      verifyZeroInteractions(mockRemoteDataSource);
+      verifyZeroInteractions(mockNetworkInfoService);
+    });
+    test(
+        'should return true '
+        'when LocalDataSource checkIfItIsFavoriteRestaurant returns false', () async {
+      //arrange
+      when(() => mockLocalDataSource.checkIfItIsFavoriteRestaurant(any()))
+          .thenAnswer((_) async => false);
+
+      //act
+      final result = await repository.checkIfItIsFavoriteRestaurant('id');
+
+      //assert
+      expect(result, false);
+
+      verify(() => mockLocalDataSource.checkIfItIsFavoriteRestaurant('id')).called(1);
+      verifyNoMoreInteractions(mockLocalDataSource);
+      verifyZeroInteractions(mockRemoteDataSource);
+      verifyZeroInteractions(mockNetworkInfoService);
+    });
+
+    test(
+        'should return false '
+        'when LocalDataSource checkIfItIsFavoriteRestaurant throws CacheException', () async {
+      //arrange
+      when(() => mockLocalDataSource.checkIfItIsFavoriteRestaurant(any()))
+          .thenThrow(CacheException('message'));
+
+      //act
+      final result = await repository.checkIfItIsFavoriteRestaurant('id');
+
+      //assert
+      expect(result, false);
+
+      verify(() => mockLocalDataSource.checkIfItIsFavoriteRestaurant('id')).called(1);
+      verifyNoMoreInteractions(mockLocalDataSource);
+      verifyZeroInteractions(mockRemoteDataSource);
+      verifyZeroInteractions(mockNetworkInfoService);
+    });
   });
 }
