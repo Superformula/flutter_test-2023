@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/app/ui/pages/details_page.dart';
+import 'package:restaurantour/injection_container.dart';
 
 import '../../interactor/models/restaurant.dart';
+import '../../interactor/repositories/restaurants_repository.dart';
 import '../widgets/restaurant_card.dart';
 
 class RestaurantsPage extends StatefulWidget {
@@ -22,6 +24,10 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
       setState(() {
         currentPage = controller.page!;
       });
+    });
+
+    getIt<RestaurantsRepository>().getRestaurants().then((value) {
+      debugPrint('Fetched ${value.$1?.length} restaurants');
     });
   }
 
@@ -67,7 +73,7 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
         name: 'Gabriel Ribeiro',
       ),
     );
-    final restaurant = Restaurant(
+    const restaurant = Restaurant(
       name: 'Gordon Ramsay Hell\'s Kitchen',
       categories: [Category(title: 'New American')],
       price: '\$\$\$',
