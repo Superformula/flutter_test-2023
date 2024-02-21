@@ -23,3 +23,7 @@ class RestaurantDetailsFailure extends Failure {
 class FavoriteRestaurantsFailure extends Failure {
   const FavoriteRestaurantsFailure(super.message);
 }
+
+class FavoriteRestaurantFailure extends Failure {
+  const FavoriteRestaurantFailure(super.message);
+}
