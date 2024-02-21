@@ -113,7 +113,7 @@ void main() {
         when(() => mockSharedPreferences.getStringList(any())).thenReturn(null);
 
         //act
-        final call = dataSource.fetchData;
+        final call = dataSource.fetchListData;
 
         //assert
         expect(() => call('anyKey'), throwsA(const TypeMatcher<CacheException>()));
