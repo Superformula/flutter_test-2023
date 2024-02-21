@@ -3,9 +3,11 @@ import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/app/core/error/error_messages.dart';
 import 'package:restaurantour/app/core/error/exceptions.dart';
 import 'package:restaurantour/app/core/error/failures.dart';
+import 'package:restaurantour/app/data/data_sources/resturants_local_data_source.dart';
 import 'package:restaurantour/app/data/data_sources/resturants_remote_data_source.dart';
 import 'package:restaurantour/app/data/repositories/restaurants_repository_impl.dart';
 import 'package:restaurantour/app/data/services/network_info_service.dart';
+import 'package:restaurantour/app/interactor/models/restaurant.dart';
 import 'package:restaurantour/app/interactor/repositories/restaurants_repository.dart';
 
 import '../mocks/resturant_query_result_factory.dart';
@@ -14,15 +16,26 @@ class MockRestaurantsRemoteDataSource extends Mock implements RestaurantsRemoteD
 
 class MockNetworkInfoService extends Mock implements NetworkInfoService {}
 
+class MockRestaurantsLocalDataSource extends Mock implements RestaurantsLocalDataSource {}
+
+class FakeRestaurantQueryResult extends Fake implements RestaurantQueryResult {}
+
 void main() {
   late MockNetworkInfoService mockNetworkInfoService;
   late MockRestaurantsRemoteDataSource mockRemoteDataSource;
+  late MockRestaurantsLocalDataSource mockLocalDataSource;
   late RestaurantsRepository repository;
 
   setUp(() async {
     mockNetworkInfoService = MockNetworkInfoService();
     mockRemoteDataSource = MockRestaurantsRemoteDataSource();
-    repository = RestaurantsRepositoryImpl(mockRemoteDataSource, mockNetworkInfoService);
+    mockLocalDataSource = MockRestaurantsLocalDataSource();
+    repository = RestaurantsRepositoryImpl(
+      mockRemoteDataSource,
+      mockLocalDataSource,
+      mockNetworkInfoService,
+    );
+    registerFallbackValue(FakeRestaurantQueryResult());
   });
 
   whenNetworkInfoConnected() {
@@ -35,7 +48,7 @@ void main() {
 
   final tRestaurantQueryResult = ModelFactory.makeRestaurantQueryResult();
 
-  group('getRestaurants', () {
+  group('getRestaurants: ', () {
     test(
         'should return (null, RestaurantListFailure) '
         'when networkInfoService.isConnected() is false', () async {
@@ -61,6 +74,8 @@ void main() {
       whenNetworkInfoConnected();
       when(() => mockRemoteDataSource.getRestaurants())
           .thenAnswer((_) async => tRestaurantQueryResult);
+      when(() => mockLocalDataSource.saveRestaurants(any()))
+          .thenAnswer((_) async => Future.value());
 
       //act
       final result = await repository.getRestaurants();
@@ -70,8 +85,10 @@ void main() {
 
       verify(() => mockNetworkInfoService.isConnected()).called(1);
       verify(() => mockRemoteDataSource.getRestaurants()).called(1);
+      verify(() => mockLocalDataSource.saveRestaurants(tRestaurantQueryResult)).called(1);
       verifyNoMoreInteractions(mockNetworkInfoService);
       verifyNoMoreInteractions(mockRemoteDataSource);
+      verifyNoMoreInteractions(mockLocalDataSource);
     });
 
     test(

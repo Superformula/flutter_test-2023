@@ -5,13 +5,15 @@ import 'package:restaurantour/app/data/services/network_info_service.dart';
 import 'package:restaurantour/app/interactor/models/restaurant.dart';
 import 'package:restaurantour/app/interactor/repositories/restaurants_repository.dart';
 
+import '../data_sources/resturants_local_data_source.dart';
 import '../data_sources/resturants_remote_data_source.dart';
 
 class RestaurantsRepositoryImpl implements RestaurantsRepository {
   final RestaurantsRemoteDataSource remoteDataSource;
+  final RestaurantsLocalDataSource localDataSource;
   final NetworkInfoService networkInfo;
 
-  const RestaurantsRepositoryImpl(this.remoteDataSource, this.networkInfo);
+  const RestaurantsRepositoryImpl(this.remoteDataSource, this.localDataSource, this.networkInfo);
 
   @override
   Future<(List<Restaurant>?, RestaurantListFailure?)> getRestaurants({int offset = 0}) async {
@@ -22,6 +24,7 @@ class RestaurantsRepositoryImpl implements RestaurantsRepository {
     }
     try {
       final result = await remoteDataSource.getRestaurants(offset: offset);
+      localDataSource.saveRestaurants(result);
 
       return (result.restaurants, null);
     } on ServerException {
