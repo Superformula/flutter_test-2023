@@ -16,6 +16,12 @@ dependencies:
   json_annotation: ^4.8.1
   flutter_svg: ^2.0.9
 
+  #responsive text
+  flutter_screenutil: ^5.5.3+2
+
+  #env variables
+  flutter_dotenv: ^5.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -25,5 +31,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-#  assets:
-#    - assets/svg/
+  assets:
+    - .env

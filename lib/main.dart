@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:restaurantour/resources/theme_manager.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(const Restaurantour());
 }
 
@@ -11,12 +15,12 @@ class Restaurantour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RestauranTour',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return ScreenUtilInit(
+      builder: (context, child) => MaterialApp(
+        title: 'RestauranTour',
+        theme: getApplicationTheme(false, context),
+        home: const HomePage(),
       ),
-      home: const HomePage(),
     );
   }
 }

@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:restaurantour/models/restaurant.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
+String? _apiKey = dotenv.env['YELP_API_KEY'];
 
 class YelpRepository {
   late Dio dio;
