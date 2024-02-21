@@ -22,6 +22,9 @@ dependencies:
   #env variables
   flutter_dotenv: ^5.1.0
 
+  #state management
+  provider: ^6.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurantour/app_state.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 import 'package:restaurantour/resources/resources_exports.dart';
@@ -43,42 +45,66 @@ class _RestaurantsScreenState extends State<RestaurantsScreen> {
         body: TabBarView(
           children: [
             // First tab content
-            FutureBuilder<List<Restaurant>>(
-              future: _getRestaurants(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else if (snapshot.hasData) {
-                  _restaurants = snapshot.data;
-
-                  if (_restaurants?.isEmpty ?? true) {
-                    return const Center(child: Text(AppStrings.emptyList));
-                  }
-
-                  return SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: AppPadding.padding8.h),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: _restaurants?.length,
-                        itemBuilder: (context, index) {
-                          return RestaurantTile(restaurant: _restaurants![index]);
-                        },
-                      ),
-                    ),
-                  );
-                } else {
-                  return const Center(child: Text(AppStrings.noData));
-                }
-              },
-            ),
+            _allRestaurantsTab(),
             // Second tab content
-            Container(),
+            _favoritesTab(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _allRestaurantsTab() {
+    return FutureBuilder<List<Restaurant>>(
+      future: _getRestaurants(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (snapshot.hasData) {
+          _restaurants = snapshot.data;
+
+          if (_restaurants?.isEmpty ?? true) {
+            return const Center(child: Text(AppStrings.emptyList));
+          }
+
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: AppPadding.padding8.h),
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: _restaurants?.length,
+                itemBuilder: (context, index) {
+                  return RestaurantTile(restaurant: _restaurants![index]);
+                },
+              ),
+            ),
+          );
+        } else {
+          return const Center(child: Text(AppStrings.noData));
+        }
+      },
+    );
+  }
+
+  Widget _favoritesTab() {
+    final favorites = context.watch<AppState>().favorites;
+
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: AppPadding.padding8.h),
+        child: favorites.isEmpty
+            ? const Center(child: Text(AppStrings.emptyList))
+            : ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: favorites.length,
+                itemBuilder: (context, index) {
+                  return RestaurantTile(restaurant: favorites[index]);
+                },
+              ),
       ),
     );
   }

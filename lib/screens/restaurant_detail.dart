@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/app_state.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/resources/resources_exports.dart';
 import 'package:restaurantour/widgets/price_tag.dart';
@@ -40,14 +41,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
           },
         ),
         title: Text(restaurant?.name ?? AppStrings.restaurantDetail),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.favorite),
-            onPressed: () {
-              // Add your favorite logic here
-            },
-          ),
-        ],
+        actions: [_favoriteButton()],
       ),
       body: (restaurant == null)
           ? const Center(child: CircularProgressIndicator())
@@ -97,6 +91,23 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                 ),
               ],
             ),
+    );
+  }
+
+  Widget _favoriteButton() {
+    final isFavorite = AppState().isFavorite(restaurant);
+
+    return IconButton(
+      icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+      onPressed: () {
+        if (restaurant == null) return;
+        if (isFavorite) {
+          AppState().removeFavorite(restaurant!);
+        } else {
+          AppState().addFavorite(restaurant!);
+        }
+        setState(() {});
+      },
     );
   }
 
