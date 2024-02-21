@@ -26,11 +26,9 @@ class ReviewCardMolecule extends StatelessWidget {
           ),
           Row(
             children: [
-              CircleAvatar(
+              CircleAvatarAtom(
                 radius: 40,
-                backgroundImage: NetworkImage(
-                  review.user!.imageUrl!,
-                ),
+                url: review.user!.imageUrl!,
               ),
               const SizedBox(
                 width: 10,

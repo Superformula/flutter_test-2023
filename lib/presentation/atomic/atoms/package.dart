@@ -5,3 +5,4 @@ part 'image_rounded_atom.dart';
 part 'star_atom.dart';
 part 'shimmer_atom.dart';
 part 'animated_container_atom.dart';
+part 'circle_avatar_atom.dart';

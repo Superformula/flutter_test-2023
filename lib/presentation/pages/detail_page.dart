@@ -13,7 +13,7 @@ class _DetailViewPageState extends State<DetailViewPage> {
   Future<void> fetchRestaurant() async {
     final restaurantId =
         context.read<ListRestaurantsProvider>().selectedRestaurantId!;
-    final yelpRepo = YelpRepository();
+    final yelpRepo = getIt<YelpRepository>();
     final result = await yelpRepo.getRestaurantDetail(id: restaurantId);
     restaurant = result;
     setState(() {});
