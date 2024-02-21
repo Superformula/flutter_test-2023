@@ -193,4 +193,52 @@ void main() {
       verifyNoMoreInteractions(mockLocalStorage);
     });
   });
+
+  group('checkIfItIsFavoriteRestaurant: ', () {
+    test('should return true if localStorage.fetchListData returned contains id', () async {
+      //arrange
+      when(() => mockLocalStorage.fetchListData(any())).thenAnswer((_) async => tRestaurantIdList);
+
+      //act
+      final result = await localDataSource.checkIfItIsFavoriteRestaurant(tRestaurantIdList.first);
+
+      //assert
+      expect(result, true);
+      verify(() => mockLocalStorage
+          .fetchListData(RestaurantsLocalDataSourceImpl.favoriteRestaurantsCacheKey)).called(1);
+      verifyNoMoreInteractions(mockLocalStorage);
+    });
+
+    test(
+        'should return false if localStorage.fetchListData returned does not '
+        'contains id', () async {
+      //arrange
+      when(() => mockLocalStorage.fetchListData(any())).thenAnswer((_) async => tRestaurantIdList);
+
+      //act
+      final result = await localDataSource.checkIfItIsFavoriteRestaurant('idThatDoesNotExist');
+
+      //assert
+      expect(result, false);
+      verify(() => mockLocalStorage
+          .fetchListData(RestaurantsLocalDataSourceImpl.favoriteRestaurantsCacheKey)).called(1);
+      verifyNoMoreInteractions(mockLocalStorage);
+    });
+
+    test(
+        'should throw CacheException when'
+        'localStorage throws CacheException', () async {
+      //arrange
+      when(() => mockLocalStorage.fetchListData(any())).thenThrow(CacheException(''));
+
+      //act
+      final call = localDataSource.checkIfItIsFavoriteRestaurant;
+
+      //assert
+      expect(() => call('id'), throwsA(isA<CacheException>()));
+      verify(() => mockLocalStorage.fetchListData(RestaurantsLocalDataSourceImpl.favoriteRestaurantsCacheKey))
+          .called(1);
+      verifyNoMoreInteractions(mockLocalStorage);
+    });
+  });
 }

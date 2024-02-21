@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:collection/collection.dart';
 import 'package:restaurantour/app/core/error/error_messages.dart';
 import 'package:restaurantour/app/core/error/exceptions.dart';
 import 'package:restaurantour/app/data/storage/local_storage.dart';
@@ -17,6 +16,8 @@ abstract interface class RestaurantsLocalDataSource {
   Future<void> addFavoriteRestaurant(String id);
 
   Future<List<Restaurant>> getFavoriteRestaurants();
+
+  Future<bool> checkIfItIsFavoriteRestaurant(String id);
 }
 
 /// Calls the SharedPreferences Local Data Source
@@ -95,6 +96,17 @@ class RestaurantsLocalDataSourceImpl implements RestaurantsLocalDataSource {
     } catch (_) {
       rethrow;
       //CacheException, EmptyDataException or generic
+    }
+  }
+
+  @override
+  Future<bool> checkIfItIsFavoriteRestaurant(String id) async {
+    try {
+      final result = await localStorage.fetchListData(favoriteRestaurantsCacheKey);
+
+      return result.contains(id);
+    } on CacheException {
+      throw CacheException(ErrorMessages.cacheException);
     }
   }
 }
