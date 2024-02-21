@@ -35,7 +35,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: ColorManager.black),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -44,7 +44,10 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
         actions: [_favoriteButton()],
       ),
       body: (restaurant == null)
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: CircularProgressIndicator(
+              color: ColorManager.black,
+            ))
           : ListView(
               children: [
                 Hero(
@@ -98,7 +101,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
     final isFavorite = AppState().isFavorite(restaurant);
 
     return IconButton(
-      icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+      icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border, color: ColorManager.black),
       onPressed: () {
         if (restaurant == null) return;
         if (isFavorite) {

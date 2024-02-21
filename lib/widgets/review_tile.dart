@@ -30,7 +30,11 @@ class ReviewTile extends StatelessWidget {
               )
             else
               CircleAvatar(
-                child: Text(review.user?.name?.substring(0, 1) ?? '', style: TextStyle(fontSize: FontSize.s24.sp)),
+                backgroundColor: ColorManager.blue,
+                child: Text(
+                  review.user?.name?.substring(0, 1) ?? '',
+                  style: TextStyle(fontSize: FontSize.s24.sp, color: ColorManager.white),
+                ),
               ),
             SizedBox(width: AppPadding.padding8.h),
             Text(review.user?.name ?? AppStrings.noData),

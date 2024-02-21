@@ -20,7 +20,7 @@ class StarRating extends StatelessWidget {
         starCount,
         (index) => Icon(
           Icons.star,
-          color: ColorManager.yellow2,
+          color: ColorManager.yellow,
           size: size,
         ),
       ),

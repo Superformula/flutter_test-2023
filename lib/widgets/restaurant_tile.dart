@@ -30,40 +30,50 @@ class RestaurantTile extends StatelessWidget {
         horizontal: AppSize.size16,
         vertical: AppSize.size4,
       ),
-      child: GestureDetector(
-        onTap: () => _goToPage(context),
-        child: ListTile(
-          contentPadding: const EdgeInsets.all(AppSize.size8),
-          leading: Hero(
-            tag: 'Restaurant_${restaurant.id}',
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(AppSize.size8),
-              child: Image.network(
-                restaurant.heroImage,
-                width: AppSize.size80,
-                height: AppSize.size80,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          title: Text(
-            restaurant.name ?? AppStrings.noData,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: getSemiBoldTextStyle(color: ColorManager.black80, fontSize: FontSize.s16.sp),
-          ),
-          subtitle: Column(
-            mainAxisSize: MainAxisSize.min,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GestureDetector(
+          onTap: () => _goToPage(context),
+          child: Row(
             children: [
-              SizedBox(height: AppPadding.padding8.h),
-              PriceTag(price: restaurant.price, category: restaurant.categories.firstOrNull?.title),
-              SizedBox(height: AppSize.size4.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  StarRating(rating: restaurant.rating),
-                  StatusTag(isOpen: restaurant.isOpen),
-                ],
+              Expanded(
+                child: Hero(
+                  tag: 'Restaurant_${restaurant.id}',
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(AppSize.size8),
+                    child: Image.network(
+                      restaurant.heroImage,
+                      width: AppSize.size80.sp,
+                      height: AppSize.size80.sp,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: AppPadding.padding16.w),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      restaurant.name ?? AppStrings.noData,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: getSemiBoldTextStyle(color: ColorManager.black80, fontSize: FontSize.s16.sp),
+                    ),
+                    SizedBox(height: AppPadding.padding8.h),
+                    PriceTag(price: restaurant.price, category: restaurant.categories.firstOrNull?.title),
+                    SizedBox(height: AppSize.size4.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        StarRating(rating: restaurant.rating),
+                        StatusTag(isOpen: restaurant.isOpen),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
