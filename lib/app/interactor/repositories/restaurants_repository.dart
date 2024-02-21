@@ -8,5 +8,7 @@ abstract interface class RestaurantsRepository {
 
   Future<(List<Restaurant>?, FavoriteRestaurantsFailure?)> getFavoriteRestaurants();
 
-  Future<(void, FavoriteRestaurantsFailure?)> addFavoriteRestaurant(Restaurant restaurant);
+  Future<(void, FavoriteRestaurantFailure?)> addFavoriteRestaurant(String id);
+
+  Future<bool> checkIfItIsFavoriteRestaurant(String id);
 }
