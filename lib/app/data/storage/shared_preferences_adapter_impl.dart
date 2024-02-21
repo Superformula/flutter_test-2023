@@ -23,4 +23,22 @@ class SharedPreferencesAdapterImpl implements LocalStorage {
       throw CacheException('Exception fetching data.');
     }
   }
+
+  @override
+  Future<List<String>> fetchListData(String keyValue) async {
+    final prefs = await SharedPreferences.getInstance();
+    final stringData = prefs.getStringList(keyValue);
+
+    if (stringData != null) {
+      return Future.value(stringData);
+    } else {
+      throw CacheException('Exception fetching data.');
+    }
+  }
+
+  @override
+  Future<void> saveList(String keyValue, List<String> listToCache) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(keyValue, listToCache);
+  }
 }
