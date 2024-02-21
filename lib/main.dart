@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:restaurantour/animated_splash_screen.dart';
 import 'package:restaurantour/app/core/theme/custom_text_theme.dart';
-import 'package:restaurantour/app/data/repositories/yelp_repository.dart';
 import 'package:restaurantour/app/ui/pages/restaurants_page.dart';
 import 'package:restaurantour/config.dart';
 
 import 'app/core/theme/custom_app_bar_theme.dart';
 import 'app/core/theme/custom_icon_theme.dart';
+import 'injection_container.dart' as ic;
 
 String jsonString = '';
 
@@ -22,6 +22,9 @@ Future<void> main() async {
   }
 
   await dotenv.load(fileName: ".env");
+
+  //Injection Container setup
+  ic.setup();
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -52,41 +55,6 @@ class Restaurantour extends StatelessWidget {
         appBarTheme: CustomAppBarTheme.appBarTheme,
       ),
       home: const RestaurantsPage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(Config.appName),
-            ElevatedButton(
-              child: const Text('Fetch Restaurants'),
-              onPressed: () async {
-                final yelpRepo = YelpRepository();
-
-                try {
-                  final result = await yelpRepo.getRestaurants();
-                  if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
-                  } else {
-                    print('No restaurants fetched');
-                  }
-                } catch (e) {
-                  print('Failed to fetch restaurants: $e');
-                }
-              },
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
