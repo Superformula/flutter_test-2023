@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:restaurantour/app/core/error/error_messages.dart';
 import 'package:restaurantour/app/core/error/exceptions.dart';
 import 'package:restaurantour/app/data/storage/local_storage.dart';
 import 'package:restaurantour/app/interactor/models/restaurant.dart';
@@ -32,13 +33,13 @@ class SharedPreferencesRestaurantsLocalDataSource implements RestaurantsLocalDat
       final queryResult = RestaurantQueryResult.fromJson(jsonData);
 
       if (queryResult.restaurants == null) {
-        throw EmptyDataException('No restaurant data saved.');
+        throw EmptyDataException(ErrorMessages.noRestaurantData);
       }
 
       Restaurant? restaurant = queryResult.restaurants!.firstWhere(
         (element) => element.id == id,
         orElse: () {
-          throw EmptyDataException('No restaurant data saved for this restaurant id ($id).');
+          throw EmptyDataException(ErrorMessages.noDataForRestaurantId(id));
         },
       );
 
