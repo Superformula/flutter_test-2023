@@ -159,4 +159,7 @@ class MockData {
   ]
 }
 ''';
+
+  static String loremReview =
+      "Eiusmod ea ullamco enim est ex dolor non et exercitation incididunt ex magna deserunt amet. Nisi amet dolore occaecat cillum anim eu in in mollit occaecat sunt. Culpa id aliquip do dolore. Ipsum fugiat est enim dolor dolore in consequat commodo.";
 }

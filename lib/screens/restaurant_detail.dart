@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/resources/resources_exports.dart';
 import 'package:restaurantour/widgets/price_tag.dart';
+import 'package:restaurantour/widgets/review_tile.dart';
 import 'package:restaurantour/widgets/star_rating.dart';
 import 'package:restaurantour/widgets/status_tag.dart';
 import 'package:restaurantour/utils/extension_utils.dart';
@@ -50,8 +51,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
       ),
       body: (restaurant == null)
           ? const Center(child: CircularProgressIndicator())
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+          : ListView(
               children: [
                 Hero(
                   tag: 'Restaurant_${restaurant?.id}',
@@ -62,40 +62,39 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                     height: MediaQuery.of(context).size.height * 0.4,
                   ),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: AppPadding.padding24.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        SizedBox(height: AppPadding.padding24.h),
-                        _statusContent(),
-                        _setDivider(),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppPadding.padding24.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(height: AppPadding.padding24.h),
+                      _statusContent(),
+                      _setDivider(),
 
-                        // Address content
-                        _setSubtitle(AppStrings.address),
-                        _customLabel(restaurant?.location?.formattedAddress ?? AppStrings.noData, FontSize.s12.sp),
-                        _setDivider(),
+                      // Address content
+                      _setSubtitle(AppStrings.address),
+                      _customLabel(restaurant?.location?.formattedAddress ?? AppStrings.noData, FontSize.s12.sp),
+                      _setDivider(),
 
-                        // rating content
-                        _setSubtitle(AppStrings.overallRating),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            _customLabel(restaurant?.rating.toString() ?? '0', FontSize.s24.sp),
-                            const StarRating(rating: 1),
-                          ],
-                        ),
-                        _setDivider(),
+                      // rating content
+                      _setSubtitle(AppStrings.overallRating),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          _customLabel(restaurant?.rating.toString() ?? '0', FontSize.s24.sp),
+                          const StarRating(rating: 1),
+                        ],
+                      ),
+                      _setDivider(),
 
-                        // reviews content
-                        _setSubtitle(
-                          '${restaurant?.reviews?.length ?? 0} ${(restaurant?.reviews?.length == 1) ? AppStrings.review : AppStrings.reviews}',
-                        ),
-                      ],
-                    ),
+                      // reviews content
+                      _setSubtitle(
+                        '${restaurant?.reviews?.length ?? 0} ${(restaurant?.reviews?.length == 1) ? AppStrings.review : AppStrings.reviews}',
+                      ),
+                      ...getReviewList(restaurant?.reviews),
+                    ],
                   ),
-                )
+                ),
               ],
             ),
     );
@@ -145,5 +144,17 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
         ),
       ],
     );
+  }
+
+  List<Widget> getReviewList(List<Review>? reviews) {
+    if (reviews == null) return [];
+
+    List<Widget> list = [];
+    for (int i = 0; i < reviews.length; i++) {
+      if (i != 0) list.add(_setDivider());
+
+      list.add(ReviewTile(review: reviews[i]));
+    }
+    return list;
   }
 }
