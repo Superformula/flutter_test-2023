@@ -9,6 +9,7 @@ import 'package:restaurantour/app/data/repositories/restaurants_repository_impl.
 import 'package:restaurantour/app/data/services/network_info_service.dart';
 import 'package:restaurantour/app/interactor/models/restaurant.dart';
 import 'package:restaurantour/app/interactor/repositories/restaurants_repository.dart';
+import 'package:collection/collection.dart';
 
 import '../mocks/resturant_query_result_factory.dart';
 
@@ -185,6 +186,85 @@ void main() {
       expect(result, (null, const RestaurantDetailsFailure(ErrorMessages.unknownException)));
 
       verify(() => mockLocalDataSource.getRestaurantDetails('id')).called(1);
+      verifyNoMoreInteractions(mockLocalDataSource);
+      verifyZeroInteractions(mockRemoteDataSource);
+      verifyZeroInteractions(mockNetworkInfoService);
+    });
+  });
+
+  group('getFavoriteRestaurants: ', () {
+    test(
+        'should return (List<Restaurant>?, null) '
+        'when LocalDataSource returns List<Restaurant>', () async {
+      //arrange
+      when(() => mockLocalDataSource.getFavoriteRestaurants())
+          .thenAnswer((_) async => [tRestaurant]);
+
+      //act
+      final result = await repository.getFavoriteRestaurants();
+      print(result.$1.toString());
+      print([tRestaurant].toString());
+      print(result.$1 == [tRestaurant]);
+
+      //assert
+      expect(const ListEquality().equals(result.$1, [tRestaurant]), true);
+
+      verify(() => mockLocalDataSource.getFavoriteRestaurants()).called(1);
+      verifyNoMoreInteractions(mockLocalDataSource);
+      verifyZeroInteractions(mockRemoteDataSource);
+      verifyZeroInteractions(mockNetworkInfoService);
+    });
+
+    test(
+        'should return (null, FavoriteRestaurantsFailure) '
+        'and localDataSource throws EmptyDataException', () async {
+      //arrange
+      when(() => mockLocalDataSource.getFavoriteRestaurants())
+          .thenThrow(EmptyDataException('message'));
+
+      //act
+      final result = await repository.getFavoriteRestaurants();
+
+      //assert
+      expect(result, (null, const FavoriteRestaurantsFailure('message')));
+
+      verify(() => mockLocalDataSource.getFavoriteRestaurants()).called(1);
+      verifyNoMoreInteractions(mockLocalDataSource);
+      verifyZeroInteractions(mockRemoteDataSource);
+      verifyZeroInteractions(mockNetworkInfoService);
+    });
+
+    test(
+        'should return (null, FavoriteRestaurantsFailure) '
+        'and localDataSource throws CacheException', () async {
+      //arrange
+      when(() => mockLocalDataSource.getFavoriteRestaurants()).thenThrow(CacheException('message'));
+
+      //act
+      final result = await repository.getFavoriteRestaurants();
+
+      //assert
+      expect(result, (null, const FavoriteRestaurantsFailure(ErrorMessages.cacheException)));
+
+      verify(() => mockLocalDataSource.getFavoriteRestaurants()).called(1);
+      verifyNoMoreInteractions(mockLocalDataSource);
+      verifyZeroInteractions(mockRemoteDataSource);
+      verifyZeroInteractions(mockNetworkInfoService);
+    });
+
+    test(
+        'should return (null, FavoriteRestaurantsFailure) '
+        'and localDataSource throws unknown Exception', () async {
+      //arrange
+      when(() => mockLocalDataSource.getFavoriteRestaurants()).thenThrow(Exception('message'));
+
+      //act
+      final result = await repository.getFavoriteRestaurants();
+
+      //assert
+      expect(result, (null, const FavoriteRestaurantsFailure(ErrorMessages.unknownException)));
+
+      verify(() => mockLocalDataSource.getFavoriteRestaurants()).called(1);
       verifyNoMoreInteractions(mockLocalDataSource);
       verifyZeroInteractions(mockRemoteDataSource);
       verifyZeroInteractions(mockNetworkInfoService);

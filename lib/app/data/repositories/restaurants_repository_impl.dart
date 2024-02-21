@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:restaurantour/app/core/error/error_messages.dart';
 import 'package:restaurantour/app/core/error/exceptions.dart';
 import 'package:restaurantour/app/core/error/failures.dart';
@@ -41,20 +42,36 @@ class RestaurantsRepositoryImpl implements RestaurantsRepository {
       return (null, RestaurantDetailsFailure(e.message));
     } on CacheException {
       return (null, const RestaurantDetailsFailure(ErrorMessages.cacheException));
-    } catch (e) {
+    } catch (e, s) {
+      debugPrint('getRestaurantDetails unknown Exception: $e, $s');
       return (null, const RestaurantDetailsFailure(ErrorMessages.unknownException));
     }
   }
 
   @override
-  Future<(List<Restaurant>?, FavoriteRestaurantsFailure?)> getFavoriteRestaurants() {
-    // TODO: implement getFavoriteRestaurants
+  Future<(List<Restaurant>?, FavoriteRestaurantsFailure?)> getFavoriteRestaurants() async {
+    try {
+      final result = await localDataSource.getFavoriteRestaurants();
+      return (result, null);
+    } on EmptyDataException catch (e) {
+      return (null, FavoriteRestaurantsFailure(e.message));
+    } on CacheException {
+      return (null, const FavoriteRestaurantsFailure(ErrorMessages.cacheException));
+    } catch (e, s) {
+      debugPrint('getFavoriteRestaurants unknown Exception: $e, $s');
+      return (null, const FavoriteRestaurantsFailure(ErrorMessages.unknownException));
+    }
+  }
+
+  @override
+  Future<(void, FavoriteRestaurantsFailure?)> addFavoriteRestaurant(String id) {
+    // TODO: implement addFavoriteRestaurant
     throw UnimplementedError();
   }
 
   @override
-  Future<(void, FavoriteRestaurantsFailure?)> addFavoriteRestaurant(Restaurant restaurant) {
-    // TODO: implement addFavoriteRestaurant
+  Future<bool> checkIfItIsFavoriteRestaurant(String id) {
+    // TODO: implement checkIfItIsFavoriteRestaurant
     throw UnimplementedError();
   }
 }
