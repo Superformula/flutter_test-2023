@@ -33,9 +33,17 @@ class RestaurantsRepositoryImpl implements RestaurantsRepository {
   }
 
   @override
-  Future<(Restaurant?, RestaurantDetailsFailure?)> getRestaurantDetails(String id) {
-    // TODO: implement getRestaurantDetails
-    throw UnimplementedError();
+  Future<(Restaurant?, RestaurantDetailsFailure?)> getRestaurantDetails(String id) async {
+    try {
+      final result = await localDataSource.getRestaurantDetails(id);
+      return (result, null);
+    } on EmptyDataException catch (e) {
+      return (null, RestaurantDetailsFailure(e.message));
+    } on CacheException {
+      return (null, const RestaurantDetailsFailure(ErrorMessages.cacheException));
+    } catch (e) {
+      return (null, const RestaurantDetailsFailure(ErrorMessages.unknownException));
+    }
   }
 
   @override
