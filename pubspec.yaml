@@ -33,6 +33,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  hydrated_bloc: ^9.0.0
+  path_provider: ^2.1.2
 
 dev_dependencies:
   flutter_test:

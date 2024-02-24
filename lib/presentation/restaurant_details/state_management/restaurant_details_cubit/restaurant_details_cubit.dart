@@ -11,6 +11,6 @@ class RestaurantDetailsCubit extends Cubit<RestaurantDetailsState> {
   RestaurantDetailsCubit() : super(const RestaurantDetailsState.initial());
 
   void initialize({required Restaurant restaurant}) {
-    emit(RestaurantDetailsState.initial(restaurant: restaurant));
+    emit(RestaurantDetailsState.loaded(restaurant: restaurant));
   }
 }

@@ -16,42 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RestaurantDetailsState {
-  Restaurant? get restaurant => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Restaurant? restaurant) initial,
+    required TResult Function() initial,
+    required TResult Function(Restaurant restaurant) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Restaurant? restaurant)? initial,
+    TResult? Function()? initial,
+    TResult? Function(Restaurant restaurant)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Restaurant? restaurant)? initial,
+    TResult Function()? initial,
+    TResult Function(Restaurant restaurant)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loaded value) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loaded value)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loaded value)? loaded,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $RestaurantDetailsStateCopyWith<RestaurantDetailsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,8 +61,6 @@ abstract class $RestaurantDetailsStateCopyWith<$Res> {
   factory $RestaurantDetailsStateCopyWith(RestaurantDetailsState value,
           $Res Function(RestaurantDetailsState) then) =
       _$RestaurantDetailsStateCopyWithImpl<$Res, RestaurantDetailsState>;
-  @useResult
-  $Res call({Restaurant? restaurant});
 }
 
 /// @nodoc
@@ -74,30 +73,13 @@ class _$RestaurantDetailsStateCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? restaurant = freezed,
-  }) {
-    return _then(_value.copyWith(
-      restaurant: freezed == restaurant
-          ? _value.restaurant
-          : restaurant // ignore: cast_nullable_to_non_nullable
-              as Restaurant?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res>
-    implements $RestaurantDetailsStateCopyWith<$Res> {
+abstract class _$$_InitialCopyWith<$Res> {
   factory _$$_InitialCopyWith(
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({Restaurant? restaurant});
 }
 
 /// @nodoc
@@ -106,76 +88,54 @@ class __$$_InitialCopyWithImpl<$Res>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? restaurant = freezed,
-  }) {
-    return _then(_$_Initial(
-      restaurant: freezed == restaurant
-          ? _value.restaurant
-          : restaurant // ignore: cast_nullable_to_non_nullable
-              as Restaurant?,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_Initial implements _Initial {
-  const _$_Initial({this.restaurant});
-
-  @override
-  final Restaurant? restaurant;
+  const _$_Initial();
 
   @override
   String toString() {
-    return 'RestaurantDetailsState.initial(restaurant: $restaurant)';
+    return 'RestaurantDetailsState.initial()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Initial &&
-            (identical(other.restaurant, restaurant) ||
-                other.restaurant == restaurant));
+        (other.runtimeType == runtimeType && other is _$_Initial);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, restaurant);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_InitialCopyWith<_$_Initial> get copyWith =>
-      __$$_InitialCopyWithImpl<_$_Initial>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Restaurant? restaurant) initial,
+    required TResult Function() initial,
+    required TResult Function(Restaurant restaurant) loaded,
   }) {
-    return initial(restaurant);
+    return initial();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Restaurant? restaurant)? initial,
+    TResult? Function()? initial,
+    TResult? Function(Restaurant restaurant)? loaded,
   }) {
-    return initial?.call(restaurant);
+    return initial?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Restaurant? restaurant)? initial,
+    TResult Function()? initial,
+    TResult Function(Restaurant restaurant)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(restaurant);
+      return initial();
     }
     return orElse();
   }
@@ -184,6 +144,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loaded value) loaded,
   }) {
     return initial(this);
   }
@@ -192,6 +153,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loaded value)? loaded,
   }) {
     return initial?.call(this);
   }
@@ -200,6 +162,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loaded value)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -210,12 +173,137 @@ class _$_Initial implements _Initial {
 }
 
 abstract class _Initial implements RestaurantDetailsState {
-  const factory _Initial({final Restaurant? restaurant}) = _$_Initial;
+  const factory _Initial() = _$_Initial;
+}
+
+/// @nodoc
+abstract class _$$_LoadedCopyWith<$Res> {
+  factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
+      __$$_LoadedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Restaurant restaurant});
+}
+
+/// @nodoc
+class __$$_LoadedCopyWithImpl<$Res>
+    extends _$RestaurantDetailsStateCopyWithImpl<$Res, _$_Loaded>
+    implements _$$_LoadedCopyWith<$Res> {
+  __$$_LoadedCopyWithImpl(_$_Loaded _value, $Res Function(_$_Loaded) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? restaurant = null,
+  }) {
+    return _then(_$_Loaded(
+      restaurant: null == restaurant
+          ? _value.restaurant
+          : restaurant // ignore: cast_nullable_to_non_nullable
+              as Restaurant,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Loaded implements _Loaded {
+  const _$_Loaded({required this.restaurant});
 
   @override
-  Restaurant? get restaurant;
+  final Restaurant restaurant;
+
   @override
+  String toString() {
+    return 'RestaurantDetailsState.loaded(restaurant: $restaurant)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Loaded &&
+            (identical(other.restaurant, restaurant) ||
+                other.restaurant == restaurant));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, restaurant);
+
   @JsonKey(ignore: true)
-  _$$_InitialCopyWith<_$_Initial> get copyWith =>
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
+      __$$_LoadedCopyWithImpl<_$_Loaded>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(Restaurant restaurant) loaded,
+  }) {
+    return loaded(restaurant);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(Restaurant restaurant)? loaded,
+  }) {
+    return loaded?.call(restaurant);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Restaurant restaurant)? loaded,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(restaurant);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loaded value) loaded,
+  }) {
+    return loaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loaded value)? loaded,
+  }) {
+    return loaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loaded value)? loaded,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Loaded implements RestaurantDetailsState {
+  const factory _Loaded({required final Restaurant restaurant}) = _$_Loaded;
+
+  Restaurant get restaurant;
+  @JsonKey(ignore: true)
+  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -34,8 +34,8 @@ class ApiClient {
       response = await httpClient.get(
         '$_baseUrl/$path',
         data: body,
-        // queryParameters: queryParameters,
-        // options: Options(headers: headers),
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
       );
     } catch (error, stackTrace) {
       _handleHttpError(

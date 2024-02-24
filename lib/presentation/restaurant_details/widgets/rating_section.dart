@@ -4,6 +4,7 @@ import 'package:restaurantour/presentation/app/helpers/helpers.dart';
 import 'package:restaurantour/presentation/app/l10n/l10n.dart';
 import 'package:restaurantour/presentation/app/widgets/widgets.dart';
 import 'package:restaurantour/presentation/restaurant_details/state_management/restaurant_details_cubit/restaurant_details_cubit.dart';
+import 'package:restaurants_repository/restaurants_repository.dart';
 
 class RatingSection extends StatelessWidget {
   const RatingSection({super.key});
@@ -14,7 +15,10 @@ class RatingSection extends StatelessWidget {
     final typography = appTheme.typography;
     final l10n = context.l10n;
 
-    final restaurant = context.read<RestaurantDetailsCubit>().state.restaurant;
+    final restaurant = context.read<RestaurantDetailsCubit>().state.maybeWhen(
+          loaded: (restaurant) => restaurant,
+          orElse: () => const Restaurant(),
+        );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +29,7 @@ class RatingSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              restaurant?.rating.toString() ?? '',
+              restaurant.rating.toString(),
               style: typography.subtitle2?.copyWith(height: 0.36),
             ),
             const Stars(rating: 1, size: 16),

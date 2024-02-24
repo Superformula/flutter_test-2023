@@ -41,7 +41,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             controller: _tabController,
             children: const [
               RestaurantsList(),
-              RestaurantsList(),
+              FavoritesList(),
             ],
           ),
         ),
