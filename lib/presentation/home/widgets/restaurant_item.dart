@@ -48,7 +48,7 @@ class RestaurantItem extends StatelessWidget {
         child: Row(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(Spacing.sm),
               child: Image.network(
                 restaurant.heroImage,
                 fit: BoxFit.cover,

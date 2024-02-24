@@ -10,7 +10,7 @@ class User {
   /// {@macro user}
   const User({
     this.id = '',
-    this.imageUrl = '',
+    this.imageUrl,
     this.name = '',
   });
 
@@ -25,7 +25,7 @@ class User {
 
   /// Image url of the user.
   @JsonKey(name: 'image_url')
-  final String imageUrl;
+  final String? imageUrl;
 
   /// Name of the user.
   final String name;

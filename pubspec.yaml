@@ -43,9 +43,10 @@ dev_dependencies:
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
   injectable_generator: ^1.5.4
+  mocktail: ^1.0.2
+  bloc_test: ^9.1.5
+  network_image_mock: ^2.1.1
 
 flutter:
   uses-material-design: true
   generate: true
-#  assets:
-#    - assets/svg/

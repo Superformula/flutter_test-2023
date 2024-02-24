@@ -23,8 +23,11 @@ class RestaurantsList extends StatelessWidget {
             ),
             newPageProgressIndicatorBuilder: (context) => const Center(
               child: Center(
-                child: LoadingSpinner(
-                  size: Spacing.xlg,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: Spacing.md),
+                  child: LoadingSpinner(
+                    size: Spacing.xlg,
+                  ),
                 ),
               ),
             ),
