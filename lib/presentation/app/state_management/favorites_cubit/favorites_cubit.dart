@@ -15,15 +15,20 @@ class FavoritesCubit extends HydratedCubit<FavoritesState> {
     final listOfFavorites = List<Restaurant>.from(
       state.maybeWhen(loaded: (restaurants) => restaurants, orElse: () => []),
     );
-    listOfFavorites.add(restaurant);
-    emit(FavoritesState.loaded(restaurants: listOfFavorites));
+    if (!isFavorite(id: restaurant.id)) {
+      listOfFavorites.add(restaurant);
+      emit(FavoritesState.loaded(restaurants: listOfFavorites));
+    }
   }
 
   void removeFromFavorites({required String? id}) {
     final listOfFavorites = List<Restaurant>.from(
       state.maybeWhen(loaded: (restaurants) => restaurants, orElse: () => []),
     );
-    listOfFavorites.removeWhere((element) => element.id == id);
+    if (isFavorite(id: id)) {
+      listOfFavorites.removeWhere((element) => element.id == id);
+      emit(FavoritesState.loaded(restaurants: listOfFavorites));
+    }
     emit(FavoritesState.loaded(restaurants: listOfFavorites));
   }
 
