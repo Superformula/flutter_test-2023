@@ -15,6 +15,8 @@ import 'package:restaurantour/presentation/home/state_management/home_cubit/home
     as _i3;
 import 'package:restaurantour/presentation/home/state_management/home_tab_controller_cubit/home_tab_controller_cubit.dart'
     as _i5;
+import 'package:restaurantour/presentation/restaurant_details/state_management/restaurant_details_cubit/restaurant_details_cubit.dart'
+    as _i8;
 import 'package:restaurants_repository/restaurants_repository.dart'
     as _i4; // ignore_for_file: unnecessary_lambdas
 
@@ -40,5 +42,6 @@ _i1.GetIt $initGetIt(
         itemsPerPage: get<int>(),
         filters: get<Map<String, dynamic>>(),
       ));
+  gh.factory<_i8.RestaurantDetailsCubit>(() => _i8.RestaurantDetailsCubit());
   return get;
 }

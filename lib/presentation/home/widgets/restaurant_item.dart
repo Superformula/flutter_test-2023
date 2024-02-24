@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:restaurantour/presentation/app/helpers/helpers.dart';
 import 'package:restaurantour/presentation/app/widgets/widgets.dart';
+import 'package:restaurantour/presentation/restaurant_details/restaurant_details.dart';
 import 'package:restaurants_repository/restaurants_repository.dart';
 
 class RestaurantItem extends StatelessWidget {
@@ -31,57 +33,64 @@ class RestaurantItem extends StatelessWidget {
         ],
         color: Colors.white,
       ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              restaurant.heroImage,
-              fit: BoxFit.cover,
-              height: 88,
-              width: 88,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: SizedBox(
-              height: 88,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 2),
-                    child: Text(
-                      restaurant.name ?? '',
-                      style: typography.subtitle1,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          RestaurantInfo(
-                            price: restaurant.price ?? '',
-                            category: restaurant.displayCategory,
-                          ),
-                          const SizedBox(height: 4),
-                          Stars(
-                            rating: restaurant.rating ?? 0,
-                          ),
-                        ],
-                      ),
-                      RestaurantStatus(isOpenNow: restaurant.isOpen),
-                    ],
-                  )
-                ],
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => context.pushNamed(
+          RestaurantDetailsPage.routeName,
+          extra: restaurant,
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                restaurant.heroImage,
+                fit: BoxFit.cover,
+                height: 88,
+                width: 88,
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 12),
+            Expanded(
+              child: SizedBox(
+                height: 88,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2),
+                      child: Text(
+                        restaurant.name ?? '',
+                        style: typography.subtitle1,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RestaurantInfo(
+                              price: restaurant.price ?? '',
+                              category: restaurant.displayCategory,
+                            ),
+                            const SizedBox(height: 4),
+                            Stars(
+                              rating: restaurant.rating ?? 0,
+                            ),
+                          ],
+                        ),
+                        RestaurantStatus(isOpenNow: restaurant.isOpen),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

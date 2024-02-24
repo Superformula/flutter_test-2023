@@ -13,6 +13,7 @@ class Review {
     this.id,
     this.rating,
     this.user,
+    this.text,
   });
 
   /// [Review.fromJson] that returns an instance of [Review]
@@ -29,4 +30,7 @@ class Review {
 
   /// User of the review.
   final User? user;
+
+  /// Text of the review.
+  final String? text;
 }

@@ -4,10 +4,12 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class Stars extends StatelessWidget {
   const Stars({
     required this.rating,
+    this.size = 12,
     super.key,
   });
 
   final double rating;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class Stars extends StatelessWidget {
         color: Colors.amber,
       ),
       itemCount: rating.round(),
-      itemSize: 12,
+      itemSize: size,
       direction: Axis.horizontal,
     );
   }
