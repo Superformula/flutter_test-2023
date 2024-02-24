@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/injection_container/config_dependencies.dart';
 import 'package:restaurantour/presentation/app/router/app_router.dart';
 import 'package:restaurantour/presentation/app/themes/themes.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
   runApp(const Restaurantour());
 }
 

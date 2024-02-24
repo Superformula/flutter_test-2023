@@ -18,6 +18,12 @@ dependencies:
   flutter_svg: ^2.0.9
   google_fonts: ^6.1.0
   go_router: ^7.1.1
+  get_it: ^7.2.0
+  injectable: ^1.5.3
+  api_client:
+    path: packages/api_client
+  restaurants_repository:
+    path: packages/restaurants_repository
 
 dev_dependencies:
   flutter_test:
@@ -25,6 +31,7 @@ dev_dependencies:
   flutter_lints: ^1.0.2
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
+  injectable_generator: ^1.5.4
 
 flutter:
   uses-material-design: true

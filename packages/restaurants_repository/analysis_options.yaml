@@ -1,0 +1,6 @@
+include: package:very_good_analysis/analysis_options.3.1.0.yaml
+analyzer:
+  exclude: [lib/**.freezed.dart, lib/**.g.dart,]
+  language:
+    strict-casts: true
+    strict-raw-types: true
