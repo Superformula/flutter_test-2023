@@ -3,7 +3,7 @@ import 'package:restaurantour/injection_container/config_dependencies.dart';
 import 'package:restaurantour/presentation/app/router/app_router.dart';
 import 'package:restaurantour/presentation/app/themes/themes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurantour/presentation/home/state_management/home_cubit.dart';
+import 'package:restaurantour/presentation/home/state_management/home_cubit/home_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
