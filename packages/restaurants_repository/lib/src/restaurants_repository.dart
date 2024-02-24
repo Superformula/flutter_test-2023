@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:api_client/api_client.dart';
 import 'package:restaurants_repository/src/constants/queries.dart';
 import 'package:restaurants_repository/src/contract/contract.dart';
@@ -19,49 +21,25 @@ class RestaurantsRepository implements RestaurantsRepositoryContract {
   /// not null.
   @override
   Future<List<Restaurant>> getRestaurants({
-    required String tabId,
     int? page,
     int? itemsPerPage,
   }) async {
-    final response = await apiClient.get<dynamic>(
-      '/v3/graphql',
-      body: Queries.getRestaurants(),
+    final response = await apiClient.post<Map<String, dynamic>>(
+      'v3/graphql',
+      body: Queries.getRestaurants(
+        page: page ?? 0,
+        itemsPerPage: itemsPerPage ?? 50,
+      ),
     );
     late final RestaurantQueryResult result;
     try {
-      result =
-          RestaurantQueryResult.fromJson(response! as Map<String, dynamic>);
+      result = RestaurantQueryResult.fromJson(
+        response!['data']['search'] as Map<String, dynamic>,
+      );
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(DeserializationException(error), stackTrace);
     }
 
     return result.restaurants ?? [];
-    // // return RestaurantQueryResult.fromJson(response.data!['data']['search']);
-
-    // final isPaginated = page != null;
-    // try {
-    //   final homeResponse = await _fetchHomeResponse(
-    //     tabId: tabId,
-    //     page: page,
-    //     itemsPerPage: itemsPerPage,
-    //   );
-
-    //   if (isPaginated) {
-    //     final results = homeResponse.payload.results as List;
-    //     final contentSections = _deserializeContentSections(results);
-
-    //     return HomeResults(
-    //       contentSections: contentSections,
-    //     );
-    //   } else {
-    //     final results = homeResponse.payload.results as Map<String, dynamic>;
-    //     return HomeResults.fromJson(results);
-    //   }
-    // } catch (exception, stackTrace) {
-    //   throw HomeRepositoryError.unknown(
-    //     exception: exception,
-    //     stackTrace: stackTrace,
-    //   );
-    // }
   }
 }

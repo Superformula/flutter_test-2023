@@ -1,9 +1,14 @@
 /// Stores all the queries used in the restaurants_repository package.
 class Queries {
   ///Returns get restaurants query.
-  static String getRestaurants({int offset = 0}) => '''
+  static String getRestaurants({
+    required int page,
+    required int itemsPerPage,
+  }) {
+    final offset = page == 0 ? 0 : itemsPerPage * page + 1;
+    return '''
 query getRestaurants {
-  search(location: "Las Vegas", limit: 50, offset: $offset) {
+  search(location: "Las Vegas", limit: $itemsPerPage, offset: $offset) {
     total    
     business {
       id
@@ -34,4 +39,5 @@ query getRestaurants {
   }
 }
 ''';
+  }
 }

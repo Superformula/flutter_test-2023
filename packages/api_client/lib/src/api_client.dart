@@ -34,8 +34,8 @@ class ApiClient {
       response = await httpClient.get(
         '$_baseUrl/$path',
         data: body,
-        queryParameters: queryParameters,
-        options: Options(headers: headers),
+        // queryParameters: queryParameters,
+        // options: Options(headers: headers),
       );
     } catch (error, stackTrace) {
       _handleHttpError(
@@ -57,18 +57,9 @@ class ApiClient {
   }) async {
     late final Response<T> response;
     try {
-      final optionsHeaders = <String, dynamic>{
-        HttpHeaders.contentTypeHeader: 'application/json',
-      };
-      if (headers != null) {
-        optionsHeaders.addAll(headers);
-      }
-
       response = await httpClient.post(
         '$_baseUrl/$path',
         data: body,
-        queryParameters: queryParameters,
-        options: Options(headers: optionsHeaders),
       );
     } catch (error, stackTrace) {
       _handleHttpError(

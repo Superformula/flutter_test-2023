@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:restaurantour/main.dart';
+import 'package:restaurantour/presentation/home/home.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 

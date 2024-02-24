@@ -83,6 +83,16 @@ class RestauranTourTheme extends ThemeExtension<RestauranTourTheme> {
           other.colors.grey,
           t,
         ),
+        open: Color.lerp(
+          colors.open,
+          other.colors.open,
+          t,
+        ),
+        closed: Color.lerp(
+          colors.closed,
+          other.colors.closed,
+          t,
+        ),
       ),
     );
   }

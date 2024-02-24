@@ -9,7 +9,6 @@ abstract class RestaurantsRepositoryContract {
 
   /// Provides a list of [Restaurant].
   Future<List<Restaurant>> getRestaurants({
-    required String tabId,
     int? page,
     int? itemsPerPage,
   });
