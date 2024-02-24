@@ -1,0 +1,28 @@
+{
+    "@@locale": "en",
+
+    "restauranTour": "RestauranTour",
+    "@restauranTour": {
+        "description": "Title of app bar in home screen"
+    },
+    "allRestaurants": "All Restaurants",
+    "@allRestaurants": {
+        "description": "Title of app bar tab option in home screen"
+    },
+    "myFavorites": "My Favorites",
+    "@myFavorites": {
+        "description": "Title of app bar tab option in home screen"
+    },
+    "address": "Address",
+    "@address": {
+        "description": "Title of section in restaurant details screen"
+    },
+    "overallRating": "Overall Rating",
+    "@overallRating": {
+        "description": "Title of section in restaurant details screen"
+    },
+    "reviews": "Reviews",
+    "@reviews": {
+        "description": "Text to be displayed next to the number of reviews of the restaurant"
+    }
+}

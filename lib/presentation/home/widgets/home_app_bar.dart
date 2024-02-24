@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/presentation/app/helpers/helpers.dart';
+import 'package:restaurantour/presentation/app/l10n/l10n.dart';
 import 'package:restaurantour/presentation/home/state_management/home_tab_controller_cubit/home_tab_controller_cubit.dart';
 
 class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -29,9 +30,10 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
     final appTheme = context.theme;
     final typography = appTheme.typography;
     final colors = appTheme.colors;
+    final l10n = context.l10n;
 
     return AppBar(
-      title: Text('RestauranTour', style: typography.headingH6),
+      title: Text(l10n.restauranTour, style: typography.headingH6),
       backgroundColor: Colors.white,
       shadowColor: colors.black?.withOpacity(0.2),
       bottom: PreferredSize(
@@ -56,13 +58,13 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
               },
               tabs: [
                 Text(
-                  'All Restaurants',
+                  l10n.allRestaurants,
                   style: typography.button?.copyWith(
                     color: isAllRestaurants ? colors.black : colors.grey,
                   ),
                 ),
                 Text(
-                  'My Favorites',
+                  l10n.myFavorites,
                   style: typography.button?.copyWith(
                     color: isAllRestaurants ? colors.grey : colors.black,
                   ),
