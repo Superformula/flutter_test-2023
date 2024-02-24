@@ -1,22 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/presentation/app/router/app_router.dart';
+import 'package:restaurantour/presentation/app/themes/themes.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
 void main() {
   runApp(const Restaurantour());
 }
 
-class Restaurantour extends StatelessWidget {
+class Restaurantour extends StatefulWidget {
   // This widget is the root of your application.
   const Restaurantour({Key? key}) : super(key: key);
 
   @override
+  State<Restaurantour> createState() => _RestaurantourState();
+}
+
+class _RestaurantourState extends State<Restaurantour> {
+  late final AppRouter _appRouter;
+
+  @override
+  void initState() {
+    super.initState();
+    _appRouter = AppRouter();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'RestauranTour',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const HomePage(),
+      theme: lightAppThemeData(),
+      routerConfig: _appRouter.routes,
     );
   }
 }
