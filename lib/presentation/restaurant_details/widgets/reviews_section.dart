@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/presentation/app/constants/constants.dart';
 import 'package:restaurantour/presentation/app/helpers/helpers.dart';
 import 'package:restaurantour/presentation/app/l10n/l10n.dart';
 import 'package:restaurantour/presentation/restaurant_details/restaurant_details.dart';
@@ -28,7 +29,7 @@ class ReviewsSection extends StatelessWidget {
           '${reviewsList.length} ${l10n.reviews}',
           style: typography.caption1,
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: Spacing.lg),
         ...reviewsList
             .map(
               (review) => ReviewItem(review: review),

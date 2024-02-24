@@ -7,10 +7,10 @@ part of 'restaurant.dart';
 // **************************************************************************
 
 Restaurant _$RestaurantFromJson(Map<String, dynamic> json) => Restaurant(
-      id: json['id'] as String?,
-      name: json['name'] as String?,
-      price: json['price'] as String?,
-      rating: (json['rating'] as num?)?.toDouble(),
+      id: json['id'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      price: json['price'] as String? ?? '',
+      rating: (json['rating'] as num?)?.toDouble() ?? 0,
       photos:
           (json['photos'] as List<dynamic>?)?.map((e) => e as String).toList(),
       categories: (json['categories'] as List<dynamic>?)

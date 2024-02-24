@@ -9,8 +9,8 @@ part 'category.g.dart';
 class Category {
   /// {@macro category}
   const Category({
-    this.alias,
-    this.title,
+    this.alias = '',
+    this.title = '',
   });
 
   /// [Category.fromJson] that returns an instance of [Category]
@@ -21,8 +21,8 @@ class Category {
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
 
   /// Alias of the category.
-  final String? alias;
+  final String alias;
 
   /// Title of the category.
-  final String? title;
+  final String title;
 }

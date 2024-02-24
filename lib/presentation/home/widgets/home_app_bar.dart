@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/presentation/app/constants/constants.dart';
 import 'package:restaurantour/presentation/app/helpers/helpers.dart';
 import 'package:restaurantour/presentation/app/l10n/l10n.dart';
 import 'package:restaurantour/presentation/home/state_management/home_tab_controller_cubit/home_tab_controller_cubit.dart';
@@ -34,8 +35,8 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
 
     return AppBar(
       title: Text(l10n.restauranTour, style: typography.headingH6),
-      backgroundColor: Colors.white,
-      shadowColor: colors.black?.withOpacity(0.2),
+      backgroundColor: colors.white,
+      shadowColor: colors.blackShadow,
       bottom: PreferredSize(
         child: BlocBuilder<HomeTabControllerCubit, HomeTabControllerState>(
           builder: (context, state) {
@@ -47,7 +48,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
               controller: _tabController,
               indicatorColor: colors.black,
               indicatorSize: TabBarIndicatorSize.label,
-              labelPadding: const EdgeInsets.only(bottom: 8),
+              labelPadding: const EdgeInsets.only(bottom: Spacing.sm),
               onTap: (value) {
                 final cubit = context.read<HomeTabControllerCubit>();
                 if (value == 0) {
@@ -73,7 +74,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
             );
           },
         ),
-        preferredSize: const Size(double.infinity, 24),
+        preferredSize: const Size(double.infinity, Spacing.xlg),
       ),
     );
   }

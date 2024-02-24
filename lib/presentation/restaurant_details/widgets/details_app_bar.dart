@@ -23,9 +23,9 @@ class DetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
         );
 
     return AppBar(
-      title: Text(restaurant.name ?? '', style: typography.headingH6),
-      backgroundColor: Colors.white,
-      shadowColor: colors.black?.withOpacity(0.2),
+      title: Text(restaurant.name, style: typography.headingH6),
+      backgroundColor: colors.white,
+      shadowColor: colors.blackShadow,
       leading: IconButton(
         icon: Icon(
           Icons.arrow_back,

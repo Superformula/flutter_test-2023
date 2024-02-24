@@ -7,7 +7,7 @@ part of 'hours.dart';
 // **************************************************************************
 
 Hours _$HoursFromJson(Map<String, dynamic> json) => Hours(
-      isOpenNow: json['is_open_now'] as bool?,
+      isOpenNow: json['is_open_now'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$HoursToJson(Hours instance) => <String, dynamic>{

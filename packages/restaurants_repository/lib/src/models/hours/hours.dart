@@ -9,7 +9,7 @@ part 'hours.g.dart';
 class Hours {
   /// {@macro hours}
   const Hours({
-    this.isOpenNow,
+    this.isOpenNow = false,
   });
 
   /// [Hours.fromJson] that returns an instance of [Hours]
@@ -20,5 +20,5 @@ class Hours {
 
   /// Boolean that indicates if is open now.
   @JsonKey(name: 'is_open_now')
-  final bool? isOpenNow;
+  final bool isOpenNow;
 }

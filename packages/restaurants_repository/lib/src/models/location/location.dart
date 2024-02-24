@@ -9,7 +9,7 @@ part 'location.g.dart';
 class Location {
   /// {@macro location}
   const Location({
-    this.formattedAddress,
+    this.formattedAddress = '',
   });
 
   /// [Location.fromJson] that returns an instance of [Location]
@@ -21,5 +21,5 @@ class Location {
 
   /// Formatted address from the location.
   @JsonKey(name: 'formatted_address')
-  final String? formattedAddress;
+  final String formattedAddress;
 }

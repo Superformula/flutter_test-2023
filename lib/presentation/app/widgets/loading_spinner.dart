@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/presentation/app/constants/constants.dart';
 import 'package:restaurantour/presentation/app/helpers/helpers.dart';
 
 class LoadingSpinner extends StatelessWidget {
   const LoadingSpinner({
     Key? key,
     this.color,
-    this.strokeWidth = 2.0,
-    this.size = 40.0,
+    this.strokeWidth = Spacing.xxs,
+    this.size = Spacing.xxlg,
   }) : super(key: key);
 
   final Color? color;

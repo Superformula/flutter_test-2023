@@ -10,10 +10,10 @@ part 'restaurant.g.dart';
 class Restaurant {
   /// {@macro restaurant}
   const Restaurant({
-    this.id,
-    this.name,
-    this.price,
-    this.rating,
+    this.id = '',
+    this.name = '',
+    this.price = '',
+    this.rating = 0,
     this.photos,
     this.categories,
     this.hours,
@@ -29,16 +29,16 @@ class Restaurant {
   Map<String, dynamic> toJson() => _$RestaurantToJson(this);
 
   /// Id of the restaurant.
-  final String? id;
+  final String id;
 
   /// Name of the restaurant.
-  final String? name;
+  final String name;
 
   /// Price of the restaurant.
-  final String? price;
+  final String price;
 
   /// Rating of the restaurant.
-  final double? rating;
+  final double rating;
 
   /// Photos of the restaurant.
   final List<String>? photos;
@@ -58,7 +58,7 @@ class Restaurant {
   /// Use the first category for the category shown to the user
   String get displayCategory {
     if (categories != null && categories!.isNotEmpty) {
-      return categories!.first.title ?? '';
+      return categories!.first.title;
     }
     return '';
   }
@@ -75,7 +75,7 @@ class Restaurant {
   /// for this application
   bool get isOpen {
     if (hours != null && hours!.isNotEmpty) {
-      return hours!.first.isOpenNow ?? false;
+      return hours!.first.isOpenNow;
     }
     return false;
   }

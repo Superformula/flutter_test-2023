@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/presentation/app/constants/constants.dart';
 import 'package:restaurantour/presentation/restaurant_details/state_management/restaurant_details_cubit/restaurant_details_cubit.dart';
 import 'package:restaurantour/presentation/restaurant_details/widgets/widgets.dart';
 import 'package:restaurants_repository/restaurants_repository.dart';
@@ -20,22 +21,22 @@ class RestaurantDetailsView extends StatelessWidget {
           children: [
             Image.network(
               restaurant.heroImage,
-              height: 360,
+              height: Spacing.xxlg * Spacing.sm,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: Spacing.xlg),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+              padding: EdgeInsets.symmetric(horizontal: Spacing.xlg),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InfoSection(),
-                  Divider(height: 48),
+                  Divider(height: Spacing.xxlg),
                   AddressSection(),
-                  Divider(height: 48),
+                  Divider(height: Spacing.xxlg),
                   RatingSection(),
-                  Divider(height: 48),
+                  Divider(height: Spacing.xxlg),
                   ReviewsSection(),
                 ],
               ),

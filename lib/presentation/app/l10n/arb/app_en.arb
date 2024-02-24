@@ -24,5 +24,13 @@
     "reviews": "Reviews",
     "@reviews": {
         "description": "Text to be displayed next to the number of reviews of the restaurant"
+    },
+    "openNow": "Open Now",
+    "@openNow": {
+        "description": "Text to be displayed when the restaurant is open"
+    },
+    "closed": "Closed",
+    "@closed": {
+        "description": "Text to be displayed when the restaurant is closed"
     }
 }

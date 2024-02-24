@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/presentation/app/constants/constants.dart';
 import 'package:restaurantour/presentation/app/helpers/helpers.dart';
+import 'package:restaurantour/presentation/app/l10n/l10n.dart';
 import 'package:restaurantour/presentation/app/widgets/widgets.dart';
 
 class RestaurantStatus extends StatelessWidget {
@@ -15,12 +17,13 @@ class RestaurantStatus extends StatelessWidget {
     final appTheme = context.theme;
     final typography = appTheme.typography;
     final colors = appTheme.colors;
+    final l10n = context.l10n;
 
-    var text = 'Open Now';
+    var text = l10n.openNow;
     var color = colors.open ?? Colors.green;
 
     if (!isOpenNow) {
-      text = 'Closed';
+      text = l10n.closed;
       color = colors.closed ?? Colors.red;
     }
 
@@ -31,10 +34,10 @@ class RestaurantStatus extends StatelessWidget {
           text,
           style: typography.overline?.copyWith(height: 1.2),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: Spacing.sm),
         Circle(
           color: color,
-          size: 8,
+          size: Spacing.sm,
         ),
       ],
     );

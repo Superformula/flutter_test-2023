@@ -18,7 +18,7 @@ class InfoSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         RestaurantInfo(
-          price: restaurant.price ?? '',
+          price: restaurant.price,
           category: restaurant.displayCategory,
         ),
         RestaurantStatus(isOpenNow: restaurant.isOpen),

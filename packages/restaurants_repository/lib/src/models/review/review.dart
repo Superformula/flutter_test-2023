@@ -10,10 +10,10 @@ part 'review.g.dart';
 class Review {
   /// {@macro review}
   const Review({
-    this.id,
-    this.rating,
+    this.id = '',
+    this.rating = 0,
     this.user,
-    this.text,
+    this.text = '',
   });
 
   /// [Review.fromJson] that returns an instance of [Review]
@@ -23,14 +23,14 @@ class Review {
   Map<String, dynamic> toJson() => _$ReviewToJson(this);
 
   /// Id of the review.
-  final String? id;
+  final String id;
 
   /// Rating of the review.
-  final int? rating;
+  final int rating;
 
   /// User of the review.
   final User? user;
 
   /// Text of the review.
-  final String? text;
+  final String text;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:restaurantour/presentation/app/constants/constants.dart';
 import 'package:restaurantour/presentation/app/widgets/widgets.dart';
 import 'package:restaurantour/presentation/home/state_management/home_cubit/home_cubit.dart';
 import 'package:restaurantour/presentation/home/widgets/widgets.dart';
@@ -23,7 +24,7 @@ class RestaurantsList extends StatelessWidget {
             newPageProgressIndicatorBuilder: (context) => const Center(
               child: Center(
                 child: LoadingSpinner(
-                  size: 20,
+                  size: Spacing.xlg,
                 ),
               ),
             ),

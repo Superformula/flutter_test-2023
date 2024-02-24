@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:restaurantour/presentation/app/constants/constants.dart';
 
 class Stars extends StatelessWidget {
   const Stars({
     required this.rating,
-    this.size = 12,
+    this.size = Spacing.md,
     super.key,
   });
 

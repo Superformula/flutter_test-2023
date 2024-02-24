@@ -9,9 +9,9 @@ part 'user.g.dart';
 class User {
   /// {@macro user}
   const User({
-    this.id,
-    this.imageUrl,
-    this.name,
+    this.id = '',
+    this.imageUrl = '',
+    this.name = '',
   });
 
   /// [User.fromJson] that returns an instance of [User]
@@ -21,12 +21,12 @@ class User {
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
   /// Id of the user.
-  final String? id;
+  final String id;
 
   /// Image url of the user.
   @JsonKey(name: 'image_url')
-  final String? imageUrl;
+  final String imageUrl;
 
   /// Name of the user.
-  final String? name;
+  final String name;
 }

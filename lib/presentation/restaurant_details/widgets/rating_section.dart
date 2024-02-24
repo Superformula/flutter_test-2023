@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/presentation/app/constants/constants.dart';
 import 'package:restaurantour/presentation/app/helpers/helpers.dart';
 import 'package:restaurantour/presentation/app/l10n/l10n.dart';
 import 'package:restaurantour/presentation/app/widgets/widgets.dart';
@@ -24,7 +25,7 @@ class RatingSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(l10n.overallRating, style: typography.caption1),
-        const SizedBox(height: 24),
+        const SizedBox(height: Spacing.xlg),
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -32,7 +33,7 @@ class RatingSection extends StatelessWidget {
               restaurant.rating.toString(),
               style: typography.subtitle2?.copyWith(height: 0.36),
             ),
-            const Stars(rating: 1, size: 16),
+            const Stars(rating: 1, size: Spacing.lg),
           ],
         ),
       ],

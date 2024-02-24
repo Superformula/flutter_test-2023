@@ -78,6 +78,11 @@ class RestauranTourTheme extends ThemeExtension<RestauranTourTheme> {
           other.colors.black,
           t,
         ),
+        blackShadow: Color.lerp(
+          colors.black?.withOpacity(0.2),
+          other.colors.black?.withOpacity(0.2),
+          t,
+        ),
         grey: Color.lerp(
           colors.grey,
           other.colors.grey,
@@ -91,6 +96,11 @@ class RestauranTourTheme extends ThemeExtension<RestauranTourTheme> {
         closed: Color.lerp(
           colors.closed,
           other.colors.closed,
+          t,
+        ),
+        white: Color.lerp(
+          colors.white,
+          other.colors.white,
           t,
         ),
       ),
