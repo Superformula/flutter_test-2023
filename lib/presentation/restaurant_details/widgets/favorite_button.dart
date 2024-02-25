@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/domain/restaurants/restaurants.dart';
 import 'package:restaurantour/presentation/app/helpers/helpers.dart';
 import 'package:restaurantour/presentation/app/state_management/favorites_cubit/favorites_cubit.dart';
 import 'package:restaurantour/presentation/restaurant_details/state_management/restaurant_details_cubit/restaurant_details_cubit.dart';
-import 'package:restaurants_repository/restaurants_repository.dart';
 
 class FavoriteButton extends StatelessWidget {
   const FavoriteButton({super.key});
@@ -15,7 +15,7 @@ class FavoriteButton extends StatelessWidget {
 
     final restaurant = context.read<RestaurantDetailsCubit>().state.maybeWhen(
           loaded: (restaurant) => restaurant,
-          orElse: () => const Restaurant(),
+          orElse: () => const RestaurantEntity(),
         );
 
     return BlocBuilder<FavoritesCubit, FavoritesState>(

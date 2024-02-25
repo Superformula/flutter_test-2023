@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:restaurantour/domain/restaurants/restaurants.dart';
 import 'package:restaurantour/presentation/app/constants/constants.dart';
 import 'package:restaurantour/presentation/app/helpers/helpers.dart';
 import 'package:restaurantour/presentation/app/widgets/widgets.dart';
 import 'package:restaurantour/presentation/restaurant_details/restaurant_details.dart';
-import 'package:restaurants_repository/restaurants_repository.dart';
 
 class RestaurantItem extends StatelessWidget {
   const RestaurantItem({
@@ -12,7 +12,7 @@ class RestaurantItem extends StatelessWidget {
     super.key,
   });
 
-  final Restaurant restaurant;
+  final RestaurantEntity restaurant;
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +49,20 @@ class RestaurantItem extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(Spacing.sm),
-              child: Image.network(
-                restaurant.heroImage,
-                fit: BoxFit.cover,
-                height: Spacing.xxxlg * Spacing.xxs,
-                width: Spacing.xxxlg * Spacing.xxs,
+              child: Container(
+                color: Colors.transparent,
+                child: Image.network(
+                  restaurant.heroImage,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    return loadingProgress?.cumulativeBytesLoaded ==
+                            loadingProgress?.expectedTotalBytes
+                        ? child
+                        : const LoadingShimmer();
+                  },
+                  fit: BoxFit.cover,
+                  height: Spacing.xxxlg * Spacing.xxs,
+                  width: Spacing.xxxlg * Spacing.xxs,
+                ),
               ),
             ),
             const SizedBox(width: Spacing.md),

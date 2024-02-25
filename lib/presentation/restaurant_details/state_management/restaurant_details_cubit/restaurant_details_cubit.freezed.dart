@@ -19,19 +19,19 @@ mixin _$RestaurantDetailsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Restaurant restaurant) loaded,
+    required TResult Function(RestaurantEntity restaurant) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(Restaurant restaurant)? loaded,
+    TResult? Function(RestaurantEntity restaurant)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Restaurant restaurant)? loaded,
+    TResult Function(RestaurantEntity restaurant)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,7 +113,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Restaurant restaurant) loaded,
+    required TResult Function(RestaurantEntity restaurant) loaded,
   }) {
     return initial();
   }
@@ -122,7 +122,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(Restaurant restaurant)? loaded,
+    TResult? Function(RestaurantEntity restaurant)? loaded,
   }) {
     return initial?.call();
   }
@@ -131,7 +131,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Restaurant restaurant)? loaded,
+    TResult Function(RestaurantEntity restaurant)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -181,7 +181,7 @@ abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({Restaurant restaurant});
+  $Res call({RestaurantEntity restaurant});
 }
 
 /// @nodoc
@@ -200,7 +200,7 @@ class __$$_LoadedCopyWithImpl<$Res>
       restaurant: null == restaurant
           ? _value.restaurant
           : restaurant // ignore: cast_nullable_to_non_nullable
-              as Restaurant,
+              as RestaurantEntity,
     ));
   }
 }
@@ -211,7 +211,7 @@ class _$_Loaded implements _Loaded {
   const _$_Loaded({required this.restaurant});
 
   @override
-  final Restaurant restaurant;
+  final RestaurantEntity restaurant;
 
   @override
   String toString() {
@@ -240,7 +240,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Restaurant restaurant) loaded,
+    required TResult Function(RestaurantEntity restaurant) loaded,
   }) {
     return loaded(restaurant);
   }
@@ -249,7 +249,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(Restaurant restaurant)? loaded,
+    TResult? Function(RestaurantEntity restaurant)? loaded,
   }) {
     return loaded?.call(restaurant);
   }
@@ -258,7 +258,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Restaurant restaurant)? loaded,
+    TResult Function(RestaurantEntity restaurant)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -300,9 +300,10 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements RestaurantDetailsState {
-  const factory _Loaded({required final Restaurant restaurant}) = _$_Loaded;
+  const factory _Loaded({required final RestaurantEntity restaurant}) =
+      _$_Loaded;
 
-  Restaurant get restaurant;
+  RestaurantEntity get restaurant;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;

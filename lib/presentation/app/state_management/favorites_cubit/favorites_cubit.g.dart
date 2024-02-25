@@ -8,7 +8,7 @@ part of 'favorites_cubit.dart';
 
 _$_Loaded _$$_LoadedFromJson(Map<String, dynamic> json) => _$_Loaded(
       restaurants: (json['restaurants'] as List<dynamic>)
-          .map((e) => Restaurant.fromJson(e as Map<String, dynamic>))
+          .map((e) => RestaurantEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

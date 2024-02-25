@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:restaurantour/domain/restaurants/restaurants.dart';
 import 'package:restaurantour/presentation/app/constants/constants.dart';
 import 'package:restaurantour/presentation/app/state_management/pagination_cubit/pagination_cubit.dart';
 import 'package:restaurantour/presentation/app/widgets/widgets.dart';
 import 'package:restaurantour/presentation/home/state_management/home_cubit/home_cubit.dart';
 import 'package:restaurantour/presentation/home/widgets/widgets.dart';
-import 'package:restaurants_repository/restaurants_repository.dart';
 
 class RestaurantsList extends StatelessWidget {
   const RestaurantsList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, PaginationState<Restaurant>>(
+    return BlocBuilder<HomeCubit, PaginationState<RestaurantEntity>>(
       builder: (context, state) {
         if (state is PaginationError) {
           final error = state as PaginationError;
@@ -23,7 +23,7 @@ class RestaurantsList extends StatelessWidget {
           slivers: [
             PagedSliverList(
               pagingController: context.read<HomeCubit>().pagingController,
-              builderDelegate: PagedChildBuilderDelegate<Restaurant>(
+              builderDelegate: PagedChildBuilderDelegate<RestaurantEntity>(
                 animateTransitions: true,
                 firstPageProgressIndicatorBuilder: (context) => const Center(
                   child: LoadingSpinner(),

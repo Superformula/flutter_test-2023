@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:restaurantour/domain/restaurants/restaurants.dart';
 import 'package:restaurantour/presentation/app/state_management/favorites_cubit/favorites_cubit.dart';
-import 'package:restaurants_repository/restaurants_repository.dart';
 
 import '../../../../helpers/helpers.dart';
 
@@ -9,26 +9,26 @@ void main() {
   initHydratedStorage();
 
   group('FavoritesCubit', () {
-    const restaurant1 = Restaurant(
+    const restaurant1 = RestaurantEntity(
       id: 'id1',
       name: 'Restaurant name',
       price: '10',
       categories: [
-        Category(alias: 'Category alias', title: 'Category title'),
+        CategoryEntity(alias: 'Category alias', title: 'Category title'),
       ],
       hours: [
-        Hours(isOpenNow: true),
+        HoursEntity(isOpenNow: true),
       ],
     );
-    const restaurant2 = Restaurant(
+    const restaurant2 = RestaurantEntity(
       id: 'id2',
       name: 'Restaurant name',
       price: '10',
       categories: [
-        Category(alias: 'Category alias', title: 'Category title'),
+        CategoryEntity(alias: 'Category alias', title: 'Category title'),
       ],
       hours: [
-        Hours(isOpenNow: false),
+        HoursEntity(isOpenNow: false),
       ],
     );
 

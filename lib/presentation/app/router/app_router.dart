@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:restaurantour/domain/restaurants/entities/entities.dart';
 import 'package:restaurantour/presentation/home/home.dart';
 import 'package:restaurantour/presentation/restaurant_details/restaurant_details.dart';
-import 'package:restaurants_repository/restaurants_repository.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -33,7 +33,7 @@ class AppRouter {
           name: RestaurantDetailsPage.routeName,
           path: '/${RestaurantDetailsPage.routeName}',
           builder: (context, state) {
-            final restaurant = state.extra as Restaurant;
+            final restaurant = state.extra as RestaurantEntity;
             return RestaurantDetailsPage(restaurant: restaurant);
           },
         ),

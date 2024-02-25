@@ -5,3 +5,4 @@ export 'restaurant_info.dart';
 export 'stars.dart';
 export 'fail_screen.dart';
 export 'empty_screen.dart';
+export 'loading_shimmer.dart';

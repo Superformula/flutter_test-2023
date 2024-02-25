@@ -20,20 +20,20 @@ FavoritesState _$FavoritesStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$FavoritesState {
-  List<Restaurant> get restaurants => throw _privateConstructorUsedError;
+  List<RestaurantEntity> get restaurants => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Restaurant> restaurants) loaded,
+    required TResult Function(List<RestaurantEntity> restaurants) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Restaurant> restaurants)? loaded,
+    TResult? Function(List<RestaurantEntity> restaurants)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Restaurant> restaurants)? loaded,
+    TResult Function(List<RestaurantEntity> restaurants)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -65,7 +65,7 @@ abstract class $FavoritesStateCopyWith<$Res> {
           FavoritesState value, $Res Function(FavoritesState) then) =
       _$FavoritesStateCopyWithImpl<$Res, FavoritesState>;
   @useResult
-  $Res call({List<Restaurant> restaurants});
+  $Res call({List<RestaurantEntity> restaurants});
 }
 
 /// @nodoc
@@ -87,7 +87,7 @@ class _$FavoritesStateCopyWithImpl<$Res, $Val extends FavoritesState>
       restaurants: null == restaurants
           ? _value.restaurants
           : restaurants // ignore: cast_nullable_to_non_nullable
-              as List<Restaurant>,
+              as List<RestaurantEntity>,
     ) as $Val);
   }
 }
@@ -99,7 +99,7 @@ abstract class _$$_LoadedCopyWith<$Res>
       __$$_LoadedCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Restaurant> restaurants});
+  $Res call({List<RestaurantEntity> restaurants});
 }
 
 /// @nodoc
@@ -118,7 +118,7 @@ class __$$_LoadedCopyWithImpl<$Res>
       restaurants: null == restaurants
           ? _value._restaurants
           : restaurants // ignore: cast_nullable_to_non_nullable
-              as List<Restaurant>,
+              as List<RestaurantEntity>,
     ));
   }
 }
@@ -126,15 +126,15 @@ class __$$_LoadedCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Loaded implements _Loaded {
-  const _$_Loaded({required final List<Restaurant> restaurants})
+  const _$_Loaded({required final List<RestaurantEntity> restaurants})
       : _restaurants = restaurants;
 
   factory _$_Loaded.fromJson(Map<String, dynamic> json) =>
       _$$_LoadedFromJson(json);
 
-  final List<Restaurant> _restaurants;
+  final List<RestaurantEntity> _restaurants;
   @override
-  List<Restaurant> get restaurants {
+  List<RestaurantEntity> get restaurants {
     if (_restaurants is EqualUnmodifiableListView) return _restaurants;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_restaurants);
@@ -168,7 +168,7 @@ class _$_Loaded implements _Loaded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<Restaurant> restaurants) loaded,
+    required TResult Function(List<RestaurantEntity> restaurants) loaded,
   }) {
     return loaded(restaurants);
   }
@@ -176,7 +176,7 @@ class _$_Loaded implements _Loaded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Restaurant> restaurants)? loaded,
+    TResult? Function(List<RestaurantEntity> restaurants)? loaded,
   }) {
     return loaded?.call(restaurants);
   }
@@ -184,7 +184,7 @@ class _$_Loaded implements _Loaded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Restaurant> restaurants)? loaded,
+    TResult Function(List<RestaurantEntity> restaurants)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -230,13 +230,13 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements FavoritesState {
-  const factory _Loaded({required final List<Restaurant> restaurants}) =
+  const factory _Loaded({required final List<RestaurantEntity> restaurants}) =
       _$_Loaded;
 
   factory _Loaded.fromJson(Map<String, dynamic> json) = _$_Loaded.fromJson;
 
   @override
-  List<Restaurant> get restaurants;
+  List<RestaurantEntity> get restaurants;
   @override
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>

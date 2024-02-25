@@ -2,34 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:restaurantour/domain/restaurants/entities/entities.dart';
 import 'package:restaurantour/presentation/app/themes/themes.dart';
 import 'package:restaurantour/presentation/app/widgets/widgets.dart';
 import 'package:restaurantour/presentation/home/widgets/widgets.dart';
-import 'package:restaurants_repository/restaurants_repository.dart';
 
 import '../../../helpers/helpers.dart';
 
 void main() {
   group('RestaurantItem', () {
-    const restaurant = Restaurant(
+    const restaurant = RestaurantEntity(
       name: 'Restaurant name',
       price: '10',
       photos: ['https:/testing'],
       categories: [
-        Category(alias: 'Category alias', title: 'Category title'),
+        CategoryEntity(alias: 'Category alias', title: 'Category title'),
       ],
       hours: [
-        Hours(isOpenNow: true),
+        HoursEntity(isOpenNow: true),
       ],
     );
-    const restaurantClosed = Restaurant(
+    const restaurantClosed = RestaurantEntity(
       name: 'Restaurant name',
       price: '10',
       categories: [
-        Category(alias: 'Category alias', title: 'Category title'),
+        CategoryEntity(alias: 'Category alias', title: 'Category title'),
       ],
       hours: [
-        Hours(isOpenNow: false),
+        HoursEntity(isOpenNow: false),
       ],
     );
 

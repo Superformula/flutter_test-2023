@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/domain/restaurants/entities/entities.dart';
 import 'package:restaurantour/presentation/app/constants/constants.dart';
 import 'package:restaurantour/presentation/app/helpers/helpers.dart';
 import 'package:restaurantour/presentation/app/l10n/l10n.dart';
 import 'package:restaurantour/presentation/restaurant_details/state_management/restaurant_details_cubit/restaurant_details_cubit.dart';
-import 'package:restaurants_repository/restaurants_repository.dart';
 
 class AddressSection extends StatelessWidget {
   const AddressSection({super.key});
@@ -17,7 +17,7 @@ class AddressSection extends StatelessWidget {
 
     final restaurant = context.read<RestaurantDetailsCubit>().state.maybeWhen(
           loaded: (restaurant) => restaurant,
-          orElse: () => const Restaurant(),
+          orElse: () => const RestaurantEntity(),
         );
 
     return Column(

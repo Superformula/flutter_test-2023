@@ -54,29 +54,4 @@ class Restaurant {
 
   /// Location of the restaurant.
   final Location? location;
-
-  /// Use the first category for the category shown to the user
-  String get displayCategory {
-    if (categories != null && categories!.isNotEmpty) {
-      return categories!.first.title;
-    }
-    return '';
-  }
-
-  /// Use the first image as the image shown to the user
-  String get heroImage {
-    if (photos != null && photos!.isNotEmpty) {
-      return photos!.first;
-    }
-    return '';
-  }
-
-  /// This logic is probably not correct in all cases but it is ok
-  /// for this application
-  bool get isOpen {
-    if (hours != null && hours!.isNotEmpty) {
-      return hours!.first.isOpenNow;
-    }
-    return false;
-  }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/domain/restaurants/restaurants.dart';
 import 'package:restaurantour/presentation/app/constants/constants.dart';
 import 'package:restaurantour/presentation/app/helpers/helpers.dart';
 import 'package:restaurantour/presentation/app/widgets/widgets.dart';
-import 'package:restaurants_repository/restaurants_repository.dart';
 
 class ReviewItem extends StatelessWidget {
   const ReviewItem({
@@ -10,7 +10,7 @@ class ReviewItem extends StatelessWidget {
     super.key,
   });
 
-  final Review review;
+  final ReviewEntity review;
 
   @override
   Widget build(BuildContext context) {
