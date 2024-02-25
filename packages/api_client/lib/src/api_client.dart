@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:api_client/api_client.dart';
 import 'package:dio/dio.dart';
 
@@ -60,6 +58,8 @@ class ApiClient {
       response = await httpClient.post(
         '$_baseUrl/$path',
         data: body,
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
       );
     } catch (error, stackTrace) {
       _handleHttpError(
@@ -81,18 +81,11 @@ class ApiClient {
   }) async {
     late final Response<T> response;
     try {
-      final optionsHeaders = <String, dynamic>{
-        HttpHeaders.contentTypeHeader: 'application/json',
-      };
-      if (headers != null) {
-        optionsHeaders.addAll(headers);
-      }
-
       response = await httpClient.put(
         '$_baseUrl/$path',
         data: body,
         queryParameters: queryParameters,
-        options: Options(headers: optionsHeaders),
+        options: Options(headers: headers),
       );
     } catch (error, stackTrace) {
       _handleHttpError(
@@ -114,18 +107,11 @@ class ApiClient {
   }) async {
     late final Response<T> response;
     try {
-      final optionsHeaders = <String, dynamic>{
-        HttpHeaders.contentTypeHeader: 'application/json',
-      };
-      if (headers != null) {
-        optionsHeaders.addAll(headers);
-      }
-
       response = await httpClient.delete(
         '$_baseUrl/$path',
         data: body,
         queryParameters: queryParameters,
-        options: Options(headers: optionsHeaders),
+        options: Options(headers: headers),
       );
     } catch (error, stackTrace) {
       _handleHttpError(

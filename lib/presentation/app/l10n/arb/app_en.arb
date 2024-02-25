@@ -32,5 +32,9 @@
     "closed": "Closed",
     "@closed": {
         "description": "Text to be displayed when the restaurant is closed"
+    },
+    "emptyScreenTitle": "You haven't selected any favorite restaurants yet",
+    "@emptyScreenTitle": {
+        "description": "Text to be displayed in the empty screen"
     }
 }
