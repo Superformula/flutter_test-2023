@@ -1,5 +1,48 @@
 # RestauranTour
 
+## Architectural proposal
+
+### Presentation
+
+The presentation layer oversees all UI/UX aspects, interacting with the domain layer, which contains all the business logic. This layer is completely abstracted from the implementation details of data computation; its sole responsibility is to request data and display it.
+
+This is the typical folder structure:
+
+- state-management
+- view
+- widgets
+
+State management is where the implementation of Cubits/Blocs resides. These components request data from the domain layer and notify the UI when the data is ready to be displayed.
+
+### Domain
+The domain layer manages all business logic responsibilities.Its primary tasks include defining key contracts like entities and service functions. Additionally, it interfaces with external packages that supply specific functionalities.
+
+This is the typical folder structure:
+
+- entities
+- extensions
+- exceptions
+- services_contracts
+- services_logics
+
+Service contracts store interfaces for the services, which will be implemented in the service_logics folder. These contracts serve as the foundation for the presentation layer, offering an abstraction of the implementation details.
+
+Service logics interact with external functionality providers such as repositories and packages.
+
+Extensions are employed to map models from external providers to the entities defined for the service. This is the only location that needs to be modified if there are changes in the provider, such as property types or data transmission methods.
+
+### Packages
+
+
+The primary concept behind using packages is to develop repositories (code components that interface with external systems) outside of the project's lib folder. This isolation ensures that they remain separate from project dependencies and conventions.
+
+This approach facilitates easier maintenance of the more volatile data-provider layer, particularly for individuals outside the team who do not need to work with domain or presentation files.
+
+Each service declared in the domain is expected to utilize at least one package. Packages should expose contracts for communication with the domain, ensuring that the domain remains unaware of package implementation details.
+
+
+## Challenge details
+
 Be sure to read **all** of this document carefully, and follow the guidelines within.
 
 ## Vendorized Flutter
