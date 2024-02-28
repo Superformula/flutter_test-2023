@@ -42,9 +42,9 @@ void main() {
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
 
-    expect(find.text('Restaurant Name'), findsOne);
-    expect(find.text('Open Now'), findsOne);
-    expect(find.bySubtype<Icon>(), findsAtLeast(1));
+    expect(find.text('Restaurant Name'), findsOneWidget);
+    expect(find.text('Open Now'), findsOneWidget);
+    expect(find.bySubtype<Icon>(), findsAtLeastNWidgets(1));
   });
 
   testWidgets('''when successfully load the [DetailsScreen] but fails to load favorites
@@ -54,7 +54,7 @@ void main() {
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
 
-    expect(find.bySubtype<RTErrorWidget>(), findsOne);
+    expect(find.bySubtype<RTErrorWidget>(), findsOneWidget);
   });
 
   testWidgets('''if successfully load the [DetailsScreen] and the restaurant is already favorite, 
@@ -70,9 +70,9 @@ void main() {
     await tester.tap(find.byKey(const Key('favorite-button')));
     await tester.pumpAndSettle();
 
-    expect(find.text('Restaurant Name'), findsOne);
-    expect(find.text('Open Now'), findsOne);
-    expect(find.bySubtype<Icon>(), findsAtLeast(1));
+    expect(find.text('Restaurant Name'), findsOneWidget);
+    expect(find.text('Open Now'), findsOneWidget);
+    expect(find.bySubtype<Icon>(), findsAtLeastNWidgets(1));
     verify(() => favoritesService.removeFavorite(restaurantId)).called(1);
     verifyNever(() => favoritesService.addFavorite(any()));
   });

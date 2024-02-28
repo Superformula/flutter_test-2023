@@ -48,9 +48,9 @@ void main() {
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
 
-    expect(find.text('Restaurant Name'), findsAtLeast(1));
-    expect(find.bySubtype<RTItemWidget>(), findsAtLeast(1));
-    expect(find.byKey(const Key('favorite-restaurant-0')), findsOne);
+    expect(find.text('Restaurant Name'), findsAtLeastNWidgets(1));
+    expect(find.bySubtype<RTItemWidget>(), findsAtLeastNWidgets(1));
+    expect(find.byKey(const Key('favorite-restaurant-0')), findsOneWidget);
     verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
     verify(() => favoritesService.loadFavorites()).called(1);
   });
@@ -63,7 +63,7 @@ void main() {
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
 
-    expect(find.bySubtype<RTErrorWidget>(), findsAtLeast(1));
+    expect(find.bySubtype<RTErrorWidget>(), findsAtLeastNWidgets(1));
     verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
     verify(() => favoritesService.loadFavorites()).called(1);
   });
@@ -76,7 +76,7 @@ void main() {
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
 
-    expect(find.bySubtype<RTEmptyWidget>(), findsAtLeast(1));
+    expect(find.bySubtype<RTEmptyWidget>(), findsAtLeastNWidgets(1));
     verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
     verify(() => favoritesService.loadFavorites()).called(1);
   });
@@ -89,7 +89,7 @@ void main() {
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
 
-    expect(find.bySubtype<RTEmptyWidget>(), findsAtLeast(1));
+    expect(find.bySubtype<RTEmptyWidget>(), findsAtLeastNWidgets(1));
     verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
     verify(() => favoritesService.loadFavorites()).called(1);
   });
@@ -103,8 +103,8 @@ void main() {
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
 
-    expect(find.bySubtype<RTItemWidget>(), findsAtLeast(1));
-    expect(find.byKey(const Key('favorite-restaurant-0')), findsOne);
+    expect(find.bySubtype<RTItemWidget>(), findsAtLeastNWidgets(1));
+    expect(find.byKey(const Key('favorite-restaurant-0')), findsOneWidget);
   });
 }
 
