@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/data/repositories/yelp_repository.dart';
+import 'package:restaurantour/presentation/all_restaurants_list.dart';
 import 'package:restaurantour/presentation/restaurants_cubit.dart';
 import 'package:restaurantour/secrets.dart';
 
@@ -72,8 +73,8 @@ class _RestaurantourState extends State<Restaurantour>
       body: TabBarView(
         controller: tabController,
         children: const [
-          SizedBox(),
-          SizedBox(),
+          AllRestaurants(),
+          AllRestaurants(),
         ],
       ),
     );
