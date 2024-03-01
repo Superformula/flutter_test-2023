@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/data/repositories/yelp_repository.dart';
+import 'package:restaurantour/secrets.dart';
 
 void main() {
   runApp(const Restaurantour());
@@ -35,7 +36,7 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
               child: const Text('Fetch Restaurants'),
               onPressed: () async {
-                final yelpRepo = YelpRepository();
+                final yelpRepo = YelpRepository(apiKey: await Secrets.apiKey);
 
                 try {
                   final result = await yelpRepo.getRestaurants();
