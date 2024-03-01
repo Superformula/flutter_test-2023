@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/data/repositories/yelp_repository.dart';
+import 'package:restaurantour/presentation/restaurantour.dart';
 import 'package:restaurantour/secrets.dart';
 
-void main() {
-  runApp(const Restaurantour());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Secrets.init();
+  runApp(const RestaurantourApp());
 }
 
-class Restaurantour extends StatelessWidget {
+class RestaurantourApp extends StatelessWidget {
   // This widget is the root of your application.
-  const Restaurantour({Key? key}) : super(key: key);
+  const RestaurantourApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
