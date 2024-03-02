@@ -53,7 +53,7 @@ class RestaurantsListView extends StatelessWidget {
                         children: [
                           Flexible(
                             child: Text(
-                              restaurant.name ?? 'Restaurant Name',
+                              restaurant.name ?? '',
                               style: const TextStyle(fontSize: 18),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -70,7 +70,7 @@ class RestaurantsListView extends StatelessWidget {
                                 children: [
                                   for (var i = 0;
                                       i <
-                                          max(
+                                          min(
                                             restaurant.rating?.round() ?? 0,
                                             5,
                                           );
@@ -99,7 +99,7 @@ class RestaurantsListView extends StatelessWidget {
                                     child: const SizedBox.square(
                                       dimension: 7,
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ],
