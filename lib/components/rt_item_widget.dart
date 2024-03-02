@@ -25,10 +25,11 @@ class RTItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.all(12.0).copyWith(top: isFirstItem ? 16 : 0),
       child: Material(
-        color: Colors.white,
+        color: theme.primaryContainer,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         elevation: 2,
         child: InkWell(
@@ -53,7 +54,7 @@ class RTItemWidget extends StatelessWidget {
                         child: imageNetwork.build(
                           location: heroImage,
                           errorWidget: Container(
-                            color: RTColors.placeholder,
+                            color: theme.secondaryContainer,
                             child: const Icon(Icons.image_not_supported_rounded),
                           ),
                         ),
@@ -97,7 +98,7 @@ class RTItemWidget extends StatelessWidget {
                                     height: 8,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: restaurant.isOpen ? RTColors.open : RTColors.closed,
+                                      color: restaurant.isOpen ? theme.onPrimary : theme.onError,
                                     ),
                                   ),
                                 ),

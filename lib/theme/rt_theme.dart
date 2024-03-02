@@ -14,6 +14,11 @@ class RTThemeData {
       primary: RTColors.primaryFill,
       onSurface: RTColors.secondaryText,
       background: RTColors.background,
+      primaryContainer: RTColors.white,
+      secondaryContainer: RTColors.placeholder,
+      onPrimary: RTColors.open,
+      onError: RTColors.closed,
+      outline: RTColors.dividerLine,
     ),
   );
 }
