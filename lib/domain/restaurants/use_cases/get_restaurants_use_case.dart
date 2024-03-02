@@ -1,5 +1,5 @@
 import 'package:restaurantour/domain/restaurants/entities/restaurant_entity.dart';
-import 'package:restaurantour/domain/restaurants/repositories/restaurant_repository.dart';
+import 'package:restaurantour/domain/restaurants/repository_interfaces/restaurant_repository.dart';
 
 class GetRestaurantsUseCase {
   final RestaurantsRepository _restaurantsRepository;
