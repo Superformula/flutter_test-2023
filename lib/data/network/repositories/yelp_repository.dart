@@ -1,11 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/data/exceptions/mapper_exception.dart';
+import 'package:restaurantour/data/exceptions/network_exception.dart';
+import 'package:restaurantour/data/models/restaurant.dart';
+import 'package:restaurantour/data/restaurant_mapper.dart';
+import 'package:restaurantour/domain/restaurants/entities/restaurant_entity.dart';
+import 'package:restaurantour/domain/restaurants/repository_interfaces/restaurant_repository.dart';
 
 const _apiKey =
     'wfYIpeyetAPJbQYg5ITUE4wxzqCvoEQM5FQyW9Xq4SGJG52vkefWY_Irq9yg_TKpXRYJUgTO48W_fVXReEABY919sT74bHoCAyNH4b0kTe94rmEWFWNo1GjFxUXjZXYx';
 
-class YelpRepository {
+class YelpRepository extends RestaurantsRepository {
   late Dio dio;
 
   YelpRepository({
@@ -30,7 +35,7 @@ class YelpRepository {
   ///       {
   ///         "id": "faPVqws-x-5k2CQKDNtHxw",
   ///         "name": "Yardbird Southern Table & Bar",
-  ///         "price": "$$",
+  ///         "price": "2",
   ///         "rating": 4.5,
   ///         "photos": [
   ///           "https:///s3-media4.fl.yelpcdn.com/bphoto/_zXRdYX4r1OBfF86xKMbDw/o.jpg"
@@ -59,16 +64,27 @@ class YelpRepository {
   ///   }
   /// }
   ///
-  Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
+
+  Future<List<Restaurant>?> getRestaurantsFromApi({int offset = 0}) async {
     try {
       final response = await dio.post<Map<String, dynamic>>(
         '/v3/graphql',
         data: _getQuery(offset),
       );
-      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
+
+      if (response.statusCode != null && response.statusCode! >= 400) {
+        throw NetworkException(
+          statusCode: response.statusCode!,
+          message: response.statusMessage,
+        );
+      } else if (response.statusCode != null) {
+        return RestaurantQueryResult.fromJson(response.data!['data']['search'])
+            .restaurants;
+      }
     } catch (e) {
-      return null;
+      throw Exception('Failed to get restaurants: $e');
     }
+    return null;
   }
 
   String _getQuery(int offset) {
@@ -85,6 +101,7 @@ query getRestaurants {
       reviews {
         id
         rating
+        text
         user {
           id
           image_url
@@ -105,5 +122,26 @@ query getRestaurants {
   }
 }
 ''';
+  }
+
+  @override
+  Future<List<RestaurantEntity>> getRestaurants(int offset) async {
+    if (offset != 0) {
+      //wont call api to prevent exceeding limit
+      print('calling api with offset: $offset');
+      return Future.value([]);
+    }
+    final result = await getRestaurantsFromApi(offset: offset);
+    if (result == null) {
+      throw Exception('Failed to fetch restaurants');
+    }
+
+    final restaurantEntities = RestaurantMapper.fromModelList(result);
+
+    if (restaurantEntities.isEmpty) {
+      throw MapperException('Failed to map restaurants');
+    }
+
+    return RestaurantMapper.fromModelList(result);
   }
 }
