@@ -6,6 +6,7 @@ class RestaurantListTile extends StatelessWidget {
   final String priceRange;
   final double rating;
   final bool isOpen;
+  final VoidCallback? onTap;
 
   const RestaurantListTile({
     Key? key,
@@ -14,37 +15,41 @@ class RestaurantListTile extends StatelessWidget {
     required this.priceRange,
     required this.rating,
     required this.isOpen,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image.network(
-        imageUrl,
-        width: 70,
-        height: 70,
-        fit: BoxFit.cover,
-      ),
-      title: Text(name),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(priceRange),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _StarRating(rating: rating),
-              Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: isOpen ? Colors.green : Colors.red,
+    return GestureDetector(
+      onTap: onTap,
+      child: ListTile(
+        leading: Image.network(
+          imageUrl,
+          width: 70,
+          height: 70,
+          fit: BoxFit.cover,
+        ),
+        title: Text(name),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(priceRange),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _StarRating(rating: rating),
+                Container(
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isOpen ? Colors.green : Colors.red,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
