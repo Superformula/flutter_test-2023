@@ -9,6 +9,7 @@ import 'package:restaurantour/features/details/details_screen.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 import 'package:restaurantour/models/dto.dart';
+import 'package:restaurantour/theme/theme.dart';
 
 import '../mocks/mocks.dart';
 
@@ -30,6 +31,7 @@ void main() {
   Widget widgetBuilder() => MaterialApp(
         localizationsDelegates: localizationsDelegates,
         debugShowCheckedModeBanner: false,
+        theme: RTThemeData.themeData,
         home: DetailsScreen.create(restaurantId: RestaurantDto.fixture().id),
       );
 

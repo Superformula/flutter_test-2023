@@ -11,6 +11,7 @@ import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
 import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
+import 'package:restaurantour/theme/theme.dart';
 
 import '../mocks/mocks.dart';
 
@@ -30,6 +31,7 @@ void main() {
   Widget widgetBuilder() => MaterialApp(
         localizationsDelegates: localizationsDelegates,
         debugShowCheckedModeBanner: false,
+        theme: RTThemeData.themeData,
         home: ChangeNotifierProvider(
           create: (context) {
             final model = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);

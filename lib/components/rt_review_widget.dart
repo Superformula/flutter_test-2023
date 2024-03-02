@@ -13,11 +13,11 @@ class RTReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context).extension<RTThemeExtension>()!;
 
     return Column(
       children: [
-        if (!isFirstItem) Divider(color: theme.outline),
+        if (!isFirstItem) Divider(color: theme.dividerLineColor),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: SizedBox(
@@ -44,7 +44,7 @@ class RTReviewWidget extends StatelessWidget {
                         child: imageNetwork.build(
                           location: review.user?.imageUrl ?? '',
                           errorWidget: Container(
-                            color: theme.secondaryContainer,
+                            color: theme.placeholderColor,
                             child: const Icon(Icons.person),
                           ),
                         ),

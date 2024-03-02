@@ -58,7 +58,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     model = context.watch();
-    final theme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context).extension<RTThemeExtension>()!;
 
     if (model!.status.isLoading) {
       return Scaffold(
@@ -90,7 +90,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   key: const Key('favorite-button'),
                   icon: Icon(
                     (model!.isFavorite) ? Icons.favorite : Icons.favorite_border,
-                    color: theme.primary,
+                    color: theme.primaryFillColor,
                   ),
                   onPressed: () => model!.toggleFavorite(),
                 ),
@@ -147,7 +147,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             height: 8,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: restaurant.isOpen ? theme.onPrimary : theme.onError,
+                              color: restaurant.isOpen ? theme.openColor : theme.closedColor,
                             ),
                           ),
                         ),
@@ -205,10 +205,10 @@ class _Divider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context).extension<RTThemeExtension>()!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 24.0),
-      child: Divider(color: theme.outline),
+      child: Divider(color: theme.dividerLineColor),
     );
   }
 }

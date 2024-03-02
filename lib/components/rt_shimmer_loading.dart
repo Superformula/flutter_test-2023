@@ -1,3 +1,4 @@
+import 'package:restaurantour/theme/theme.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:restaurantour/core/core.dart';
 
@@ -26,13 +27,13 @@ class TileLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context).extension<RTThemeExtension>()!;
 
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(strokeAlign: 1, color: theme.outline),
+          border: Border.all(strokeAlign: 1, color: theme.dividerLineColor),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         height: 104,
@@ -45,7 +46,7 @@ class TileLoading extends StatelessWidget {
                 height: 88,
                 width: 88,
                 decoration: BoxDecoration(
-                  color: theme.secondaryContainer,
+                  color: theme.placeholderColor,
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
               ),
@@ -60,7 +61,7 @@ class TileLoading extends StatelessWidget {
                       height: 18,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
-                        color: theme.secondaryContainer,
+                        color: theme.placeholderColor,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -68,7 +69,7 @@ class TileLoading extends StatelessWidget {
                       height: 18,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
-                        color: theme.secondaryContainer,
+                        color: theme.placeholderColor,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -78,7 +79,7 @@ class TileLoading extends StatelessWidget {
                         width: 40,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(Radius.circular(8)),
-                          color: theme.secondaryContainer,
+                          color: theme.placeholderColor,
                         ),
                       ),
                     ),
@@ -88,7 +89,7 @@ class TileLoading extends StatelessWidget {
                       width: 80,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
-                        color: theme.secondaryContainer,
+                        color: theme.placeholderColor,
                       ),
                     ),
                   ],
