@@ -24,6 +24,9 @@ class RestaurantsViewModel with ChangeNotifier {
   final RestaurantRepository restaurantRepository;
   final FavoriteService favoritesService;
   final int paginationSize = 20;
+
+  final List<RestaurantDto> _restaurantsCache = [];
+
   RestaurantsViewModel({required this.favoritesService, required this.restaurantRepository});
 
   RestaurantsStatus restaurantsStatus = RestaurantsStatus.loading;
@@ -31,7 +34,6 @@ class RestaurantsViewModel with ChangeNotifier {
 
   RestaurantQueryResultDto? _restaurantsQuery;
   List<RestaurantDto> _favorites = [];
-  List<RestaurantDto> _restaurantsCache = [];
 
   int get allRestaurantsQueryTotal => _restaurantsQuery?.total ?? 0;
   List<RestaurantDto> get favoritesRestaurantList => _favorites;
@@ -71,10 +73,13 @@ class RestaurantsViewModel with ChangeNotifier {
     try {
       _emitFavoriteLoading();
       final favoritesIds = await favoritesService.loadFavorites();
+
       _favorites = restaurantsList.where((restaurant) => favoritesIds.contains(restaurant.id)).toList();
       final favoritesToFetchInCache = await _findFavoritesNotLoadedInMemory(inMemory: restaurantsList, favoritesIds: favoritesIds);
+
       _favorites.addAll(_restaurantsCache.where((restaurant) => favoritesToFetchInCache.contains(restaurant.id)).toList());
       final favoritesToFetch = await _findFavoritesNotLoadedInMemory(inMemory: _restaurantsCache, favoritesIds: favoritesIds);
+
       await _loadFavoritesInMemory(favoritesToFetch);
       _favorites.isEmpty ? _emitFavoriteEmpty() : _emitFavoriteContent();
     } catch (e) {
