@@ -1,13 +1,12 @@
 import 'package:restaurantour/features/home_page/children/favorite_restaurants/domain/entities/hour_entity.dart';
 
-class HourModel extends HourEntity {
-  const HourModel({
-    required bool isOpenNow,
-  }) : super(
-          isOpenNow: isOpenNow,
-        );
+class HourModel {
+  const HourModel(this.hourEntity);
+
+  final HourEntity hourEntity;
 
   Map<String, dynamic> toJson() {
+    var (isOpenNow) = hourEntity;
     return {
       'is_open_now': isOpenNow,
     };
@@ -15,7 +14,7 @@ class HourModel extends HourEntity {
 
   factory HourModel.fromJson(Map<String, dynamic> json) {
     return HourModel(
-      isOpenNow: json['is_open_now'] as bool,
+      (json['is_open_now'] as bool? ?? false,),
     );
   }
 }
