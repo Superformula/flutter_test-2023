@@ -17,6 +17,7 @@ class RestaurantourApp extends StatelessWidget {
     return MaterialApp(
       title: 'RestauranTour',
       theme: ThemeData(
+        useMaterial3: true,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: Colors.black),

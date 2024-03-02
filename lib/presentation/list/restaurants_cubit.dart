@@ -1,20 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
-import 'package:restaurantour/data/repositories/yelp_repository.dart';
+import 'package:restaurantour/data/repositories/restaurant_repository.dart';
 
 class RestaurantsCubit extends Cubit<RestaurantsState> {
   RestaurantsCubit(this._repository) : super(FetchingList()) {
     fetchRestaurants();
   }
 
-  final YelpRepository _repository;
+  final RestaurantRepository _repository;
 
   Future<void> fetchRestaurants() async {
     emit(FetchingList());
 
     try {
-      final query = await _repository.getRestaurants();
-      final restaurants = query?.restaurants ?? [];
+      final restaurants = (await _repository.fetchRestaurants()) ?? [];
       if (restaurants.isEmpty) {
         emit(NoRestaurantsFound());
       } else {

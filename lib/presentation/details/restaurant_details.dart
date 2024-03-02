@@ -6,6 +6,7 @@ import 'package:restaurantour/presentation/components/open_closed.dart';
 import 'package:restaurantour/presentation/components/overall_rating.dart';
 import 'package:restaurantour/presentation/components/price_category.dart';
 import 'package:restaurantour/presentation/components/reviews.dart';
+import 'package:restaurantour/presentation/details/favorite_cubit.dart';
 import 'package:restaurantour/presentation/details/restaurant_details_cubit.dart';
 
 class RestaurantDetails extends StatelessWidget {
@@ -15,67 +16,73 @@ class RestaurantDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RestaurantDetailsCubit, Restaurant>(
       builder: (context, restaurant) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              restaurant.name ?? '',
-            ),
-            actions: [
-              IconButton(
-                isSelected: false,
-                icon: const Icon(Icons.favorite_border),
-                selectedIcon: const Icon(Icons.favorite),
-                onPressed: () {},
+        return BlocBuilder<FavoriteCubit, bool>(
+          builder: (context, favorite) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  restaurant.name ?? '',
+                ),
+                actions: [
+                  IconButton(
+                    isSelected: favorite,
+                    icon: const Icon(Icons.favorite_border),
+                    selectedIcon: const Icon(Icons.favorite),
+                    onPressed: () {
+                      context.read<FavoriteCubit>().setFavorite();
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
-          body: NestedScrollView(
-            headerSliverBuilder: (context, _) {
-              return [
-                SliverAppBar(
-                  expandedHeight: 450,
-                  floating: false,
-                  automaticallyImplyLeading: false,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Hero(
-                      tag: 'restaurant-hero-image-${restaurant.id}',
-                      child: Image.network(
-                        restaurant.heroImage,
-                        fit: BoxFit.cover,
+              body: NestedScrollView(
+                headerSliverBuilder: (context, _) {
+                  return [
+                    SliverAppBar(
+                      expandedHeight: 450,
+                      floating: false,
+                      automaticallyImplyLeading: false,
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: Hero(
+                          tag: 'restaurant-hero-image-${restaurant.id}',
+                          child: Image.network(
+                            restaurant.heroImage,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ];
-            },
-            body: ListView(
-              padding: const EdgeInsets.all(20),
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ];
+                },
+                body: ListView(
+                  padding: const EdgeInsets.all(20),
                   children: [
-                    PriceCategory(
-                      category: restaurant.displayCategory,
-                      price: restaurant.price,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        PriceCategory(
+                          category: restaurant.displayCategory,
+                          price: restaurant.price,
+                        ),
+                        OpenClosed(open: restaurant.isOpen),
+                      ],
                     ),
-                    OpenClosed(open: restaurant.isOpen),
+                    const SizedBox(height: 15),
+                    const Divider(),
+                    const SizedBox(height: 15),
+                    Address(location: restaurant.location),
+                    const SizedBox(height: 15),
+                    const Divider(),
+                    const SizedBox(height: 15),
+                    OverallRating(rating: restaurant.rating),
+                    const SizedBox(height: 15),
+                    const Divider(),
+                    const SizedBox(height: 15),
+                    Reviews(reviews: restaurant.reviews ?? []),
                   ],
                 ),
-                const SizedBox(height: 15),
-                const Divider(),
-                const SizedBox(height: 15),
-                Address(location: restaurant.location),
-                const SizedBox(height: 15),
-                const Divider(),
-                const SizedBox(height: 15),
-                OverallRating(rating: restaurant.rating),
-                const SizedBox(height: 15),
-                const Divider(),
-                const SizedBox(height: 15),
-                Reviews(reviews: restaurant.reviews ?? []),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
     );

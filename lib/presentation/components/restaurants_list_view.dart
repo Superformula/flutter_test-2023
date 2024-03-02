@@ -4,6 +4,7 @@ import 'package:restaurantour/data/models/restaurant.dart';
 import 'package:restaurantour/presentation/components/open_closed.dart';
 import 'package:restaurantour/presentation/components/price_category.dart';
 import 'package:restaurantour/presentation/components/rating_stars.dart';
+import 'package:restaurantour/presentation/details/favorite_cubit.dart';
 import 'package:restaurantour/presentation/details/restaurant_details.dart';
 import 'package:restaurantour/presentation/details/restaurant_details_cubit.dart';
 
@@ -26,21 +27,33 @@ class RestaurantsListView extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
-            vertical: 2,
+            vertical: 6,
           ),
-          child: Card(
-            elevation: 1,
-            shape: RoundedRectangleBorder(
+          child: DecoratedBox(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(.3),
+                  blurRadius: 3.0,
+                ),
+              ],
             ),
             child: InkWell(
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) {
+                    builder: (_) {
                       return BlocProvider(
                         create: (_) => RestaurantDetailsCubit(restaurant),
-                        child: const RestaurantDetails(),
+                        child: BlocProvider(
+                          create: (_) => FavoriteCubit(
+                            context.read(),
+                            restaurantId: restaurant.id ?? '',
+                          ),
+                          child: const RestaurantDetails(),
+                        ),
                       );
                     },
                   ),

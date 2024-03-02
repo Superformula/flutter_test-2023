@@ -2,23 +2,23 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
 
-class YelpRepository {
+class RestaurantRemoteService {
   late Dio dio;
   final String apiKey;
 
-  YelpRepository({
+  RestaurantRemoteService({
     @visibleForTesting Dio? dio,
     required this.apiKey,
   }) : dio = dio ??
-            Dio(
-              BaseOptions(
-                baseUrl: 'https://api.yelp.com',
-                headers: {
-                  'Authorization': 'Bearer $apiKey',
-                  'Content-Type': 'application/graphql',
-                },
-              ),
-            );
+      Dio(
+        BaseOptions(
+          baseUrl: 'https://api.yelp.com',
+          headers: {
+            'Authorization': 'Bearer $apiKey',
+            'Content-Type': 'application/graphql',
+          },
+        ),
+      );
 
   /// Returns a response in this shape
   /// {

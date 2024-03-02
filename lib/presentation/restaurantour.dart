@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurantour/data/repositories/yelp_repository.dart';
-import 'package:restaurantour/presentation/list/all_restaurants_list.dart';
+import 'package:restaurantour/data/datasources/restaurant_local_service.dart';
+import 'package:restaurantour/data/datasources/restaurant_remote_service.dart';
+import 'package:restaurantour/data/repositories/restaurant_repository.dart';
 import 'package:restaurantour/presentation/components/restaurants_list_view.dart';
+import 'package:restaurantour/presentation/list/all_restaurants_list.dart';
 import 'package:restaurantour/presentation/list/restaurants_cubit.dart';
 import 'package:restaurantour/secrets.dart';
 
@@ -16,20 +18,38 @@ class RestaurantourProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
           create: (_) {
-            return YelpRepository(apiKey: Secrets.resolvedApiKey);
+            return RestaurantLocalService();
           },
         ),
-        BlocProvider(
-          create: (context) {
-            return RestaurantsCubit(context.read());
+        RepositoryProvider(
+          create: (_) {
+            return RestaurantRemoteService(apiKey: Secrets.resolvedApiKey);
           },
         ),
       ],
-      child: child,
+      child: Builder(
+        builder: (context) {
+          return MultiBlocProvider(
+            providers: [
+              RepositoryProvider(
+                create: (_) {
+                  return RestaurantRepository(context.read(), context.read());
+                },
+              ),
+              BlocProvider(
+                create: (context) {
+                  return RestaurantsCubit(context.read());
+                },
+              ),
+            ],
+            child: child,
+          );
+        },
+      ),
     );
   }
 }
@@ -52,13 +72,13 @@ class _RestaurantourState extends State<Restaurantour>
         title: const Text(
           'RestauranTour',
         ),
-        toolbarHeight: 100,
+        toolbarHeight: 80,
         bottom: TabBar(
           controller: tabController,
           labelColor: Colors.black,
           indicatorColor: Colors.black,
           tabAlignment: TabAlignment.center,
-          indicatorPadding: const EdgeInsets.symmetric(horizontal: 30),
+          indicatorPadding: const EdgeInsets.symmetric(horizontal: 20),
           tabs: const [
             _Tab(label: 'All Restaurants'),
             _Tab(label: 'My Favorites'),
