@@ -7,7 +7,6 @@ import 'package:restaurantour/core/models/restaurant.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
 
 part 'all_restaurant_event.dart';
-
 part 'all_restaurant_state.dart';
 
 class AllRestaurantBloc extends Bloc<AllRestaurantEvent, AllRestaurantState> {
@@ -26,8 +25,8 @@ class AllRestaurantBloc extends Bloc<AllRestaurantEvent, AllRestaurantState> {
     emit(
       const LoadingState(),
     );
-    final yelpRepo = yelpRepository;
-    final result = await yelpRepo.getRestaurants();
+
+    final result = await yelpRepository.getRestaurants();
 
     result.when(
       ok: (data) {
