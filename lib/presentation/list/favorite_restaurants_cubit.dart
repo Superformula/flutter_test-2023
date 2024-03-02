@@ -25,5 +25,5 @@ class FavoriteRestaurantsCubit extends Cubit<List<Restaurant>> {
     }
   }
 
-  void checkForChanges() => emit(List.from(state));
+  void refresh() => emit(List.from(state));
 }

@@ -68,7 +68,7 @@ class RestaurantsListView extends StatelessWidget {
                 ).then(
                   (_) => context
                       .read<FavoriteRestaurantsCubit>()
-                      .checkForChanges(),
+                      .refresh(),
                 );
               },
               child: SizedBox(
