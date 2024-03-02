@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/presentation/components/restaurants_list_view.dart';
+import 'package:restaurantour/presentation/list/favorite_restaurants_cubit.dart';
 import 'package:restaurantour/presentation/list/restaurants_cubit.dart';
 
 class AllRestaurants extends StatelessWidget {
@@ -8,7 +9,14 @@ class AllRestaurants extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RestaurantsCubit, RestaurantsState>(
+    return BlocConsumer<RestaurantsCubit, RestaurantsState>(
+      listener: (context, state) {
+        if (state is RestaurantsList) {
+          context
+              .read<FavoriteRestaurantsCubit>()
+              .updateFavoriteRestaurants(state.restaurants);
+        }
+      },
       builder: (context, state) {
         if (state is FailedToFetchRestaurants) return const SizedBox();
         if (state is NoRestaurantsFound) return const SizedBox();

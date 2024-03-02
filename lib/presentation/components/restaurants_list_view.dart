@@ -7,6 +7,7 @@ import 'package:restaurantour/presentation/components/rating_stars.dart';
 import 'package:restaurantour/presentation/details/favorite_cubit.dart';
 import 'package:restaurantour/presentation/details/restaurant_details.dart';
 import 'package:restaurantour/presentation/details/restaurant_details_cubit.dart';
+import 'package:restaurantour/presentation/list/favorite_restaurants_cubit.dart';
 
 class RestaurantsListView extends StatelessWidget {
   const RestaurantsListView({
@@ -45,18 +46,29 @@ class RestaurantsListView extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) {
-                      return BlocProvider(
-                        create: (_) => RestaurantDetailsCubit(restaurant),
-                        child: BlocProvider(
-                          create: (_) => FavoriteCubit(
-                            context.read(),
-                            restaurantId: restaurant.id ?? '',
+                      return MultiBlocProvider(
+                        providers: [
+                          BlocProvider(
+                            create: (_) => FavoriteCubit(
+                              context.read(),
+                              restaurantId: restaurant.id ?? '',
+                            ),
                           ),
-                          child: const RestaurantDetails(),
-                        ),
+                          BlocProvider(
+                            create: (_) => RestaurantDetailsCubit(restaurant),
+                          ),
+                          BlocProvider.value(
+                            value: context.read<FavoriteRestaurantsCubit>(),
+                          ),
+                        ],
+                        child: const RestaurantDetails(),
                       );
                     },
                   ),
+                ).then(
+                  (_) => context
+                      .read<FavoriteRestaurantsCubit>()
+                      .checkForChanges(),
                 );
               },
               child: SizedBox(

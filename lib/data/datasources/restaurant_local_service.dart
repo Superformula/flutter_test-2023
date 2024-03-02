@@ -6,7 +6,7 @@ class RestaurantLocalService {
     required bool favorite,
   }) {
     _storage[id] = favorite;
-    return true;
+    return favorite;
   }
 
   bool checkFavoriteRestaurant(String id) {

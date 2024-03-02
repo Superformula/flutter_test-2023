@@ -8,6 +8,7 @@ import 'package:restaurantour/presentation/components/price_category.dart';
 import 'package:restaurantour/presentation/components/reviews.dart';
 import 'package:restaurantour/presentation/details/favorite_cubit.dart';
 import 'package:restaurantour/presentation/details/restaurant_details_cubit.dart';
+import 'package:restaurantour/presentation/list/favorite_restaurants_cubit.dart';
 
 class RestaurantDetails extends StatelessWidget {
   const RestaurantDetails({Key? key}) : super(key: key);
@@ -16,7 +17,10 @@ class RestaurantDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RestaurantDetailsCubit, Restaurant>(
       builder: (context, restaurant) {
-        return BlocBuilder<FavoriteCubit, bool>(
+        return BlocConsumer<FavoriteCubit, bool>(
+          listener: (context, _) {
+            context.read<FavoriteRestaurantsCubit>().updateFavoriteRestaurant(restaurant);
+          },
           builder: (context, favorite) {
             return Scaffold(
               appBar: AppBar(

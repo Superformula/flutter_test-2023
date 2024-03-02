@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/data/datasources/restaurant_local_service.dart';
 import 'package:restaurantour/data/datasources/restaurant_remote_service.dart';
 import 'package:restaurantour/data/repositories/restaurant_repository.dart';
-import 'package:restaurantour/presentation/components/restaurants_list_view.dart';
 import 'package:restaurantour/presentation/list/all_restaurants_list.dart';
+import 'package:restaurantour/presentation/list/favorite_restaurants.dart';
+import 'package:restaurantour/presentation/list/favorite_restaurants_cubit.dart';
 import 'package:restaurantour/presentation/list/restaurants_cubit.dart';
 import 'package:restaurantour/secrets.dart';
 
@@ -43,6 +44,11 @@ class RestaurantourProvider extends StatelessWidget {
               BlocProvider(
                 create: (context) {
                   return RestaurantsCubit(context.read());
+                },
+              ),
+              BlocProvider(
+                create: (context) {
+                  return FavoriteRestaurantsCubit(context.read());
                 },
               ),
             ],
@@ -89,7 +95,7 @@ class _RestaurantourState extends State<Restaurantour>
         controller: tabController,
         children: const [
           AllRestaurants(),
-          RestaurantsListView(restaurants: []),
+          FavoriteRestaurants(),
         ],
       ),
     );
