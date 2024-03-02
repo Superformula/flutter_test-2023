@@ -34,7 +34,7 @@ void main() {
       widget: widgetBuilder(RestaurantsScreen.create()),
     );
 
-  testGoldens('when [RestaurantTour] loads should show the title on the page and fetch the data', (WidgetTester tester) async {
+  testGoldens('when [RestaurantTour] loads should show the title on the page and fetch the data for all restaurants', (WidgetTester tester) async {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
 
@@ -46,7 +46,7 @@ void main() {
     await screenMatchesGolden(tester, "restauran_tour_content");
   });
 
-  testGoldens('when [RestaurantTour] loads should show the title on the page and fetch the data', (WidgetTester tester) async {
+  testGoldens('when [RestaurantTour] loads should show the title on the page and fetch the data for all favorites', (WidgetTester tester) async {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
     when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
     await loadAppFonts();
