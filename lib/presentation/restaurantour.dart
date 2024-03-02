@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/data/repositories/yelp_repository.dart';
-import 'package:restaurantour/presentation/all_restaurants_list.dart';
-import 'package:restaurantour/presentation/restaurants_cubit.dart';
+import 'package:restaurantour/presentation/list/all_restaurants_list.dart';
+import 'package:restaurantour/presentation/components/restaurants_list_view.dart';
+import 'package:restaurantour/presentation/list/restaurants_cubit.dart';
 import 'package:restaurantour/secrets.dart';
 
 class RestaurantourProvider extends StatelessWidget {
@@ -48,15 +49,9 @@ class _RestaurantourState extends State<Restaurantour>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         title: const Text(
           'RestauranTour',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
         ),
-        centerTitle: true,
         toolbarHeight: 100,
         bottom: TabBar(
           controller: tabController,
@@ -74,7 +69,7 @@ class _RestaurantourState extends State<Restaurantour>
         controller: tabController,
         children: const [
           AllRestaurants(),
-          AllRestaurants(),
+          RestaurantsListView(restaurants: []),
         ],
       ),
     );

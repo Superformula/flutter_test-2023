@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/presentation/components/restaurants_list_view.dart';
-import 'package:restaurantour/presentation/restaurants_cubit.dart';
+import 'package:restaurantour/presentation/list/restaurants_cubit.dart';
 
 class AllRestaurants extends StatelessWidget {
   const AllRestaurants({Key? key}) : super(key: key);

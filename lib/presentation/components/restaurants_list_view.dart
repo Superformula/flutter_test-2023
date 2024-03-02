@@ -1,7 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
+import 'package:restaurantour/presentation/components/open_closed.dart';
+import 'package:restaurantour/presentation/components/price_category.dart';
+import 'package:restaurantour/presentation/components/rating_stars.dart';
+import 'package:restaurantour/presentation/details/restaurant_details.dart';
+import 'package:restaurantour/presentation/details/restaurant_details_cubit.dart';
 
 class RestaurantsListView extends StatelessWidget {
   const RestaurantsListView({
@@ -29,85 +33,73 @@ class RestaurantsListView extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
-            child: SizedBox(
-              height: 100,
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      clipBehavior: Clip.antiAlias,
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        restaurant.heroImage,
-                        height: 84,
-                        width: 84,
-                        fit: BoxFit.cover,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return BlocProvider(
+                        create: (_) => RestaurantDetailsCubit(restaurant),
+                        child: const RestaurantDetails(),
+                      );
+                    },
+                  ),
+                );
+              },
+              child: SizedBox(
+                height: 100,
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    children: [
+                      Hero(
+                        tag: 'restaurant-hero-image-${restaurant.id}',
+                        child: ClipRRect(
+                          clipBehavior: Clip.antiAlias,
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            restaurant.heroImage,
+                            height: 84,
+                            width: 84,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              restaurant.name ?? '',
-                              style: const TextStyle(fontSize: 18),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                restaurant.name ?? '',
+                                style: const TextStyle(fontSize: 18),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${restaurant.price ?? ''} ${restaurant.displayCategory}',
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                              Row(
-                                children: [
-                                  for (var i = 0;
-                                      i <
-                                          min(
-                                            restaurant.rating?.round() ?? 0,
-                                            5,
-                                          );
-                                      i++)
-                                    const Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                      size: 16,
-                                    ),
-                                  const Spacer(),
-                                  Text(
-                                    restaurant.isOpen ? 'Open Now' : 'Closed',
-                                    style: const TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      color: restaurant.isOpen
-                                          ? Colors.green
-                                          : Colors.red,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: const SizedBox.square(
-                                      dimension: 7,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                PriceCategory(
+                                  price: restaurant.price,
+                                  category: restaurant.displayCategory,
+                                ),
+                                Row(
+                                  children: [
+                                    RatingStars(rating: restaurant.rating),
+                                    const Spacer(),
+                                    OpenClosed(open: restaurant.isOpen),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

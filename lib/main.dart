@@ -18,6 +18,17 @@ class RestaurantourApp extends StatelessWidget {
       title: 'RestauranTour',
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.black),
+          color: Colors.white,
+          titleTextStyle: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            overflow: TextOverflow.ellipsis,
+          ),
+          centerTitle: true,
+        ),
       ),
       home: const RestaurantourProvider(child: Restaurantour()),
     );
