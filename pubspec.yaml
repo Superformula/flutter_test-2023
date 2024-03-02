@@ -18,6 +18,7 @@ dependencies:
   flutter_svg: ^2.0.9
   flutter_bloc: ^8.1.4
   bloc_test: ^9.1.6
+  mocktail: ^1.0.3
 
 dev_dependencies:
   flutter_test:
