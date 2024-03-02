@@ -96,9 +96,11 @@ class RestaurantsViewModel with ChangeNotifier {
   }
 
   Future<void> _loadFavoritesInMemory(List<String> favorites) async {
+    List<Future> loadFavoritesList = [];
     for (var favoriteId in favorites) {
-      await _loadSingleFavorite(favoriteId);
+      loadFavoritesList.add(_loadSingleFavorite(favoriteId));
     }
+    await Future.wait(loadFavoritesList);
   }
 
   Future<void> _loadSingleFavorite(String favoriteId) async {
