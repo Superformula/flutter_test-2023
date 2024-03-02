@@ -5,6 +5,11 @@ class RTThemeData {
   static final themeData = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
     useMaterial3: true,
+    appBarTheme: const AppBarTheme(
+      elevation: 2,
+      surfaceTintColor: RTColors.background,
+      shadowColor: RTColors.primaryFill,
+    ),
     colorScheme: const ColorScheme.light(
       primary: RTColors.primaryFill,
       onSurface: RTColors.secondaryText,

@@ -61,31 +61,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
     if (model!.status.isLoading) {
       return Scaffold(
-        appBar: AppBar(
-          elevation: 2,
-          surfaceTintColor: RTColors.background,
-          shadowColor: RTColors.primaryFill,
-        ),
+        appBar: AppBar(),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
 
     if (model!.status.isError) {
       return Scaffold(
-        appBar: AppBar(
-          elevation: 2,
-          surfaceTintColor: RTColors.background,
-          shadowColor: RTColors.primaryFill,
-        ),
+        appBar: AppBar(),
         body: const RTErrorWidget(),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        elevation: 2,
-        surfaceTintColor: RTColors.background,
-        shadowColor: RTColors.primaryFill,
         title: Text(
           model!.restaurant.name ?? '',
           style: RTTextStyle.headingH6(),

@@ -39,9 +39,6 @@ class _RestaurantsScreenState extends State<RestaurantsScreen> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            elevation: 2,
-            surfaceTintColor: RTColors.background,
-            shadowColor: RTColors.primaryFill,
             title: Text(
               AppLocalizations.of(context)!.restaurantListRestauranTour,
               style: RTTextStyle.headingH6(),
