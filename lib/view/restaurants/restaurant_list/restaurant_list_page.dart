@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/dependency_injection/di_locator.dart';
 import 'package:restaurantour/domain/restaurants/entities/restaurant_entity.dart';
-import 'package:restaurantour/view/restaurants/restaurant_detail_page.dart';
-import 'package:restaurantour/view/restaurants/restaurant_list_view_model.dart';
+import 'package:restaurantour/view/restaurants/restaurant_detail/restaurant_detail_page.dart';
 import 'package:restaurantour/design_system/restaurant_list_tile.dart';
+import 'package:restaurantour/view/restaurants/restaurant_list/restaurant_list_view_model.dart';
 
 class RestaurantListPage extends StatelessWidget {
   const RestaurantListPage({Key? key}) : super(key: key);

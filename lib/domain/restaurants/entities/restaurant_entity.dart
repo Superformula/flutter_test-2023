@@ -1,3 +1,5 @@
+import 'package:restaurantour/domain/restaurants/entities/review_entity.dart';
+
 class RestaurantEntity {
   final String id;
   final String name;
@@ -5,6 +7,7 @@ class RestaurantEntity {
   final String price;
   final double rating;
   final bool isOpen;
+  final List<ReviewEntity> reviews;
 
   const RestaurantEntity({
     required this.id,
@@ -13,6 +16,7 @@ class RestaurantEntity {
     required this.price,
     required this.rating,
     required this.isOpen,
+    required this.reviews,
   });
 
   @override
@@ -25,7 +29,8 @@ class RestaurantEntity {
         other.heroImage == heroImage &&
         other.price == price &&
         other.rating == rating &&
-        other.isOpen == isOpen;
+        other.isOpen == isOpen &&
+        other.reviews == reviews;
   }
 
   @override
@@ -35,6 +40,7 @@ class RestaurantEntity {
         heroImage.hashCode ^
         price.hashCode ^
         rating.hashCode ^
-        isOpen.hashCode;
+        isOpen.hashCode ^
+        reviews.hashCode;
   }
 }
