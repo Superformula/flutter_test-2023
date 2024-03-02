@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/dependency_injection/di_locator.dart';
 import 'package:restaurantour/view/restaurants/restaurant_list_page.dart';
 
 void main() {
+  setupLocator();
   runApp(const Restaurantour());
 }
 
