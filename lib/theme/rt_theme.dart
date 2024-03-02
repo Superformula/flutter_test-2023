@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/core/rt_colors.dart';
+import 'package:restaurantour/theme/rt_colors.dart';
 
 class RTThemeData {
   static final themeData = ThemeData(

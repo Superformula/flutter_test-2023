@@ -1,15 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
-import 'package:restaurantour/core/routes.dart';
-import 'package:restaurantour/core/rt_colors.dart';
-import 'package:restaurantour/core/inject.dart';
-import 'package:restaurantour/core/rt_text_style.dart';
+import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page.dart';
 import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page.dart';
 import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
+import 'package:restaurantour/theme/theme.dart';
 
 class RestaurantsScreen extends StatefulWidget {
   const RestaurantsScreen({super.key});

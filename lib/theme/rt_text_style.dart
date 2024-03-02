@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/core/rt_colors.dart';
+import 'package:restaurantour/theme/rt_colors.dart';
 
 class RTTextStyle {
   static headingH4({Color color = RTColors.defaultText}) => TextStyle(fontFamily: 'Lora', fontSize: 28.0, fontWeight: FontWeight.bold, color: color);

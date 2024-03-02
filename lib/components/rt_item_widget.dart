@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:restaurantour/components/rt_image_network.dart';
-import 'package:restaurantour/core/rt_colors.dart';
-import 'package:restaurantour/core/rt_text_style.dart';
+import 'package:restaurantour/core/core.dart';
+import 'package:restaurantour/theme/theme.dart';
 import 'package:restaurantour/models/dto.dart';
+import 'package:restaurantour/components/rt_image_network.dart';
 
 class RTItemWidget extends StatelessWidget {
   const RTItemWidget({

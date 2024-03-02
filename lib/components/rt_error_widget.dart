@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:restaurantour/core/rt_text_style.dart';
+import 'package:restaurantour/core/core.dart';
+import 'package:restaurantour/theme/theme.dart';
 
 class RTErrorWidget extends StatelessWidget {
   final Future<void> Function()? onTryAgain;

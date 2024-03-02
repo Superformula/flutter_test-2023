@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:restaurantour/core/core.dart';
 
 class RTEmptyWidget extends StatelessWidget {
   const RTEmptyWidget({super.key});

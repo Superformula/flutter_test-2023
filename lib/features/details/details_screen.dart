@@ -1,16 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
-import 'package:restaurantour/components/rt_components.dart';
-import 'package:restaurantour/core/inject.dart';
-import 'package:restaurantour/core/routes.dart';
-import 'package:restaurantour/core/rt_colors.dart';
-import 'package:restaurantour/core/rt_text_style.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:restaurantour/features/details/details_view_model.dart';
+import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/models/dto.dart';
-import 'package:restaurantour/repositories/restaurant_repository.dart';
+import 'package:restaurantour/theme/theme.dart';
+import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/services/favorite_service.dart';
+import 'package:restaurantour/repositories/restaurant_repository.dart';
+import 'package:restaurantour/features/details/details_view_model.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key});

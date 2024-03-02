@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:restaurantour/core/core.dart';
 
 class RTImageNetwork {
   Widget build({required String location, required Widget errorWidget}) {
