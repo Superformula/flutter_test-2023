@@ -19,6 +19,7 @@ dependencies:
   flutter_bloc: ^8.1.4
   bloc_test: ^9.1.6
   mocktail: ^1.0.3
+  mocktail_image_network: ^1.1.0
 
 dev_dependencies:
   flutter_test:
