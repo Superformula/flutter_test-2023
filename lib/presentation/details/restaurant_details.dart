@@ -20,6 +20,14 @@ class RestaurantDetails extends StatelessWidget {
             title: Text(
               restaurant.name ?? '',
             ),
+            actions: [
+              IconButton(
+                isSelected: false,
+                icon: const Icon(Icons.favorite_border),
+                selectedIcon: const Icon(Icons.favorite),
+                onPressed: () {},
+              ),
+            ],
           ),
           body: NestedScrollView(
             headerSliverBuilder: (context, _) {
