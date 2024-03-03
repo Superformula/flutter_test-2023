@@ -17,7 +17,6 @@ class FavoritesViewModel with ChangeNotifier {
   final RestaurantRepository restaurantRepository;
   final FavoriteService favoritesService;
   final EventBusService eventBus;
-  final int paginationSize = 20;
 
   final List<RestaurantDto> _restaurantsCache = [];
 
