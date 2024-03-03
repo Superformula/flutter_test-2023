@@ -6,18 +6,24 @@ abstract class Failure extends Equatable {
 
   const Failure({
     required this.message,
-    this.statusCode = 0,
+    this.statusCode,
   });
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [
+        message,
+        if (statusCode != null) statusCode,
+      ];
 }
 
 class ServerFailure extends Failure {
   const ServerFailure({
     required String message,
     int? statusCode,
-  }) : super(message: message, statusCode: statusCode);
+  }) : super(
+          message: message,
+          statusCode: statusCode,
+        );
 }
 
 class LocalFailure extends Failure {
