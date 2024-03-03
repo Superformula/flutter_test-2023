@@ -1,10 +1,10 @@
-import 'package:restaurantour/core/core.dart';
-import 'package:restaurantour/models/dto.dart';
-import 'package:restaurantour/theme/theme.dart';
 import 'package:restaurantour/components/rt_components.dart';
-import 'package:restaurantour/services/favorite_service.dart';
-import 'package:restaurantour/repositories/restaurant_repository.dart';
+import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/details/details_view_model.dart';
+import 'package:restaurantour/models/dto.dart';
+import 'package:restaurantour/repositories/restaurant_repository.dart';
+import 'package:restaurantour/services/favorite_service.dart';
+import 'package:restaurantour/theme/theme.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key});

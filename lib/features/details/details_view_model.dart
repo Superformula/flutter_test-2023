@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/core/logger.dart';
+import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
-import 'package:restaurantour/models/dto.dart';
 
 enum DetailsStatus { loading, paginating, content, error, updatingFavorite }
 
@@ -36,8 +37,8 @@ class DetailsViewModel with ChangeNotifier {
       isFavorite ? await favoriteService.removeFavorite(restaurantId) : await favoriteService.addFavorite(restaurantId);
 
       isFavorite = !isFavorite;
-    } catch (e) {
-      print(e);
+    } catch (exception, stackTrace) {
+      RTLogger.e(message: 'Fail to toggle favorite', exception: exception, stackTrace: stackTrace);
     } finally {
       _emitContent();
     }
@@ -53,19 +54,27 @@ class DetailsViewModel with ChangeNotifier {
       _favoriteList = await favoriteService.loadFavorites();
       isFavorite = _favoriteList.contains(restaurantId);
       _emitContent();
-    } catch (e) {
-      print(e);
+    } catch (exception, stackTrace) {
+      RTLogger.e(message: 'Fail to Load Restaurant Details', exception: exception, stackTrace: stackTrace);
       _emitError();
     }
   }
 
-  Future<void> _getRestaurantDetails() async => restaurant = await restaurantRepository.getRestaurantDetails(restaurantId: restaurantId);
+  Future<void> _getRestaurantDetails() async {
+    try {
+      restaurant = await restaurantRepository.getRestaurantDetails(restaurantId: restaurantId);
+    } catch (exception, stackTrace) {
+      RTLogger.e(message: 'Fail to get Restaurant Details', exception: exception, stackTrace: stackTrace);
+      rethrow;
+    }
+  }
+
   Future<void> _getReviews() async {
     try {
       reviewsQuery = await restaurantRepository.getReviews(restaurantId: restaurantId);
       reviews.addAll(reviewsQuery?.review ?? []);
-    } catch (e) {
-      print(e);
+    } catch (exception, stackTrace) {
+      RTLogger.e(message: 'Fail to get Restaurant Reviews', exception: exception, stackTrace: stackTrace);
     }
   }
 
@@ -75,8 +84,8 @@ class DetailsViewModel with ChangeNotifier {
       _emitIsPaginating();
       final paginated = await restaurantRepository.getReviews(restaurantId: restaurantId, offset: reviews.length);
       reviews.addAll(paginated?.review ?? []);
-    } catch (e) {
-      print(e);
+    } catch (exception, stackTrace) {
+      RTLogger.e(message: 'Fail to paginate reviews', exception: exception, stackTrace: stackTrace);
     } finally {
       _emitContent();
     }

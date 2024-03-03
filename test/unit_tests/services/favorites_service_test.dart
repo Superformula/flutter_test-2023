@@ -1,10 +1,8 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../mocks/mocks.dart';
+import '../../test.dart';
 
 void main() {
   SharedPreferences sharedPreferences = SharedPreferencesMock();

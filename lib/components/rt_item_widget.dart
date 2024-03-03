@@ -1,7 +1,7 @@
-import 'package:restaurantour/core/core.dart';
-import 'package:restaurantour/theme/theme.dart';
-import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
+import 'package:restaurantour/core/core.dart';
+import 'package:restaurantour/models/dto.dart';
+import 'package:restaurantour/theme/theme.dart';
 
 class RTItemWidget extends StatelessWidget {
   const RTItemWidget({

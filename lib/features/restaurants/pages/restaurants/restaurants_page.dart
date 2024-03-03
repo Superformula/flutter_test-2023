@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_components.dart';
-import 'package:restaurantour/core/inject.dart';
+import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/details/details_screen.dart';
 import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
 

@@ -1,6 +1,6 @@
+import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/theme/theme.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:restaurantour/core/core.dart';
 
 class RTShimmerLoading extends StatelessWidget {
   const RTShimmerLoading({super.key});

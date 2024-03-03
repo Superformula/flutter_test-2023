@@ -1,7 +1,7 @@
-import 'package:restaurantour/core/core.dart';
-import 'package:restaurantour/theme/theme.dart';
-import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/components/rt_image_network.dart';
+import 'package:restaurantour/core/core.dart';
+import 'package:restaurantour/models/dto.dart';
+import 'package:restaurantour/theme/theme.dart';
 
 class RTReviewWidget extends StatelessWidget {
   const RTReviewWidget({super.key, required this.review, required this.isFirstItem, required this.imageNetwork});

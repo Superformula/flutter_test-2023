@@ -9,5 +9,4 @@ linter:
   rules:
     ## The following rules are excluded only to keep compatibility with our previous lint set (pedantic).
     ## There's room to discuss them individually and raise PRs adjusting our codebase.
-    avoid_print: false
     require_trailing_commas: true

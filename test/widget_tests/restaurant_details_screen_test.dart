@@ -1,17 +1,15 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/features/details/details_screen.dart';
+import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
-import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/theme/theme.dart';
 
-import '../mocks/mocks.dart';
+import '../test.dart';
 
 void main() {
   RestaurantRepository restaurantRepository = RestaurantRepositoryMock();

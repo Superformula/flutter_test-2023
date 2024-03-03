@@ -1,17 +1,12 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
-import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:mocktail/mocktail.dart';
-import 'package:provider/provider.dart';
 import 'package:restaurantour/components/rt_components.dart';
+import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page.dart';
 import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
 import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
-import '../mocks/mocks.dart';
-import '../widget_for_tests.dart';
+import '../test.dart';
 
 void main() {
   RestaurantRepository restaurantRepository = RestaurantRepositoryMock();

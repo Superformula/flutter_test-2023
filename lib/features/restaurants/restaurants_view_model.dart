@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/core/logger.dart';
+import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
-import 'package:restaurantour/models/dto.dart';
 
 enum RestaurantsStatus { paginating, loading, content, error, empty }
 
@@ -50,8 +51,8 @@ class RestaurantsViewModel with ChangeNotifier {
       _emitRestaurantLoading();
       _restaurantsQuery = await restaurantRepository.getRestaurants();
       restaurantsList.isEmpty ? _emitRestaurantEmpty() : _emitRestaurantContent();
-    } catch (e) {
-      print(e);
+    } catch (exception, stackTrace) {
+      RTLogger.e(message: 'Fail to load Restaurants', exception: exception, stackTrace: stackTrace);
       _emitRestaurantError();
     }
   }
@@ -62,8 +63,8 @@ class RestaurantsViewModel with ChangeNotifier {
       _emitRestaurantPaginating();
       final paginated = await restaurantRepository.getRestaurants(offset: restaurantsList.length);
       restaurantsList.addAll(paginated?.restaurants ?? []);
-    } catch (e) {
-      print(e);
+    } catch (exception, stackTrace) {
+      RTLogger.e(message: 'Fail to paginate Restaurants', exception: exception, stackTrace: stackTrace);
     } finally {
       _emitRestaurantContent();
     }
@@ -82,8 +83,8 @@ class RestaurantsViewModel with ChangeNotifier {
 
       await _loadFavoritesInMemory(favoritesToFetch);
       _favorites.isEmpty ? _emitFavoriteEmpty() : _emitFavoriteContent();
-    } catch (e) {
-      print(e);
+    } catch (exception, stackTrace) {
+      RTLogger.e(message: 'Fail to load Favorites', exception: exception, stackTrace: stackTrace);
       _emitFavoriteError();
     }
   }
@@ -108,7 +109,8 @@ class RestaurantsViewModel with ChangeNotifier {
       final _restaurant = await restaurantRepository.getSingleRestaurant(restaurantId: favoriteId);
       _favorites.add(_restaurant);
       _restaurantsCache.add(_restaurant);
-    } catch (e) {
+    } catch (exception, stackTrace) {
+      RTLogger.e(message: 'Fail to load detail of Favorite', exception: exception, stackTrace: stackTrace);
       _favorites.add(RestaurantDto(id: favoriteId));
     }
   }
