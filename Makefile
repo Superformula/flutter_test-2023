@@ -9,7 +9,9 @@ integration-tests :
 	flutter test integration_test/app_test.dart
 
 lcov-ignore : 
-	lcov --remove coverage/lcov.info 'lib/core/*' 'lib/models/*.g.dart' -o coverage/lcov.info
+	lcov --remove coverage/lcov.info 'lib/core/*' 'lib/theme/*' 'lib/models/*.g.dart' -o coverage/lcov.info
+
+show-coverage : tests lcov
 
 
 lcov : tests lcov-ignore
