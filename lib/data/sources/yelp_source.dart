@@ -1,13 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/data/exceptions/network_exception.dart';
+import 'package:restaurantour/data/models/restaurant.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
+const _apiKey =
+    'wfYIpeyetAPJbQYg5ITUE4wxzqCvoEQM5FQyW9Xq4SGJG52vkefWY_Irq9yg_TKpXRYJUgTO48W_fVXReEABY919sT74bHoCAyNH4b0kTe94rmEWFWNo1GjFxUXjZXYx';
 
-class YelpRepository {
+class YelpSource {
   late Dio dio;
 
-  YelpRepository({
+  YelpSource({
     @visibleForTesting Dio? dio,
   }) : dio = dio ??
             Dio(
@@ -29,7 +31,7 @@ class YelpRepository {
   ///       {
   ///         "id": "faPVqws-x-5k2CQKDNtHxw",
   ///         "name": "Yardbird Southern Table & Bar",
-  ///         "price": "$$",
+  ///         "price": "2",
   ///         "rating": 4.5,
   ///         "photos": [
   ///           "https:///s3-media4.fl.yelpcdn.com/bphoto/_zXRdYX4r1OBfF86xKMbDw/o.jpg"
@@ -58,22 +60,33 @@ class YelpRepository {
   ///   }
   /// }
   ///
-  Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
+
+  Future<List<Restaurant>?> getRestaurants({int offset = 0}) async {
     try {
       final response = await dio.post<Map<String, dynamic>>(
         '/v3/graphql',
         data: _getQuery(offset),
       );
-      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
+
+      if (response.statusCode != null && response.statusCode! >= 400) {
+        throw NetworkException(
+          statusCode: response.statusCode!,
+          message: response.statusMessage,
+        );
+      } else if (response.statusCode != null) {
+        return RestaurantQueryResult.fromJson(response.data!['data']['search'])
+            .restaurants;
+      }
     } catch (e) {
-      return null;
+      throw Exception('Failed to get restaurants: $e');
     }
+    return null;
   }
 
   String _getQuery(int offset) {
     return '''
 query getRestaurants {
-  search(location: "Las Vegas", limit: 20, offset: $offset) {
+  search(location: "Las Vegas", limit: 15, offset: $offset) {
     total    
     business {
       id
@@ -84,6 +97,7 @@ query getRestaurants {
       reviews {
         id
         rating
+        text
         user {
           id
           image_url
