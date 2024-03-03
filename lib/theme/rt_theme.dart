@@ -19,6 +19,7 @@ class RTThemeData {
     useMaterial3: true,
     appBarTheme: const AppBarTheme(
       elevation: 2,
+      centerTitle: true,
       surfaceTintColor: RTColors.background,
       shadowColor: RTColors.primaryFill,
     ),
