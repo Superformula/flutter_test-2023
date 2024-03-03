@@ -132,8 +132,10 @@ class _MyFavoritesTab extends StatelessWidget {
       );
     }
 
-    // display favorite restaurants
-    final favoriteRestaurants = viewModel.favoriteRestaurants;
+    final favoriteRestaurants = viewModel.restaurants
+        .where((restaurant) =>
+            viewModel.favoriteRestaurants.contains(restaurant.id))
+        .toList();
 
     if (favoriteRestaurants.isEmpty) {
       return const Center(
@@ -145,11 +147,19 @@ class _MyFavoritesTab extends StatelessWidget {
     return ListView.builder(
       itemCount: favoriteRestaurants.length,
       itemBuilder: (context, index) {
-        final restaurantId = favoriteRestaurants[index];
-        final restaurant = viewModel.restaurants.firstWhere(
-          (element) => element.id == restaurantId,
-        );
+        final RestaurantEntity restaurant = favoriteRestaurants[index];
         return RestaurantListTile(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RestaurantDetailPage(
+                  // Pass necessary data to the detail page
+                  restaurant: restaurant,
+                ),
+              ),
+            );
+          },
           imageUrl: restaurant.heroImage,
           name: restaurant.name,
           priceRange: restaurant.price,

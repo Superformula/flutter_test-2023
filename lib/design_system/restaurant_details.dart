@@ -15,6 +15,7 @@ class RestaurantDetails extends StatelessWidget {
     return Row(
       children: [
         Text(price),
+        const SizedBox(width: 4),
         Text(category),
       ],
     );

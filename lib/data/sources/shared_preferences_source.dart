@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:restaurantour/domain/restaurants/repositories/repository_interfaces/shared_preferences_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// A [SharedPreferencesRepository] implementation that uses [SharedPreferences] as the
-/// underlying storage.
-///
-/// Should be replaced with a more robust solution in a production environment.
+/// This class is the implementation of the [SharedPreferencesRepository] interface.
+/// It uses the [SharedPreferences] package to store the favorite restaurants.
 
 class SharedPreferencesSource extends SharedPreferencesRepository {
   static const _key = 'favorite_restaurants';
@@ -21,17 +19,21 @@ class SharedPreferencesSource extends SharedPreferencesRepository {
   }
 
   @override
-  Future<void> addFavoriteRestaurant(String restaurantId) async {
+  Future<void> toggleFavoriteRestaurant(String restaurantId) async {
     final prefs = await SharedPreferences.getInstance();
-    final favorites = prefs.getStringList(_key) ?? [];
-    if (!favorites.contains(restaurantId)) {
-      favorites.add(restaurantId);
-      await prefs.setStringList(_key, favorites);
+    final favoriteRestaurants = prefs.getStringList(_key) ?? [];
+    if (favoriteRestaurants.contains(restaurantId)) {
+      favoriteRestaurants.remove(restaurantId);
+    } else {
+      favoriteRestaurants.add(restaurantId);
     }
+    await prefs.setStringList(_key, favoriteRestaurants);
+    _controller.add(favoriteRestaurants);
   }
 
   @override
   Stream<List<String>> watchFavoriteRestaurants() {
+    _controller.addStream(Stream.fromFuture(getFavoriteRestaurants()));
     return _controller.stream;
   }
 

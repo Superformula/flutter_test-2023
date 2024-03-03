@@ -10,11 +10,12 @@ class RestaurantRepositoryImpl implements RestaurantsRepository {
 
   @override
   Future<List<RestaurantEntity>> getRestaurants(int offset) async {
+    // Remove this if clause to enable pagination
     if (offset != 0) {
       //wont call api to prevent exceeding limit
-      print('calling api with offset: $offset');
       return Future.value([]);
     }
+
     final result = await _yelpSource.getRestaurants(offset: offset);
     if (result == null) {
       throw Exception('Failed to fetch restaurants');

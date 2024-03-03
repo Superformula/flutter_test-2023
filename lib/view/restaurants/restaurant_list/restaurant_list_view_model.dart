@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:restaurantour/domain/restaurants/entities/restaurant_entity.dart';
 import 'package:restaurantour/domain/restaurants/use_cases/get_restaurants_use_case.dart';
-import 'package:restaurantour/domain/restaurants/use_cases/save_favorite_restaurant_use_case.dart';
 import 'package:restaurantour/domain/restaurants/use_cases/watch_favorite_restaurants_use_case.dart';
 
 enum RestaurantListState {
@@ -15,12 +14,10 @@ enum RestaurantListState {
 
 class RestaurantListViewModel extends ChangeNotifier {
   final GetRestaurantsUseCase _getRestaurantsUseCase;
-  final SaveFavoriteRestaurantUseCase _saveFavoriteRestaurantUseCase;
   final WatchFavoriteRestaurantsUseCase _watchFavoriteRestaurantsUseCase;
 
   RestaurantListViewModel(
     this._getRestaurantsUseCase,
-    this._saveFavoriteRestaurantUseCase,
     this._watchFavoriteRestaurantsUseCase,
   );
 
@@ -43,8 +40,7 @@ class RestaurantListViewModel extends ChangeNotifier {
     getRestaurants();
     _favoritesSubscription?.cancel();
     _favoritesSubscription = _watchFavoriteRestaurantsUseCase().listen((event) {
-      _favoriteRestaurants?.add(event as String);
-      print('favorites: $_favoriteRestaurants');
+      _favoriteRestaurants = event;
       notifyListeners();
     });
   }
@@ -58,7 +54,6 @@ class RestaurantListViewModel extends ChangeNotifier {
   Future<List<RestaurantEntity>?> getRestaurants() async {
     try {
       if (_state == RestaurantListState.loadingMore) return _restaurants;
-      print('fetching restaurants');
 
       final result = await _getRestaurantsUseCase(_offset);
       _restaurants.addAll(result);
@@ -71,9 +66,5 @@ class RestaurantListViewModel extends ChangeNotifier {
       notifyListeners();
       return null;
     }
-  }
-
-  Future<void> saveFavorite(String restaurantId) async {
-    await _saveFavoriteRestaurantUseCase(restaurantId);
   }
 }

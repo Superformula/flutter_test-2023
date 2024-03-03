@@ -1,4 +1,4 @@
-import 'package:restaurantour/data/sources/shared_preferences_repository.dart';
+import 'package:restaurantour/data/sources/shared_preferences_source.dart';
 import 'package:restaurantour/domain/restaurants/repositories/repository_interfaces/shared_preferences_repository.dart';
 
 class SharedPreferencesRepositoryImpl implements SharedPreferencesRepository {
@@ -6,8 +6,8 @@ class SharedPreferencesRepositoryImpl implements SharedPreferencesRepository {
   SharedPreferencesRepositoryImpl(this._sharedPreferencesRepository);
 
   @override
-  Future<void> addFavoriteRestaurant(String restaurantId) {
-    return _sharedPreferencesRepository.addFavoriteRestaurant(restaurantId);
+  Future<void> toggleFavoriteRestaurant(String restaurantId) {
+    return _sharedPreferencesRepository.toggleFavoriteRestaurant(restaurantId);
   }
 
   @override

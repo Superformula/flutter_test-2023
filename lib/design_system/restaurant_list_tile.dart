@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/design_system/open_status_indicator.dart';
 import 'package:restaurantour/design_system/restaurant_details.dart';
 
 class RestaurantListTile extends StatelessWidget {
@@ -25,36 +26,32 @@ class RestaurantListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: ListTile(
-        leading: Image.network(
-          imageUrl,
-          width: 70,
-          height: 70,
-          fit: BoxFit.cover,
-        ),
-        title: Text(name),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            RestaurantDetails(
-              price: priceRange,
-              category: category,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _StarRating(rating: rating),
-                Container(
-                  width: 10,
-                  height: 10,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: isOpen ? Colors.green : Colors.red,
-                  ),
-                ),
-              ],
-            ),
-          ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: ListTile(
+          leading: Image.network(
+            imageUrl,
+            width: 88,
+            height: 88,
+            fit: BoxFit.cover,
+          ),
+          title: Text(name),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RestaurantDetails(
+                price: priceRange,
+                category: category,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _StarRating(rating: rating),
+                  OpenStatusIndicator(isOpen: isOpen),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

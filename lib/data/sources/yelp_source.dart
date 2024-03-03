@@ -86,7 +86,7 @@ class YelpSource {
   String _getQuery(int offset) {
     return '''
 query getRestaurants {
-  search(location: "Las Vegas", limit: 1, offset: $offset) {
+  search(location: "Las Vegas", limit: 3, offset: $offset) {
     total    
     business {
       id

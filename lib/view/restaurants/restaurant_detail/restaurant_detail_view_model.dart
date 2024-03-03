@@ -1,19 +1,39 @@
 import 'package:flutter/foundation.dart';
 import 'package:restaurantour/domain/restaurants/entities/restaurant_entity.dart';
-import 'package:restaurantour/domain/restaurants/use_cases/save_favorite_restaurant_use_case.dart';
+import 'package:restaurantour/domain/restaurants/use_cases/get_restaurant_favorite_status_use_case.dart';
+import 'package:restaurantour/domain/restaurants/use_cases/toggle_favorite_restaurant_use_case.dart';
 
 class RestaurantDetailViewModel extends ChangeNotifier {
-  RestaurantDetailViewModel({
-    required RestaurantEntity restaurant,
-    required SaveFavoriteRestaurantUseCase saveFavoriteRestaurantUseCase,
-  })  : _restaurant = restaurant,
-        _saveFavoriteRestaurantUseCase = saveFavoriteRestaurantUseCase;
+  RestaurantDetailViewModel(
+    this._toggleFavoriteRestaurantUseCase,
+    this._getRestaurantFavoriteStatusUseCase,
+  );
 
-  final RestaurantEntity _restaurant;
-  final SaveFavoriteRestaurantUseCase _saveFavoriteRestaurantUseCase;
+  final ToggleFavoriteRestaurantUseCase _toggleFavoriteRestaurantUseCase;
+  final GetRestaurantFavoriteStatusUseCase _getRestaurantFavoriteStatusUseCase;
 
-  void addToFavorites() {
-    _saveFavoriteRestaurantUseCase(_restaurant.id);
+  bool _isFavorite = false;
+  bool get isFavorite => _isFavorite;
+
+  RestaurantEntity? _restaurant;
+  RestaurantEntity? get restaurant => _restaurant;
+
+  init(RestaurantEntity restaurant) {
+    _restaurant = restaurant;
+    getFavoriteStatus();
+  }
+
+  void getFavoriteStatus() async {
+    if (_restaurant == null) return;
+    _isFavorite = await _getRestaurantFavoriteStatusUseCase(_restaurant!.id);
+    print('isFavorite: $_isFavorite');
+    notifyListeners();
+  }
+
+  void toggleFavorite() async {
+    if (_restaurant == null) return;
+    await _toggleFavoriteRestaurantUseCase(_restaurant!.id);
+    _isFavorite = !_isFavorite;
     notifyListeners();
   }
 }
