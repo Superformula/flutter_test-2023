@@ -20,7 +20,7 @@ class GoRouterConfig {
       GoRoute(
         name: GoRouterConfig.home.name,
         path: GoRouterConfig.home.path,
-        builder: (context, state) => RestaurantsScreen.create(),
+        builder: (context, state) => const RestaurantsScreen(),
       ),
       GoRoute(
         name: GoRouterConfig.details.name,

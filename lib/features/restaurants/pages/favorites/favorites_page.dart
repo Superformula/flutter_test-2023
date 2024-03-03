@@ -1,7 +1,7 @@
 import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/details/details_screen.dart';
-import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page_view_model.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -11,7 +11,7 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  RestaurantsViewModel? model;
+  FavoritesViewModel? model;
 
   @override
   void initState() {
@@ -23,11 +23,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     model = context.watch();
 
-    if (model!.favoritesStatus.isLoading) return const RTShimmerLoading();
+    if (model!.status.isLoading) return const RTShimmerLoading();
 
-    if (model!.favoritesStatus.isError) return const RTErrorWidget();
+    if (model!.status.isError) return const RTErrorWidget();
 
-    if (model!.favoritesStatus.isEmpty) return const RTEmptyWidget();
+    if (model!.status.isEmpty) return const RTEmptyWidget();
 
     return ListView.builder(
       itemCount: model!.favoritesRestaurantList.length,
@@ -45,7 +45,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
               pathParameters: {DetailsScreen.restaurantIdParams: model!.favoritesRestaurantList[index].id ?? ''},
             );
           },
-          onFinishNavigation: model!.loadFavorites,
         );
       },
     );

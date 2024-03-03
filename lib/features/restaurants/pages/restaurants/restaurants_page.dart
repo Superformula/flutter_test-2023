@@ -1,7 +1,7 @@
 import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/details/details_screen.dart';
-import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page_view_model.dart';
 
 class RestaurantsPage extends StatefulWidget {
   const RestaurantsPage({super.key});
@@ -40,12 +40,12 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
 
     if (model!.restaurantsStatus.isLoading) return const RTShimmerLoading();
 
-    if (model!.restaurantsStatus.isError) return RTErrorWidget(onTryAgain: () => model!.load());
+    if (model!.restaurantsStatus.isError) return RTErrorWidget(onTryAgain: model!.loadRestaurants);
 
     if (model!.restaurantsStatus.isEmpty) return const RTEmptyWidget();
 
     return RefreshIndicator(
-      onRefresh: () => model!.load(),
+      onRefresh: model!.loadRestaurants,
       child: ListView.builder(
         controller: scrollController,
         itemCount: model!.restaurantsList.length,
@@ -58,13 +58,12 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
                 isFirstItem: isFirstItem,
                 imageNetwork: inject<RTImageNetwork>(),
                 restaurant: model!.restaurantsList[index],
-                openDetails: () async {
-                  await context.pushNamed(
+                openDetails: () {
+                  context.pushNamed(
                     DetailsScreen.route,
                     pathParameters: {DetailsScreen.restaurantIdParams: model!.restaurantsList[index].id ?? ''},
                   );
                 },
-                onFinishNavigation: () => model!.loadFavorites(),
               ),
               if (index + 1 == model!.restaurantsList.length)
                 Visibility(

@@ -1,8 +1,10 @@
 import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page.dart';
+import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page_view_model.dart';
 import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page.dart';
-import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page_view_model.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
+import 'package:restaurantour/services/event_bus_service.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 import 'package:restaurantour/theme/theme.dart';
 
@@ -10,27 +12,12 @@ class RestaurantsScreen extends StatefulWidget {
   const RestaurantsScreen({super.key});
   static RTRoute route = GoRouterConfig.home;
 
-  static Widget create() => ChangeNotifierProvider(
-        create: (context) => RestaurantsViewModel(
-          favoritesService: inject<FavoriteService>(),
-          restaurantRepository: inject<RestaurantRepository>(),
-        ),
-        child: const RestaurantsScreen(),
-      );
-
   @override
   State<RestaurantsScreen> createState() => _RestaurantsScreenState();
 }
 
 class _RestaurantsScreenState extends State<RestaurantsScreen> {
   RestaurantsViewModel? model;
-
-  @override
-  void initState() {
-    super.initState();
-    model = context.read();
-    WidgetsBinding.instance.addPostFrameCallback((_) async => await model!.load());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +49,27 @@ class _RestaurantsScreenState extends State<RestaurantsScreen> {
               ],
             ),
           ),
-          body: const TabBarView(
-            children: [
-              RestaurantsPage(),
-              FavoritesPage(),
+          body: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (context) => FavoritesViewModel(
+                  eventBus: inject<EventBusService>(),
+                  favoritesService: inject<FavoriteService>(),
+                  restaurantRepository: inject<RestaurantRepository>(),
+                ),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => RestaurantsViewModel(
+                  restaurantRepository: inject<RestaurantRepository>(),
+                ),
+              ),
             ],
+            child: const TabBarView(
+              children: [
+                RestaurantsPage(),
+                FavoritesPage(),
+              ],
+            ),
           ),
         ),
       ),

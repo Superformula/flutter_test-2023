@@ -1,7 +1,7 @@
 import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page.dart';
-import 'package:restaurantour/features/restaurants/restaurants_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page_view_model.dart';
 import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/favorite_service.dart';
@@ -27,11 +27,7 @@ void main() {
         debugShowCheckedModeBanner: false,
         theme: RTThemeData.themeData,
         home: ChangeNotifierProvider(
-          create: (context) {
-            final model = RestaurantsViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository);
-            model.load();
-            return model;
-          },
+          create: (context) => RestaurantsViewModel(restaurantRepository: restaurantRepository),
           child: const RestaurantsPage(),
         ),
       );
@@ -39,7 +35,7 @@ void main() {
   testWidgets('''when successfully fetch the [RestaurantQueryResult] and has data, 
   should create a [RTItemWidget] for each [Restaurant]''', (WidgetTester tester) async {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
-    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
+    when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
 
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
@@ -53,7 +49,7 @@ void main() {
   testWidgets('''when get some error while fetch the [RestaurantQueryResult], 
   should render [RTErrorWidget] to inform to the user that something fails''', (WidgetTester tester) async {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenThrow('error mock');
-    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
+    when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
 
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();
@@ -65,7 +61,7 @@ void main() {
   testWidgets('''when successfully fetch the [RestaurantQueryResult] and has no data, 
   should render [RTEmptyWidget] to inform to the user that has no results''', (WidgetTester tester) async {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(const RestaurantQueryResultDto(restaurants: [])));
-    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
+    when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
 
     await tester.pumpWidget(widgetBuilder());
     await tester.pumpAndSettle();

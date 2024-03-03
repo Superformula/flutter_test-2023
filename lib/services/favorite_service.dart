@@ -6,7 +6,7 @@ class FavoriteService {
 
   FavoriteService({required this.sharedPreferences});
 
-  Future<List<String>> loadFavorites() async {
+  Future<List<String>> getFavorites() async {
     List<String>? favoriteItems = sharedPreferences.getStringList(favoritesKey);
     favoriteItems ??= [];
     return favoriteItems;

@@ -8,14 +8,12 @@ class RTItemWidget extends StatelessWidget {
     super.key,
     required this.restaurant,
     required this.isFirstItem,
-    this.onFinishNavigation,
     required this.imageNetwork,
     required this.openDetails,
   });
   final bool isFirstItem;
   final RestaurantDto restaurant;
-  final VoidCallback? onFinishNavigation;
-  final Future<void> Function() openDetails;
+  final Function() openDetails;
   final RTImageNetwork imageNetwork;
 
   double get rating => restaurant.rating ?? 0;
@@ -33,10 +31,7 @@ class RTItemWidget extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         elevation: 2,
         child: InkWell(
-          onTap: () async {
-            await openDetails();
-            if (onFinishNavigation != null) onFinishNavigation!();
-          },
+          onTap: openDetails,
           child: SizedBox(
             height: 104,
             child: Padding(

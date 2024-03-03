@@ -24,9 +24,9 @@ void main() {
 
   testWidgets('when [RestaurantTour] loads should show the title on the page and fetch the data', (WidgetTester tester) async {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
-    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
+    when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
 
-    await tester.pumpWidget(widgetBuilder(RestaurantsScreen.create()));
+    await tester.pumpWidget(widgetBuilder(const RestaurantsScreen()));
 
     expect(find.text('RestauranTour'), findsOneWidget);
     verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
@@ -34,9 +34,9 @@ void main() {
 
   testWidgets('when [RestaurantTour] loads should show the tabs [All Restaurants] and [My Favorites] on the page and fetch the data', (WidgetTester tester) async {
     when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
-    when(() => favoritesService.loadFavorites()).thenAnswer((_) => Future.value([]));
+    when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
 
-    await tester.pumpWidget(widgetBuilder(RestaurantsScreen.create()));
+    await tester.pumpWidget(widgetBuilder(const RestaurantsScreen()));
 
     expect(find.text('All Restaurants'), findsOneWidget);
     expect(find.text('My Favorites'), findsOneWidget);

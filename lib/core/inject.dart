@@ -6,6 +6,7 @@ import 'package:restaurantour/core/interceptor.dart';
 import 'package:restaurantour/core/logger.dart';
 import 'package:restaurantour/core/routes.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
+import 'package:restaurantour/services/event_bus_service.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,6 +35,8 @@ Future<void> setupInjection() async {
   );
 
   inject.registerLazySingleton<RestaurantRepository>(() => RestaurantRepository(dio: inject<Dio>()));
+
+  inject.registerLazySingleton<EventBusService>(() => EventBusService());
 
   inject.registerLazySingleton<SharedPreferences>(() => sharedPref);
 

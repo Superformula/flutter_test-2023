@@ -20,7 +20,7 @@ void main() {
     when(() => sharedPreferences.getStringList(any())).thenReturn([]);
 
     final sut = FavoriteService(sharedPreferences: sharedPreferences);
-    final result = await sut.loadFavorites();
+    final result = await sut.getFavorites();
 
     expect(result, <String>[]);
   });

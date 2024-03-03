@@ -3,6 +3,7 @@ import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/details/details_view_model.dart';
 import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
+import 'package:restaurantour/services/event_bus_service.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 import 'package:restaurantour/theme/theme.dart';
 
@@ -16,6 +17,7 @@ class DetailsScreen extends StatefulWidget {
           restaurantId: restaurantId ?? '',
           restaurantRepository: inject<RestaurantRepository>(),
           favoriteService: inject<FavoriteService>(),
+          eventBus: inject<EventBusService>(),
         ),
         child: const DetailsScreen(),
       );

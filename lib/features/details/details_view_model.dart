@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurantour/core/logger.dart';
 import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
+import 'package:restaurantour/services/event_bus_service.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 
 enum DetailsStatus { loading, paginating, content, error, updatingFavorite }
@@ -24,19 +25,25 @@ class DetailsViewModel with ChangeNotifier {
   final String restaurantId;
   final FavoriteService favoriteService;
   final RestaurantRepository restaurantRepository;
-
+  final EventBusService eventBus;
   List<String> _favoriteList = [];
 
   int get totalReviews => reviewsQuery?.total ?? 0;
   bool get shouldPaginate => reviews.length < totalReviews && totalReviews > paginationSize;
 
-  DetailsViewModel({required this.favoriteService, required this.restaurantRepository, required this.restaurantId});
+  DetailsViewModel({
+    required this.favoriteService,
+    required this.restaurantRepository,
+    required this.restaurantId,
+    required this.eventBus,
+  });
   Future<void> toggleFavorite() async {
     try {
       _emitChangingFavorite();
       isFavorite ? await favoriteService.removeFavorite(restaurantId) : await favoriteService.addFavorite(restaurantId);
 
       isFavorite = !isFavorite;
+      eventBus.fire(restaurantId);
     } catch (exception, stackTrace) {
       RTLogger.e(message: 'Fail to toggle favorite', exception: exception, stackTrace: stackTrace);
     } finally {
@@ -51,7 +58,7 @@ class DetailsViewModel with ChangeNotifier {
         _getRestaurantDetails(),
         _getReviews(),
       ]);
-      _favoriteList = await favoriteService.loadFavorites();
+      _favoriteList = await favoriteService.getFavorites();
       isFavorite = _favoriteList.contains(restaurantId);
       _emitContent();
     } catch (exception, stackTrace) {
