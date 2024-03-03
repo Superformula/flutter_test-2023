@@ -30,12 +30,14 @@ class RestaurantListTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: ListTile(
-          leading: Image.network(
-            imageUrl,
-            width: 88,
-            height: 88,
-            fit: BoxFit.cover,
-          ),
+          leading: imageUrl.isEmpty
+              ? const SizedBox.shrink()
+              : Image.network(
+                  imageUrl,
+                  width: 88,
+                  height: 88,
+                  fit: BoxFit.cover,
+                ),
           title: Text(name),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:restaurantour/data/sources/shared_preferences_source.dart';
 import 'package:restaurantour/data/sources/yelp_source.dart';
@@ -66,4 +67,12 @@ void setupLocator() {
       locator<GetRestaurantFavoriteStatusUseCase>(),
     ),
   );
+}
+
+/// Regisers an object of type T
+///
+/// only available for testing
+@visibleForTesting
+void testRegister<T extends Object>(T object) {
+  locator.registerSingleton<T>(object);
 }

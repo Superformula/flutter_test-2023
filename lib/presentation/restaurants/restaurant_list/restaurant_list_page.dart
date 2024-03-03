@@ -5,6 +5,7 @@ import 'package:restaurantour/domain/restaurants/entities/restaurant_entity.dart
 import 'package:restaurantour/presentation/restaurants/restaurant_detail/restaurant_detail_page.dart';
 import 'package:restaurantour/design_system/restaurant_list_tile.dart';
 import 'package:restaurantour/presentation/restaurants/restaurant_list/restaurant_list_view_model.dart';
+import 'package:restaurantour/presentation/utils/constants.dart';
 
 class RestaurantListPage extends StatelessWidget {
   const RestaurantListPage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class RestaurantListPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Restaurant List'),
+          title: const Text(Constants.restaurantListTitle),
           bottom: const TabBar(
             labelStyle: TextStyle(
               fontFamily: 'OpenSans',
@@ -24,10 +25,10 @@ class RestaurantListPage extends StatelessWidget {
             labelColor: Colors.black,
             tabs: [
               Tab(
-                text: 'All Restaurants',
+                text: Constants.allRestaurantsTabTitle,
               ),
               Tab(
-                text: 'My Favorites',
+                text: Constants.favoriteRestaurantsTabTitle,
               ),
             ],
           ),
@@ -68,7 +69,7 @@ class _AllRestaurantsTab extends StatelessWidget {
     if (viewModel.hasError) {
       return const Center(
         child: Text(
-          'Oops, unable to fetch restaurants. Try again later.',
+          Constants.errorFetching,
         ),
       );
     }
@@ -127,7 +128,7 @@ class _MyFavoritesTab extends StatelessWidget {
     if (viewModel.hasError) {
       return const Center(
         child: Text(
-          'Oops, unable to fetch restaurants. Try again later.',
+          Constants.errorFetching,
         ),
       );
     }

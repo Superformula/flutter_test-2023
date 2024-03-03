@@ -1,8 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:restaurantour/domain/restaurants/entities/restaurant_entity.dart';
 import 'package:restaurantour/presentation/restaurants/restaurant_list/restaurant_list_view_model.dart';
 
-import '../test_utils/mocks.mocks.dart';
+import '../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('$RestaurantListViewModel', () {
@@ -18,6 +19,21 @@ void main() {
         mockGetRestaurantsUseCase,
         mockWatchFavoriteRestaurantsUseCase,
       );
+      when(mockGetRestaurantsUseCase(0)).thenAnswer(
+        (_) async => [
+          const RestaurantEntity(
+            id: 'abc',
+            name: 'abc',
+            heroImage: 'heroImage',
+            price: 'price',
+            rating: 5.0,
+            category: 'category',
+            address: 'address',
+            isOpen: false,
+            reviews: [],
+          ),
+        ],
+      );
     });
 
     test('init should get restaurants and listen to favorites', () async {
@@ -26,11 +42,11 @@ void main() {
       expect(viewModel.isLoading, true);
       verify(mockGetRestaurantsUseCase(0)).called(1);
       verify(mockWatchFavoriteRestaurantsUseCase()).called(1);
-    });
 
-    test('get restaurants should get more restaurants', () async {
-      await viewModel.getRestaurants();
-      verify(mockGetRestaurantsUseCase(0)).called(1);
+      await Future.delayed(Duration.zero);
+      expect(viewModel.isLoading, false);
+      expect(viewModel.hasData, true);
+      expect(viewModel.restaurants.length, 1);
     });
   });
 }

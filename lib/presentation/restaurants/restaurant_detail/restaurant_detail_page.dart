@@ -8,9 +8,7 @@ import 'package:restaurantour/design_system/restaurant_stars.dart';
 import 'package:restaurantour/domain/restaurants/entities/restaurant_entity.dart';
 import 'package:restaurantour/presentation/restaurants/restaurant_detail/restaurant_detail_view_model.dart';
 import 'package:provider/provider.dart';
-
-const detailSpacing = 24.0;
-const detailVerticalSpacing = 12.0;
+import 'package:restaurantour/presentation/utils/constants.dart';
 
 class RestaurantDetailPage extends StatelessWidget {
   const RestaurantDetailPage({
@@ -80,7 +78,7 @@ class RestaurantDetailPage extends StatelessWidget {
                     ),
                     // Display the restaurant details
                     Padding(
-                      padding: const EdgeInsets.all(detailSpacing),
+                      padding: const EdgeInsets.all(Constants.detailSpacing),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -93,40 +91,45 @@ class RestaurantDetailPage extends StatelessWidget {
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: detailSpacing),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: Constants.detailSpacing,
+                      ),
                       child: Divider(
                         color: Colors.grey,
                       ),
                     ),
                     // Display Address
                     Padding(
-                      padding: const EdgeInsets.all(detailSpacing),
+                      padding: const EdgeInsets.all(Constants.detailSpacing),
                       child: RestaurantAddress(
                         address: restaurant.address,
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: detailSpacing),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Constants.detailSpacing),
                       child: Divider(
                         color: Colors.grey,
                       ),
                     ),
-
                     // Display the restaurant rating
                     Padding(
-                      padding: const EdgeInsets.all(detailSpacing),
+                      padding: const EdgeInsets.all(
+                        Constants.detailSpacing,
+                      ),
                       child: RestaurantRating(
                         rating: restaurant.rating,
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: detailSpacing),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Constants.detailSpacing),
                       child: Divider(
                         color: Colors.grey,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(detailSpacing),
+                      padding: const EdgeInsets.all(Constants.detailSpacing),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
@@ -134,12 +137,11 @@ class RestaurantDetailPage extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     // Display the restaurant reviews
                     Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: detailSpacing)
-                              .copyWith(bottom: detailSpacing),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Constants.detailSpacing,
+                      ),
                       child: Column(
                         children: restaurant.reviews
                             .map(
@@ -147,13 +149,15 @@ class RestaurantDetailPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   RestaurantStars(rating: restaurant.rating),
-                                  const SizedBox(height: detailVerticalSpacing),
+                                  const SizedBox(
+                                      height: Constants.detailVerticalSpacing),
                                   Text(
                                     review.comment,
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  const SizedBox(height: detailVerticalSpacing),
+                                  const SizedBox(
+                                      height: Constants.detailVerticalSpacing),
                                   Row(
                                     children: [
                                       CircleAvatar(
@@ -167,7 +171,9 @@ class RestaurantDetailPage extends StatelessWidget {
                                       Text(review.author.name),
                                     ],
                                   ),
-                                  const SizedBox(height: detailVerticalSpacing),
+                                  const SizedBox(
+                                    height: Constants.detailVerticalSpacing,
+                                  ),
                                   const Divider(
                                     color: Colors.grey,
                                   ),
