@@ -22,7 +22,8 @@ class RestaurantMapper {
                 author: UserEntity(
                   id: review.user?.id ?? '',
                   name: review.user?.name ?? '',
-                  profileImageUrl: review.user?.imageUrl ?? '',
+                  profileImageUrl: review.user?.imageUrl ??
+                      'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png',
                 ),
               ),
             )
@@ -37,6 +38,7 @@ class RestaurantMapper {
       heroImage: model.photos?.first ?? '',
       isOpen: model.isOpen,
       reviews: reviews,
+      address: model.location?.formattedAddress ?? '',
       category: model.categories?.first.title ?? '',
     );
   }

@@ -7,8 +7,8 @@ import 'package:restaurantour/domain/restaurants/use_cases/get_restaurant_favori
 import 'package:restaurantour/domain/restaurants/use_cases/get_restaurants_use_case.dart';
 import 'package:restaurantour/domain/restaurants/use_cases/toggle_favorite_restaurant_use_case.dart';
 import 'package:restaurantour/domain/restaurants/use_cases/watch_favorite_restaurants_use_case.dart';
-import 'package:restaurantour/view/restaurants/restaurant_detail/restaurant_detail_view_model.dart';
-import 'package:restaurantour/view/restaurants/restaurant_list/restaurant_list_view_model.dart';
+import 'package:restaurantour/presentation/restaurants/restaurant_detail/restaurant_detail_view_model.dart';
+import 'package:restaurantour/presentation/restaurants/restaurant_list/restaurant_list_view_model.dart';
 
 final locator = GetIt.instance;
 

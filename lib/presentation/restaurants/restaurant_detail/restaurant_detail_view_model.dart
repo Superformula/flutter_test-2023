@@ -26,7 +26,6 @@ class RestaurantDetailViewModel extends ChangeNotifier {
   void getFavoriteStatus() async {
     if (_restaurant == null) return;
     _isFavorite = await _getRestaurantFavoriteStatusUseCase(_restaurant!.id);
-    print('isFavorite: $_isFavorite');
     notifyListeners();
   }
 

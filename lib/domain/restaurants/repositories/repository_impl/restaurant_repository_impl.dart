@@ -10,8 +10,8 @@ class RestaurantRepositoryImpl implements RestaurantsRepository {
 
   @override
   Future<List<RestaurantEntity>> getRestaurants(int offset) async {
-    // Remove this if clause to enable pagination
-    if (offset != 0) {
+    // TODO(jvelezos): Remove this if clause to enable pagination
+    if (offset > 45) {
       //wont call api to prevent exceeding limit
       return Future.value([]);
     }

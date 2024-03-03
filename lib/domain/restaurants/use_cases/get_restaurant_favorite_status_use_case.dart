@@ -8,6 +8,7 @@ class GetRestaurantFavoriteStatusUseCase {
   Future<bool> call(String restaurantId) async {
     final List<String> favoriteRestaurants =
         await _sharedPreferencesRepository.getFavoriteRestaurants();
+
     return favoriteRestaurants.contains(restaurantId);
   }
 }

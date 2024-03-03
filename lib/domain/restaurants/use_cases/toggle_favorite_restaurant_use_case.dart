@@ -7,9 +7,5 @@ class ToggleFavoriteRestaurantUseCase {
 
   Future<void> call(String restaurantId) async {
     await _preferencesRepository.toggleFavoriteRestaurant(restaurantId);
-
-    // print favorites
-    final favorites = await _preferencesRepository.getFavoriteRestaurants();
-    print('Favorites: $favorites');
   }
 }

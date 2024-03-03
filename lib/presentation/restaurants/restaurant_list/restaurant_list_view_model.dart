@@ -51,20 +51,21 @@ class RestaurantListViewModel extends ChangeNotifier {
     _favoritesSubscription?.cancel();
   }
 
-  Future<List<RestaurantEntity>?> getRestaurants() async {
+  Future<void> getRestaurants() async {
     try {
-      if (_state == RestaurantListState.loadingMore) return _restaurants;
+      if (_state == RestaurantListState.loadingMore) return;
+
+      _state = _offset == 0
+          ? RestaurantListState.loading
+          : RestaurantListState.loadingMore;
 
       final result = await _getRestaurantsUseCase(_offset);
       _restaurants.addAll(result);
       _offset += result.length;
       _state = RestaurantListState.loaded;
-      notifyListeners();
-      return result;
     } catch (e) {
       _state = RestaurantListState.error;
-      notifyListeners();
-      return null;
     }
+    notifyListeners();
   }
 }

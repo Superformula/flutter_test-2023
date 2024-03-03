@@ -7,6 +7,7 @@ class RestaurantEntity {
   final String price;
   final double rating;
   final String category;
+  final String address;
   final bool isOpen;
   final List<ReviewEntity> reviews;
 
@@ -17,6 +18,7 @@ class RestaurantEntity {
     required this.price,
     required this.rating,
     required this.category,
+    required this.address,
     required this.isOpen,
     required this.reviews,
   });
@@ -32,6 +34,7 @@ class RestaurantEntity {
         other.price == price &&
         other.rating == rating &&
         other.category == category &&
+        other.address == address &&
         other.isOpen == isOpen &&
         other.reviews == reviews;
   }
@@ -44,6 +47,7 @@ class RestaurantEntity {
         price.hashCode ^
         rating.hashCode ^
         category.hashCode ^
+        address.hashCode ^
         isOpen.hashCode ^
         reviews.hashCode;
   }
