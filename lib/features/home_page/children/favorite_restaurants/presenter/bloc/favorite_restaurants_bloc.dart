@@ -36,7 +36,7 @@ class FavoriteRestaurantsBloc
       return;
     }
 
-    for (var restaurantId in favoriteList) {
+    for (String restaurantId in favoriteList) {
       final response = await favoriteRestaurantsRepository.getRestaurantDetails(
         restaurantId: restaurantId,
       );

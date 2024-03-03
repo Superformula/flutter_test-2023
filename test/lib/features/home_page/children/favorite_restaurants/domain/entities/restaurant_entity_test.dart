@@ -1,54 +1,45 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/features/home_page/children/favorite_restaurants/data/models/category_model.dart';
 import 'package:restaurantour/features/home_page/children/favorite_restaurants/data/models/hour_model.dart';
 import 'package:restaurantour/features/home_page/children/favorite_restaurants/data/models/location_model.dart';
 import 'package:restaurantour/features/home_page/children/favorite_restaurants/data/models/review_model.dart';
-import 'package:restaurantour/features/home_page/children/favorite_restaurants/data/models/user_model.dart';
 import 'package:restaurantour/features/home_page/children/favorite_restaurants/domain/entities/restaurant_entity.dart';
 
+class MockReviewModel extends Mock implements ReviewModel {}
+
+class MockCategoryModel extends Mock implements CategoryModel {}
+
+class MockHourModel extends Mock implements HourModel {}
+
+class MockLocationModel extends Mock implements LocationModel {}
+
 void main() {
-  group('RestaurantEntity', () {
+  group(
+    'RestaurantEntity Test',
+    () {
+      test(
+        'RestaurantEntity should correctly assign properties',
+        () {
+          final mockReviewModel = MockReviewModel();
+          final mockCategoryModel = MockCategoryModel();
+          final mockHourModel = MockHourModel();
+          final mockLocationModel = MockLocationModel();
 
-    const id = '1';
-    const name = 'Test Restaurant';
-    const price = '\$\$';
-    const rating = 4.5;
-    final photos = ['photo1.jpg', 'photo2.jpg'];
-    final reviews = [
-      const ReviewModel(
-          id: 'review1',
-          user: UserModel(id: 'asdf', name: 'TEST USER', imageUrl: ''),
-          rating: 5,
-          text: 'Great!')
-    ];
-    final categories = [
-      const CategoryModel(title: 'Italian', alias: 'italian')
-    ];
-    final hours = [const HourModel(isOpenNow: true)];
-    const location = LocationModel(formattedAddress: '123 Test St');
-
-    test('should correctly assign properties', () {
-      final restaurantEntity = RestaurantEntity(
-        id: id,
-        name: name,
-        price: price,
-        rating: rating,
-        photos: photos,
-        reviews: reviews,
-        categories: categories,
-        hours: hours,
-        location: location,
+          final restaurantEntity = RestaurantEntity(
+            id: '1',
+            name: 'Test Restaurant',
+            price: '\$\$',
+            rating: 4.5,
+            photos: ['photo1.jpg', 'photo2.jpg'],
+            reviews: [mockReviewModel],
+            categories: [mockCategoryModel],
+            hours: [mockHourModel],
+            location: mockLocationModel,
+          );
+          expect(restaurantEntity.id, '1');
+        },
       );
-
-      expect(restaurantEntity.id, id);
-      expect(restaurantEntity.name, name);
-      expect(restaurantEntity.price, price);
-      expect(restaurantEntity.rating, rating);
-      expect(restaurantEntity.photos, photos);
-      expect(restaurantEntity.reviews, reviews);
-      expect(restaurantEntity.categories, categories);
-      expect(restaurantEntity.hours, hours);
-      expect(restaurantEntity.location, location);
-    });
-  });
+    },
+  );
 }

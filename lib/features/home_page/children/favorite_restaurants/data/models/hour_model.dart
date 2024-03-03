@@ -6,7 +6,7 @@ class HourModel {
   final HourEntity hourEntity;
 
   Map<String, dynamic> toJson() {
-    var (isOpenNow) = hourEntity;
+    final (isOpenNow) = hourEntity;
     return {
       'is_open_now': isOpenNow,
     };
