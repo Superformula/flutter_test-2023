@@ -37,6 +37,7 @@ class RestaurantMapper {
       heroImage: model.photos?.first ?? '',
       isOpen: model.isOpen,
       reviews: reviews,
+      category: model.categories?.first.title ?? '',
     );
   }
 

@@ -103,6 +103,7 @@ class _AllRestaurantsTab extends StatelessWidget {
             priceRange: restaurant.price,
             rating: restaurant.rating,
             isOpen: restaurant.isOpen,
+            category: restaurant.category,
           );
         },
       ),
@@ -154,6 +155,7 @@ class _MyFavoritesTab extends StatelessWidget {
           priceRange: restaurant.price,
           rating: restaurant.rating,
           isOpen: restaurant.isOpen,
+          category: restaurant.category,
         );
       },
     );

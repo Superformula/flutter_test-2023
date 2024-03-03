@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/design_system/restaurant_details.dart';
 import 'package:restaurantour/domain/restaurants/entities/restaurant_entity.dart';
 
 class RestaurantDetailPage extends StatelessWidget {
@@ -12,7 +13,9 @@ class RestaurantDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Restaurant Detail '),
+        title: Text(
+          restaurant.name,
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -20,6 +23,14 @@ class RestaurantDetailPage extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.favorite_border),
+            onPressed: () {
+              // Add the restaurant to the user's favorites
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -34,17 +45,15 @@ class RestaurantDetailPage extends StatelessWidget {
                 width: double.infinity,
               ),
             ),
-            // Display the restaurant name
+            // Display the restaurant details
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                restaurant.name,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: RestaurantDetails(
+                price: restaurant.price,
+                category: restaurant.category,
               ),
             ),
+
             // Display the restaurant rating
             Padding(
               padding: const EdgeInsets.all(8.0),

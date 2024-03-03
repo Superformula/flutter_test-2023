@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/design_system/restaurant_details.dart';
 
 class RestaurantListTile extends StatelessWidget {
   final String imageUrl;
   final String name;
   final String priceRange;
+  final String category;
   final double rating;
   final bool isOpen;
   final VoidCallback? onTap;
@@ -13,6 +15,7 @@ class RestaurantListTile extends StatelessWidget {
     required this.imageUrl,
     required this.name,
     required this.priceRange,
+    required this.category,
     required this.rating,
     required this.isOpen,
     this.onTap,
@@ -33,7 +36,10 @@ class RestaurantListTile extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(priceRange),
+            RestaurantDetails(
+              price: priceRange,
+              category: category,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
