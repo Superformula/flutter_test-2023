@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:restaurantour/domain/restaurants/repository_interfaces/preferences_repository.dart';
+import 'package:restaurantour/domain/restaurants/repositories/repository_interfaces/shared_preferences_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// A [PreferencesRepository] implementation that uses [SharedPreferences] as the
+/// A [SharedPreferencesRepository] implementation that uses [SharedPreferences] as the
 /// underlying storage.
 ///
 /// Should be replaced with a more robust solution in a production environment.
 
-class SharedPreferencesRepository extends PreferencesRepository {
+class SharedPreferencesSource extends SharedPreferencesRepository {
   static const _key = 'favorite_restaurants';
 
   final StreamController<List<String>> _controller =

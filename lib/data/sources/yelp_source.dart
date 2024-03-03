@@ -1,19 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:restaurantour/data/exceptions/mapper_exception.dart';
 import 'package:restaurantour/data/exceptions/network_exception.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
-import 'package:restaurantour/data/restaurant_mapper.dart';
-import 'package:restaurantour/domain/restaurants/entities/restaurant_entity.dart';
-import 'package:restaurantour/domain/restaurants/repository_interfaces/restaurant_repository.dart';
 
 const _apiKey =
     'wfYIpeyetAPJbQYg5ITUE4wxzqCvoEQM5FQyW9Xq4SGJG52vkefWY_Irq9yg_TKpXRYJUgTO48W_fVXReEABY919sT74bHoCAyNH4b0kTe94rmEWFWNo1GjFxUXjZXYx';
 
-class YelpRepository extends RestaurantsRepository {
+class YelpSource {
   late Dio dio;
 
-  YelpRepository({
+  YelpSource({
     @visibleForTesting Dio? dio,
   }) : dio = dio ??
             Dio(
@@ -65,7 +61,7 @@ class YelpRepository extends RestaurantsRepository {
   /// }
   ///
 
-  Future<List<Restaurant>?> getRestaurantsFromApi({int offset = 0}) async {
+  Future<List<Restaurant>?> getRestaurants({int offset = 0}) async {
     try {
       final response = await dio.post<Map<String, dynamic>>(
         '/v3/graphql',
@@ -122,26 +118,5 @@ query getRestaurants {
   }
 }
 ''';
-  }
-
-  @override
-  Future<List<RestaurantEntity>> getRestaurants(int offset) async {
-    if (offset != 0) {
-      //wont call api to prevent exceeding limit
-      print('calling api with offset: $offset');
-      return Future.value([]);
-    }
-    final result = await getRestaurantsFromApi(offset: offset);
-    if (result == null) {
-      throw Exception('Failed to fetch restaurants');
-    }
-
-    final restaurantEntities = RestaurantMapper.fromModelList(result);
-
-    if (restaurantEntities.isEmpty) {
-      throw MapperException('Failed to map restaurants');
-    }
-
-    return RestaurantMapper.fromModelList(result);
   }
 }

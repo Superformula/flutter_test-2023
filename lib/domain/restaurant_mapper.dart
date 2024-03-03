@@ -1,4 +1,4 @@
-import 'package:restaurantour/data/exceptions/mapper_exception.dart';
+import 'package:restaurantour/domain/exceptions/mapper_exception.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
 import 'package:restaurantour/domain/restaurants/entities/restaurant_entity.dart';
 import 'package:restaurantour/domain/restaurants/entities/review_entity.dart';

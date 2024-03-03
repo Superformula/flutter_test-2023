@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:restaurantour/domain/restaurants/repository_interfaces/preferences_repository.dart';
+import 'package:restaurantour/domain/restaurants/repositories/repository_interfaces/shared_preferences_repository.dart';
 
 class WatchFavoriteRestaurantsUseCase {
-  final PreferencesRepository _preferencesRepository;
+  final SharedPreferencesRepository _preferencesRepository;
 
   WatchFavoriteRestaurantsUseCase(this._preferencesRepository);
 
