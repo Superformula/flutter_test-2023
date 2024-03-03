@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:restaurantour/components/rt_components.dart';
+import 'package:restaurantour/core/interceptor.dart';
 import 'package:restaurantour/core/logger.dart';
 import 'package:restaurantour/core/routes.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
@@ -29,7 +30,7 @@ Future<void> setupInjection() async {
           'Content-Type': 'application/graphql',
         },
       ),
-    ),
+    )..interceptors.add(LoggerInterceptor()),
   );
 
   inject.registerLazySingleton<RestaurantRepository>(() => RestaurantRepository(dio: inject<Dio>()));
