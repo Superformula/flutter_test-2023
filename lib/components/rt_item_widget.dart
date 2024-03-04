@@ -25,25 +25,25 @@ class RTItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<RTThemeExtension>()!;
     return Padding(
-      padding: const EdgeInsets.all(12.0).copyWith(top: isFirstItem ? 16 : 0),
+      padding: EdgeInsets.all(RTSizesType.m.size).copyWith(top: isFirstItem ? RTSizesType.xl.size : 0),
       child: Material(
         color: theme.whiteColor,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        elevation: 2,
+        borderRadius: BorderRadius.all(RTSizesType.s.radius),
+        elevation: RTSizesType.xxxs.size,
         child: InkWell(
           onTap: openDetails,
           child: SizedBox(
-            height: 104,
+            height: RTSizesType.xgg.size,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(RTSizesType.s.size),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderRadius: BorderRadius.all(RTSizesType.s.radius),
                     child: SizedBox(
-                      width: 88,
-                      height: 88,
+                      width: RTSizesType.gg.size,
+                      height: RTSizesType.gg.size,
                       child: Hero(
                         tag: restaurant.name ?? '',
                         child: imageNetwork.build(
@@ -56,7 +56,7 @@ class RTItemWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  RTSizesType.m.spacer,
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,12 +85,12 @@ class RTItemWidget extends StatelessWidget {
                                       : AppLocalizations.of(context)!.restaurantListAllRestaurantsTabClosed,
                                   style: RTTextStyle.overline(),
                                 ),
-                                const SizedBox(width: 8),
+                                RTSizesType.s.spacer,
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 3.0),
+                                  padding: EdgeInsets.only(top: RTSizesType.xxxs.size),
                                   child: Container(
-                                    width: 8,
-                                    height: 8,
+                                    width: RTSizesType.s.size,
+                                    height: RTSizesType.s.size,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: restaurant.isOpen ? theme.openColor : theme.closedColor,

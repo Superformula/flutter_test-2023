@@ -1,4 +1,5 @@
 import 'package:restaurantour/core/core.dart';
+import 'package:restaurantour/theme/theme.dart';
 
 class RTEmptyWidget extends StatelessWidget {
   const RTEmptyWidget({super.key});
@@ -6,15 +7,15 @@ class RTEmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+      padding: EdgeInsets.symmetric(horizontal: RTSizesType.xxl.size),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 80,
-            child: Icon(Icons.search, size: 80),
+          SizedBox(
+            height: RTSizesType.xxxg.size,
+            child: Icon(Icons.search, size: RTSizesType.xxxg.size),
           ),
-          const SizedBox(height: 20),
+          RTSizesType.xxxl.spacer,
           Text(
             AppLocalizations.of(context)!.emptyMessage,
             textAlign: TextAlign.center,

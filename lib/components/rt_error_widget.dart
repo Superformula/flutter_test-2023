@@ -8,24 +8,24 @@ class RTErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(18.0),
+      padding: EdgeInsets.all(RTSizesType.xxl.size),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 80, child: SvgPicture.asset('assets/svg/404.svg')),
-          const SizedBox(height: 40),
+          SizedBox(height: RTSizesType.xxxg.size, child: SvgPicture.asset('assets/svg/404.svg')),
+          RTSizesType.xg.spacer,
           Text(
             AppLocalizations.of(context)!.errorMessage,
             textAlign: TextAlign.center,
           ),
           if (onTryAgain != null)
             Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: ElevatedButton(
+              padding: EdgeInsets.only(top: RTSizesType.m.size),
+              child: TextButton(
                 onPressed: () => onTryAgain!(),
                 child: Text(
                   AppLocalizations.of(context)!.rtTryAgain,
-                  style: RTTextStyle.button(),
+                  style: RTTextStyle.textButton(),
                 ),
               ),
             ),

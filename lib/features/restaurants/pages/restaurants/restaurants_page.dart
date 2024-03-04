@@ -2,6 +2,7 @@ import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/details/details_screen.dart';
 import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page_view_model.dart';
+import 'package:restaurantour/theme/theme.dart';
 
 class RestaurantsPage extends StatefulWidget {
   const RestaurantsPage({super.key});
@@ -28,7 +29,7 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
   }
 
   _scrollListener() {
-    const spaceBeforeEndOfScroll = 50;
+    final spaceBeforeEndOfScroll = RTSizesType.xxg.size;
     if (scrollController.offset >= scrollController.position.maxScrollExtent - spaceBeforeEndOfScroll && !scrollController.position.outOfRange) {
       model!.paginateRestaurants();
     }
@@ -68,12 +69,12 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
               if (index + 1 == model!.restaurantsList.length)
                 Visibility(
                   visible: model!.restaurantsStatus.isPaginating,
-                  child: const Padding(
-                    padding: EdgeInsets.only(bottom: 12.0),
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: RTSizesType.m.size),
                     child: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: Center(child: CircularProgressIndicator()),
+                      height: RTSizesType.xxg.size,
+                      width: RTSizesType.xxg.size,
+                      child: const Center(child: CircularProgressIndicator()),
                     ),
                   ),
                 ),

@@ -51,7 +51,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   _scrollListener() {
-    const spaceBeforeEndOfScroll = 50;
+    final spaceBeforeEndOfScroll = RTSizesType.xxg.size;
     if (scrollController.offset >= scrollController.position.maxScrollExtent - spaceBeforeEndOfScroll && !scrollController.position.outOfRange) {
       model!.paginateReviews();
     }
@@ -84,9 +84,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
         ),
         actions: [
           model!.status.isAddingFavorite
-              ? const Padding(
-                  padding: EdgeInsets.only(right: 14.0),
-                  child: SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2)),
+              ? Padding(
+                  padding: EdgeInsets.only(right: RTSizesType.l.size),
+                  child: SizedBox(
+                    width: RTSizesType.xxl.size,
+                    height: RTSizesType.xxl.size,
+                    child: CircularProgressIndicator(strokeWidth: RTSizesType.xxxs.size),
+                  ),
                 )
               : IconButton(
                   key: const Key('favorite-button'),
@@ -102,17 +106,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
         controller: scrollController,
         children: [
           SizedBox(
-            height: 360,
+            height: RTSizesType.xxxxxgg.size,
             child: Hero(
               tag: restaurant.name ?? '',
               child: imageNetwork.build(
                 location: restaurant.heroImage,
-                errorWidget: const Icon(Icons.image_not_supported_rounded, size: 120),
+                errorWidget: Icon(Icons.image_not_supported_rounded, size: RTSizesType.xxgg.size),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.all(RTSizesType.g.size),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -126,7 +130,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           restaurant.price ?? '',
                           style: RTTextStyle.caption(),
                         ),
-                        const SizedBox(width: 4),
+                        RTSizesType.xxs.spacer,
                         Text(
                           restaurant.displayCategory,
                           style: RTTextStyle.caption(),
@@ -141,12 +145,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               : AppLocalizations.of(context)!.restaurantListAllRestaurantsTabClosed,
                           style: RTTextStyle.overline(),
                         ),
-                        const SizedBox(width: 8),
+                        RTSizesType.s.spacer,
                         Padding(
-                          padding: const EdgeInsets.only(top: 3.0),
+                          padding: EdgeInsets.only(top: RTSizesType.xxxs.size),
                           child: Container(
-                            width: 8,
-                            height: 8,
+                            width: RTSizesType.s.size,
+                            height: RTSizesType.s.size,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: restaurant.isOpen ? theme.openColor : theme.closedColor,
@@ -162,7 +166,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   AppLocalizations.of(context)!.restaurantDetailAddress,
                   style: RTTextStyle.caption(),
                 ),
-                const SizedBox(height: 24),
+                RTSizesType.g.spacer,
                 Text(
                   restaurant.location?.formattedAddress ?? '',
                   style: RTTextStyle.body2(),
@@ -173,7 +177,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   style: RTTextStyle.caption(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
+                  padding: EdgeInsets.only(top: RTSizesType.xl.size),
                   child: Row(
                     children: [
                       Text(
@@ -181,7 +185,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         style: RTTextStyle.headingH4(),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 12.0),
+                        padding: EdgeInsets.only(top: RTSizesType.m.size),
                         child: SvgPicture.asset('assets/svg/star.svg'),
                       ),
                     ],
@@ -209,7 +213,7 @@ class _Divider extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<RTThemeExtension>()!;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24.0),
+      padding: EdgeInsets.symmetric(vertical: RTSizesType.g.size),
       child: Divider(color: theme.dividerLineColor),
     );
   }
@@ -237,12 +241,12 @@ class _ReviewsState extends State<_Reviews> {
             if (index + 1 == widget.reviewsList.length)
               Visibility(
                 visible: widget.isPaginating,
-                child: const Padding(
-                  padding: EdgeInsets.only(bottom: 12.0),
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: RTSizesType.m.size),
                   child: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: Center(child: CircularProgressIndicator()),
+                    height: RTSizesType.xxg.size,
+                    width: RTSizesType.xxg.size,
+                    child: const Center(child: CircularProgressIndicator()),
                   ),
                 ),
               ),

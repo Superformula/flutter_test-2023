@@ -7,12 +7,13 @@ class RTShimmerLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<RTThemeExtension>()!;
     return IgnorePointer(
       child: Shimmer.fromColors(
-        baseColor: const Color(0xFFD8D8D8),
-        highlightColor: const Color(0xFFFFFFFF),
+        baseColor: theme.shimmerBaseColor,
+        highlightColor: theme.shimmerHighlightColor,
         child: Padding(
-          padding: const EdgeInsets.only(top: 6.0),
+          padding: EdgeInsets.only(top: RTSizesType.xs.size),
           child: ListView(
             children: List.generate(15, (index) => const TileLoading()),
           ),
@@ -30,65 +31,65 @@ class TileLoading extends StatelessWidget {
     final theme = Theme.of(context).extension<RTThemeExtension>()!;
 
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: EdgeInsets.all(RTSizesType.m.size),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(strokeAlign: 1, color: theme.dividerLineColor),
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          border: Border.all(strokeAlign: RTSizesType.xxxxs.size, color: theme.dividerLineColor),
+          borderRadius: BorderRadius.all(RTSizesType.s.radius),
         ),
-        height: 104,
+        height: RTSizesType.xgg.size,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(RTSizesType.s.size),
               child: Container(
-                height: 88,
-                width: 88,
+                height: RTSizesType.gg.size,
+                width: RTSizesType.gg.size,
                 decoration: BoxDecoration(
                   color: theme.placeholderColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(RTSizesType.s.radius),
                 ),
               ),
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: EdgeInsets.all(RTSizesType.m.size),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 18,
+                      height: RTSizesType.xxl.size,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        borderRadius: BorderRadius.all(RTSizesType.s.radius),
                         color: theme.placeholderColor,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    RTSizesType.xxs.spacer,
                     Container(
-                      height: 18,
+                      height: RTSizesType.xxl.size,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        borderRadius: BorderRadius.all(RTSizesType.s.radius),
                         color: theme.placeholderColor,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    RTSizesType.xxs.spacer,
                     Expanded(
                       child: Container(
-                        height: 18,
-                        width: 40,
+                        height: RTSizesType.xxl.size,
+                        width: RTSizesType.xg.size,
                         decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(8)),
+                          borderRadius: BorderRadius.all(RTSizesType.s.radius),
                           color: theme.placeholderColor,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    RTSizesType.xxs.spacer,
                     Container(
-                      height: 12,
-                      width: 80,
+                      height: RTSizesType.m.size,
+                      width: RTSizesType.xxxg.size,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        borderRadius: BorderRadius.all(RTSizesType.s.radius),
                         color: theme.placeholderColor,
                       ),
                     ),

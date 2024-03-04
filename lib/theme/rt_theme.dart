@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/theme/rt_colors.dart';
+import 'package:restaurantour/theme/rt_sizes.dart';
 
 class RTThemeData {
   static get _themeExtension => RTThemeExtension(
@@ -12,13 +13,15 @@ class RTThemeData {
         primaryFillColor: RTColors.primaryFill,
         defaultTextColor: RTColors.defaultText,
         secondaryTextColor: RTColors.secondaryText,
+        shimmerBaseColor: RTColors.shimmerBaseColor,
+        shimmerHighlightColor: RTColors.shimmerHighlightColor,
       );
 
   static final themeData = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
     useMaterial3: true,
-    appBarTheme: const AppBarTheme(
-      elevation: 2,
+    appBarTheme: AppBarTheme(
+      elevation: RTSizesType.xxxs.size,
       centerTitle: true,
       surfaceTintColor: RTColors.background,
       shadowColor: RTColors.primaryFill,
@@ -45,6 +48,8 @@ class RTThemeExtension extends ThemeExtension<RTThemeExtension> {
     required this.primaryFillColor,
     required this.defaultTextColor,
     required this.secondaryTextColor,
+    required this.shimmerBaseColor,
+    required this.shimmerHighlightColor,
   });
 
   final Color openColor;
@@ -56,6 +61,8 @@ class RTThemeExtension extends ThemeExtension<RTThemeExtension> {
   final Color primaryFillColor;
   final Color defaultTextColor;
   final Color secondaryTextColor;
+  final Color shimmerBaseColor;
+  final Color shimmerHighlightColor;
 
   @override
   ThemeExtension<RTThemeExtension> copyWith({
@@ -68,6 +75,8 @@ class RTThemeExtension extends ThemeExtension<RTThemeExtension> {
     Color? primaryFillColor,
     Color? defaultTextColor,
     Color? secondaryTextColor,
+    Color? shimmerBaseColor,
+    Color? shimmerHighlightColor,
   }) {
     return RTThemeExtension(
       openColor: openColor ?? this.openColor,
@@ -79,6 +88,8 @@ class RTThemeExtension extends ThemeExtension<RTThemeExtension> {
       primaryFillColor: primaryFillColor ?? this.primaryFillColor,
       defaultTextColor: defaultTextColor ?? this.defaultTextColor,
       secondaryTextColor: secondaryTextColor ?? this.secondaryTextColor,
+      shimmerBaseColor: shimmerBaseColor ?? this.shimmerBaseColor,
+      shimmerHighlightColor: shimmerHighlightColor ?? this.shimmerHighlightColor,
     );
   }
 
@@ -98,6 +109,8 @@ class RTThemeExtension extends ThemeExtension<RTThemeExtension> {
       primaryFillColor: Color.lerp(primaryFillColor, other.primaryFillColor, t)!,
       defaultTextColor: Color.lerp(defaultTextColor, other.defaultTextColor, t)!,
       secondaryTextColor: Color.lerp(secondaryTextColor, other.secondaryTextColor, t)!,
+      shimmerBaseColor: Color.lerp(shimmerBaseColor, other.shimmerBaseColor, t)!,
+      shimmerHighlightColor: Color.lerp(shimmerHighlightColor, other.shimmerHighlightColor, t)!,
     );
   }
 }

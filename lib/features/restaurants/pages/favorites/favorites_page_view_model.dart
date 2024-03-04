@@ -34,7 +34,7 @@ class FavoritesViewModel with ChangeNotifier {
   List<RestaurantDto> get restaurantsList => _restaurantsQuery?.restaurants ?? [];
 
   Future<void> _init() async {
-    eventBus.stream.listen((event) => loadFavorites());
+    eventBus.registerOnEvent(loadFavorites);
     await loadRestaurants();
     await loadFavorites();
   }

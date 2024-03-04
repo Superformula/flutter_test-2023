@@ -39,12 +39,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
           isFirstItem: isFirstItem,
           imageNetwork: inject<RTImageNetwork>(),
           restaurant: model!.favoritesRestaurantList[index],
-          openDetails: () async {
-            await context.pushNamed(
-              DetailsScreen.route,
-              pathParameters: {DetailsScreen.restaurantIdParams: model!.favoritesRestaurantList[index].id ?? ''},
-            );
-          },
+          openDetails: () => context.pushNamed(
+            DetailsScreen.route,
+            pathParameters: {
+              DetailsScreen.restaurantIdParams: model!.favoritesRestaurantList[index].id ?? '',
+            },
+          ),
         );
       },
     );

@@ -9,5 +9,8 @@ class RTColors {
   static const dividerLine = Color(0xffeeeeee);
   static const primaryFill = Color(0xff000000);
   static const defaultText = Color(0xff000000);
+  static const defaultTextButtonColor = Color(0xFF2196F3);
   static const secondaryText = Color(0xff606060);
+  static const shimmerBaseColor = Color(0xFFD8D8D8);
+  static const shimmerHighlightColor = Color(0xFFFFFFFF);
 }

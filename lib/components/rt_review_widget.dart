@@ -19,28 +19,28 @@ class RTReviewWidget extends StatelessWidget {
       children: [
         if (!isFirstItem) Divider(color: theme.dividerLineColor),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          padding: EdgeInsets.symmetric(vertical: RTSizesType.xl.size),
           child: SizedBox(
-            height: 140,
+            height: RTSizesType.xxxgg.size,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(children: starRate),
-                const SizedBox(height: 8),
+                RTSizesType.s.spacer,
                 Text(
                   review.text ?? '',
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: RTTextStyle.body1(),
                 ),
-                const SizedBox(height: 8),
+                RTSizesType.s.spacer,
                 Row(
                   children: [
                     SizedBox(
-                      width: 40,
-                      height: 40,
+                      width: RTSizesType.xg.size,
+                      height: RTSizesType.xg.size,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(300),
+                        borderRadius: BorderRadius.circular(RTSizesType.xxxxgg.size),
                         child: imageNetwork.build(
                           location: review.user?.imageUrl ?? '',
                           errorWidget: Container(
@@ -50,7 +50,7 @@ class RTReviewWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    RTSizesType.s.spacer,
                     Text(
                       review.user?.name ?? '',
                       style: RTTextStyle.caption(),
