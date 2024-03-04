@@ -1,1 +1,7 @@
-typedef HourEntity = (bool isOpenNow,);
+class HourEntity {
+  const HourEntity({
+    required this.isOpenNow,
+  });
+
+  final bool isOpenNow;
+}
