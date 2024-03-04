@@ -1,7 +1,7 @@
 import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/details/details_screen.dart';
-import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_view_model.dart';
 import 'package:restaurantour/theme/theme.dart';
 
 class RestaurantsPage extends StatefulWidget {

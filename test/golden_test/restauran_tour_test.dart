@@ -18,6 +18,7 @@ void main() {
     GetIt.I.registerFactory<RestaurantRepository>(() => restaurantRepository);
     GetIt.I.registerFactory<FavoriteService>(() => favoritesService);
     GetIt.I.registerFactory<RTImageNetwork>(() => RTImageNetworkMock());
+    when(() => eventBusService.stream).thenAnswer((_) => const Stream.empty());
   });
 
   tearDown(() {

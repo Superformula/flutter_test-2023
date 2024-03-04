@@ -1,5 +1,4 @@
 import 'package:restaurantour/core/core.dart';
-import 'package:restaurantour/core/logger.dart';
 import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/event_bus_service.dart';
@@ -20,8 +19,9 @@ class FavoritesViewModel with ChangeNotifier {
 
   final List<RestaurantDto> _restaurantsCache = [];
 
-  FavoritesViewModel({required this.favoritesService, required this.restaurantRepository, required this.eventBus}) {
-    _init();
+  FavoritesViewModel({required this.favoritesService, required this.restaurantRepository, required this.eventBus});
+  FavoritesViewModel.create({required this.favoritesService, required this.restaurantRepository, required this.eventBus}) {
+    _onCreate();
   }
 
   FavoritesStatus status = FavoritesStatus.loading;
@@ -33,13 +33,26 @@ class FavoritesViewModel with ChangeNotifier {
   List<RestaurantDto> get favoritesRestaurantList => _favorites;
   List<RestaurantDto> get restaurantsList => _restaurantsQuery?.restaurants ?? [];
 
-  Future<void> _init() async {
-    eventBus.registerOnEvent(loadFavorites);
-    await loadRestaurants();
-    await loadFavorites();
+  StreamSubscription<EventBusType>? eventBusSubscription;
+
+  Future<void> _onCreate() async {
+    await getRestaurants();
+    await getFavorites();
   }
 
-  Future<void> loadRestaurants() async {
+  @override
+  void addListener(VoidCallback listener) {
+    super.addListener(listener);
+    eventBusSubscription = eventBus.stream.listen((event) => event.onEvent(eventType: EventBusType.toggleFavorite, function: () => getFavorites()));
+  }
+
+  @override
+  dispose() {
+    if (eventBusSubscription != null) eventBusSubscription!.cancel();
+    super.dispose();
+  }
+
+  Future<void> getRestaurants() async {
     try {
       _emitLoading();
       _restaurantsQuery = await restaurantRepository.getRestaurants();
@@ -50,7 +63,7 @@ class FavoritesViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> loadFavorites() async {
+  Future<void> getFavorites() async {
     try {
       _emitLoading();
       final favoritesIds = await favoritesService.getFavorites();

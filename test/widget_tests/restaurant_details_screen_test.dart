@@ -16,6 +16,7 @@ void main() {
   EventBusService eventBusService = EventBusServiceMock();
   RestaurantRepository restaurantRepository = RestaurantRepositoryMock();
   FavoriteService favoritesService = FavoritesServiceMock();
+
   setUp(() {
     GetIt.I.registerFactory<EventBusService>(() => eventBusService);
 

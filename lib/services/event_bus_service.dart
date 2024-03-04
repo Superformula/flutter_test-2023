@@ -1,11 +1,21 @@
 import 'dart:async';
 
+export 'dart:async';
+
+enum EventBusType { toggleFavorite }
+
+extension EventBusTypeExt on EventBusType {
+  void onEvent({required EventBusType eventType, dynamic function}) {
+    if (this == eventType) function();
+  }
+}
+
 class EventBusService {
-  final StreamController _streamController = StreamController.broadcast();
+  final StreamController<EventBusType> _streamController = StreamController.broadcast();
 
-  StreamController<dynamic> get streamController => _streamController;
+  StreamController<EventBusType> get streamController => _streamController;
 
-  void registerOnEvent(Function() func) => streamController.stream.listen((_) => func());
+  Stream<EventBusType> get stream => _streamController.stream;
 
-  void fire(dynamic event) => _streamController.add(event);
+  void fire(EventBusType event) => _streamController.add(event);
 }

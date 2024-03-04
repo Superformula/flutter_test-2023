@@ -1,8 +1,8 @@
 import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page.dart';
-import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/favorites/favorites_view_model.dart';
 import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page.dart';
-import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_view_model.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/event_bus_service.dart';
 import 'package:restaurantour/services/favorite_service.dart';
@@ -52,14 +52,14 @@ class _RestaurantsScreenState extends State<RestaurantsScreen> {
           body: MultiProvider(
             providers: [
               ChangeNotifierProvider(
-                create: (context) => FavoritesViewModel(
+                create: (context) => FavoritesViewModel.create(
                   eventBus: inject<EventBusService>(),
                   favoritesService: inject<FavoriteService>(),
                   restaurantRepository: inject<RestaurantRepository>(),
                 ),
               ),
               ChangeNotifierProvider(
-                create: (context) => RestaurantsViewModel(
+                create: (context) => RestaurantsViewModel.create(
                   restaurantRepository: inject<RestaurantRepository>(),
                 ),
               ),

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:restaurantour/core/logger.dart';
+import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/event_bus_service.dart';
@@ -43,7 +42,7 @@ class DetailsViewModel with ChangeNotifier {
       isFavorite ? await favoriteService.removeFavorite(restaurantId) : await favoriteService.addFavorite(restaurantId);
 
       isFavorite = !isFavorite;
-      eventBus.fire(restaurantId);
+      eventBus.fire(EventBusType.toggleFavorite);
     } catch (exception, stackTrace) {
       RTLogger.e(message: 'Fail to toggle favorite', exception: exception, stackTrace: stackTrace);
     } finally {

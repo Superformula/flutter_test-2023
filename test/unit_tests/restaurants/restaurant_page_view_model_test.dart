@@ -1,6 +1,6 @@
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/core/core.dart';
-import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_page_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/restaurants/restaurants_view_model.dart';
 import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/event_bus_service.dart';
@@ -28,23 +28,23 @@ void main() {
 
   group('tests on restaurantViewModel.load() ->', () {
     test('''when [RestaurantViewModel] is created the [restaurantsStatus] should starts with [RestaurantStatus.loading]
-   and should call to [restaurantRepository.getRestaurants]''', () async {
+   and no call to [restaurantRepository.getRestaurants] should be triggered''', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantsViewModel(restaurantRepository: restaurantRepository);
 
       expect(sut.restaurantsStatus, RestaurantsStatus.loading);
-      verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
+      verifyNever(() => restaurantRepository.getRestaurants(offset: any(named: 'offset')));
     });
 
-    test('when [load] is called should call once more time the [getRestaurants] on [RestaurantRepository]', () async {
+    test('when [load] is called should call one time the [getRestaurants] on [RestaurantRepository]', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
       final sut = RestaurantsViewModel(restaurantRepository: restaurantRepository);
 
       await sut.loadRestaurants();
 
-      verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(2);
+      verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
     });
 
     test('when [load] get successfully the data from repository the [restaurantsStatus] should be [RestaurantStatus.content]', () async {
@@ -86,7 +86,7 @@ void main() {
 
       await sut.loadRestaurants();
 
-      verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(2);
+      verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
     });
   });
 }

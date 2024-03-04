@@ -1,6 +1,6 @@
 import 'package:restaurantour/components/rt_image_network.dart';
 import 'package:restaurantour/core/core.dart';
-import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/favorites/favorites_view_model.dart';
 import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/event_bus_service.dart';
@@ -27,23 +27,33 @@ void main() {
 
   group('tests on restaurantViewModel.load() ->', () {
     test('''when [RestaurantViewModel] is created the [FavoritesStatus] should starts with [RestaurantStatus.loading]
-   and one call to [restaurantRepository.getRestaurants] should be triggered''', () async {
+   and no call to [restaurantRepository.getRestaurants] should be triggered''', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
       expect(sut.status, FavoritesStatus.loading);
-      verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
+
+      verifyNever(() => restaurantRepository.getRestaurants(offset: any(named: 'offset')));
     });
 
-    test('when [load] is called should call one more time the [getRestaurants] on [RestaurantRepository]', () async {
+    test('when [load] is called should call one time the [getRestaurants] on [RestaurantRepository]', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadRestaurants();
+      await sut.getRestaurants();
 
-      verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(2);
+      verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
+    });
+
+    test('''when [FavoritesViewModel] is created using the [FavoritesViewModel.create] constructor 
+        the method [load] called should call one time the [getRestaurants] on [RestaurantRepository]''', () async {
+      when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenAnswer((_) => Future.value(RestaurantQueryResultDto.fixture()));
+      when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
+      FavoritesViewModel.create(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
+
+      verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
     });
 
     test('when [load] get successfully the data from repository the [FavoritesStatus] should be [RestaurantStatus.content]', () async {
@@ -51,7 +61,7 @@ void main() {
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadRestaurants();
+      await sut.getRestaurants();
 
       expect(sut.status, FavoritesStatus.content);
     });
@@ -62,7 +72,7 @@ void main() {
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadRestaurants();
+      await sut.getRestaurants();
 
       expect(sut.status, FavoritesStatus.empty);
     });
@@ -70,20 +80,20 @@ void main() {
     test('when [load] get some error from repository the [FavoritesStatus] should be [RestaurantStatus.error]', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenThrow('error mock');
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
-      final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
+      final sut = FavoritesViewModel.create(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
       expect(sut.status, FavoritesStatus.error);
     });
 
-    test('''when [load] get some error from repository
+    test('''when [getRestaurants] get some error from repository
     no more calls should be triggered to [restaurantRepository.getRestaurants]''', () async {
       when(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).thenThrow('error mock');
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadRestaurants();
+      await sut.getRestaurants();
 
-      verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(2);
+      verify(() => restaurantRepository.getRestaurants(offset: any(named: 'offset'))).called(1);
     });
   });
 
@@ -102,9 +112,9 @@ void main() {
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadFavorites();
+      await sut.getFavorites();
 
-      verify(() => favoritesService.getFavorites()).called(2);
+      verify(() => favoritesService.getFavorites()).called(1);
     });
 
     test('''when [RestaurantViewModel] is created the [Restaurant] list has no items, 
@@ -116,7 +126,7 @@ void main() {
 
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadFavorites();
+      await sut.getFavorites();
 
       expect(sut.status, FavoritesStatus.content);
     });
@@ -129,8 +139,8 @@ void main() {
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadRestaurants();
-      await sut.loadFavorites();
+      await sut.getRestaurants();
+      await sut.getFavorites();
 
       expect(sut.status, FavoritesStatus.content);
     });
@@ -142,8 +152,8 @@ void main() {
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value(['another-restaurant-id']));
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadRestaurants();
-      await sut.loadFavorites();
+      await sut.getRestaurants();
+      await sut.getFavorites();
 
       expect(sut.status, FavoritesStatus.content);
     });
@@ -155,8 +165,8 @@ void main() {
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([RestaurantDto.fixture().id ?? '']));
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadRestaurants();
-      await sut.loadFavorites();
+      await sut.getRestaurants();
+      await sut.getFavorites();
 
       expect(sut.status, FavoritesStatus.content);
     });
@@ -166,7 +176,7 @@ void main() {
       when(() => favoritesService.getFavorites()).thenAnswer((_) => Future.value([]));
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadFavorites();
+      await sut.getFavorites();
 
       expect(sut.status, FavoritesStatus.empty);
     });
@@ -176,7 +186,7 @@ void main() {
       when(() => favoritesService.getFavorites()).thenThrow('error mock');
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadFavorites();
+      await sut.getFavorites();
 
       expect(sut.status, FavoritesStatus.error);
     });
@@ -186,9 +196,9 @@ void main() {
       when(() => favoritesService.getFavorites()).thenThrow('error mock');
       final sut = FavoritesViewModel(favoritesService: favoritesService, restaurantRepository: restaurantRepository, eventBus: eventBusService);
 
-      await sut.loadFavorites();
+      await sut.getFavorites();
 
-      verify(() => favoritesService.getFavorites()).called(2);
+      verify(() => favoritesService.getFavorites()).called(1);
     });
   });
 }

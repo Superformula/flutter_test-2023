@@ -17,8 +17,10 @@ class RestaurantsViewModel with ChangeNotifier {
 
   final int paginationSize = 20;
 
-  RestaurantsViewModel({required this.restaurantRepository}) {
-    _init();
+  RestaurantsViewModel({required this.restaurantRepository});
+
+  RestaurantsViewModel.create({required this.restaurantRepository}) {
+    _onCreate();
   }
 
   RestaurantsStatus restaurantsStatus = RestaurantsStatus.loading;
@@ -30,7 +32,7 @@ class RestaurantsViewModel with ChangeNotifier {
   List<RestaurantDto> get restaurantsList => _restaurantsQuery?.restaurants ?? [];
   bool get shouldPaginate => restaurantsList.length < allRestaurantsQueryTotal && allRestaurantsQueryTotal > paginationSize;
 
-  Future<void> _init() async {
+  Future<void> _onCreate() async {
     await loadRestaurants();
   }
 

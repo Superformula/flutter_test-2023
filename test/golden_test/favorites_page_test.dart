@@ -1,7 +1,7 @@
 import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page.dart';
-import 'package:restaurantour/features/restaurants/pages/favorites/favorites_page_view_model.dart';
+import 'package:restaurantour/features/restaurants/pages/favorites/favorites_view_model.dart';
 import 'package:restaurantour/models/dto.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/event_bus_service.dart';
@@ -27,7 +27,7 @@ void main() {
     ..addScenario(
       widget: widgetBuilder(
         ChangeNotifierProvider(
-          create: (context) => FavoritesViewModel(
+          create: (context) => FavoritesViewModel.create(
             favoritesService: favoritesService,
             restaurantRepository: restaurantRepository,
             eventBus: EventBusService(),
