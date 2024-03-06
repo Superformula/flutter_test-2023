@@ -55,9 +55,11 @@ class Review {
   final String? id;
   final int? rating;
   final User? user;
+  final String? text;
 
   const Review({
     this.id,
+    this.text,
     this.rating,
     this.user,
   });
@@ -141,15 +143,22 @@ class Restaurant {
 class RestaurantQueryResult {
   final int? total;
   @JsonKey(name: 'business')
-  final List<Restaurant>? restaurants;
+  final List<Restaurant> restaurants;
 
   const RestaurantQueryResult({
     this.total,
-    this.restaurants,
+    required this.restaurants,
   });
 
-  factory RestaurantQueryResult.fromJson(Map<String, dynamic> json) =>
-      _$RestaurantQueryResultFromJson(json);
+  factory RestaurantQueryResult.fromJson(Map<String, dynamic> json) {
+    return RestaurantQueryResult(
+      total: json['total'] as int?,
+      restaurants: (json['business'] as List<dynamic>?)
+              ?.map((e) => Restaurant.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+  }
 
   Map<String, dynamic> toJson() => _$RestaurantQueryResultToJson(this);
 }

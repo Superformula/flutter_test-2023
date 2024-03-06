@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:restaurantour/models/restaurant.dart';
-
-const _apiKey = '<PUT YOUR API KEY HERE>';
+import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:oxidized/oxidized.dart';
+import 'package:restaurantour/core/models/restaurant.dart';
 
 class YelpRepository {
   late Dio dio;
@@ -14,7 +17,7 @@ class YelpRepository {
               BaseOptions(
                 baseUrl: 'https://api.yelp.com',
                 headers: {
-                  'Authorization': 'Bearer $_apiKey',
+                  'Authorization': 'Bearer ${dotenv.env['YELP_API_KEY']}',
                   'Content-Type': 'application/graphql',
                 },
               ),
@@ -58,23 +61,33 @@ class YelpRepository {
   ///   }
   /// }
   ///
-  Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
+  Future<Result<RestaurantQueryResult, DioException>> getRestaurants({
+    int offset = 0,
+  }) async {
     try {
-      final response = await dio.post<Map<String, dynamic>>(
-        '/v3/graphql',
-        data: _getQuery(offset),
-      );
-      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
+      final String jsonString =
+          await rootBundle.loadString('assets/restaurants.json');
+      final Map<String, dynamic> jsonResponse = json.decode(jsonString);
+      final result =
+          RestaurantQueryResult.fromJson(jsonResponse['data']['search']);
+
+      return Ok(result);
     } catch (e) {
-      return null;
+      return Err(
+        DioException(
+          requestOptions: RequestOptions(path: 'path'),
+          error: e.toString(),
+        ),
+      );
     }
   }
+}
 
-  String _getQuery(int offset) {
-    return '''
-query getRestaurants {
+String _getQuery(int offset) {
+  return '''
+query getRestaurants($offset: Int) {
   search(location: "Las Vegas", limit: 20, offset: $offset) {
-    total    
+    total
     business {
       id
       name
@@ -84,6 +97,7 @@ query getRestaurants {
       reviews {
         id
         rating
+        text  
         user {
           id
           image_url
@@ -98,11 +112,11 @@ query getRestaurants {
         is_open_now
       }
       location {
-        formatted_address
+        formatted_address  
       }
     }
   }
 }
+
 ''';
-  }
 }
