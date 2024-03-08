@@ -1,4 +1,11 @@
 # SETUP:
+get :
+	flutter pub get
+
+setup-fvm-version :
+	fvm install 3.16.8 && \
+	fvm global 3.16.8
+
 pre-setup :
 	flutter clean &&\
 	dart run build_runner clean && \
@@ -63,6 +70,3 @@ asset-gen :
 
 gen :
 	dart run build_runner build --delete-conflicting-outputs || make try-fix-gen
-
-get :
-	flutter pub get
