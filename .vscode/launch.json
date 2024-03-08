@@ -2,32 +2,31 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Integration Tests (debug)",
+            "name": "Smoke Test (prod)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug",
-            "program": "integration_test/app_test.dart"
+            "program": "integration_test/app_test.dart",
+            "args": [
+                "--dart-define=app.flavor=prod"
+            ]
         },
         {
-            "name": "RestauranTour (debug)",
+            "name": "RestauranTour (stage)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug",
-            "program": "lib/main.dart"
+            "program": "lib/main.dart",
+            "args": [
+                "--dart-define=app.flavor=stage"
+            ]
         },
         {
-            "name": "RestauranTour (profile mode)",
+            "name": "RestauranTour (prod)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile",
-            "program": "lib/main.dart"
-        },
-        {
-            "name": "RestauranTour (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release",
-            "program": "lib/main.dart"
+            "program": "lib/main.dart",
+            "args": [
+                "--dart-define=app.flavor=prod"
+            ]
         }
     ]
 }

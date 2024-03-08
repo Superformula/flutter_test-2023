@@ -5,6 +5,7 @@ import 'package:restaurantour/components/rt_components.dart';
 import 'package:restaurantour/core/interceptor.dart';
 import 'package:restaurantour/core/logger.dart';
 import 'package:restaurantour/core/routes.dart';
+import 'package:restaurantour/main.dart';
 import 'package:restaurantour/repositories/restaurant_repository.dart';
 import 'package:restaurantour/services/event_bus_service.dart';
 import 'package:restaurantour/services/favorite_service.dart';
@@ -15,9 +16,16 @@ GetIt inject = GetIt.instance;
 Future<void> setupInjection() async {
   RTLogger.i(message: 'Setup injection');
 
-  await dotenv.load(fileName: ".env");
+  String _apiKey = '';
+  const String fileName = kIsProd ? '.env' : '.env_stage';
 
-  final _apiKey = dotenv.env['API_KEY'];
+  try {
+    await dotenv.load(fileName: fileName);
+    _apiKey = dotenv.env['API_KEY'] ?? '';
+    if (_apiKey.isEmpty) RTLogger.w(message: 'API_KEY is empty');
+  } catch (exception) {
+    RTLogger.e(message: 'Fail to load API_KEY, looking for $fileName file', exception: exception);
+  }
 
   await inject.reset();
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
