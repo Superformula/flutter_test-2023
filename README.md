@@ -1,38 +1,113 @@
 # RestauranTour
 
-Be sure to read **all** of this document carefully, and follow the guidelines within.
 
-## Vendorized Flutter
+## Welcom to RestauranTour!
 
-3. We use [fvm](https://fvm.app/) for managing the flutter version within the project. Using terminal, while being on the test repository, install the tools dependencies by running the following commands:
+The idea of this project is to help you to choose the best restaurants!
 
-    ```sh
-    dart pub global activate fvm
-    ```
+### Some features:
+- Navigate through the available restaurants and see basic information like `opened status`, `price` and `classification` from other users directly from the list.
+- See details of the restaurant, when you open a restaurant the details page will show you more information like `review` from users.
+- Save the best! On the details screen you can add to favorites those restaurant make you heartbeat!
+- Favorite list shows all the restaurant that you love.  
 
-    The output of the command will ask to add the folder `./pub-cache/bin` to your PATH variables, if you didn't already. If that is the case, add it to your environment variables, and restart the terminal.
+## Setup:
 
-    ```sh
-    export PATH="$PATH":"$HOME/.pub-cache/bin" # Add this to your environment variables
-    ```
 
-4. Install the project's flutter version using `fvm`.
+To make things easier, we are using Makefile to manage the commands and setup you project.
 
-    ```sh
-    fvm use
-    ```
+Before start with Make commands, make sure that you have installed the fvm in your system, see [Vendorized Flutter](#vendorized-flutter) before.
 
-5. From now on, you will run all the flutter commands with the `fvm` prefix. Get all the projects dependencies.
+#### 1 - make setup-fvm-version 
 
-    ```sh
-    fvm flutter pub get
-    ```
+Now that you have installed the fvm, by running the command `fvm --version` this should return the fvm version installed in your system like this:
+ ```
+$ fvm --version
+2.4.1
+```
+Now we can proceed, well as mentioned before, we will use make for make things for us. To setup the fvm version run the following command:
 
-More information on the approach can be found here:
+``` bash
+make setup-fvm-version
+```
+The curremt version of Flutter is `3.16.8` but don't worry about setup this, `make setup-fvm-version` will do it automatically.
 
-> hhttps://fvm.app/docs/getting_started/installation
+> Make setup-fvm-version will run the following commands: `fvm install 3.16.8` and `fvm global 3.16.8`
 
-From the root directory:
+This will download the version that we are using on the project, and setup as global.
+
+### 2 - make setup
+
+This will setup all things that we need work on the project.
+To make sure that everything is working well, `make setup` will run some commands:
+
+Pre-setup:
+
+- `flutter clean` # clean the flutter project
+-	`dart run build_runner clean` # clean the build runner
+- `dart pub global activate arb_utils` # activate the arb_utils package to generate locales
+-	`dart pub global activate flutter_gen` # activate the flutter_gen package for management assets
+
+Setup:
+- `get` # flutter pub get
+- `l10n` # generate the locales and sort
+- `gen` # generate the models
+- `asset-gen` # generate the assets
+- `setup-env-file` # generate the `.env` file
+- `unit-tests` # run unit tests to ensure everything is working
+
+<details>
+<summary>All make commands available</summary>
+
+<ul>
+<details>
+<summary>Setup</summary>
+
+<ul><b>get</b> <i># run flutter pub get</i></ul>
+<ul><b>setup-fvm-version</b> <i># download and setup the fvm flutter version for the project</i></ul>
+<ul><b>pre-setup</b> <i># clean the project and install some dependencies</i></ul>
+<ul><b>setup-env-file</b> <i># generate the .env file</i></ul>
+<ul><b>setup</b> <i># run pre-setup, setup-env-file, run code generation and run unit tests</i></ul>
+<ul><b>try-fix-gen</b> <i># try run code generation if fail try fix and run code generation again</i></ul>
+<ul><b>fix-gen</b> <i># perform some steps to fix code generation</i></ul>
+
+</details>
+</ul>
+
+<ul>
+<details>
+<summary>Tests</summary>
+<ul><b>tests</b> <i># run unit and golden tests</i></ul>
+<ul><b>all-tests</b> <i># run all type of tests on project, unit, golden and integration</i></ul>
+<ul><b>unit-tests</b> <i># run only unit tests</i></ul>
+<ul><b>tests-ci-cd</b> <i>#run tests with a flag that enable threshold for golden tests on pipeline</i></ul>
+<ul><b>integration-tests</b> <i># run integration test</i></ul>
+<ul><b>update-goldens</b> <i># update the golden images</i></ul>
+<ul><b>remove-goldens-failures</b> <i># this remove the failure folder of golden tests</i></ul>
+</details>
+</ul>
+
+<ul>
+<details>
+<summary>Coverage</summary>
+See <a href="#coverage-reports---lcov">Coverage reports</a>
+
+<ul><b>lcov</b> <i># run the tests and show the coverage report filtered</i></ul>
+<ul><b>show-coverage</b> <i># run tests and show the coverage report</i></ul>
+<ul><b>lcov-ignore</b> <i># remove some files from coverage report</i></ul>
+</details>
+</ul>
+
+<ul>
+<details>
+<summary>Code gen</summary>
+<ul><b>l10n</b> <i># generate the localization files</i></ul>
+<ul><b>asset-gen</b> <i># generate the assets file</i></ul>
+<ul><b>gen</b> <i># generate models using build_runner</i></ul>
+</details>
+</ul>
+
+</details>
 
 
 ### IDE Setup
@@ -181,3 +256,51 @@ Just create a new issue in this repo and we will respond and get back to you qui
 ## Review
 
 The coding challenge is a take-home test upon which we'll be conducting a thorough code review once complete. The review will consist of meeting some more of our mobile engineers and giving a review of the solution you have designed. Please be prepared to share your screen and run/demo the application to the group. During this process, the engineers will be asking questions.
+
+
+## Vendorized Flutter
+
+We use [fvm](https://fvm.app/) for managing the flutter version within the project. Using terminal, while being on the test repository, install the tools dependencies by running the following commands:
+
+```sh
+    dart pub global activate fvm
+```
+
+The output of the command will ask to add the folder `./pub-cache/bin` to your PATH variables, if you didn't already. If that is the case, add it to your environment variables, and restart the terminal.
+
+```sh
+export PATH="$PATH":"$HOME/.pub-cache/bin" # Add this to your environment variables
+```
+
+
+
+More information on the approach can be found here:
+
+> hhttps://fvm.app/docs/getting_started/installation
+
+[Back to setup](#setup)
+
+## Coverage reports - lcov
+LCOV is an extension of GCOV, a GNU tool which provides information about
+what parts of a program are actually executed (i.e. "covered") while running
+a particular test case. The extension consists of a set of Perl scripts
+which build on the textual GCOV output to implement the following enhanced
+functionality:
+
+- HTML based output: coverage rates are additionally indicated using bar
+graphs and specific colors.
+
+- Support for large projects: overview pages allow quick browsing of
+coverage data by providing three levels of detail: directory view,
+file view and source code view.
+
+LCOV was initially designed to support Linux kernel coverage measurements,
+but works as well for coverage measurements on standard user space
+applications.
+
+<a href="https://formulae.brew.sh/formula/lcov">Install on Linux/MacOs using brew</a>
+
+<a href="https://community.chocolatey.org/packages/lcov?source=post_page-----7c58dda07080--------------------------------">Install on Windows</a>
+
+
+[Back to make](#2---make-setup)

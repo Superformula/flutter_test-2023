@@ -1,57 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:restaurantour/app.dart';
+import 'package:restaurantour/core/inject.dart';
+import 'package:restaurantour/core/logger.dart';
 
-void main() {
-  runApp(const Restaurantour());
-}
+const String kAppFlavor = String.fromEnvironment('app.flavor', defaultValue: "prod");
 
-class Restaurantour extends StatelessWidget {
-  // This widget is the root of your application.
-  const Restaurantour({Key? key}) : super(key: key);
+const String kFlavorStage = "stage";
+const String kFlavorProd = "prod";
+const String kFlavorLocal = "local";
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RestauranTour',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const HomePage(),
-    );
-  }
-}
+const bool kIsStage = kAppFlavor == kFlavorStage;
+const bool kIsProd = kAppFlavor == kFlavorProd;
+const bool kIsLocal = kAppFlavor == kFlavorLocal;
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Restaurantour'),
-            ElevatedButton(
-              child: const Text('Fetch Restaurants'),
-              onPressed: () async {
-                final yelpRepo = YelpRepository();
+  if (kIsStage) RTLogger.d(message: 'Running in Stage mode');
+  if (kIsProd) RTLogger.w(message: 'Running in Prod mode');
+  if (kIsLocal) RTLogger.i(message: 'Running in Local mode');
 
-                try {
-                  final result = await yelpRepo.getRestaurants();
-                  if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
-                  } else {
-                    print('No restaurants fetched');
-                  }
-                } catch (e) {
-                  print('Failed to fetch restaurants: $e');
-                }
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  await setupInjection();
+
+  RTLogger.i(message: 'Start app');
+  runApp(const App());
 }
