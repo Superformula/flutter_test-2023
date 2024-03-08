@@ -12,7 +12,7 @@ class RTErrorWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: RTSizesType.xxxg.size, child: SvgPicture.asset('assets/svg/404.svg')),
+          SizedBox(height: RTSizesType.xxxg.size, child: SvgPicture.asset(Assets.svg.notFound)),
           RTSizesType.xg.spacer,
           Text(
             AppLocalizations.of(context)!.errorMessage,

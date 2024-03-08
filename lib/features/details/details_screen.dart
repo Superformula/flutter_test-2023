@@ -186,7 +186,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: RTSizesType.m.size),
-                        child: SvgPicture.asset('assets/svg/star.svg'),
+                        child: SvgPicture.asset(Assets.svg.star),
                       ),
                     ],
                   ),

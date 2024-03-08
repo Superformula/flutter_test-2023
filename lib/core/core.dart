@@ -9,3 +9,4 @@ export 'package:restaurantour/core/inject.dart';
 export 'package:restaurantour/core/interceptor.dart';
 export 'package:restaurantour/core/logger.dart';
 export 'package:restaurantour/core/routes.dart';
+export 'package:restaurantour/gen/assets.gen.dart';

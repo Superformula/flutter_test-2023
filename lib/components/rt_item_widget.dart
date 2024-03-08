@@ -19,7 +19,7 @@ class RTItemWidget extends StatelessWidget {
   double get rating => restaurant.rating ?? 0;
   String get heroImage => restaurant.heroImage;
   String get priceLabel => restaurant.price ?? '';
-  List<Widget> get starRate => List.generate(rating > 5 ? 5 : rating.toInt(), (_) => SvgPicture.asset('assets/svg/star.svg'));
+  List<Widget> get starRate => List.generate(rating > 5 ? 5 : rating.toInt(), (_) => SvgPicture.asset(Assets.svg.star));
 
   @override
   Widget build(BuildContext context) {

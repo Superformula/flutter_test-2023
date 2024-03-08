@@ -9,7 +9,7 @@ class RTReviewWidget extends StatelessWidget {
   final ReviewDto review;
   final RTImageNetwork imageNetwork;
   int get rating => review.rating ?? 0;
-  List<Widget> get starRate => List.generate(rating > 5 ? 5 : rating.toInt(), (_) => SvgPicture.asset('assets/svg/star.svg'));
+  List<Widget> get starRate => List.generate(rating > 5 ? 5 : rating.toInt(), (_) => SvgPicture.asset(Assets.svg.star));
 
   @override
   Widget build(BuildContext context) {
