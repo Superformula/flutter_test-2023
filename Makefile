@@ -27,7 +27,8 @@ try-fix-gen : fix-gen
 
 # TESTS:
 
-tests : unit-tests golden-tests
+tests : 
+	flutter test --coverage
 
 all-tests : tests integration-tests
 

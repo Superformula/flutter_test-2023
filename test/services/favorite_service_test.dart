@@ -2,7 +2,7 @@ import 'package:restaurantour/core/core.dart';
 import 'package:restaurantour/services/favorite_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../test.dart';
+import '../test.dart';
 
 void main() {
   SharedPreferences sharedPreferences = SharedPreferencesMock();
