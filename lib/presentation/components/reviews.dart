@@ -45,6 +45,8 @@ class ReviewItem extends StatelessWidget {
       children: [
         const SizedBox(height: 15),
         RatingStars(rating: review.rating?.toDouble()),
+        if (review.text != null) const SizedBox(height: 5),
+        if (review.text != null) Text(review.text ?? ''),
         const SizedBox(height: 5),
         Row(
           children: [
@@ -73,7 +75,6 @@ class ReviewItem extends StatelessWidget {
             Text(
               review.user?.name ?? '',
               style: const TextStyle(
-                fontStyle: FontStyle.italic,
                 fontSize: 12,
               ),
             ),
