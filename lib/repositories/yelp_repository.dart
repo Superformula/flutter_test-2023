@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:restaurantour/models/restaurant.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
+//const _apiKey = '';
 
 class YelpRepository {
   late Dio dio;
@@ -14,7 +16,7 @@ class YelpRepository {
               BaseOptions(
                 baseUrl: 'https://api.yelp.com',
                 headers: {
-                  'Authorization': 'Bearer $_apiKey',
+                  'Authorization': 'Bearer ${dotenv.env['API_KEY']}',
                   'Content-Type': 'application/graphql',
                 },
               ),
