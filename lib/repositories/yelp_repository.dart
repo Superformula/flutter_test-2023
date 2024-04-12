@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/env.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
+final String _apiKey = Env.YELP_KEY;
 
 class YelpRepository {
   late Dio dio;
