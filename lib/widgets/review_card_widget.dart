@@ -36,7 +36,7 @@ class ReviewCardWidget extends StatelessWidget {
             const Gap(8),
             Text(
               'User Name',
-              style: TextStylesClass.usernameTextStyle,
+              style: TextStylesClass.captionTextStyle,
             ),
           ],
         ),

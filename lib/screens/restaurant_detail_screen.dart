@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restaurantour/contants/text_style_constants.dart';
 import 'package:restaurantour/widgets/review_card_widget.dart';
 
 class RestaurantDetailScreen extends StatefulWidget {
@@ -20,7 +21,11 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
   void initState() {
     super.initState();
     //Populate the reviews list
-    reviews = [];
+    reviews = const [
+      ReviewCardWidget(),
+      ReviewCardWidget(),
+      ReviewCardWidget(),
+    ];
   }
 
   @override
@@ -75,20 +80,14 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                   children: [
                     Text(
                       'price and category',
-                      style: GoogleFonts.openSans(
-                        fontSize: 12,
-                      ),
+                      style: TextStylesClass.priceCategoryTextStyle,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           'Open Now',
-                          style: GoogleFonts.openSans(
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                          ),
+                          style: TextStylesClass.openCloseRestaurantTextStyle,
                         ),
                         const Gap(6),
                         Container(
@@ -108,35 +107,23 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                 const Gap(24),
                 Text(
                   'Address',
-                  style: GoogleFonts.openSans(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
+                  style: TextStylesClass.captionTextStyle,
                 ),
                 const Gap(24),
                 Text(
                   '102 Lakeside Ave',
-                  style: GoogleFonts.openSans(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStylesClass.restaurantAddressTextStyle,
                 ),
                 Text(
                   'Seattle, WA 98122',
-                  style: GoogleFonts.openSans(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStylesClass.restaurantAddressTextStyle,
                 ),
                 const Gap(24),
                 const Divider(),
                 const Gap(24),
                 Text(
                   'Overall Rating',
-                  style: GoogleFonts.openSans(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
+                  style: TextStylesClass.captionTextStyle,
                 ),
                 const Gap(24),
                 Row(
@@ -158,11 +145,8 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                 const Divider(),
                 const Gap(24),
                 Text(
-                  '42 Reviews',
-                  style: GoogleFonts.openSans(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
+                  '${reviews.length} Reviews',
+                  style: TextStylesClass.captionTextStyle,
                 ),
                 const Gap(24),
                 //show/loop through reviews - except the last one

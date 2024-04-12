@@ -19,7 +19,7 @@ class TextStylesClass {
   static final TextStyle priceCategoryTextStyle =
       GoogleFonts.openSans(fontSize: 12);
 
-  static final TextStyle usernameTextStyle =
+  static final TextStyle captionTextStyle =
       GoogleFonts.openSans(fontSize: 12, fontWeight: FontWeight.w400);
 
   static final TextStyle openCloseRestaurantTextStyle = GoogleFonts.openSans(
@@ -31,5 +31,10 @@ class TextStylesClass {
   static final TextStyle reviewRestaurantTextStyle = GoogleFonts.openSans(
     fontSize: 16,
     fontWeight: FontWeight.w400,
+  );
+
+  static final TextStyle restaurantAddressTextStyle = GoogleFonts.openSans(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
   );
 }
