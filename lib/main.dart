@@ -9,7 +9,6 @@ void main() {
 }
 
 class Restaurantour extends StatelessWidget {
-  // This widget is the root of your application.
   const Restaurantour({Key? key}) : super(key: key);
 
   @override
@@ -23,50 +22,22 @@ class Restaurantour extends StatelessWidget {
         title: 'RestauranTour',
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          colorScheme: const ColorScheme(
+            background: Colors.white,
+            brightness: Brightness.light,
+            primary: Colors.black87,
+            secondary: Colors.white,
+            onPrimary: Colors.white,
+            onSecondary: Colors.white,
+            error: Colors.redAccent,
+            onError: Colors.redAccent,
+            onBackground: Colors.black87,
+            surface: Colors.white,
+            onSurface: Colors.black87,
+          ),
         ),
         home: HomePage(),
       ),
     );
   }
 }
-
-// class HomePage extends StatelessWidget {
-//   const HomePage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MultiProvider(
-//       providers: [
-//         ChangeNotifierProvider(create: (context) => DataProvider()),
-//       ],
-//       child: Scaffold(
-//         body: Center(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               const Text('Restaurantour'),
-//               ElevatedButton(
-//                 child: const Text('Fetch Restaurants'),
-//                 onPressed: () async {
-//                   final yelpRepo = YelpRepository();
-
-//                   try {
-//                     final result = await yelpRepo.getRestaurants();
-//                     if (result != null) {
-//                       print(
-//                           'Fetched ${result.restaurants!.length} restaurants');
-//                     } else {
-//                       print('No restaurants fetched');
-//                     }
-//                   } catch (e) {
-//                     print('Failed to fetch restaurants: $e');
-//                   }
-//                 },
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
