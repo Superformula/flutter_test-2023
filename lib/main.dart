@@ -22,7 +22,20 @@ class Restaurantour extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Restaurantour',
-        theme: ThemeData(primarySwatch: Colors.blue),
+        theme: ThemeData(
+          primaryColor: Colors.white,
+          scaffoldBackgroundColor: const Color(0xFFFAFAFA),
+          appBarTheme: const AppBarTheme(
+            color: Colors.white,
+            iconTheme: IconThemeData(color: Colors.black),
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontFamily: 'Lora',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         home: const RestaurantsPage(),
       ),
     );

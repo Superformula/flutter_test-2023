@@ -1,7 +1,7 @@
 class Urls {
   static const String baseUrl = 'https://api.yelp.com';
   static const String apiKey =
-      'Gm26vvRM976dw2sRd80m7T-j3C-u-nN6kBaJ6xHHwLMwfEtVp_SBPW03e591peSBIhuVeXrZpaQ8E2MDTjnA690HfjXQUBy_A6LEI4eUTli3Eum6_AjHgbG6-_r-ZXYx';
+      'wfYIpeyetAPJbQYg5ITUE4wxzqCvoEQM5FQyW9Xq4SGJG52vkefWY_Irq9yg_TKpXRYJUgTO48W_fVXReEABY919sT74bHoCAyNH4b0kTe94rmEWFWNo1GjFxUXjZXYx';
   static const String ghrapQLRoute = '/v3/graphql';
   static String getRestaurantsByCity({
     required String city,

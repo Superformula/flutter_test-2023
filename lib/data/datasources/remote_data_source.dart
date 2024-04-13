@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:logger/web.dart';
 import 'package:restaurantour/data/constants.dart';
@@ -32,6 +34,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           offset: 20,
         ),
       );
+      final String json = jsonEncode(response.data);
+      Logger().i(json);
       return RestaurantQueryResult.fromJson(response.data!['data']['search']);
     } catch (e) {
       Logger().e(e);
