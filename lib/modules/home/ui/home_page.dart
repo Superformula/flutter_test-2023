@@ -1,10 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:restaurantour/core/theme/app_theme.dart';
+import 'package:restaurantour/core/theme/text_theme.dart';
+import 'package:restaurantour/core/utils/dependency_injector.dart';
 import 'package:restaurantour/modules/home/data/models/restaurant.dart';
+import 'package:restaurantour/modules/home/domain/controllers/home_controller.dart';
+import 'package:restaurantour/modules/home/ui/widgets/circular_progress_widget.dart';
 
 import 'widgets/card_restaurant_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final HomeController controller = locator.get<HomeController>();
+
+  @override
+  void initState() {
+    controller.loadingInfos();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,89 +44,127 @@ class HomePage extends StatelessWidget {
             child: TabBar(tabs: [Tab(text: 'All Restaurants'), Tab(text: 'My Favorites')]),
           ),
         ),
-
         body: TabBarView(
           children: [
-            ListView.separated(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-              itemCount: 10,
-              separatorBuilder: (context, index) => const SizedBox(height: 12),
-              itemBuilder: (context, index) {
-                return CardRestaurantWidget(
-                  restaurant: Restaurant(
-                    photos: [
-                      'https://s3-alpha-sig.figma.com/img/884d/9866/2c5877a8d54dfb9f772a779f3ddeccca?Expires=1713744000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=g3vmSZxTPNAfyiu5OZO4Nw0O2tlQBf1bsL1UvAnmlFUIY20pUNVnf-e1LsXBFGhymW7gdsxOcW6etNMPgQa~I6z1ANdtiAE1mUv37GsoIl9mxkUTQ2FoVGlHgUvnCbeSagJR~3Jya7flmwTpTEM0iZftVtixECmw~OSTAnZvFRrt3TozGmBB5-YRrayQvT6OpvTfdp7XCXuhgmpFN1QNxdjVRw97boobjEAZAN6pf88-WocQhJrmsmYVPEiB~5YIgZzj59NUua0ZlsIFfC1rWneb7b2D~3HJqt9luTyrxujrftp6tLL1ki52gAFfQx~6LUiZ1UkyWqLSSfEkVCMKJg__',
-                    ],
-                    name: 'Restaurant Name Goes Here And Wraps 2 Lines',
-                    categories: [
-                      Category(
-                        title: '\$\$\$\$ italian',
+            Observer(
+              builder: (context) {
+                if (controller.status.isLoading) return const CircularProgressWidget();
+
+                if (controller.status.isFailure) {
+                  // * Error list of restaurants
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 100),
+                          Icon(Icons.error_outline, size: 120, color: AppTheme.redColor.withOpacity(0.7)),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Error returning restaurants,\nplease try again later.',
+                            style: AppTextStyle.black14w600,
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: controller.loadingInfos,
+                            child: const Text('REFRESH', style: AppTextStyle.black16w600),
+                          ),
+                        ],
                       ),
-                    ],
-                    rating: 4.5,
-                    hours: [const Hours(isOpenNow: true)],
-                    location: Location(formattedAddress: '102 Lakeside Ave\nSeattle, WA 98122'),
-                    reviews: [
-                      Review(
-                        id: index.toString(),
-                        rating: index + 1,
-                        user: const User(
-                          name: 'User Name',
-                          imageUrl:
-                              'https://s3-alpha-sig.figma.com/img/f82b/5570/0afc0622730b45d13b00a1f62566aa13?Expires=1713744000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ao7CT3LD78UzghqfdJD7XE8ejLw1Ln4D~wGRn0vVpqIB4jJ0Y-bNxIxQgcrjHveJjiApW2C1eWl6xqSb9miMuM-hOW645CR068p14ha2iSBVVCs44wdaQGnNzSncH7Msy~RRdDDuXm0-0PIS9geUVj0H3F-Xv93gm99vpcdb0D3Kwjn9I64nfaptKZKy7R6cfjL7hBJav0g~b6IRiiEFkPQ6q4~wjbEn0ZFni2e7BBO~DF3O50dhQ8nmGl~7ES2n6848gsQPBYsha-Yto38t2gjdZLmrFkB9QavgcMY2~AU6TcrHFzQKzxMDrc8sFojZNEQ7Tb79LFOG~Qs-SE49iw__',
+                    ),
+                  );
+                }
+
+                return CustomScrollView(
+                  controller: controller.scrollController,
+                  slivers: [
+                    // * List Restaurants
+                    SliverVisibility(
+                      visible: controller.restaurants.isNotEmpty,
+                      replacementSliver: SliverToBoxAdapter(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 100),
+                                Icon(
+                                  Icons.subtitles_off_outlined,
+                                  size: 150,
+                                  color: Colors.grey.shade400,
+                                ),
+                                const SizedBox(height: 16),
+                                const Text('No restaurants in the moment', style: AppTextStyle.black14w600),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                      Review(
-                        id: index.toString(),
-                        rating: index + 1,
-                        user: const User(
-                          name: 'User Name',
-                          imageUrl:
-                              'https://s3-alpha-sig.figma.com/img/f82b/5570/0afc0622730b45d13b00a1f62566aa13?Expires=1713744000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ao7CT3LD78UzghqfdJD7XE8ejLw1Ln4D~wGRn0vVpqIB4jJ0Y-bNxIxQgcrjHveJjiApW2C1eWl6xqSb9miMuM-hOW645CR068p14ha2iSBVVCs44wdaQGnNzSncH7Msy~RRdDDuXm0-0PIS9geUVj0H3F-Xv93gm99vpcdb0D3Kwjn9I64nfaptKZKy7R6cfjL7hBJav0g~b6IRiiEFkPQ6q4~wjbEn0ZFni2e7BBO~DF3O50dhQ8nmGl~7ES2n6848gsQPBYsha-Yto38t2gjdZLmrFkB9QavgcMY2~AU6TcrHFzQKzxMDrc8sFojZNEQ7Tb79LFOG~Qs-SE49iw__',
+                      sliver: SliverPadding(
+                        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                        sliver: SliverList.separated(
+                          itemCount: controller.restaurants.length,
+                          separatorBuilder: (context, index) => const SizedBox(height: 12),
+                          itemBuilder: (context, index) {
+                            final Restaurant restaurant = controller.restaurants[index];
+                            return CardRestaurantWidget(restaurant: restaurant);
+                          },
                         ),
                       ),
-                      Review(
-                        id: index.toString(),
-                        rating: index + 1,
-                        user: const User(
-                          name: 'User Name',
-                          imageUrl:
-                              'https://s3-alpha-sig.figma.com/img/f82b/5570/0afc0622730b45d13b00a1f62566aa13?Expires=1713744000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ao7CT3LD78UzghqfdJD7XE8ejLw1Ln4D~wGRn0vVpqIB4jJ0Y-bNxIxQgcrjHveJjiApW2C1eWl6xqSb9miMuM-hOW645CR068p14ha2iSBVVCs44wdaQGnNzSncH7Msy~RRdDDuXm0-0PIS9geUVj0H3F-Xv93gm99vpcdb0D3Kwjn9I64nfaptKZKy7R6cfjL7hBJav0g~b6IRiiEFkPQ6q4~wjbEn0ZFni2e7BBO~DF3O50dhQ8nmGl~7ES2n6848gsQPBYsha-Yto38t2gjdZLmrFkB9QavgcMY2~AU6TcrHFzQKzxMDrc8sFojZNEQ7Tb79LFOG~Qs-SE49iw__',
-                        ),
+                    ),
+                    // * Loading More
+                    SliverVisibility(
+                      visible: controller.status.isLoadingMore,
+                      sliver: const SliverToBoxAdapter(
+                        child: Center(child: Padding(padding: EdgeInsets.all(16), child: CircularProgressWidget())),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 );
               },
             ),
-            Container(),
+            Observer(
+              builder: (context) {
+                if (controller.status.isLoading) return const CircularProgressWidget();
+
+                return Visibility(
+                  visible: controller.restaurantsFavorits.isNotEmpty,
+                  // * Empty List
+                  replacement: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 100),
+                          Icon(
+                            Icons.subtitles_off_outlined,
+                            size: 150,
+                            color: Colors.grey.shade400,
+                          ),
+                          const SizedBox(height: 16),
+                          const Text('No favorites in the moment', style: AppTextStyle.black14w600),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  // * List Favorites
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                    itemCount: controller.restaurantsFavorits.length,
+                    separatorBuilder: (context, index) => const SizedBox(height: 12),
+                    itemBuilder: (context, index) {
+                      final Restaurant restaurant = controller.restaurantsFavorits[index];
+                      return CardRestaurantWidget(restaurant: restaurant);
+                    },
+                  ),
+                );
+                // * Loading More
+              },
+            ),
           ],
         ),
-        // body: Center(
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: [
-        //       const Text('Restaurantour'),
-        //       ElevatedButton(
-        //         child: const Text('Fetch Restaurants'),
-        //         onPressed: () async {
-        //           final yelpRepo = YelpRepository();
-
-        //           try {
-        //             final result = await yelpRepo.getRestaurants();
-        //             if (result != null) {
-        //               print('Fetched ${result.restaurants!.length} restaurants');
-        //             } else {
-        //               print('No restaurants fetched');
-        //             }
-        //           } catch (e) {
-        //             print('Failed to fetch restaurants: $e');
-        //           }
-        //         },
-        //       ),
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }

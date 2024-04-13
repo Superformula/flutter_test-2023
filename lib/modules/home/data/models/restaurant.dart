@@ -12,8 +12,7 @@ class Category {
     this.title,
   });
 
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
+  factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }
@@ -53,11 +52,13 @@ class User {
 @JsonSerializable()
 class Review {
   final String? id;
+  final String? text;
   final int? rating;
   final User? user;
 
   const Review({
     this.id,
+    this.text,
     this.rating,
     this.user,
   });
@@ -76,8 +77,7 @@ class Location {
     this.formattedAddress,
   });
 
-  factory Location.fromJson(Map<String, dynamic> json) =>
-      _$LocationFromJson(json);
+  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 }
@@ -106,8 +106,7 @@ class Restaurant {
     this.location,
   });
 
-  factory Restaurant.fromJson(Map<String, dynamic> json) =>
-      _$RestaurantFromJson(json);
+  factory Restaurant.fromJson(Map<String, dynamic> json) => _$RestaurantFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantToJson(this);
 
@@ -148,8 +147,7 @@ class RestaurantQueryResult {
     this.restaurants,
   });
 
-  factory RestaurantQueryResult.fromJson(Map<String, dynamic> json) =>
-      _$RestaurantQueryResultFromJson(json);
+  factory RestaurantQueryResult.fromJson(Map<String, dynamic> json) => _$RestaurantQueryResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantQueryResultToJson(this);
 }
