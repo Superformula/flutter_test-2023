@@ -18,13 +18,15 @@ dependencies:
   flutter_dotenv: ^5.1.0
   google_fonts: 6.1.0
   gap: ^3.0.1
+  flutter_riverpod: ^2.4.10
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.2
-  build_runner: ^2.4.8
+  build_runner: ^2.4.9
   json_serializable: ^6.7.1
+  custom_lint: ^0.6.4
 
 flutter:
   uses-material-design: true

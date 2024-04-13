@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/screens/restaurant_detail_screen.dart';
 import 'package:restaurantour/widgets/restaurant_card_widget.dart';
 
 class BuildRestaurantItem extends StatelessWidget {
   const BuildRestaurantItem({
     Key? key,
+    required this.restaurantData,
   }) : super(key: key);
+  final Restaurant restaurantData;
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +17,15 @@ class BuildRestaurantItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const RestaurantDetailScreen(
-              //TODO: send restaurant id
-              restaurantId: 'dummy_id',
+            builder: (context) => RestaurantDetailScreen(
+              restaurantId: restaurantData.id!,
             ),
           ),
         );
       },
-      child: const RestaurantCardWidget(),
+      child: RestaurantCardWidget(
+        restaurantData: restaurantData,
+      ),
     );
   }
 }

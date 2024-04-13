@@ -3,16 +3,25 @@ import 'package:gap/gap.dart';
 import 'package:restaurantour/contants/text_style_constants.dart';
 
 class ReviewCardWidget extends StatelessWidget {
-  const ReviewCardWidget({Key? key}) : super(key: key);
+  const ReviewCardWidget({
+    Key? key,
+    this.rating = 0,
+    this.username = "User name",
+    this.userImgUrl,
+  }) : super(key: key);
+  final int? rating;
+  final String? username;
+  final String? userImgUrl;
 
   @override
   Widget build(BuildContext context) {
+    int roundedRating = rating!.round();
     return Column(
       children: [
         const Gap(8),
         Row(
           children: List.generate(
-            5,
+            roundedRating,
             (index) => const Icon(
               Icons.star,
               color: Colors.amber,
@@ -30,12 +39,13 @@ class ReviewCardWidget extends StatelessWidget {
           children: [
             CircleAvatar(
               child: Image.network(
-                'https://gopostr.s3.amazonaws.com/favicon_url/CMXfauwVNmmVLyKpV0Qkg582dzzQWcp0Eje9gMiQ.png',
+                userImgUrl ??
+                    'https://gopostr.s3.amazonaws.com/favicon_url/CMXfauwVNmmVLyKpV0Qkg582dzzQWcp0Eje9gMiQ.png',
               ),
             ),
             const Gap(8),
             Text(
-              'User Name',
+              username!,
               style: TextStylesClass.captionTextStyle,
             ),
           ],

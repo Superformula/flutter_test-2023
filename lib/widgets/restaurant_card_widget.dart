@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:restaurantour/contants/text_style_constants.dart';
+import 'package:restaurantour/models/restaurant.dart';
 
 class RestaurantCardWidget extends StatelessWidget {
-  const RestaurantCardWidget({Key? key}) : super(key: key);
+  const RestaurantCardWidget({Key? key, required this.restaurantData})
+      : super(key: key);
+  final Restaurant restaurantData;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +34,9 @@ class RestaurantCardWidget extends StatelessWidget {
                 width: 88,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  image: const DecorationImage(
+                  image: DecorationImage(
                     image: NetworkImage(
-                      'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg',
+                      restaurantData.heroImage,
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -46,14 +49,14 @@ class RestaurantCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Restaurant Name that wraps in 2 lines sdfgsdfgsdfgdsfg ',
+                      restaurantData.name ?? 'No restaurant name found',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStylesClass.restaurantCardTitleTextStyle,
                     ),
                     const Gap(8),
                     Text(
-                      'price and category',
+                      '${restaurantData.price} ${restaurantData.categories}',
                       style: TextStylesClass.priceCategoryTextStyle,
                     ),
                     const Gap(6),
@@ -82,9 +85,11 @@ class RestaurantCardWidget extends StatelessWidget {
                             Container(
                               width: 8,
                               height: 8,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.green,
+                                color: restaurantData.isOpen
+                                    ? Colors.green
+                                    : Colors.red,
                               ),
                             ),
                           ],

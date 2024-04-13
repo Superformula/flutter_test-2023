@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:restaurantour/screens/restaurants_screen.dart';
 import 'package:restaurantour/theme/main_theme.dart';
@@ -8,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); //Ensure flutter before loading .env file
   await dotenv.load(); //Load the sensitive data with .env
-  runApp(const Restaurantour());
+  runApp(const ProviderScope(child: Restaurantour()));
 }
 
 class Restaurantour extends StatelessWidget {

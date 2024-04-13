@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurantour/contants/text_style_constants.dart';
 import 'package:restaurantour/screens/views/all_restaurants_view.dart';
 import 'package:restaurantour/screens/views/favorite_restaurants_view.dart';
 
-class RestaurantListScreen extends StatelessWidget {
+class RestaurantListScreen extends ConsumerWidget {
   const RestaurantListScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
-      initialIndex: 0,
+      initialIndex: 1,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
@@ -19,9 +20,6 @@ class RestaurantListScreen extends StatelessWidget {
             style: TextStylesClass.titleTextStyle,
           ),
           bottom: TabBar(
-            onTap: (value) {
-              //TODO: Login for the state provider
-            },
             tabAlignment: TabAlignment.center,
             indicatorColor: Colors.black,
             tabs: <Widget>[
