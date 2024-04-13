@@ -190,7 +190,7 @@ class _DetailsRestaurantPageState extends State<DetailsRestaurantPage> {
                             children: [
                               Row(
                                 children: List.generate(
-                                  review.rating?.toInt() ?? 0,
+                                  review.rating?.round() ?? 0,
                                   (index) => const Icon(Icons.star, color: AppTheme.yellowColor, size: 16),
                                 ).toList(),
                               ),

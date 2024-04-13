@@ -80,7 +80,7 @@ class CardRestaurantWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         ...List.generate(
-                          restaurant.rating?.toInt() ?? 0,
+                          restaurant.rating?.round() ?? 0,
                           (index) => const Icon(Icons.star, color: AppTheme.yellowColor, size: 16),
                         ).toList(),
                         const Spacer(),
