@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:collection/collection.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurantour/contants/text_style_constants.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/providers/favorite_restaurants_provider.dart';
 import 'package:restaurantour/providers/fetch_restaurants_provider.dart';
+import 'package:restaurantour/utils/rating_calculator.dart';
 import 'package:restaurantour/widgets/review_card_widget.dart';
 
 class RestaurantDetailScreen extends ConsumerStatefulWidget {
@@ -26,25 +28,23 @@ class _RestaurantDetailScreenState
   @override
   void initState() {
     super.initState();
-    //Populate the reviews list
+    initRestaurantDetails();
+  }
+
+  //Initialization for restaurant details
+  void initRestaurantDetails() async {
     reviews = [];
     final restaurants = ref.read(restaurantsNotifierProvider).asData?.value;
-    Restaurant? restaurant;
     if (restaurants != null) {
-      final restaurant = restaurants.firstWhere(
-        (rest) => rest.id == widget.restaurantId,
-        orElse: () => throw Exception(
-            "Restaurant with ID ${widget.restaurantId} not found"),
-      );
-      if (restaurant.reviews != null) {
-        populateReviewsList(restaurant.reviews!);
-      }
-    }
-
-    if (restaurant != null) {
-      isFavorite = ref.read(favoritesProvider).contains(restaurant);
-      if (restaurant.reviews != null) {
-        populateReviewsList(restaurant.reviews!);
+      final restaurant = restaurants
+          .firstWhereOrNull((rest) => rest.id == widget.restaurantId);
+      if (restaurant != null) {
+        isFavorite = ref.read(favoritesProvider).contains(restaurant);
+        if (restaurant.reviews != null) {
+          populateReviewsList(restaurant.reviews!);
+        }
+      } else {
+        throw Exception("Restaurant with ID ${widget.restaurantId} not found");
       }
     }
   }
@@ -85,26 +85,19 @@ class _RestaurantDetailScreenState
       ),
       error: (error, _) => Text('Error: $error'),
       data: (restaurants) {
-        final restaurant = restaurants.firstWhere(
-          (rest) => rest.id == widget.restaurantId,
-          orElse: () => throw Exception('Restaurant not found'),
-        );
+        final restaurant = restaurants
+            .firstWhereOrNull((rest) => rest.id == widget.restaurantId);
+        if (restaurant == null) {
+          return const Text("Restaurant not found");
+        }
         return buildRestaurantDetails(restaurant);
       },
     );
   }
 
   Widget buildRestaurantDetails(Restaurant restaurant) {
-    //Get overall rating
-    double overallRating = 0;
-    if (restaurant.reviews != null && restaurant.reviews!.isNotEmpty) {
-      overallRating = restaurant.reviews!
-              .map(
-                (review) => review.rating!.toDouble(),
-              )
-              .reduce((a, b) => a + b) /
-          restaurant.reviews!.length;
-    }
+    double overallRating =
+        RatingCalculator.calculateAverageRating(restaurant.reviews!);
 
     return Scaffold(
       appBar: AppBar(
@@ -117,6 +110,7 @@ class _RestaurantDetailScreenState
             color: Colors.black,
           ),
         ),
+        centerTitle: false,
         title: Text(
           restaurant.name ?? 'No restaurant name found',
           maxLines: 1,
@@ -124,9 +118,7 @@ class _RestaurantDetailScreenState
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              toggleFavorite(restaurant);
-            },
+            onPressed: () => toggleFavorite(restaurant),
             icon: Icon(
               isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
               color: Colors.red,
@@ -157,7 +149,7 @@ class _RestaurantDetailScreenState
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${restaurant.price} ${restaurant.categories}',
+                      '${restaurant.price} ${restaurant.categories?.first.title}',
                       style: TextStylesClass.priceCategoryTextStyle,
                     ),
                     Row(

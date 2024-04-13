@@ -38,7 +38,7 @@ class ReviewCardWidget extends StatelessWidget {
         Row(
           children: [
             CircleAvatar(
-              child: Image.network(
+              backgroundImage: NetworkImage(
                 userImgUrl ??
                     'https://gopostr.s3.amazonaws.com/favicon_url/CMXfauwVNmmVLyKpV0Qkg582dzzQWcp0Eje9gMiQ.png',
               ),

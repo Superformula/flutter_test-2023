@@ -10,7 +10,7 @@ class RestaurantListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
-      initialIndex: 1,
+      initialIndex: 0,
       length: 2,
       child: Scaffold(
         appBar: AppBar(

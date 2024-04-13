@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:restaurantour/contants/text_style_constants.dart';
 import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/utils/rating_calculator.dart';
 
 class RestaurantCardWidget extends StatelessWidget {
   const RestaurantCardWidget({Key? key, required this.restaurantData})
@@ -10,6 +11,11 @@ class RestaurantCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Get overall rating
+    int overallRating =
+        RatingCalculator.calculateAverageRating(restaurantData.reviews!)
+            .round();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: SizedBox(
@@ -56,7 +62,7 @@ class RestaurantCardWidget extends StatelessWidget {
                     ),
                     const Gap(8),
                     Text(
-                      '${restaurantData.price} ${restaurantData.categories}',
+                      '${restaurantData.price} ${restaurantData.categories?.first.title}',
                       style: TextStylesClass.priceCategoryTextStyle,
                     ),
                     const Gap(6),
@@ -65,7 +71,7 @@ class RestaurantCardWidget extends StatelessWidget {
                       children: [
                         Row(
                           children: List.generate(
-                            5,
+                            overallRating,
                             (index) => const Icon(
                               Icons.star,
                               color: Colors.amber,
@@ -77,7 +83,7 @@ class RestaurantCardWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              'Open Now',
+                              restaurantData.isOpen ? 'Open Now' : 'Closed',
                               style:
                                   TextStylesClass.openCloseRestaurantTextStyle,
                             ),
