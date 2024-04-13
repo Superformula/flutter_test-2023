@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurantour/main.dart';
+import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/providers/data_provider.dart';
+import 'package:restaurantour/widgets/restaurant_card_widget.dart';
 
 class RestaurantsListWidget extends StatefulWidget {
   bool favorites;
@@ -13,6 +16,7 @@ class RestaurantsListWidget extends StatefulWidget {
 class _RestaurantsListWidgetState extends State<RestaurantsListWidget> {
   DataProvider dataProvider = DataProvider();
   bool _isLoading = false;
+  List<Restaurant> restaurants = [];
 
   Future<void> getInitData() async {
     setState(() {
@@ -20,12 +24,15 @@ class _RestaurantsListWidgetState extends State<RestaurantsListWidget> {
     });
 
     var result = await dataProvider.getRestaurants();
-
     if (result != null) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(result),
         backgroundColor: Theme.of(context).colorScheme.error,
       ));
+      print("Restaurants: ${dataProvider.restaurants}");
+      setState(() {
+        restaurants = dataProvider.restaurants;
+      });
     }
 
     setState(() {
@@ -45,6 +52,8 @@ class _RestaurantsListWidgetState extends State<RestaurantsListWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print(restaurants);
+    var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -54,7 +63,23 @@ class _RestaurantsListWidgetState extends State<RestaurantsListWidget> {
         child: Center(
           child: _isLoading
               ? const CircularProgressIndicator.adaptive()
-              : Container(),
+              : Container(
+                  color: Colors.red,
+                  height: size.height,
+                  width: size.width,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                  ),
+                  child: ListView.builder(
+                    itemCount: restaurants.length,
+                    itemBuilder: (context, index) => RestaurantCardWidget(
+                      restaurant: restaurants[index],
+                      key: Key(
+                        restaurants[index].id.toString(),
+                      ),
+                    ),
+                  ),
+                ),
         ),
       ),
     );
