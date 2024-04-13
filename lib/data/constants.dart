@@ -26,6 +26,7 @@ query getRestaurants {
           image_url
           name
         }
+        text
       }
       categories {
         title
