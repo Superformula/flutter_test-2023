@@ -22,7 +22,6 @@ class RestaurantsBloc extends Bloc<RestaurantsEvent, RestaurantsState> {
         );
         final fetchedRestaurants = responseData?.restaurants ?? [];
         restaurantsList.addAll(fetchedRestaurants);
-        emit(RestaurantsData(restaurantsList));
       } on DioException catch (error) {
         emit(RestaurantsError(error.message ?? error.toString()));
       } catch (error) {

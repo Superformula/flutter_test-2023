@@ -55,11 +55,13 @@ class Review {
   final String? id;
   final int? rating;
   final User? user;
+  final String? text;
 
   const Review({
     this.id,
     this.rating,
     this.user,
+    this.text,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
@@ -152,4 +154,22 @@ class RestaurantQueryResult {
       _$RestaurantQueryResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantQueryResultToJson(this);
+}
+
+@JsonSerializable()
+class ReviewQueryResult {
+  @JsonKey(name: 'review_count')
+  final int? total;
+  @JsonKey(name: 'reviews')
+  final List<Review>? reviewsList;
+
+  const ReviewQueryResult({
+    this.total,
+    this.reviewsList,
+  });
+
+  factory ReviewQueryResult.fromJson(Map<String, dynamic> json) =>
+      _$ReviewQueryResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReviewQueryResultToJson(this);
 }

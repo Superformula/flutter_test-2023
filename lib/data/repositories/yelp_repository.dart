@@ -52,7 +52,10 @@ class YelpRepository {
     return MockResponse(jsonDecode(jsonString));
   }
 
-  Future<RestaurantQueryResult?> getRestaurantReviews({int offset = 0}) async {
+  Future<ReviewQueryResult?> getRestaurantReviews({
+    required String restaurantId,
+    int offset = 0,
+  }) async {
     try {
       final response = await mockRestaurantReviewsResponse();
 
@@ -61,7 +64,7 @@ class YelpRepository {
       //   data: _getReviewsQuery(offset),
       // );
 
-      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
+      return ReviewQueryResult.fromJson(response.data!['data']['business']);
     } on DioException catch (error) {
       debugPrint(error.message);
       rethrow;
