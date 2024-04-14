@@ -9,6 +9,7 @@ import 'package:restaurantour/modules/home/domain/stores/favorite_store.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/text_theme.dart';
+import '../../../core/utils/constants.dart';
 import 'widgets/circular_progress_widget.dart';
 
 class DetailsRestaurantPage extends StatefulWidget {
@@ -35,7 +36,10 @@ class _DetailsRestaurantPageState extends State<DetailsRestaurantPage> {
       appBar: AppBar(
         title: Observer(
           builder: (context) {
-            return Text(controller.status.isLoading ? '' : widget.restaurant.name ?? '');
+            return Text(
+              key: const Key(ConstantsApp.kTitleDetailsRestaurant),
+              controller.status.isLoading ? '' : widget.restaurant.name ?? '',
+            );
           },
         ),
         actions: [
@@ -72,6 +76,7 @@ class _DetailsRestaurantPageState extends State<DetailsRestaurantPage> {
 
           if (controller.status.isFailure) {
             return Center(
+              key: const Key(ConstantsApp.kErrorDetailsRestaurant),
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -186,6 +191,7 @@ class _DetailsRestaurantPageState extends State<DetailsRestaurantPage> {
                         itemBuilder: (context, index) {
                           final review = controller.restaurant.reviews![index];
                           return Column(
+                            key: Key('${ConstantsApp.kReviewsRestaurant}_$index'),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(

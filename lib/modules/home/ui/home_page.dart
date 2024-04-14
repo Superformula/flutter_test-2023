@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:restaurantour/core/theme/app_theme.dart';
 import 'package:restaurantour/core/theme/text_theme.dart';
+import 'package:restaurantour/core/utils/constants.dart';
 import 'package:restaurantour/core/utils/dependency_injector.dart';
 import 'package:restaurantour/modules/home/data/models/restaurant.dart';
 import 'package:restaurantour/modules/home/domain/controllers/home_controller.dart';
@@ -77,6 +78,7 @@ class _HomePageState extends State<HomePage> {
                 }
 
                 return CustomScrollView(
+                  key: const Key(ConstantsApp.kCustomScrollHomePage),
                   controller: controller.scrollController,
                   slivers: [
                     // * List Restaurants
@@ -108,7 +110,10 @@ class _HomePageState extends State<HomePage> {
                           separatorBuilder: (context, index) => const SizedBox(height: 12),
                           itemBuilder: (context, index) {
                             final Restaurant restaurant = controller.restaurants[index];
-                            return CardRestaurantWidget(restaurant: restaurant);
+                            return CardRestaurantWidget(
+                              key: Key('${ConstantsApp.kCardRestaurant}_$index'),
+                              restaurant: restaurant,
+                            );
                           },
                         ),
                       ),

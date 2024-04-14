@@ -32,14 +32,19 @@ abstract class DetailsRestaurantControllerBase with Store {
   // * ----------------------------------------------------------------------------------------------------------------
 
   /// Setup initial
-  void loadRestaurant(Restaurant restaurantModel) {
+  Future<void> loadRestaurant(Restaurant restaurantModel) {
     restaurant = restaurantModel;
-    _getInfosRestaurant();
+    return _getInfosRestaurant();
   }
 
   /// Gets all restaurants
   Future<void> _getInfosRestaurant() async {
     status = StatusType.loading;
+
+    if (restaurant.id == null) {
+      status = StatusType.failure;
+      return;
+    }
 
     final result = await _restaurantRepository.getRestaurantById(id: restaurant.id!);
 

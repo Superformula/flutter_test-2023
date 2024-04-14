@@ -29,6 +29,7 @@ dev_dependencies:
     sdk: flutter
   json_serializable: ^6.7.1
   mobx_codegen: ^2.6.1
+  mocktail: ^1.0.3
 
 flutter:
   uses-material-design: true

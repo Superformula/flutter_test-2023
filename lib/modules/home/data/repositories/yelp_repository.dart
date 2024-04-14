@@ -2,15 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:restaurantour/core/utils/custom_logger.dart';
 
+import '../../domain/errors/erros.dart';
 import '../../domain/repositories/restaurant_repository_interface.dart';
 import '../models/response_model.dart';
 import '../models/restaurant.dart';
 
+/// ! In a real application, I usually use String.fromEnvironment to get keys for security,
+/// ! but in this test I will leave it here to help you test my code
 const _apiKey =
-    'HDxFOxQoKoxRd7KjdBYPJLLlhXYL8yxvCMfFcMA8LuoSDjJt6ewkz1xzeP2qMNNDN7Gp6i6FdQ9qoWepPT1YOPmIGurrEQDdbQWe8psY8NstpcJvFzy52Kd9z4EaZnYx';
-
-// const _apiKey =
-//     'zbRXVjMzE2j_KmW9SWAyeiSCMc7WGO5HZ4u9yuWGd-VdTmLd9Wwk5Q8wENb1JU-7O8-PYrk9cNF-gDKBDrxO4E_lnLHlz16LHD4P_5_HXvwX7btbgf3kGV4EkfQaZnYx';
+    'zbRXVjMzE2j_KmW9SWAyeiSCMc7WGO5HZ4u9yuWGd-VdTmLd9Wwk5Q8wENb1JU-7O8-PYrk9cNF-gDKBDrxO4E_lnLHlz16LHD4P_5_HXvwX7btbgf3kGV4EkfQaZnYx';
 
 class YelpRepository implements IRestaurantRepository {
   late Dio dio;
@@ -53,9 +53,9 @@ class YelpRepository implements IRestaurantRepository {
       final result = RestaurantQueryResult.fromJson(response.data!['data']['search']);
       return ResponseModel(data: result.restaurants ?? <Restaurant>[]);
     } on DioException catch (e) {
-      if (e.message?.contains('Beta') ?? false) {
-        return ResponseModel(data: []);
-      }
+      /// When you reach the limit of requests in the api
+      if ([400, 403].contains(e.response?.statusCode)) return ResponseModel(data: []);
+
       return ResponseModel(error: Exception('Error on request when get restaurants'));
     } catch (e, s) {
       LoggerApp.error('Error on get restaurants', e, s);
@@ -100,8 +100,13 @@ class YelpRepository implements IRestaurantRepository {
       ''';
 
       final response = await dio.post<Map<String, dynamic>>('/v3/graphql', data: query);
-      final data = Restaurant.fromJson(response.data!['data']['business']);
-      return ResponseModel(data: data);
+      final business = response.data?['data']?['business'];
+      if (business == null) {
+        return ResponseModel(error: NotFoundRestaurant());
+      } else {
+        final data = Restaurant.fromJson(response.data!['data']['business']);
+        return ResponseModel(data: data);
+      }
     } catch (e, s) {
       LoggerApp.error('Error on get restaurant by id', e, s);
       return ResponseModel(error: Exception('Error on get restaurant by id'));
