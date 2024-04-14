@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurantour/data/repositories/yelp_repository.dart';
 import 'package:restaurantour/logic/restaurants/restaurants_bloc.dart';
 import 'package:restaurantour/presentation/views/home/home_page.dart';
+
+import 'data/repositories/yelp_repository.dart';
 
 class RestaurantTour extends StatelessWidget {
   const RestaurantTour({Key? key}) : super(key: key);
@@ -12,10 +13,11 @@ class RestaurantTour extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          lazy: false,
-          create: (context) =>
-              RestaurantsBloc(yelpRepository: YelpRepository()),
-        ),
+          create: (context) => RestaurantsBloc(yelpRepository: YelpRepository())
+            ..add(
+              LoadRestaurants(),
+            ),
+        )
       ],
       child: const RestauranTourView(),
     );
