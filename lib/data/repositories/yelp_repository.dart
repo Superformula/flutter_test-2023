@@ -61,7 +61,7 @@ class YelpRepository {
 
       // dio.post<Map<String, dynamic>>(
       //   '/v3/graphql',
-      //   data: _getReviewsQuery(offset),
+      //   data: _getReviewsQuery(restaurantId, offset),
       // );
 
       return ReviewQueryResult.fromJson(response.data!['data']['business']);
@@ -114,39 +114,25 @@ query getRestaurants {
 ''';
   }
 
-  String _getReviewsQuery(int offset) {
+  String _getReviewsQuery(String restaurantId, int offset) {
     return '''
-query getRestaurants {
-  search(location: "Las Vegas", limit: 20, offset: $offset) {
-    total    
-    business {
+query getRestaurantReviews {
+  business(id: "$restaurantId") {
+    review_count
+    reviews(limit: 20, offset: $offset) {
       id
-      name
-      price
       rating
-      photos
-      reviews {
+      user {
         id
-        rating
-        user {
-          id
-          image_url
-          name
-        }
+        image_url
+        name
       }
-      categories {
-        title
-        alias
-      }
-      hours {
-        is_open_now
-      }
-      location {
-        formatted_address
-      }
+      text
     }
+    id
+    name
   }
-  }
+}
 ''';
   }
 }
