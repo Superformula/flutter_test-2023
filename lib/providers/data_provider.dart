@@ -11,7 +11,10 @@ class DataProvider extends ChangeNotifier {
       print("Result: $result");
       if (result != null) {
         restaurants.clear();
-        restaurants.addAll(result.restaurants ?? []);
+        for (var element in result.restaurants!) {
+          print("Element: ${element.name}");
+          restaurants.add(element);
+        }
       }
       notifyListeners();
       return null;

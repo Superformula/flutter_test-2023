@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurantour/helpers/favorites_helper.dart';
 import 'package:restaurantour/main.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/providers/data_provider.dart';
@@ -17,23 +18,25 @@ class _RestaurantsListWidgetState extends State<RestaurantsListWidget> {
   DataProvider dataProvider = DataProvider();
   bool _isLoading = false;
   List<Restaurant> restaurants = [];
+  List<String> favorites = [];
 
   Future<void> getInitData() async {
     setState(() {
       _isLoading = true;
     });
-
+    favorites = await FavoritesHelpers().getFavorites();
     var result = await dataProvider.getRestaurants();
     if (result != null) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(result),
         backgroundColor: Theme.of(context).colorScheme.error,
       ));
-      print("Restaurants: ${dataProvider.restaurants}");
-      setState(() {
-        restaurants = dataProvider.restaurants;
-      });
     }
+
+    print("Restaurants: ${dataProvider.restaurants}");
+    setState(() {
+      restaurants = dataProvider.restaurants;
+    });
 
     setState(() {
       _isLoading = false;
@@ -57,14 +60,14 @@ class _RestaurantsListWidgetState extends State<RestaurantsListWidget> {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 25,
+          horizontal: 5,
           vertical: 10,
         ),
         child: Center(
           child: _isLoading
               ? const CircularProgressIndicator.adaptive()
               : Container(
-                  color: Colors.red,
+                  // color: Colors.red,
                   height: size.height,
                   width: size.width,
                   padding: const EdgeInsets.symmetric(
@@ -77,6 +80,8 @@ class _RestaurantsListWidgetState extends State<RestaurantsListWidget> {
                       key: Key(
                         restaurants[index].id.toString(),
                       ),
+                      favorite: favorites
+                          .any((element) => element == restaurants[index].id),
                     ),
                   ),
                 ),

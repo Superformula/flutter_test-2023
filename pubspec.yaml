@@ -18,6 +18,7 @@ dependencies:
   flutter_svg: ^2.0.9
   envied: ^0.5.4+1
   provider: ^6.1.2
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

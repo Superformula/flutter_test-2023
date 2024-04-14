@@ -22,11 +22,11 @@ class YelpRepository {
             );
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
     try {
-      print(_apiKey);
       final response = await dio.post<Map<String, dynamic>>(
         '/v3/graphql',
         data: _getQuery(offset),
       );
+      print("Response: ${response}");
 
       return RestaurantQueryResult.fromJson(response.data!['data']['search']);
     } catch (e) {
