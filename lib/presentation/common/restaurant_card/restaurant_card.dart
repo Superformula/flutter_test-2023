@@ -3,7 +3,7 @@ import 'package:restaurantour/data/models/restaurant.dart';
 import 'package:restaurantour/presentation/common/restaurant_card/widgets/categories.dart';
 import 'package:restaurantour/presentation/common/restaurant_card/widgets/image.dart';
 import 'package:restaurantour/presentation/common/restaurant_card/widgets/price.dart';
-import 'package:restaurantour/presentation/common/restaurant_card/widgets/rating.dart';
+import 'package:restaurantour/presentation/common/restaurant_rating/rating.dart';
 import 'package:restaurantour/presentation/common/restaurant_status/restaurant_status.dart';
 import 'package:restaurantour/presentation/common/restaurant_card/widgets/title.dart';
 
@@ -51,7 +51,7 @@ class RestaurantCard extends StatelessWidget {
                             children: [
                               RestaurantCardPrice(restaurant.price),
                               const SizedBox(width: 4.0),
-                              RestaurantCardCategories(restaurant.categories)
+                              RestaurantCardCategories(restaurant.categories),
                             ],
                           ),
                           const SizedBox(height: 4.0),
@@ -59,16 +59,16 @@ class RestaurantCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              RestaurantCardRating(restaurant.rating),
-                              RestaurantStatus(restaurant.isOpen)
+                              RestaurantRating(restaurant.rating?.round()),
+                              RestaurantStatus(restaurant.isOpen),
                             ],
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

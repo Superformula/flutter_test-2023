@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ListLoading extends StatelessWidget {
-  const ListLoading({Key? key}) : super(key: key);
+class ColumnLoadingPlaceholder extends StatelessWidget {
+  const ColumnLoadingPlaceholder({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +9,7 @@ class ListLoading extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircularProgressIndicator(
-          semanticsLabel: 'Loading restaurants',
+          semanticsLabel: 'Loading',
           color: Colors.black,
         ),
       ],

@@ -25,7 +25,7 @@ class RestaurantStatus extends StatelessWidget {
           color: isOpenNow ? Colors.green : Colors.red,
           size: 8.0,
           semanticLabel: 'Rating',
-        )
+        ),
       ],
     );
   }

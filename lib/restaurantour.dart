@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurantour/logic/restaurants/restaurants_bloc.dart';
+import 'package:restaurantour/logic/restaurants_bloc/restaurants_bloc.dart';
 import 'package:restaurantour/presentation/views/home/home_page.dart';
 
 import 'data/repositories/yelp_repository.dart';
@@ -10,16 +10,20 @@ class RestaurantTour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => RestaurantsBloc(yelpRepository: YelpRepository())
-            ..add(
-              LoadRestaurants(),
-            ),
-        )
-      ],
-      child: const RestauranTourView(),
+    return RepositoryProvider(
+      create: (context) => YelpRepository(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => RestaurantsBloc(
+              yelpRepository: RepositoryProvider.of<YelpRepository>(context),
+            )..add(
+                LoadRestaurants(),
+              ),
+          ),
+        ],
+        child: const RestauranTourView(),
+      ),
     );
   }
 }

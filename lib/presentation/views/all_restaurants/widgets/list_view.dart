@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
+import 'package:restaurantour/data/repositories/yelp_repository.dart';
 import 'package:restaurantour/presentation/common/restaurant_card/restaurant_card.dart';
 import 'package:restaurantour/presentation/views/restaurant/restaurant_page.dart';
 
@@ -11,7 +13,10 @@ class RestaurantsListView extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RestaurantPage(restaurant),
+        builder: (_) => RepositoryProvider.value(
+          value: RepositoryProvider.of<YelpRepository>(context),
+          child: RestaurantPage(restaurant),
+        ),
       ),
     );
   }

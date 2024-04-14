@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurantour/logic/restaurants/restaurants_bloc.dart';
-import 'package:restaurantour/presentation/views/all_restaurants/widgets/list_loading.dart';
-import 'package:restaurantour/presentation/views/all_restaurants/widgets/list_view.dart';
+import 'package:restaurantour/logic/restaurants_bloc/restaurants_bloc.dart';
+import 'package:restaurantour/presentation/common/column_loading_placeholder/column_loading_placeholder.dart';
+ import 'package:restaurantour/presentation/views/all_restaurants/widgets/list_view.dart';
 
 class AllRestaurantsPage extends StatelessWidget {
   const AllRestaurantsPage({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class AllRestaurantsPage extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is RestaurantsLoading) {
-          return const ListLoading();
+          return const ColumnLoadingPlaceholder();
         } else if (state is RestaurantsData) {
           return RestaurantsListView(state.restaurantsList);
         } else {
