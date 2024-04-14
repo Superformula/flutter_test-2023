@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurantour/helpers/favorites_helper.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 class RestaurantCardWidget extends StatefulWidget {
   final Restaurant restaurant;
   final bool favorite;
-  const RestaurantCardWidget({
-    super.key,
+  RestaurantCardWidget({
     required this.restaurant,
     required this.favorite,
   });
@@ -17,24 +17,21 @@ class RestaurantCardWidget extends StatefulWidget {
 }
 
 class _RestaurantCardWidgetState extends State<RestaurantCardWidget> {
-  late bool _isFavorite;
+  FavoritesHelpers favoritesHelpers = FavoritesHelpers();
 
   @override
   void initState() {
-    setState(() {
-      _isFavorite = !widget.favorite;
-    });
-    print("Isfavorite: ${_isFavorite}");
+    favoritesHelpers = Provider.of<FavoritesHelpers>(
+      context,
+      listen: false,
+    );
     super.initState();
   }
 
   Future<void> changeFavorite() async {
-    print(_isFavorite);
-
-    await FavoritesHelpers().addFavorite(widget.restaurant.id ?? "");
-    setState(() {
-      _isFavorite != _isFavorite;
-    });
+    !widget.favorite
+        ? await FavoritesHelpers().addFavorite(widget.restaurant.id ?? "")
+        : await FavoritesHelpers().removeFavorite(widget.restaurant.id ?? "");
   }
 
   @override
@@ -160,7 +157,7 @@ class _RestaurantCardWidgetState extends State<RestaurantCardWidget> {
                           onTap: () => changeFavorite(),
                           child: Icon(
                             Icons.favorite,
-                            color: _isFavorite ? Colors.pink : Colors.grey,
+                            color: widget.favorite ? Colors.pink : Colors.grey,
                           ),
                         )),
                   ],
