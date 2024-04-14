@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+//Basic color theme
 class MainTheme {
   static ThemeData get mainTheme {
     const Color primaryColor = Color(0xFFFB8C00);

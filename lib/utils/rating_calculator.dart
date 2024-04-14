@@ -1,5 +1,6 @@
 import 'package:restaurantour/models/restaurant.dart';
 
+//Get overall rating for a restaurant / based on reviews
 class RatingCalculator {
   static double calculateAverageRating(List<Review> reviews) {
     if (reviews.isNotEmpty) {

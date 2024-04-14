@@ -1,13 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 import 'package:restaurantour/widgets/restaurant_card_widget.dart';
 import 'package:restaurantour/widgets/restaurant_item_widget.dart';
-
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 void main() {
   testWidgets('BuildRestaurantItem displays restaurant name',

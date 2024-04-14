@@ -14,15 +14,18 @@ class BuildRestaurantItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        //Navigate to the restaurant's details screen on tap
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => RestaurantDetailScreen(
+              //In case no id is given (might never happen)
               restaurantId: restaurantData.id ?? 'noId',
             ),
           ),
         );
       },
+      //Widget used to build UI
       child: RestaurantCardWidget(
         restaurantData: restaurantData,
       ),

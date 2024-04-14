@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurantour/contants/text_style_constants.dart';
+import 'package:restaurantour/constants/text_style_constants.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/providers/favorite_restaurants_provider.dart';
 import 'package:restaurantour/providers/fetch_restaurants_provider.dart';
@@ -22,26 +22,30 @@ class RestaurantDetailScreen extends ConsumerStatefulWidget {
 
 class _RestaurantDetailScreenState
     extends ConsumerState<RestaurantDetailScreen> {
+  // State variables
   late List<ReviewCardWidget> reviews;
   late bool isFavorite = false;
 
   @override
   void initState() {
     super.initState();
-    initRestaurantDetails();
+    initRestaurantDetails(); // Fetch and process restaurant details
   }
 
-  //Initialization for restaurant details
+  // Fetches and processes restaurant details
   void initRestaurantDetails() async {
-    reviews = [];
+    reviews = []; //variable where the reviews will be managed
     final restaurants = ref.read(restaurantsNotifierProvider).asData?.value;
+    // Check if restaurants data is available
     if (restaurants != null) {
+      // Find restaurant by ID
       final restaurant = restaurants
           .firstWhereOrNull((rest) => rest.id == widget.restaurantId);
       if (restaurant != null) {
+        // Check favorite status
         isFavorite = ref.read(favoritesProvider).contains(restaurant);
         if (restaurant.reviews != null) {
-          populateReviewsList(restaurant.reviews!);
+          populateReviewsList(restaurant.reviews!); // Populate reviews list
         }
       } else {
         throw Exception("Restaurant with ID ${widget.restaurantId} not found");
@@ -49,7 +53,7 @@ class _RestaurantDetailScreenState
     }
   }
 
-//Add or Remove to/from favorites
+  // Toggles restaurant as favorites
   void toggleFavorite(Restaurant restaurant) {
     final favoritesNotifier = ref.read(favoritesProvider.notifier);
     if (isFavorite) {
@@ -58,11 +62,11 @@ class _RestaurantDetailScreenState
       favoritesNotifier.addFavorite(restaurant);
     }
     setState(() {
-      isFavorite = !isFavorite; // Toggle the favorite status in the UI
+      isFavorite = !isFavorite;
     });
   }
 
-  //Populate Reviews List
+  // Populates the reviews list with ReviewCardWidget widgets
   void populateReviewsList(List<Review> fetchedReviews) {
     for (Review review in fetchedReviews) {
       reviews.add(
@@ -80,10 +84,13 @@ class _RestaurantDetailScreenState
     final restaurantState = ref.watch(restaurantsNotifierProvider);
 
     return restaurantState.when(
+      // Handle loading state
       loading: () => const CircularProgressIndicator(
         color: Colors.black,
       ),
+      // Handle error state
       error: (error, _) => Text('Error: $error'),
+      // Handle data state
       data: (restaurants) {
         final restaurant = restaurants
             .firstWhereOrNull((rest) => rest.id == widget.restaurantId);
@@ -95,7 +102,9 @@ class _RestaurantDetailScreenState
     );
   }
 
+  // Builds the UI for the restaurant details screen
   Widget buildRestaurantDetails(Restaurant restaurant) {
+    //Obtain the overall rating for the current restaurant
     double overallRating =
         RatingCalculator.calculateAverageRating(restaurant.reviews!);
 

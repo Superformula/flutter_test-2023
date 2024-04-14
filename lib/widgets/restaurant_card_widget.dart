@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:restaurantour/contants/text_style_constants.dart';
+import 'package:restaurantour/constants/text_style_constants.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/utils/rating_calculator.dart';
 
@@ -42,6 +42,7 @@ class RestaurantCardWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   image: DecorationImage(
+                    //Display a dummy image for restaurants with no image
                     image: restaurantData.heroImage.isNotEmpty
                         ? NetworkImage(restaurantData.heroImage)
                         : const AssetImage('assets/img/no_image_available.png')
@@ -64,6 +65,7 @@ class RestaurantCardWidget extends StatelessWidget {
                     ),
                     const Gap(8),
                     Text(
+                      //general null checks
                       '${restaurantData.price ?? 'N/A'} ${restaurantData.categories?.isNotEmpty == true ? restaurantData.categories!.first.title : "N/A"}',
                       style: TextStylesClass.priceCategoryTextStyle,
                     ),
@@ -72,6 +74,7 @@ class RestaurantCardWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
+                          //generate the stars depending on the overall rating
                           children: List.generate(
                             overallRating,
                             (index) => const Icon(

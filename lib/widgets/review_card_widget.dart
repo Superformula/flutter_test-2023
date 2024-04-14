@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:gap/gap.dart';
-import 'package:restaurantour/contants/text_style_constants.dart';
+import 'package:restaurantour/constants/text_style_constants.dart';
 
 class ReviewCardWidget extends StatelessWidget {
   const ReviewCardWidget({
@@ -15,6 +16,9 @@ class ReviewCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Generate lorem ipsum text for reviews
+    String dummyReviewText = lorem(paragraphs: 1, words: 15);
+    //Round the overall rating (for stars generation)
     int roundedRating = rating!.round();
     return Column(
       children: [
@@ -31,13 +35,14 @@ class ReviewCardWidget extends StatelessWidget {
         ),
         const Gap(12),
         Text(
-          'Review text goes here. Review text goes here. Review text goes here. Review text goes here.',
+          dummyReviewText,
           style: TextStylesClass.reviewRestaurantTextStyle,
         ),
         const Gap(12),
         Row(
           children: [
             CircleAvatar(
+              //Use dummy user image if userImgUrl is null
               backgroundImage: NetworkImage(
                 userImgUrl ??
                     'https://gopostr.s3.amazonaws.com/favicon_url/CMXfauwVNmmVLyKpV0Qkg582dzzQWcp0Eje9gMiQ.png',
