@@ -38,6 +38,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
 
 Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
       id: json['id'] as String?,
+      text: json['text'] as String?,
       rating: json['rating'] as int?,
       user: json['user'] == null
           ? null
@@ -46,6 +47,7 @@ Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
 
 Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
       'id': instance.id,
+      'text': instance.text,
       'rating': instance.rating,
       'user': instance.user,
     };
