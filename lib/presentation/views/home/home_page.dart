@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           bottom: const TabBar(
+            isScrollable: true,
             labelColor: Colors.black,
             unselectedLabelColor: Colors.black54,
             indicatorColor: Colors.black,
