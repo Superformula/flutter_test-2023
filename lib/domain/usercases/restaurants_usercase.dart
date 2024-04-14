@@ -1,10 +1,10 @@
 import 'package:restaurantour/data/models/restaurant.dart';
 import 'package:restaurantour/domain/repositories/restaurants_repository.dart';
 
-class GetCurrentRestaurants {
+class RestaurantsUsercase {
   final RestaurantsRepository repository;
 
-  GetCurrentRestaurants(this.repository);
+  RestaurantsUsercase(this.repository);
 
   Future<RestaurantQueryResult?> call() async {
     return await repository.getRestaurants();

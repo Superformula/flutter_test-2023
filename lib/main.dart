@@ -29,7 +29,7 @@ class Restaurantour extends StatelessWidget {
           '/detail': (context) {
             final restaurant =
                 ModalRoute.of(context)!.settings.arguments as Restaurant;
-            return RestaurantDetailPage(restaurant: restaurant);
+            return RestaurantDetailPage(id: restaurant.id!);
           },
         },
         title: 'Restaurantour',

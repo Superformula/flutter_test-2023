@@ -13,7 +13,6 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  dio: ^5.4.0
   json_annotation: ^4.8.1
   flutter_svg: ^2.0.10+1
   get_it: ^7.6.7
@@ -21,6 +20,7 @@ dependencies:
   flutter_bloc: ^8.1.5
   logger: ^2.2.0
   shared_preferences: ^2.2.3
+  dio: ^5.4.3+1
 
 dev_dependencies:
   flutter_test:

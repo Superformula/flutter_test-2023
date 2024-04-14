@@ -16,3 +16,11 @@ class FetchRestaurants extends RestaurantsEvent {
   @override
   List<Object?> get props => [city];
 }
+
+class ToggleFavorite extends RestaurantsEvent {
+  const ToggleFavorite(this.id);
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}

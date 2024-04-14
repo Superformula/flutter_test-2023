@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
 import 'package:restaurantour/data/constants.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
 
@@ -29,22 +30,22 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     jsonDecode(data);
 
     return RestaurantQueryResult.fromJson(jsonDecode(data)['data']['search']);
-    // try {
-    //   final response = await dio.post<Map<String, dynamic>>(
-    //     Urls.ghrapQLRoute,
-    //     data: Urls.getRestaurantsByCity(
-    //       city: "Las Vegas",
-    //       limit: 20,
-    //       offset: 20,
-    //     ),
-    //   );
-    //   final String json = jsonEncode(response.data);
-    //   Logger().i(json);
-    //   return RestaurantQueryResult.fromJson(response.data!['data']['search']);
-    // } catch (e) {
-    //   Logger().e(e);
-    //   return null;
-    // }
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        Urls.ghrapQLRoute,
+        data: Urls.getRestaurantsByCity(
+          city: "Las Vegas",
+          limit: 20,
+          offset: 20,
+        ),
+      );
+      final String json = jsonEncode(response.data);
+      Logger().i(json);
+      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
+    } catch (e) {
+      Logger().e(e);
+      return null;
+    }
   }
 }
 
