@@ -12,9 +12,10 @@ class RestaurantCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Get overall rating
-    int overallRating =
-        RatingCalculator.calculateAverageRating(restaurantData.reviews!)
-            .round();
+    final int overallRating = restaurantData.reviews?.isNotEmpty ?? false
+        ? RatingCalculator.calculateAverageRating(restaurantData.reviews!)
+            .round()
+        : 0;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -41,9 +42,10 @@ class RestaurantCardWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   image: DecorationImage(
-                    image: NetworkImage(
-                      restaurantData.heroImage,
-                    ),
+                    image: restaurantData.heroImage.isNotEmpty
+                        ? NetworkImage(restaurantData.heroImage)
+                        : const AssetImage('assets/img/no_image_available.png')
+                            as ImageProvider,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -62,7 +64,7 @@ class RestaurantCardWidget extends StatelessWidget {
                     ),
                     const Gap(8),
                     Text(
-                      '${restaurantData.price} ${restaurantData.categories?.first.title}',
+                      '${restaurantData.price ?? 'N/A'} ${restaurantData.categories?.isNotEmpty == true ? restaurantData.categories!.first.title : "N/A"}',
                       style: TextStylesClass.priceCategoryTextStyle,
                     ),
                     const Gap(6),
@@ -83,7 +85,9 @@ class RestaurantCardWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              restaurantData.isOpen ? 'Open Now' : 'Closed',
+                              restaurantData.isOpen == true
+                                  ? 'Open Now'
+                                  : 'Closed',
                               style:
                                   TextStylesClass.openCloseRestaurantTextStyle,
                             ),

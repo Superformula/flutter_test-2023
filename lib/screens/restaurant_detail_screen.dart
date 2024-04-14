@@ -133,9 +133,12 @@ class _RestaurantDetailScreenState
             height: 361,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                  restaurant.heroImage,
-                ),
+                image: restaurant.heroImage.isNotEmpty
+                    ? NetworkImage(
+                        restaurant.heroImage,
+                      )
+                    : const AssetImage('assets/img/no_image_available.png')
+                        as ImageProvider,
                 fit: BoxFit.cover,
               ),
             ),
@@ -149,14 +152,14 @@ class _RestaurantDetailScreenState
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${restaurant.price} ${restaurant.categories?.first.title}',
+                      '${restaurant.price ?? 'N/A'} ${restaurant.categories?.isNotEmpty == true ? restaurant.categories!.first.title : 'N/A'}',
                       style: TextStylesClass.priceCategoryTextStyle,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Open Now',
+                          restaurant.isOpen == true ? 'Open Now' : 'Closed',
                           style: TextStylesClass.openCloseRestaurantTextStyle,
                         ),
                         const Gap(6),
@@ -182,7 +185,8 @@ class _RestaurantDetailScreenState
                 ),
                 const Gap(24),
                 Text(
-                  restaurant.location?.formattedAddress ?? '',
+                  restaurant.location?.formattedAddress ??
+                      'No addressed provided',
                   style: TextStylesClass.restaurantAddressTextStyle,
                 ),
                 const Gap(24),
@@ -196,7 +200,10 @@ class _RestaurantDetailScreenState
                 Row(
                   children: [
                     Text(
-                      overallRating != 0 ? '$overallRating' : 'No Reviews',
+                      //Check if there are any reviews
+                      (overallRating != 0.0 && restaurant.reviews!.isNotEmpty)
+                          ? '$overallRating'
+                          : 'No Reviews',
                       style: GoogleFonts.lora(
                         fontWeight: FontWeight.w700,
                         fontSize: 28,

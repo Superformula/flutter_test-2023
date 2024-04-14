@@ -18,7 +18,7 @@ class BuildRestaurantItem extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => RestaurantDetailScreen(
-              restaurantId: restaurantData.id!,
+              restaurantId: restaurantData.id ?? 'noId',
             ),
           ),
         );

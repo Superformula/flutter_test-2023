@@ -20,6 +20,7 @@ dependencies:
   google_fonts: 6.1.0
   gap: ^3.0.1
   flutter_riverpod: ^2.4.10
+  mockito: ^5.4.4
 
 dev_dependencies:
   flutter_test:
@@ -33,4 +34,4 @@ flutter:
   uses-material-design: true
   assets:
     - .env
-  #    - assets/svg/
+    - assets/img/
