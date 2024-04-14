@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurantour/presentation/views/favourite_restaurants/favourite_restaurants_page.dart';
-import 'package:restaurantour/presentation/views/restaurant/restaurant_page.dart';
+import 'package:restaurantour/presentation/views/all_restaurants/all_restaurants_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: const TabBarView(
           children: [
-            RestaurantPage(),
+            AllRestaurantsPage(),
             FavouriteRestaurantsPage(),
           ],
         ),

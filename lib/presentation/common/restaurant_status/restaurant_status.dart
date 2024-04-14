@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class RestaurantCardStatus extends StatelessWidget {
+class RestaurantStatus extends StatelessWidget {
   final bool isOpenNow;
-  const RestaurantCardStatus(this.isOpenNow, {Key? key}) : super(key: key);
+  const RestaurantStatus(this.isOpenNow, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -31,4 +31,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/yelp_response.json
+    - assets/yelp_restaurants_response.json
+    - assets/yelp_reviews_response.json

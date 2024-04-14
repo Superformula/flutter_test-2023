@@ -13,12 +13,14 @@ class RestaurantCardRating extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         ...arr
-            .map((_) => Icon(
-                  Icons.star,
-                  color: Colors.amber[800],
-                  size: 14.0,
-                  semanticLabel: 'Rating',
-                ))
+            .map(
+              (_) => Icon(
+                Icons.star,
+                color: Colors.amber[800],
+                size: 14.0,
+                semanticLabel: 'Rating',
+              ),
+            )
             .toList()
       ],
     );

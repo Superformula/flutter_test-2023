@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/presentation/common/network_hero/network_image_hero.dart';
 
 class RestaurantCardImage extends StatelessWidget {
-  final String? imageLink;
-  const RestaurantCardImage(this.imageLink, {Key? key}) : super(key: key);
+  final String imageLink;
+  final String heroId;
+  const RestaurantCardImage(
+    this.imageLink, {
+    Key? key,
+    required this.heroId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,19 +17,10 @@ class RestaurantCardImage extends StatelessWidget {
       height: 88.0,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
-        child: imageLink != null
-            ? Image.network(
-                imageLink!,
-                fit: BoxFit.cover,
-              )
-            : Container(
-                color: Colors.black26,
-                child: const Icon(
-                  Icons.restaurant_outlined,
-                  size: 32.0,
-                  color: Colors.white,
-                ),
-              ),
+        child: NetworkImageHero(
+          imageLink: imageLink,
+          heroId: heroId,
+        ),
       ),
     );
   }
