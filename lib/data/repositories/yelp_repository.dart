@@ -176,8 +176,8 @@ query getRestaurantReviews {
 
   String _getRestaurantStatusQuery(String restaurantId) {
     return '''
-query getRestaurantsStatuses {
-  business(id: $restaurantId) {
+query getRestaurantStatus {
+  business(id: "$restaurantId") {
     id
     hours {
       is_open_now
