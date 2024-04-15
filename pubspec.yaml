@@ -1,10 +1,9 @@
 name: restaurantour
 description: Flutter developer coding challenge starter project.
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
-
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -16,6 +15,11 @@ dependencies:
   dio: ^5.4.0
   json_annotation: ^4.8.1
   flutter_svg: ^2.0.9
+  bloc: ^8.1.4
+  hydrated_bloc: ^9.1.5
+  path_provider: ^2.0.5
+  flutter_bloc: ^8.1.5
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:
@@ -23,8 +27,12 @@ dev_dependencies:
   flutter_lints: ^1.0.2
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
+  mockito: ^5.4.4
+  bloc_test: ^9.1.7
 
 flutter:
   uses-material-design: true
-#  assets:
-#    - assets/svg/
+  assets:
+    - assets/yelp_restaurants_response.json
+    - assets/yelp_reviews_response.json
+    - assets/yelp_rest_status_response.json

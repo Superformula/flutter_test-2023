@@ -42,12 +42,14 @@ Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
+      text: json['text'] as String?,
     );
 
 Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
       'id': instance.id,
       'rating': instance.rating,
       'user': instance.user,
+      'text': instance.text,
     };
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(
@@ -106,4 +108,32 @@ Map<String, dynamic> _$RestaurantQueryResultToJson(
     <String, dynamic>{
       'total': instance.total,
       'business': instance.restaurants,
+    };
+
+ReviewQueryResult _$ReviewQueryResultFromJson(Map<String, dynamic> json) =>
+    ReviewQueryResult(
+      total: json['review_count'] as int?,
+      reviewsList: (json['reviews'] as List<dynamic>?)
+          ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$ReviewQueryResultToJson(ReviewQueryResult instance) =>
+    <String, dynamic>{
+      'review_count': instance.total,
+      'reviews': instance.reviewsList,
+    };
+
+StatusQueryResult _$StatusQueryResultFromJson(Map<String, dynamic> json) =>
+    StatusQueryResult(
+      id: json['id'] as String?,
+      hours: (json['hours'] as List<dynamic>?)
+          ?.map((e) => Hours.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$StatusQueryResultToJson(StatusQueryResult instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'hours': instance.hours,
     };

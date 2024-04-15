@@ -55,11 +55,13 @@ class Review {
   final String? id;
   final int? rating;
   final User? user;
+  final String? text;
 
   const Review({
     this.id,
     this.rating,
     this.user,
+    this.text,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
@@ -135,6 +137,30 @@ class Restaurant {
     }
     return false;
   }
+
+  Restaurant copyWith({
+    String? id,
+    String? name,
+    String? price,
+    double? rating,
+    List<String>? photos,
+    List<Category>? categories,
+    List<Hours>? hours,
+    List<Review>? reviews,
+    Location? location,
+  }) {
+    return Restaurant(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      price: price ?? this.price,
+      rating: rating ?? this.rating,
+      photos: photos ?? this.photos,
+      categories: categories ?? this.categories,
+      hours: hours ?? this.hours,
+      reviews: reviews ?? this.reviews,
+      location: location ?? this.location,
+    );
+  }
 }
 
 @JsonSerializable()
@@ -152,4 +178,38 @@ class RestaurantQueryResult {
       _$RestaurantQueryResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantQueryResultToJson(this);
+}
+
+@JsonSerializable()
+class ReviewQueryResult {
+  @JsonKey(name: 'review_count')
+  final int? total;
+  @JsonKey(name: 'reviews')
+  final List<Review>? reviewsList;
+
+  const ReviewQueryResult({
+    this.total,
+    this.reviewsList,
+  });
+
+  factory ReviewQueryResult.fromJson(Map<String, dynamic> json) =>
+      _$ReviewQueryResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReviewQueryResultToJson(this);
+}
+
+@JsonSerializable()
+class StatusQueryResult {
+  final String? id;
+  final List<Hours>? hours;
+
+  const StatusQueryResult({
+    this.id,
+    this.hours,
+  });
+
+  factory StatusQueryResult.fromJson(Map<String, dynamic> json) =>
+      _$StatusQueryResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$StatusQueryResultToJson(this);
 }
