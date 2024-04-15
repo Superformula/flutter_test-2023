@@ -181,3 +181,15 @@ Just create a new issue in this repo and we will respond and get back to you qui
 ## Review
 
 The coding challenge is a take-home test upon which we'll be conducting a thorough code review once complete. The review will consist of meeting some more of our mobile engineers and giving a review of the solution you have designed. Please be prepared to share your screen and run/demo the application to the group. During this process, the engineers will be asking questions.
+
+# Here some screenshots of the app working
+![image](https://github.com/StormShadonw/flutter_test/assets/20448268/1d054b77-5f1d-404f-880b-da6987e6603f)
+![image](https://github.com/StormShadonw/flutter_test/assets/20448268/1f085cdd-3090-4333-968b-05986a042b6a)
+![image](https://github.com/StormShadonw/flutter_test/assets/20448268/4c5b7b01-72ca-417a-a3b6-db1c8867e7da)
+![image](https://github.com/StormShadonw/flutter_test/assets/20448268/fa734fe1-3e4f-460d-8fe5-8bcb093ee2e5)
+![image](https://github.com/StormShadonw/flutter_test/assets/20448268/155ac3c5-689e-4916-8387-6211f4b4f6ef)
+
+
+
+
+
