@@ -1,56 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/data/models/restaurant.dart';
+import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart';
+import 'package:restaurantour/presentation/bloc/restaurants_event.dart';
+import 'package:restaurantour/presentation/pages/restaurant_detail_page.dart';
+import 'package:restaurantour/presentation/pages/restaurants_page.dart';
+import 'package:restaurantour/presentation/utils/style_util.dart';
+import 'injection.dart' as di;
 
 void main() {
+  di.init();
   runApp(const Restaurantour());
 }
 
 class Restaurantour extends StatelessWidget {
-  // This widget is the root of your application.
   const Restaurantour({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RestauranTour',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Restaurantour'),
-            ElevatedButton(
-              child: const Text('Fetch Restaurants'),
-              onPressed: () async {
-                final yelpRepo = YelpRepository();
-
-                try {
-                  final result = await yelpRepo.getRestaurants();
-                  if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
-                  } else {
-                    print('No restaurants fetched');
-                  }
-                } catch (e) {
-                  print('Failed to fetch restaurants: $e');
-                }
-              },
-            ),
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => di.locator<RestaurantsBloc>()
+            ..add(const FetchRestaurants('Las Vegas')),
         ),
+      ],
+      child: MaterialApp(
+        routes: {
+          '/detail': (context) {
+            final arguments = ModalRoute.of(context)!.settings.arguments;
+            final restaurant = arguments as Restaurant;
+            return RestaurantDetailPage(id: restaurant.id!);
+          },
+        },
+        title: 'Restaurantour',
+        theme: ThemeData(
+          primaryColor: Colors.white,
+          colorScheme: const ColorScheme.light(
+            primary: Colors.black,
+            secondary: Colors.black,
+          ),
+          scaffoldBackgroundColor: const Color(0xFFFAFAFA),
+          appBarTheme: AppBarTheme(
+            color: Colors.white,
+            iconTheme: const IconThemeData(color: Colors.black),
+            titleTextStyle: StyleUtil.appBarTitle,
+          ),
+        ),
+        home: const RestaurantsPage(),
       ),
     );
   }

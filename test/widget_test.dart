@@ -1,20 +1,33 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:restaurantour/main.dart';
+import 'package:restaurantour/presentation/widgets/address_widget.dart';
 
 void main() {
-  testWidgets('Page loads', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const Restaurantour());
+  testWidgets(
+    'AddressWidget displays correct title and address',
+    (WidgetTester tester) async {
+      // Build the AddressWidget with a specific address.
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: AddressWidget(
+              address: '123 Main St',
+            ),
+          ),
+        ),
+      );
 
-    // Verify that tests will run
-    expect(find.text('Fetch Restaurants'), findsOneWidget);
-  });
+      // Verify that the AddressWidget contains the correct title and address.
+      expect(
+        find.text('Address'),
+        findsOneWidget,
+        reason: 'Title is not found',
+      );
+      expect(
+        find.text('123 Main St'),
+        findsOneWidget,
+        reason: 'Address is not found',
+      );
+    },
+  );
 }

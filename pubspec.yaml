@@ -13,9 +13,15 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  dio: ^5.4.0
   json_annotation: ^4.8.1
-  flutter_svg: ^2.0.9
+  flutter_svg: ^2.0.10+1
+  get_it: ^7.6.7
+  equatable: ^2.0.5
+  flutter_bloc: ^8.1.5
+  logger: ^2.2.0
+  shared_preferences: ^2.2.3
+  dio: ^5.4.3+1
+  bloc_test: ^9.1.7
 
 dev_dependencies:
   flutter_test:
@@ -26,5 +32,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-#  assets:
-#    - assets/svg/
+  fonts:
+    - family: Lora
+      fonts:
+        - asset: fonts/Lora-Bold.ttf
+          weight: 700
+        - asset: fonts/Lora-Medium.ttf
+          weight: 500
+  assets:
+   - assets/svg/
