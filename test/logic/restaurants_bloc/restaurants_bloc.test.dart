@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -45,23 +46,22 @@ void main() {
       act: (bloc) => bloc.add(LoadRestaurants()),
       expect: () => [
         isA<RestaurantsLoading>(),
-        isA<RestaurantsData>()
-          ..having(
-            (p0) => p0.restaurantsList,
-            "List of Restaurants",
-            const [
-              Restaurant(
-                id: 'jsfielsslfqxo0',
-                name: 'Great food Restaurant',
-                rating: 5.0,
-              ),
-              Restaurant(
-                id: 'uejdpqd911jdu8',
-                name: 'Gordons Service Food',
-                rating: 4.3,
-              ),
-            ],
-          ),
+        isA<RestaurantsData>().having(
+          (p0) => p0.restaurantsList,
+          "List of Restaurants",
+          const [
+            Restaurant(
+              id: 'jsfielsslfqxo0',
+              name: 'Great food Restaurant',
+              rating: 5.0,
+            ),
+            Restaurant(
+              id: 'uejdpqd911jdu8',
+              name: 'Gordons Service Food',
+              rating: 4.3,
+            ),
+          ],
+        ),
       ],
     );
   });
@@ -78,25 +78,28 @@ void main() {
       build: () {
         when(
           mockYelpRepository.getRestaurants(),
-        ).thenThrow(DioException(message: "Failed to load restaurants list"));
+        ).thenThrow(
+          DioException(
+            requestOptions: RequestOptions(),
+            message: "Failed to load restaurants list",
+          ),
+        );
 
         return RestaurantsBloc(yelpRepository: mockYelpRepository);
       },
       act: (bloc) => bloc.add(LoadRestaurants()),
       expect: () => [
         isA<RestaurantsLoading>(),
-        isA<RestaurantsError>()
-          ..having(
-            (p0) => p0.errorMessage,
-            "Error message thrown by repository",
-            "Failed to load reviews",
-          ),
-        isA<RestaurantsData>()
-          ..having(
-            (p0) => p0.restaurantsList,
-            "List of restaurants",
-            [],
-          ),
+        isA<RestaurantsError>().having(
+          (p0) => p0.errorMessage,
+          "Error message thrown by repository",
+          "Failed to load restaurants list",
+        ),
+        isA<RestaurantsData>().having(
+          (p0) => p0.restaurantsList,
+          "List of restaurants",
+          [],
+        ),
       ],
     );
 
@@ -112,24 +115,17 @@ void main() {
       act: (bloc) => bloc.add(LoadRestaurants()),
       expect: () => [
         isA<RestaurantsLoading>(),
-        isA<RestaurantsError>()
-          ..having(
-            (p0) => p0.errorMessage,
-            "Error message thrown by repository",
-            "Failed to load reviews",
-          ),
-        isA<RestaurantsData>()
-          ..having(
-            (p0) => p0.restaurantsList,
-            "List of restaurants",
-            [],
-          ),
+        isA<RestaurantsError>().having(
+          (p0) => p0.errorMessage,
+          "Error message thrown by repository",
+          "Exception: Failed to load restaurants list",
+        ),
+        isA<RestaurantsData>().having(
+          (p0) => p0.restaurantsList,
+          "List of restaurants",
+          [],
+        ),
       ],
     );
   });
-}
-
-class DioException {
-  final String message;
-  DioException({required this.message});
 }

@@ -25,11 +25,11 @@ void main() {
   double rating = 4.5;
   List<String> photos = [
     'https://s3-media1.fl.yelpcdn.com/bphoto/V_zmwCUG1o_vR29xfkb-ng/o.jpg',
-    'https://example.com/photo2.jpg'
+    'https://example.com/photo2.jpg',
   ];
   List<Category> categories = [
     Category(title: 'Italian', alias: "Italian"),
-    Category(title: 'Pasta')
+    Category(title: 'Pasta'),
   ];
   List<Hours> hours = const [
     Hours(isOpenNow: true),
