@@ -175,7 +175,7 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        widget.restaurant.rating.toString() ?? "",
+                        widget.restaurant.rating.toString(),
                         style:
                             Theme.of(context).textTheme.displayMedium!.copyWith(
                                   fontWeight: FontWeight.bold,

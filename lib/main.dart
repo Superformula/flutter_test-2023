@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:restaurantour/providers/favorites_helper.dart';
 import 'package:restaurantour/pages/home_page.dart';
 import 'package:restaurantour/providers/data_provider.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
 
 void main() {
   runApp(const Restaurantour());
@@ -38,7 +37,7 @@ class Restaurantour extends StatelessWidget {
             onSurface: Colors.black87,
           ),
         ),
-        home: HomePage(),
+        home: const HomePage(),
       ),
     );
   }
