@@ -137,6 +137,30 @@ class Restaurant {
     }
     return false;
   }
+
+  Restaurant copyWith({
+    String? id,
+    String? name,
+    String? price,
+    double? rating,
+    List<String>? photos,
+    List<Category>? categories,
+    List<Hours>? hours,
+    List<Review>? reviews,
+    Location? location,
+  }) {
+    return Restaurant(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      price: price ?? this.price,
+      rating: rating ?? this.rating,
+      photos: photos ?? this.photos,
+      categories: categories ?? this.categories,
+      hours: hours ?? this.hours,
+      reviews: reviews ?? this.reviews,
+      location: location ?? this.location,
+    );
+  }
 }
 
 @JsonSerializable()
@@ -172,4 +196,22 @@ class ReviewQueryResult {
       _$ReviewQueryResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReviewQueryResultToJson(this);
+}
+
+@JsonSerializable()
+class StatusQueryResult {
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'Hours')
+  final List<Hours>? hours;
+
+  const StatusQueryResult({
+    this.id,
+    this.hours,
+  });
+
+  factory StatusQueryResult.fromJson(Map<String, dynamic> json) =>
+      _$StatusQueryResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$StatusQueryResultToJson(this);
 }

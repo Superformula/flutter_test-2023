@@ -123,3 +123,17 @@ Map<String, dynamic> _$ReviewQueryResultToJson(ReviewQueryResult instance) =>
       'review_count': instance.total,
       'reviews': instance.reviewsList,
     };
+
+StatusQueryResult _$StatusQueryResultFromJson(Map<String, dynamic> json) =>
+    StatusQueryResult(
+      id: json['id'] as String?,
+      hours: (json['Hours'] as List<dynamic>?)
+          ?.map((e) => Hours.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$StatusQueryResultToJson(StatusQueryResult instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'Hours': instance.hours,
+    };

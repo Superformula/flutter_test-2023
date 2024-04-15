@@ -78,6 +78,32 @@ class YelpRepository {
     return MockResponse(jsonDecode(jsonString));
   }
 
+  Future<StatusQueryResult?> getRestaurantStatus(String restaurantId) async {
+    try {
+      final response = await mockRestaurantStatusResponse(restaurantId);
+
+      // dio.post<Map<String, dynamic>>(
+      //   '/v3/graphql',
+      //   data: _getRestaurantStatusQuery(restaurantId),
+      // );
+
+      return StatusQueryResult.fromJson(response.data!['data']['business']);
+    } on DioException catch (error) {
+      debugPrint(error.message);
+      rethrow;
+    }
+  }
+
+  Future<MockResponse> mockRestaurantStatusResponse(String restaurantId) async {
+    await Future.delayed(const Duration(seconds: 2));
+    final jsonString =
+        await rootBundle.loadString('assets/yelp_rest_status_response.json');
+
+    var mock = MockResponse(jsonDecode(jsonString));
+    mock.data['data']['business']['id'] = restaurantId;
+    return mock;
+  }
+
   String _getQuery(int offset) {
     return '''
 query getRestaurants {
@@ -131,6 +157,19 @@ query getRestaurantReviews {
     }
     id
     name
+  }
+}
+''';
+  }
+
+  String _getRestaurantStatusQuery(List<String> restaurantId) {
+    return '''
+query getRestaurantsStatuses {
+  business(id: $restaurantId) {
+    id
+    hours {
+      is_open_now
+    }
   }
 }
 ''';
