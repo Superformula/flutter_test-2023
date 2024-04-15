@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/pages/restaurant_details_page.dart';
 import 'package:restaurantour/providers/favorites_helper.dart';
-import 'package:restaurantour/main.dart';
 import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/providers/data_provider.dart';
 import 'package:restaurantour/widgets/category_widget%20copy.dart';
 import 'package:restaurantour/widgets/opennow_widget.dart';
-import 'package:restaurantour/widgets/restaurant_card_widget.dart';
 
 class RestaurantsListWidget extends StatefulWidget {
   bool favorites;
