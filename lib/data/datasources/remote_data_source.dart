@@ -27,16 +27,16 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
     await Future.delayed(const Duration(seconds: 2));
 
-    jsonDecode(data);
-
-    return RestaurantQueryResult.fromJson(jsonDecode(data)['data']['search']);
+    return RestaurantQueryResult.fromJson(
+      jsonDecode(data[offset])['data']['search'],
+    );
     try {
       final response = await dio.post<Map<String, dynamic>>(
         Urls.ghrapQLRoute,
         data: Urls.getRestaurantsByCity(
           city: "Las Vegas",
           limit: 20,
-          offset: 20,
+          offset: offset,
         ),
       );
       final String json = jsonEncode(response.data);
@@ -49,7 +49,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 }
 
-const data = '''
+const List<String> data = [
+  '''
 {
     "data": {
         "search": {
@@ -350,7 +351,18 @@ const data = '''
                     "location": {
                         "formatted_address": "4480 Paradise Rd\\nSte 600\\nLas Vegas, NV 89169"
                     }
-                },
+                }
+            ]
+        }
+    }
+}
+''',
+  '''
+{
+    "data": {
+        "search": {
+            "total": 6243,
+            "business": [
                 {
                     "id": "_Ad2ZKhUl-krJFpaZ1FI8g",
                     "name": "Nabe Hotpot",
@@ -637,8 +649,19 @@ const data = '''
                     ],
                     "location": {
                         "formatted_address": "2850 E Tropicana Ave\\nLas Vegas, NV 89121"
-                    }
-                },
+                                       }
+                }
+            ]
+        }
+    }
+}
+''',
+  '''
+{
+    "data": {
+        "search": {
+            "total": 6243,
+            "business": [
                 {
                     "id": "G6w_9uzW4o3Oyb3z8oOZyA",
                     "name": "888 Korean BBQ",
@@ -973,8 +996,19 @@ const data = '''
                     ],
                     "location": {
                         "formatted_address": "5845 Spring Mountain Rd\\nUnit A7\\nGolden Spring Plaza\\nLas Vegas, NV 89146"
-                    }
-                },
+                   }
+                }
+            ]
+        }
+    }
+}
+''',
+  '''
+{
+    "data": {
+        "search": {
+            "total": 6243,
+            "business": [
                 {
                     "id": "7sb2FYLS2sejZKxRYF9mtg",
                     "name": "Sakana",
@@ -1211,4 +1245,5 @@ const data = '''
         }
     }
 }
-''';
+'''
+];

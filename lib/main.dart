@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
 import 'package:restaurantour/presentation/bloc/restaurants_bloc.dart';
+import 'package:restaurantour/presentation/bloc/restaurants_event.dart';
 import 'package:restaurantour/presentation/pages/restaurant_detail_page.dart';
 import 'package:restaurantour/presentation/pages/restaurants_page.dart';
 import 'package:restaurantour/presentation/utils/style_util.dart';
@@ -20,21 +21,25 @@ class Restaurantour extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => di.locator<RestaurantsBloc>(),
+          create: (context) => di.locator<RestaurantsBloc>()
+            ..add(const FetchRestaurants('Las Vegas')),
         ),
       ],
       child: MaterialApp(
         routes: {
-          // '/': (context) => const RestaurantsPage(),
           '/detail': (context) {
-            final restaurant =
-                ModalRoute.of(context)!.settings.arguments as Restaurant;
+            final arguments = ModalRoute.of(context)!.settings.arguments;
+            final restaurant = arguments as Restaurant;
             return RestaurantDetailPage(id: restaurant.id!);
           },
         },
         title: 'Restaurantour',
         theme: ThemeData(
           primaryColor: Colors.white,
+          colorScheme: const ColorScheme.light(
+            primary: Colors.black,
+            secondary: Colors.black,
+          ),
           scaffoldBackgroundColor: const Color(0xFFFAFAFA),
           appBarTheme: AppBarTheme(
             color: Colors.white,

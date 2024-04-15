@@ -8,9 +8,7 @@ abstract class RestaurantsEvent extends Equatable {
 }
 
 class FetchRestaurants extends RestaurantsEvent {
-  const FetchRestaurants(
-    this.city,
-  );
+  const FetchRestaurants(this.city);
   final String city;
 
   @override
