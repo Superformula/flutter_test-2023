@@ -31,12 +31,16 @@ class YelpRepository {
 
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
     try {
-      final response = await mockRestaurantsResponse();
+      final response;
 
-      // dio.post<Map<String, dynamic>>(
-      //   '/v3/graphql',
-      //   data: _getQuery(offset),
-      // );
+      if (kReleaseMode) {
+        response = await dio.post<Map<String, dynamic>>(
+          '/v3/graphql',
+          data: _getQuery(offset),
+        );
+      } else {
+        response = await mockRestaurantsResponse();
+      }
 
       return RestaurantQueryResult.fromJson(response.data!['data']['search']);
     } on DioException catch (error) {
@@ -57,12 +61,16 @@ class YelpRepository {
     int offset = 0,
   }) async {
     try {
-      final response = await mockRestaurantReviewsResponse();
+      final response;
 
-      // dio.post<Map<String, dynamic>>(
-      //   '/v3/graphql',
-      //   data: _getReviewsQuery(restaurantId, offset),
-      // );
+      if (kReleaseMode) {
+        response = await dio.post<Map<String, dynamic>>(
+          '/v3/graphql',
+          data: _getReviewsQuery(restaurantId, offset),
+        );
+      } else {
+        response = await mockRestaurantReviewsResponse();
+      }
 
       return ReviewQueryResult.fromJson(response.data!['data']['business']);
     } on DioException catch (error) {
@@ -80,12 +88,16 @@ class YelpRepository {
 
   Future<StatusQueryResult?> getRestaurantStatus(String restaurantId) async {
     try {
-      final response = await mockRestaurantStatusResponse(restaurantId);
+      final response;
 
-      // dio.post<Map<String, dynamic>>(
-      //   '/v3/graphql',
-      //   data: _getRestaurantStatusQuery(restaurantId),
-      // );
+      if (kReleaseMode) {
+        response = await dio.post<Map<String, dynamic>>(
+          '/v3/graphql',
+          data: _getRestaurantStatusQuery(restaurantId),
+        );
+      } else {
+        response = await mockRestaurantStatusResponse(restaurantId);
+      }
 
       return StatusQueryResult.fromJson(response.data!['data']['business']);
     } on DioException catch (error) {
@@ -162,7 +174,7 @@ query getRestaurantReviews {
 ''';
   }
 
-  String _getRestaurantStatusQuery(List<String> restaurantId) {
+  String _getRestaurantStatusQuery(String restaurantId) {
     return '''
 query getRestaurantsStatuses {
   business(id: $restaurantId) {

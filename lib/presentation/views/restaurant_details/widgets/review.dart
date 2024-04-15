@@ -41,7 +41,7 @@ class RestaurantReview extends StatelessWidget {
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }

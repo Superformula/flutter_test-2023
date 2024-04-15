@@ -3,15 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurantour/presentation/views/favourite_restaurants/favourite_restaurants_page.dart';
 import 'package:restaurantour/presentation/views/all_restaurants/all_restaurants_page.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  String selectedRoute = "/all-restaurants";
 
   @override
   Widget build(BuildContext context) {
