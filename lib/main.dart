@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurantour/helpers/favorites_helper.dart';
+import 'package:restaurantour/providers/favorites_helper.dart';
 import 'package:restaurantour/pages/home_page.dart';
 import 'package:restaurantour/providers/data_provider.dart';
 import 'package:restaurantour/repositories/yelp_repository.dart';
@@ -17,7 +17,7 @@ class Restaurantour extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => DataProvider()),
-        ChangeNotifierProvider(create: (context) => FavoritesHelpers()),
+        ChangeNotifierProvider(create: (context) => FavoritesProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

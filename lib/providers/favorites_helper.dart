@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FavoritesHelpers extends ChangeNotifier {
+class FavoritesProvider extends ChangeNotifier {
   late SharedPreferences? prefs = null;
   List<String> favorites = [];
   String prefsKey = "favorites";
@@ -27,11 +27,10 @@ class FavoritesHelpers extends ChangeNotifier {
     try {
       prefs ??= await SharedPreferences.getInstance();
       await getFavorites();
-      if (!favorites.any((element) => element == id)) {
-        favorites.removeWhere(
-          (element) => element == id,
-        );
-      }
+
+      favorites.removeWhere(
+        (element) => element == id,
+      );
       await prefs!.setStringList(prefsKey, favorites);
       print("id $id added to favorites!");
       await getFavorites();

@@ -1,7 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurantour/helpers/favorites_helper.dart';
+import 'package:restaurantour/providers/favorites_helper.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 class RestaurantCardWidget extends StatefulWidget {
@@ -17,11 +16,11 @@ class RestaurantCardWidget extends StatefulWidget {
 }
 
 class _RestaurantCardWidgetState extends State<RestaurantCardWidget> {
-  FavoritesHelpers favoritesHelpers = FavoritesHelpers();
+  FavoritesProvider favoritesProvider = FavoritesProvider();
 
   @override
   void initState() {
-    favoritesHelpers = Provider.of<FavoritesHelpers>(
+    favoritesProvider = Provider.of<FavoritesProvider>(
       context,
       listen: false,
     );
@@ -30,8 +29,8 @@ class _RestaurantCardWidgetState extends State<RestaurantCardWidget> {
 
   Future<void> changeFavorite() async {
     !widget.favorite
-        ? await FavoritesHelpers().addFavorite(widget.restaurant.id ?? "")
-        : await FavoritesHelpers().removeFavorite(widget.restaurant.id ?? "");
+        ? await favoritesProvider.addFavorite(widget.restaurant.id ?? "")
+        : await favoritesProvider.removeFavorite(widget.restaurant.id ?? "");
   }
 
   @override
