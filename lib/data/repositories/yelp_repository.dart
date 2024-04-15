@@ -5,8 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
 
-const _apiKey =
-    'X-Me22MBBw6lIYs9fV-ntllINQ_8rfQXuHojnDY8UxXUpuSR0zHY5TSaPmyKY8qwqirh2LWdew6yjgxPSk2eiPWA77TgJHXRC4En1JJ0Kn2ej0vNHBTsuDfLVKMZZnYx';
+const _apiKey = '<PUT YOUR API KEY HERE>';
 
 class MockResponse {
   final Map<String, dynamic> data;
