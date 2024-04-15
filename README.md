@@ -50,7 +50,6 @@ If you're a VScode user link the new Flutter SDK path in your settings
 }
 ```
 
-
 </p>
 </details>
 
@@ -65,9 +64,14 @@ Go to `Preferences > Languages & Frameworks > Flutter` and set the Flutter SDK p
 </p>
 </details>
 
-## Requirements
+## App Structure
 
-### App Structure
+### Design 
+
+The app is based on the following [Figma File](https://www.figma.com/file/KsEhQUp66m9yeVkvQ0hSZm/Flutter-Test?node-id=0%3A1). Improvements and new features are welcolme as long as they follow the same visual aspect of the initial design
+
+![List View](screenshots/listview.png)
+![Detail View](screenshots/detailview.png)
 
 #### Restaurant List Page
 
@@ -96,88 +100,65 @@ Go to `Preferences > Languages & Frameworks > Flutter` and set the Flutter SDK p
   - User image
   - Review Text (These are just snippets of the full review, usually like 3-4 lines long)
 
-#### Misc.
+### Architechture
 
-- Clear documentation on the structure and architecture of your application.
-- Clear and logical commit messages.
-  - We suggest following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+The project follows a Domain based architecture, a less rigid form of Clean Architecture. On the domain, sets of features may share same widgets, repositories and logic to acomplish the desired tasks. So far, the only domain is the Restaurant itself since it's a small app, therefore dependencies are declared right on top of widget tree, the top of the domain, and injected when needed through the usage of RepositoryProvider and BlocProvider.
 
-## Test Coverage
+- Restaurant domain
+  - data
+    - Restaurant models
+    - Yelp Repository
+  - logic
+    - FavouriteRestaurantsBloc
+    - RestaurantReviewsCubit
+    - RestaurantsBloczz
+  - presentation
+    - All Restaurants
+    - Favourite Restaurants
+    - Restaurant details
 
-To demonstrate your experience writing different types of tests in Flutter please do the following:
+This organization also aims to protect core models from change and make the view dependent on models and logic in a way that make the view reflect the desired business rules of the project.
 
-- Choose ONE portion of your state management and write a unit test.
-- Choose ONE widget and write a widget test.
+### Presentation
 
-Feel free to add more tests as you see fit but the above is the minimum requirement.
+The presentation widgets are splited into two different folders
+- common, where widgets used across the Restaurants domain are stored
+- views, where widgets representing bigger/complete screen vies are stored
 
-## Design
+Common and View widgets both may have widget folders within, where minor widgets are stored to enhance code splitting. This helps improve maintainance, code readability and testing. 
 
-- See this [Figma File](https://www.figma.com/file/KsEhQUp66m9yeVkvQ0hSZm/Flutter-Test?node-id=0%3A1) for design information related to the overall look and feel of the application. We do not expect pixel-perfection but would like the application to visually be close to what is specified in the Figma file.
+Whenever view or common widgets get bigger, consider spliting into smaller parts within widgets folder.
 
-![List View](screenshots/listview.png)
-![Detail View](screenshots/detailview.png)
+### Data
 
-## API
+Data folder contains models and repositories that will dictate the domain main data types and how the application interacts with the source of data.
 
-The [Yelp GraphQL API](https://www.yelp.com/developers/graphql/guides/intro) is used as the API for this Application. We have provided the boilerplate of the API requests and backing data models to save you some time. To successfully make a request to the Yelp GraphQL API, please follow these steps:
+#### Yelp API
+
+The [Yelp GraphQL API](https://www.yelp.com/developers/graphql/guides/intro) is used as the API for this Application. To successfully make a request to the Yelp GraphQL API, please follow these steps:
 
 1. Please go to https://www.yelp.com/signup and sign up for a developer account.
 1. Once signed up, navigate to https://www.yelp.com/developers/v3/manage_app.
 1. Create a new app by filling out the required information.
 1. Once your app is created, scroll down and join the `Developer Beta`. This allows you to use the GraphQL API.
-1. Copy your API Key from your app page and paste it on `line 5` [yelp_repository.dart](app/lib/yelp_repository.dart) replacing the `<PUT YOUR API KEY HERE>` with your key.
-1. Run the app and tap the `Fetch Restaurants` button. If you see a log like `Fetched x restaurants` you are all set!
+1. Copy your API Key from your app page and paste it on `line 5` [yelp_repository.dart](./lib/data/repositories/yelp_repository.dart) replacing the `<PUT YOUR API KEY HERE>` with your key.
 
-## Technical Requirements
+#### Yelp Repository
 
-### State Management
+This repository uses Dio and GraphQl notation to fetch data from Yelp GraphQL API. Response models from models folder are used to handle response parsing.
 
-Please restrict your usage of state management or dependency injection to the following options:
+#### Favourite Restaurants
 
-1. [provider](https://pub.dev/packages/provider)
-2. [Riverpod](https://pub.dev/packages/riverpod)
-3. [bloc](https://pub.dev/packages/bloc)
-4. [get_it](https://pub.dev/packages/get_it)/[get_it_mixins](https://pub.dev/packages/get_it_mixin)
-5. [Mobx](https://pub.dev/packages/mobx)
+Due to the simplicity of data, local storage of favourite restaurants is being handled under the hood by HydratedBloc. No repository is necessary to handle this source of data.
 
-We ask this because this challenge values consistency and efficiency over ingenuity. Using commonly used libraries ensures that we can review your code in a timely manner and allows us to provide better feedback.
+### State management / Logic
 
-## Coding Values
+The logic folder contains the BLoC files to handle the logic and state of the application. BLoC was chosen to better define the desired states and the transition between them, and also HydratedBloc provided a built-in way to handle local storage of states. There are 3 BLoCs, all of them making use of Yelp Repository:
 
-At **Superformula** we strive to build applications that have
+- FavouriteRestaurantsBloc
+- RestaurantReviewsCubit
+- RestaurantsBloc
 
-- Consistent architecture
-- Extensible, clean code
-- Solid testing
-- Good security & performance best practices
+## Misc.
 
-### Clear, consistent architecture
-
-Approach your submission as if it were a real world app. This includes Use any libraries that you would normally choose.
-
-_Please note: we're interested in your code & the way you solve the problem, not how well you can use a particular library or feature._
-
-### Easy to understand
-
-Writing boring code that is easy to follow is essential at **Superformula**.
-
-We're interested in your method and how you approach the problem just as much as we're interested in the end result.
-
-### Solid testing approach
-
-While the purpose of this challenge is not to gauge whether you can achieve 100% test coverage, we do seek to evaluate whether you know how & what to test.
-
-## Q&A
-
-> Where should I send back the result when I'm done?
-
-Please fork this repo and then send us a pull request to our repo when you think you are done. There is no deadline for this task unless otherwise noted to you directly.
-
-> What if I have a question?
-
-Just create a new issue in this repo and we will respond and get back to you quickly.
-
-## Review
-
-The coding challenge is a take-home test upon which we'll be conducting a thorough code review once complete. The review will consist of meeting some more of our mobile engineers and giving a review of the solution you have designed. Please be prepared to share your screen and run/demo the application to the group. During this process, the engineers will be asking questions.
+- This project follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines
