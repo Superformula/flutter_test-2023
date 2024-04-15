@@ -12,11 +12,10 @@ part 'favourite_restaurants_state.dart';
 class FavouriteRestaurantsBloc
     extends HydratedBloc<FavouriteRestaurantsEvent, FavouriteRestaurantsState> {
   final YelpRepository yelpRepository;
+  List<Restaurant> favouriteRestaurants = [];
 
   FavouriteRestaurantsBloc({required this.yelpRepository})
       : super(FavouriteRestaurantsInitial()) {
-    List<Restaurant> favouriteRestaurants = [];
-
     on<FavRestaurant>((event, emit) async {
       favouriteRestaurants.add(event.restaurant);
       emit(FavouriteRestaurantsData(favouriteRestaurants));
@@ -46,14 +45,16 @@ class FavouriteRestaurantsBloc
         final responseData = await Future.wait(futures);
         responseData
             .where((r) => r != null && r.id != null && r.hours != null)
-            .forEach((fav) {
-          final index = favouriteRestaurants.indexWhere(
-            (item) => fav!.id == item.id,
-          );
-          favouriteRestaurants[index] = favouriteRestaurants[index].copyWith(
-            hours: fav!.hours,
-          );
-        });
+            .forEach(
+          (fav) {
+            final index = favouriteRestaurants.indexWhere(
+              (item) => fav!.id == item.id,
+            );
+            favouriteRestaurants[index] = favouriteRestaurants[index].copyWith(
+              hours: fav!.hours,
+            );
+          },
+        );
       } on DioException catch (error) {
         emit(FavouriteRestaurantsError(error.message ?? error.toString()));
       } catch (error) {
@@ -78,6 +79,7 @@ class FavouriteRestaurantsBloc
                       Restaurant.fromJson(item as Map<String, dynamic>),
                 )
                 .toList();
+            favouriteRestaurants = parsedList;
             return FavouriteRestaurantsData(parsedList);
           }
         default:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/logic/favourite_restaurants_bloc/favourite_restaurants_bloc.dart';
 import 'package:restaurantour/logic/restaurants_bloc/restaurants_bloc.dart';
 import 'package:restaurantour/presentation/views/home/home_page.dart';
 
@@ -20,6 +21,12 @@ class RestaurantTour extends StatelessWidget {
             )..add(
                 LoadRestaurants(),
               ),
+          ),
+          BlocProvider(
+            lazy: false,
+            create: (context) => FavouriteRestaurantsBloc(
+              yelpRepository: RepositoryProvider.of<YelpRepository>(context),
+            ),
           ),
         ],
         child: const RestauranTourView(),

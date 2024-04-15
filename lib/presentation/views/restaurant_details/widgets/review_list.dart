@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
-import 'package:restaurantour/presentation/views/restaurant/widgets/review.dart';
-import 'package:restaurantour/presentation/views/restaurant/widgets/spaced_divider.dart';
+import 'package:restaurantour/presentation/views/restaurant_details/widgets/review.dart';
+import 'package:restaurantour/presentation/views/restaurant_details/widgets/spaced_divider.dart';
 
 class ReviewList extends StatelessWidget {
   final List<Review> reviewList;

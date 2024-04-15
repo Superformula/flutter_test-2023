@@ -127,7 +127,7 @@ Map<String, dynamic> _$ReviewQueryResultToJson(ReviewQueryResult instance) =>
 StatusQueryResult _$StatusQueryResultFromJson(Map<String, dynamic> json) =>
     StatusQueryResult(
       id: json['id'] as String?,
-      hours: (json['Hours'] as List<dynamic>?)
+      hours: (json['hours'] as List<dynamic>?)
           ?.map((e) => Hours.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -135,5 +135,5 @@ StatusQueryResult _$StatusQueryResultFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$StatusQueryResultToJson(StatusQueryResult instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'Hours': instance.hours,
+      'hours': instance.hours,
     };

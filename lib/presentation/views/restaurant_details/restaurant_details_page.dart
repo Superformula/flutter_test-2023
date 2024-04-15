@@ -3,16 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
 import 'package:restaurantour/data/repositories/yelp_repository.dart';
+import 'package:restaurantour/logic/favourite_restaurants_bloc/favourite_restaurants_bloc.dart';
 import 'package:restaurantour/logic/restaurant_reviews_cubit/restaurant_reviews_cubit.dart';
 import 'package:restaurantour/presentation/common/column_loading_placeholder/column_loading_placeholder.dart';
 import 'package:restaurantour/presentation/common/network_hero/network_image_hero.dart';
-import 'package:restaurantour/presentation/views/restaurant/widgets/restaurant_data.dart';
-import 'package:restaurantour/presentation/views/restaurant/widgets/review_list.dart';
-import 'package:restaurantour/presentation/views/restaurant/widgets/spaced_divider.dart';
+import 'package:restaurantour/presentation/views/restaurant_details/widgets/restaurant_data.dart';
+import 'package:restaurantour/presentation/views/restaurant_details/widgets/review_list.dart';
+import 'package:restaurantour/presentation/views/restaurant_details/widgets/spaced_divider.dart';
 
-class RestaurantPage extends StatelessWidget {
+class RestaurantDetailsPage extends StatelessWidget {
   final Restaurant restaurant;
-  const RestaurantPage(this.restaurant, {Key? key}) : super(key: key);
+  const RestaurantDetailsPage(this.restaurant, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,22 +21,61 @@ class RestaurantPage extends StatelessWidget {
       create: (context) => RestaurantReviewsCubit(
         yelpRepository: RepositoryProvider.of<YelpRepository>(context),
       )..loadReviews(restaurantId: restaurant.id ?? ""),
-      child: RestaurantPageView(restaurant),
+      child: RestaurantDetailsPageView(restaurant),
     );
   }
 }
 
-class RestaurantPageView extends StatefulWidget {
+class RestaurantDetailsPageView extends StatefulWidget {
   final Restaurant restaurant;
-  const RestaurantPageView(this.restaurant, {Key? key}) : super(key: key);
+  const RestaurantDetailsPageView(this.restaurant, {Key? key})
+      : super(key: key);
 
   @override
-  State<RestaurantPageView> createState() => _RestaurantPageViewState();
+  State<RestaurantDetailsPageView> createState() =>
+      _RestaurantDetailsPageViewState();
 }
 
-class _RestaurantPageViewState extends State<RestaurantPageView> {
+class _RestaurantDetailsPageViewState extends State<RestaurantDetailsPageView> {
   List<Review> reviewList = [];
   int reviewCount = 0;
+  late bool isFavourite;
+
+  @override
+  void initState() {
+    final favRestBlocState =
+        BlocProvider.of<FavouriteRestaurantsBloc>(context).state;
+    if (favRestBlocState is! FavouriteRestaurantsData) {
+      isFavourite = false;
+    } else {
+      final favIndex = favRestBlocState.restaurantsList.indexWhere(
+        (element) => element.id == widget.restaurant.id,
+      );
+
+      isFavourite = favIndex != -1;
+    }
+
+    super.initState();
+  }
+
+  void onToggleFavourite() {
+    if (isFavourite) {
+      BlocProvider.of<FavouriteRestaurantsBloc>(context).add(
+        UnfavRestaurant(
+          restaurantId: widget.restaurant.id ?? "",
+        ),
+      );
+    } else {
+      BlocProvider.of<FavouriteRestaurantsBloc>(context).add(
+        FavRestaurant(
+          restaurant: widget.restaurant,
+        ),
+      );
+    }
+    setState(() {
+      isFavourite = !isFavourite;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +97,9 @@ class _RestaurantPageViewState extends State<RestaurantPageView> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.favorite_outline,
+            onPressed: onToggleFavourite,
+            icon: Icon(
+              isFavourite ? Icons.favorite : Icons.favorite_outline,
               color: Colors.black,
             ),
           ),
@@ -92,12 +132,6 @@ class _RestaurantPageViewState extends State<RestaurantPageView> {
           }
         },
         builder: (context, state) {
-          if (state is RestaurantReviewsLoading) {
-            return const SizedBox(
-              width: double.infinity,
-              child: ColumnLoadingPlaceholder(),
-            );
-          }
           return SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -117,7 +151,13 @@ class _RestaurantPageViewState extends State<RestaurantPageView> {
                   padding: EdgeInsets.symmetric(horizontal: 24.0),
                   child: SpacedDivider(),
                 ),
-                ReviewList(reviewList, reviewCount),
+                if (state is RestaurantReviewsLoading)
+                  const SizedBox(
+                    child: ColumnLoadingPlaceholder(),
+                  )
+                else
+                  ReviewList(reviewList, reviewCount),
+                const SizedBox(height: 48.0),
               ],
             ),
           );

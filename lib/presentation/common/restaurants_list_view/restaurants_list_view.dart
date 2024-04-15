@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
 import 'package:restaurantour/data/repositories/yelp_repository.dart';
+import 'package:restaurantour/logic/favourite_restaurants_bloc/favourite_restaurants_bloc.dart';
 import 'package:restaurantour/presentation/common/restaurant_card/restaurant_card.dart';
-import 'package:restaurantour/presentation/views/restaurant/restaurant_page.dart';
+import 'package:restaurantour/presentation/views/restaurant_details/restaurant_details_page.dart';
 
 class RestaurantsListView extends StatelessWidget {
   final List<Restaurant> list;
@@ -15,7 +16,10 @@ class RestaurantsListView extends StatelessWidget {
       MaterialPageRoute(
         builder: (_) => RepositoryProvider.value(
           value: RepositoryProvider.of<YelpRepository>(context),
-          child: RestaurantPage(restaurant),
+          child: BlocProvider.value(
+            value: BlocProvider.of<FavouriteRestaurantsBloc>(context),
+            child: RestaurantDetailsPage(restaurant),
+          ),
         ),
       ),
     );

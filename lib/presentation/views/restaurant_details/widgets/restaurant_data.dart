@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurantour/data/models/restaurant.dart';
 import 'package:restaurantour/presentation/common/restaurant_status/restaurant_status.dart';
-import 'package:restaurantour/presentation/views/restaurant/widgets/spaced_divider.dart';
+import 'package:restaurantour/presentation/views/restaurant_details/widgets/spaced_divider.dart';
 
 class RestaurantDetails extends StatelessWidget {
   final Restaurant restaurant;

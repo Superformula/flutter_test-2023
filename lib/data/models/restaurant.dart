@@ -200,9 +200,7 @@ class ReviewQueryResult {
 
 @JsonSerializable()
 class StatusQueryResult {
-  @JsonKey(name: 'id')
   final String? id;
-  @JsonKey(name: 'Hours')
   final List<Hours>? hours;
 
   const StatusQueryResult({
