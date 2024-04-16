@@ -1,0 +1,132 @@
+C:\Users\cindi\Projects\flutter_projects\flutter-test-superformula
+├── analysis_options.yaml
+├── android
+|  ├── app
+|  |  ├── build.gradle
+|  |  └── src
+|  ├── build.gradle
+|  ├── gradle
+|  |  └── wrapper
+|  ├── gradle.properties
+|  ├── gradlew
+|  ├── gradlew.bat
+|  ├── local.properties
+|  ├── reastauran_tour_android.iml
+|  └── settings.gradle
+├── assets
+|  └── images
+|     ├── avatar.jpg
+|     └── chef.png
+├── build
+|  ├── 73d950cc79577682508ce44f88e45cac
+|  |  ├── gen_dart_plugin_registrant.stamp
+|  |  ├── gen_localizations.stamp
+|  |  └── _composite.stamp
+|  ├── 93cae48154605b2b23f957321f3fac0a.cache.dill.track.dill
+|  ├── app
+|  |  ├── generated
+|  |  ├── intermediates
+|  |  ├── kotlin
+|  |  ├── outputs
+|  |  └── tmp
+|  ├── connectivity_plus
+|  |  ├── generated
+|  |  ├── intermediates
+|  |  ├── outputs
+|  |  └── tmp
+|  ├── flutter_assets
+|  |  ├── AssetManifest.bin
+|  |  ├── AssetManifest.json
+|  |  ├── assets
+|  |  ├── FontManifest.json
+|  |  ├── fonts
+|  |  ├── NOTICES
+|  |  └── shaders
+|  ├── kotlin
+|  |  └── sessions
+|  ├── path_provider_android
+|  |  ├── generated
+|  |  ├── intermediates
+|  |  ├── outputs
+|  |  └── tmp
+|  ├── test_cache
+|  |  └── build
+|  └── unit_test_assets
+|     ├── AssetManifest.bin
+|     ├── AssetManifest.json
+|     ├── assets
+|     ├── FontManifest.json
+|     ├── fonts
+|     ├── NOTICES.Z
+|     └── shaders
+├── coverage
+|  └── lcov.info
+├── flutterw
+├── ios
+|  ├── Flutter
+|  |  ├── AppFrameworkInfo.plist
+|  |  ├── Debug.xcconfig
+|  |  ├── flutter_export_environment.sh
+|  |  ├── Generated.xcconfig
+|  |  └── Release.xcconfig
+|  ├── Runner
+|  |  ├── AppDelegate.swift
+|  |  ├── Assets.xcassets
+|  |  ├── Base.lproj
+|  |  ├── GeneratedPluginRegistrant.h
+|  |  ├── GeneratedPluginRegistrant.m
+|  |  ├── Info.plist
+|  |  └── Runner-Bridging-Header.h
+|  ├── Runner.xcodeproj
+|  |  ├── project.pbxproj
+|  |  ├── project.xcworkspace
+|  |  └── xcshareddata
+|  └── Runner.xcworkspace
+|     ├── contents.xcworkspacedata
+|     └── xcshareddata
+├── lib
+|  ├── core
+|  |  ├── di
+|  |  ├── error
+|  |  ├── http_service
+|  |  └── utils
+|  ├── data
+|  |  ├── datasources
+|  |  ├── models
+|  |  └── repositories
+|  ├── domain
+|  |  ├── entities
+|  |  ├── repositories
+|  |  └── usecases
+|  ├── main.dart
+|  ├── presentation
+|  |  ├── restaurant_detail
+|  |  ├── restaurant_list
+|  |  ├── splash
+|  |  └── widgets
+|  └── restaurant_tour_app.dart
+├── LICENSE
+├── pubspec.lock
+├── pubspec.yaml
+├── README.md
+├── screenshots
+|  ├── detailview.png
+|  └── listview.png
+├── test
+|  ├── mocks
+|  |  └── restaurant_mock.dart
+|  └── presentation
+|     ├── restaurant_detail
+|     └── restaurant_list
+└── web
+   ├── favicon.png
+   ├── icons
+   |  ├── Icon-192.png
+   |  ├── Icon-512.png
+   |  ├── Icon-maskable-192.png
+   |  └── Icon-maskable-512.png
+   ├── index.html
+   └── manifest.json
+
+directory: 75 file: 53
+
