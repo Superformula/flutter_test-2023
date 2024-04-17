@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:restaurantour/core/utils/utils.dart';
-import 'package:restaurantour/presentation/restaurant_list/view/view.dart';
+import 'package:restaurantour/presentation/restaurant_list/views/views.dart';
 import 'package:restaurantour/presentation/splash/widgets/widgets.dart';
 
 class SplashView extends StatefulWidget {

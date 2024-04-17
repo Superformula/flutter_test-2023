@@ -10,7 +10,7 @@ import 'package:restaurantour/core/utils/status_enum.dart';
 
 import 'package:restaurantour/domain/entities/entities.dart';
 import 'package:restaurantour/presentation/restaurant_detail/cubit/cubit.dart';
-import 'package:restaurantour/presentation/restaurant_detail/view/view.dart';
+import 'package:restaurantour/presentation/restaurant_detail/views/views.dart';
 
 import '../../../mocks/restaurant_mock.dart';
 

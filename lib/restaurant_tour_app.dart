@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/core/utils/utils.dart';
-import 'package:restaurantour/presentation/restaurant_detail/view/view.dart';
-import 'package:restaurantour/presentation/restaurant_list/view/view.dart';
+import 'package:restaurantour/presentation/restaurant_detail/views/views.dart';
+import 'package:restaurantour/presentation/restaurant_list/views/views.dart';
 import 'package:restaurantour/presentation/splash/view/view.dart';
 
 class RestauranTourApp extends StatelessWidget {
