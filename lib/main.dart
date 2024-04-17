@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:restaurantour/screens/tabs/tabs_screen.dart';
 
 void main() {
   runApp(const Restaurantour());
@@ -14,7 +14,21 @@ class Restaurantour extends StatelessWidget {
     return MaterialApp(
       title: 'RestauranTour',
       theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+        navigationBarTheme:
+        const NavigationBarThemeData(backgroundColor: Colors.white),
+        floatingActionButtonTheme:
+        const FloatingActionButtonThemeData(backgroundColor: Colors.grey),
+        scaffoldBackgroundColor: Colors.white,
+
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green,
+          secondary: Colors.grey,
+          primary: Colors.green,
+          onPrimary: Colors.black87,
+        ),
       ),
       home: const HomePage(),
     );
@@ -26,32 +40,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Restaurantour'),
-            ElevatedButton(
-              child: const Text('Fetch Restaurants'),
-              onPressed: () async {
-                final yelpRepo = YelpRepository();
-
-                try {
-                  final result = await yelpRepo.getRestaurants();
-                  if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
-                  } else {
-                    print('No restaurants fetched');
-                  }
-                } catch (e) {
-                  print('Failed to fetch restaurants: $e');
-                }
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+    return const TabsScreen();
   }
 }

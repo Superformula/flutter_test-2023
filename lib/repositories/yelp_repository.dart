@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
+const _apiKey =
+    'T738X0O1WDOKjwt42uLksMj4P2U0AAPnawfy4ASjPi46IJgXdXAU3kPjoFMKp1p0bor4jpsN7upFVYzCyNPPiHWT6c2i8wA0y7yS92Rk5vrRSa9XeJHBMGq1nHUfZnYx';
 
 class YelpRepository {
   late Dio dio;
@@ -16,6 +20,7 @@ class YelpRepository {
                 headers: {
                   'Authorization': 'Bearer $_apiKey',
                   'Content-Type': 'application/graphql',
+                  'accept': 'application/json'
                 },
               ),
             );
@@ -60,20 +65,24 @@ class YelpRepository {
   ///
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
     try {
-      final response = await dio.post<Map<String, dynamic>>(
-        '/v3/graphql',
-        data: _getQuery(offset),
-      );
-      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
+      // final response = await dio.post<Map<String, dynamic>>(
+      //   '/v3/graphql',
+      //   data: _getQuery(offset),
+      // );
+      final String jsonString =
+          await rootBundle.loadString('assets/mock_restaurants.json');
+      final data = jsonDecode(jsonString);
+      print(data);
+      return RestaurantQueryResult.fromJson(data);
     } catch (e) {
-      return null;
+      return Future.error(e);
     }
   }
 
   String _getQuery(int offset) {
     return '''
 query getRestaurants {
-  search(location: "Las Vegas", limit: 20, offset: $offset) {
+  search(location: "Las Vegas", limit: 1, offset: $offset) {
     total    
     business {
       id
@@ -81,7 +90,7 @@ query getRestaurants {
       price
       rating
       photos
-      reviews {
+      reviews(limit: 1) {
         id
         rating
         user {
