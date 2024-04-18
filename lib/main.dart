@@ -15,6 +15,7 @@ class Restaurantour extends StatelessWidget {
       title: 'RestauranTour',
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        useMaterial3: true,
       ),
       home: const HomePage(),
     );
