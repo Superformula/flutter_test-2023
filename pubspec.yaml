@@ -18,6 +18,8 @@ dependencies:
   flutter_svg: ^2.0.9
   provider: ^6.1.2
   cached_network_image: ^3.3.1
+  flutter_rating_bar: ^4.0.1
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -25,6 +27,7 @@ dev_dependencies:
   flutter_lints: ^1.0.2
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
+  mockito: ^5.4.4
 
 flutter:
   uses-material-design: true

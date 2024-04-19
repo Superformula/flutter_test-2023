@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurantour/screens/tabs/tabs_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const Restaurantour());
 }
 

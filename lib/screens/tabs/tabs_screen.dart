@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurantour/custom_widget/custom_app_bar.dart';
-import 'package:restaurantour/screens/tabs/my_favorite_restaurants_screen.dart';
 import 'package:restaurantour/screens/tabs/restaurants_screen.dart';
 import 'package:restaurantour/screens/tabs/tabs_vm.dart';
 
@@ -58,11 +57,21 @@ class _TabsScreenState extends State<TabsScreen> {
           ),
           body: Container(
             color: Colors.grey.shade100,
-            child: const TabBarView(
-              children: [
-                RestaurantsScreen(),
-                MyFavoriteRestaurantsScreen(),
-              ],
+            child: Consumer<TabsVM>(
+              builder: (context, vm, _) {
+                return TabBarView(
+                  children: [
+                    RestaurantsScreen(
+                      loadStatus: vm.loadStatus,
+                      restaurants: vm.restaurants,
+                    ),
+                    RestaurantsScreen(
+                      loadStatus: vm.loadStatus,
+                      restaurants: vm.favoriteRestaurants,
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),

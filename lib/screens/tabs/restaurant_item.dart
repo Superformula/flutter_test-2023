@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:restaurantour/common/constants.dart';
 import 'package:restaurantour/common/extensions.dart';
 import 'package:restaurantour/models/restaurant.dart';
@@ -38,8 +39,8 @@ class RestaurantItem extends StatelessWidget {
               CachedNetworkImage(
                 imageUrl: restaurant.heroImage,
                 imageBuilder: (context, imageProvider) => Container(
-                  width: 80.0,
-                  height: 80.0,
+                  width: 80,
+                  height: 80,
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     borderRadius: const BorderRadius.all(
@@ -50,6 +51,10 @@ class RestaurantItem extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
+                ),
+                placeholder: (_, __) => const SizedBox(
+                  height: 80,
+                  width: 80,
                 ),
               ),
               const SizedBox(
@@ -77,6 +82,50 @@ class RestaurantItem extends StatelessWidget {
                           width: 4,
                         ),
                         Text(restaurant.displayCategory),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      children: [
+                        RatingBar.builder(
+                          initialRating: restaurant.rating ?? kZeroDouble,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          unratedColor: Colors.amber.withAlpha(50),
+                          itemCount: 5,
+                          itemSize: 20,
+                          ignoreGestures: true,
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (rating) {},
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Expanded(
+                          child: Align(
+                            child: Text(
+                              restaurant.isOpen ? "Open Now" : "Closed",
+                            ),
+                            alignment: Alignment.centerRight,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Align(
+                          child: Icon(
+                            Icons.circle,
+                            size: 14,
+                            color: restaurant.isOpen
+                                ? Colors.green.shade300
+                                : Colors.red,
+                          ),
+                        ),
                       ],
                     )
                   ],
