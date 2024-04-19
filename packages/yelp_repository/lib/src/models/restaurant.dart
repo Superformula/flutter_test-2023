@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:restaurant_repository/src/models/category.dart';
-import 'package:restaurant_repository/src/models/hours.dart';
-import 'package:restaurant_repository/src/models/location.dart';
-import 'package:restaurant_repository/src/models/review.dart';
+import 'package:yelp_repository/src/models/category.dart';
+import 'package:yelp_repository/src/models/hours.dart';
+import 'package:yelp_repository/src/models/location.dart';
+import 'package:yelp_repository/src/models/review.dart';
 
 part 'restaurant.g.dart';
 

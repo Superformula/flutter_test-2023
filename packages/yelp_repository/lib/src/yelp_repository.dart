@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
-import 'package:restaurant_repository/src/models/restaurant_query_result.dart';
-import 'package:restaurant_repository/src/web/client.dart';
+import 'package:yelp_repository/src/web/client.dart';
+import 'package:yelp_repository/src/models/restaurant_query_result.dart';
 
+// TODO: Refactor to use flutter_dotenv, this way enabled the team to insert the keys using the pipeline
 const _apiKey = String.fromEnvironment('yelpApiKey');
 
 class YelpRepository {
@@ -15,10 +16,11 @@ class YelpRepository {
     'Content-Type': 'application/graphql',
   };
   late final Client _client;
-  Uri get _uri => Uri.parse('$_baseUrl/$_endPoint');
 
   YelpRepository({@visibleForTesting Client? client})
       : _client = client ?? webClient;
+
+  Uri get _uri => Uri.parse('$_baseUrl/$_endPoint');
 
   /// Returns a response in this shape
   /// ```json
@@ -58,7 +60,7 @@ class YelpRepository {
   ///       ]
   ///     }
   /// }
-  /// ``` 
+  /// ```
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
     final response = await _client.post(
       _uri,
@@ -145,10 +147,11 @@ query getRestaurants {
     );
 
     if (response.statusCode != 200) {
+      // TODO: Create exceptions on domain package to be thrown here
       throw Exception();
     }
 
-    // TODO: Create a domain model for reviews
+    // TODO: Create a domain model for reviews and return it
   }
 
   String _getReviewsQuery(String businessId, int offset) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_repository/restaurant_repository.dart';
+import 'package:yelp_repository/yelp_repository.dart';
 
 void main() {
   runApp(const Restaurantour());

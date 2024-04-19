@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:restaurant_repository/src/models/restaurant.dart';
+import 'package:yelp_repository/src/models/restaurant.dart';
 
 part 'restaurant_query_result.g.dart';
 
