@@ -16,6 +16,8 @@ dependencies:
   dio: ^5.4.0
   json_annotation: ^4.8.1
   flutter_svg: ^2.0.9
+  restaurant_repository:
+    path: packages/restaurant_repository
 
 dev_dependencies:
   flutter_test:
