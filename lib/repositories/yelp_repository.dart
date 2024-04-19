@@ -1,8 +1,14 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:restaurantour/common/constants.dart';
 import 'package:restaurantour/models/restaurant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
+const _apiKey =
+    'T738X0O1WDOKjwt42uLksMj4P2U0AAPnawfy4ASjPi46IJgXdXAU3kPjoFMKp1p0bor4jpsN7upFVYzCyNPPiHWT6c2i8wA0y7yS92Rk5vrRSa9XeJHBMGq1nHUfZnYx';
 
 class YelpRepository {
   late Dio dio;
@@ -16,9 +22,14 @@ class YelpRepository {
                 headers: {
                   'Authorization': 'Bearer $_apiKey',
                   'Content-Type': 'application/graphql',
+                  'accept': 'application/json'
                 },
               ),
             );
+
+  void setDio(Dio dio) {
+    this.dio = dio;
+  }
 
   /// Returns a response in this shape
   /// {
@@ -64,16 +75,38 @@ class YelpRepository {
         '/v3/graphql',
         data: _getQuery(offset),
       );
-      return RestaurantQueryResult.fromJson(response.data!['data']['search']);
+      return RestaurantQueryResult.fromJson(response.data!);
     } catch (e) {
-      return null;
+      return Future.error(e);
     }
+  }
+
+  Future<RestaurantQueryResult?> getRestaurantsMocked({int offset = 0}) async {
+    try {
+      final String jsonString =
+          await rootBundle.loadString('assets/mock_restaurants.json');
+      final data = jsonDecode(jsonString);
+      print(data);
+      return RestaurantQueryResult.fromJson(data);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  Future<List<String>> getFavoriteRestaurantsIds() async {
+    final prefs = await SharedPreferences.getInstance();
+    return  prefs.getStringList(kFavoriteRestaurantsKey) ?? [];
+  }
+
+  Future<void> setFavoriteRestaurantsIds(List<String> restaurantIds) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(kFavoriteRestaurantsKey, restaurantIds);
   }
 
   String _getQuery(int offset) {
     return '''
 query getRestaurants {
-  search(location: "Las Vegas", limit: 20, offset: $offset) {
+  search(location: "Las Vegas", limit: 14, offset: $offset) {
     total    
     business {
       id
@@ -81,7 +114,7 @@ query getRestaurants {
       price
       rating
       photos
-      reviews {
+      reviews(limit: 3) {
         id
         rating
         user {
