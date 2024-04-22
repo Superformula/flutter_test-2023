@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/core/utils/utils.dart';
 import 'package:restaurantour/domain/entities/entities.dart';
-import 'package:restaurantour/presentation/restaurant_detail/mixins/restaurant_mixin.dart';
-import 'package:restaurantour/presentation/restaurant_detail/cubit/cubit.dart';
+import 'package:restaurantour/presentation/restaurant_detail/mixins/restaurant_detail_mixin.dart';
+import 'package:restaurantour/presentation/cubit/cubit.dart';
 import 'package:restaurantour/presentation/restaurant_detail/widgets/widgets.dart';
 
 class RestaurantDetailView extends StatefulWidget {
@@ -19,7 +19,7 @@ class RestaurantDetailView extends StatefulWidget {
 }
 
 class _RestaurantDetailViewState extends State<RestaurantDetailView>
-    with RestaurantMixin {
+    with RestaurantDetailMixin {
   late FavoriteRestaurantsCubit _favoriteRestaurantsCubit;
   bool isFavorite = false;
 
@@ -32,7 +32,7 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView>
 
   @override
   Widget build(BuildContext context) {
-    var restaurantItem = widget.restaurant;
+    RestaurantEntity? restaurantItem = widget.restaurant;
 
     return Scaffold(
       key: const Key('scaffold'),
@@ -65,6 +65,15 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView>
                             ? AppWords.addedToMyFavorites
                             : AppWords.removedFromMyFavorites,
                       ),
+                    ),
+                  );
+                }
+                if (state.status == StatusEnum.empty) {
+                  isFavorite =
+                      state.restaurantsList?.contains(restaurantItem) ?? false;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(AppWords.removedFromMyFavorites),
                     ),
                   );
                 }

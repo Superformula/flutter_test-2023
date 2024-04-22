@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/core/utils/utils.dart';
 import 'package:restaurantour/domain/entities/entities.dart';
-import 'package:restaurantour/presentation/restaurant_detail/mixins/restaurant_mixin.dart';
+import 'package:restaurantour/presentation/restaurant_detail/mixins/restaurant_detail_mixin.dart';
 import 'package:restaurantour/presentation/widgets/widgets.dart';
 
 class PriceCategoryBusinessHoursWidget extends StatelessWidget
-    with RestaurantMixin {
+    with RestaurantDetailMixin {
   final RestaurantEntity restaurantEntity;
   const PriceCategoryBusinessHoursWidget({
     super.key,

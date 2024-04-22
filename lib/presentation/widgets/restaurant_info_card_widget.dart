@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/core/utils/utils.dart';
 import 'package:restaurantour/domain/entities/entities.dart';
-import 'package:restaurantour/presentation/restaurant_detail/mixins/restaurant_mixin.dart';
+import 'package:restaurantour/presentation/restaurant_detail/mixins/restaurant_detail_mixin.dart';
 import 'package:restaurantour/presentation/widgets/widgets.dart';
 
 class RestaurantInfoCardWidget extends StatefulWidget {
@@ -18,7 +18,7 @@ class RestaurantInfoCardWidget extends StatefulWidget {
 }
 
 class _RestaurantInfoCardWidgetState extends State<RestaurantInfoCardWidget>
-    with RestaurantMixin {
+    with RestaurantDetailMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
