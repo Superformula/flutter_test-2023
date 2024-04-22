@@ -25,7 +25,7 @@ class AddressOverallRatingWidget extends StatelessWidget
         ),
         Text(
           displayAddress(
-            restaurantEntity.location as LocationEntity,
+            restaurantEntity,
           ),
           style: const TextStyle(
             fontWeight: FontWeight.w600,
