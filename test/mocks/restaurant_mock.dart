@@ -2,22 +2,22 @@ import 'package:restaurantour/data/models/restaurant_model.dart';
 import 'package:restaurantour/domain/entities/entities.dart';
 
 class RestaurantMock {
-  static RestaurantModel get restarantModel => const RestaurantModel(
+  static RestaurantModel get restarantModel => RestaurantModel(
         idModel: '666',
         nameModel: 'Brazilian Food Restaurant',
         priceModel: '\$\$\$',
         ratingModel: 4,
-        photosModel: ['https://www.google.com'],
-        categoriesModel: [
-          CategoryModel(
+        photosModel: const ['https://www.google.com'],
+        categoriesModel: const [
+          CategoriesModel(
             aliasModel: 'Rice',
             titleModel: 'Rice and Beans',
           ),
         ],
-        hoursModel: [
+        hoursModel: const [
           HoursModel(isOpenNowModel: true),
         ],
-        reviewsModel: [
+        reviewsModel: const [
           ReviewModel(
             idModel: '1234560',
             ratingModel: 5,
@@ -28,7 +28,7 @@ class RestaurantMock {
             ),
           ),
         ],
-        locationModel: LocationModel(
+        locationModel: const LocationModel(
           formattedAddressModel: '125 Apple Street',
         ),
       );
