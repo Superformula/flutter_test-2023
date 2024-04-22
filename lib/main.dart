@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_list/restaurant_list.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
 void main() {
@@ -27,32 +28,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Restaurantour'),
-            ElevatedButton(
-              child: const Text('Fetch Restaurants'),
-              onPressed: () async {
-                final yelpRepo = YelpRepository();
-
-                try {
-                  final result = await yelpRepo.getRestaurants();
-                  if (result.isNotEmpty) {
-                    print('Fetched ${result.length} restaurants');
-                  } else {
-                    print('No restaurants fetched');
-                  }
-                } catch (e) {
-                  print('Failed to fetch restaurants: $e');
-                }
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+    return RestaurantListView(yelpRepository: YelpRepository());
   }
 }

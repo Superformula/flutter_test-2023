@@ -20,6 +20,8 @@ dependencies:
     path: packages/yelp_repository
   domain_models:
     path: packages/domain_models
+  restaurant_list:
+    path: packages/features/restaurant_list
 
 dev_dependencies:
   flutter_test:

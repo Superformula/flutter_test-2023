@@ -1,5 +1,6 @@
 name: restaurant_list
 description: A new Flutter package project.
+publish_to: 'none'
 version: 0.0.1
 homepage:
 
@@ -10,6 +11,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  infinite_scroll_pagination: ^4.0.0
+  flutter_bloc: ^8.1.5
+  equatable: ^2.0.5
+
+  yelp_repository:
+    path: ../../../packages/yelp_repository
+  domain_models:
+    path: ../../../packages/domain_models
 
 dev_dependencies:
   flutter_test:
