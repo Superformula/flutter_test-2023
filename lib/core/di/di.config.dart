@@ -24,7 +24,7 @@ import 'package:restaurantour/domain/repositories/repositories.dart' as _i8;
 import 'package:restaurantour/domain/usecases/restaurant/get_restaurants_list_usecase.dart'
     as _i11;
 import 'package:restaurantour/domain/usecases/usecases.dart' as _i13;
-import 'package:restaurantour/presentation/restaurant_detail/cubit/favorite_restaurants_list_cubit.dart'
+import 'package:restaurantour/presentation/cubit/favorite_restaurants_list_cubit.dart'
     as _i4;
 import 'package:restaurantour/presentation/restaurant_list/bloc/restaurant_list_bloc.dart'
     as _i12;
