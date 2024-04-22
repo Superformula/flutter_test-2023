@@ -89,7 +89,8 @@ class ReviewsWidget extends StatelessWidget with RestaurantDetailMixin {
                                           image: DecorationImage(
                                             image: NetworkImage(
                                               displayUserImage(
-                                                 restaurantEntity.reviews![index],
+                                                restaurantEntity
+                                                    .reviews![index],
                                               ),
                                             ),
                                             fit: BoxFit.cover,

@@ -1,4 +1,3 @@
 class ApiKey {
-  static String key =
-      '';
+  static String key = '';
 }
