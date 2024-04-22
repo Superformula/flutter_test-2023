@@ -18,6 +18,8 @@ dependencies:
   flutter_svg: ^2.0.9
   yelp_repository:
     path: packages/yelp_repository
+  domain_models:
+    path: packages/domain_models
 
 dev_dependencies:
   flutter_test:

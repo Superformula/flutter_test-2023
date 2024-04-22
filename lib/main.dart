@@ -40,8 +40,8 @@ class HomePage extends StatelessWidget {
 
                 try {
                   final result = await yelpRepo.getRestaurants();
-                  if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
+                  if (result.isNotEmpty) {
+                    print('Fetched ${result.length} restaurants');
                   } else {
                     print('No restaurants fetched');
                   }

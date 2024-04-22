@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:yelp_repository/src/models/category.dart';
 import 'package:yelp_repository/src/models/hours.dart';
 import 'package:yelp_repository/src/models/location.dart';
-import 'package:yelp_repository/src/models/review.dart';
+import 'package:domain_models/domain_models.dart' as domain;
 
 part 'restaurant.g.dart';
 
@@ -15,7 +15,6 @@ class Restaurant {
   final List<String>? photos;
   final List<Category>? categories;
   final List<Hours>? hours;
-  final List<Review>? reviews;
   final Location? location;
 
   const Restaurant({
@@ -26,7 +25,6 @@ class Restaurant {
     this.photos,
     this.categories,
     this.hours,
-    this.reviews,
     this.location,
   });
 
@@ -59,4 +57,15 @@ class Restaurant {
     }
     return false;
   }
+
+  domain.Restaurant toDomain() => domain.Restaurant(
+        id: id,
+        name: name,
+        price: price,
+        rating: rating,
+        photoUrl: heroImage,
+        category: displayCategory,
+        isOpen: isOpen,
+        address: location?.formattedAddress,
+      );
 }

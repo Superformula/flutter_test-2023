@@ -193,6 +193,21 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.0"
+  domain_models:
+    dependency: "direct main"
+    description:
+      path: "packages/domain_models"
+      relative: true
+    source: path
+    version: "0.0.1"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -624,5 +639,5 @@ packages:
     source: path
     version: "0.0.1"
 sdks:
-  dart: ">=3.1.0-185.0.dev <4.0.0"
+  dart: ">=3.1.5 <4.0.0"
   flutter: ">=3.7.0-0"

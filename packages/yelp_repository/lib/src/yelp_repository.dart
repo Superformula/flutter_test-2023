@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:yelp_repository/src/web/client.dart';
 import 'package:yelp_repository/src/models/restaurant_query_result.dart';
+import 'package:domain_models/domain_models.dart' as domain;
 
 // TODO: Refactor to use flutter_dotenv, this way enabled the team to insert the keys using the pipeline
 const _apiKey = String.fromEnvironment('yelpApiKey');
@@ -22,46 +23,7 @@ class YelpRepository {
 
   Uri get _uri => Uri.parse('$_baseUrl/$_endPoint');
 
-  /// Returns a response in this shape
-  /// ```json
-  /// {
-  ///   "data": {
-  ///     "search": {
-  ///       "total": 5056,
-  ///       "business": [
-  ///         {
-  ///           "id": "faPVqws-x-5k2CQKDNtHxw",
-  ///           "name": "Yardbird Southern Table & Bar",
-  ///           "price": "$$",
-  ///           "rating": 4.5,
-  ///           "photos": [
-  ///             "https:///s3-media4.fl.yelpcdn.com/bphoto/_zXRdYX4r1OBfF86xKMbDw/o.jpg"
-  ///           ],
-  ///           "reviews": [
-  ///             {
-  ///               "id": "sjZoO8wcK1NeGJFDk5i82Q",
-  ///               "rating": 5,
-  ///               "user": {
-  ///                 "id": "BuBCkWFNT_O2dbSnBZvpoQ",
-  ///                 "image_url": "https:///s3-media2.fl.yelpcdn.com/photo/v8tbTjYaFvkzh1d7iE-pcQ/o.jpg",
-  ///                 "name": "Gina T."
-  ///               }
-  ///             },
-  ///             {
-  ///               "id": "okpO9hfpxQXssbTZTKq9hA",
-  ///               "rating": 5,
-  ///               "user": {
-  ///                 "id": "0x9xu_b0Ct_6hG6jaxpztw",
-  ///                 "image_url": "https:///s3-media3.fl.yelpcdn.com/photo/gjz8X6tqE3e4praK4HfCiA/o.jpg",
-  ///                 "name": "Crystal L."
-  ///               }
-  ///             },
-  ///          ...
-  ///       ]
-  ///     }
-  /// }
-  /// ```
-  Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
+  Future<List<domain.Restaurant>> getRestaurants({int offset = 0}) async {
     final response = await _client.post(
       _uri,
       headers: header,
@@ -69,12 +31,15 @@ class YelpRepository {
     );
 
     if (response.statusCode != 200) {
-      // TODO: Create exceptions on domain package to be thrown here
-      throw Exception();
+      throw domain.NetworkException(
+        statusCode: response.statusCode,
+        message: response.body,
+      );
     }
-    return RestaurantQueryResult.fromJson(
+    final restaurantQueryResult = RestaurantQueryResult.fromJson(
       json.decode(utf8.decode(response.bodyBytes))['data']['search'],
     );
+    return restaurantQueryResult.domainRestaurants;
   }
 
   String _getRestaurantsQuery(int offset) {
@@ -88,15 +53,6 @@ query getRestaurants {
       price
       rating
       photos
-      reviews {
-        id
-        rating
-        user {
-          id
-          image_url
-          name
-        }
-      }
       categories {
         title
         alias
@@ -147,8 +103,10 @@ query getRestaurants {
     );
 
     if (response.statusCode != 200) {
-      // TODO: Create exceptions on domain package to be thrown here
-      throw Exception();
+      throw domain.NetworkException(
+        statusCode: response.statusCode,
+        message: response.body,
+      );
     }
 
     // TODO: Create a domain model for reviews and return it

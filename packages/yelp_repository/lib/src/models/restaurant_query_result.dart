@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:yelp_repository/src/models/restaurant.dart';
+import 'package:domain_models/domain_models.dart' as domain;
 
 part 'restaurant_query_result.g.dart';
 
@@ -18,4 +19,7 @@ class RestaurantQueryResult {
       _$RestaurantQueryResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantQueryResultToJson(this);
+
+  List<domain.Restaurant> get domainRestaurants =>
+      restaurants?.map((e) => e.toDomain()).toList() ?? [];
 }

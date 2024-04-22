@@ -15,6 +15,9 @@ dependencies:
   http_interceptor: ^1.0.2
   json_annotation: ^4.8.1
 
+  domain_models:
+    path: ../domain_models
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

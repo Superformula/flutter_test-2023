@@ -1,13 +1,4 @@
 {
-    "dart.flutterSdkPath": ".fvm/flutter_sdk",
-	// Remove .fvm files from search
-	"search.exclude": {
-		"**/.fvm/flutter_sdk": true
-	},
-	// Remove from file watching
-	"files.watcherExclude": {
-		"**/.fvm/flutter_sdk": true
-	},
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
