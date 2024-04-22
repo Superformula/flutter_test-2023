@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/core/utils/utils.dart';
 import 'package:restaurantour/domain/entities/entities.dart';
-import 'package:restaurantour/presentation/restaurant_detail/mixins/restaurant_mixin.dart';
+import 'package:restaurantour/presentation/restaurant_detail/mixins/restaurant_detail_mixin.dart';
 import 'package:restaurantour/presentation/widgets/widgets.dart';
 
-class ReviewsWidget extends StatelessWidget with RestaurantMixin {
+class ReviewsWidget extends StatelessWidget with RestaurantDetailMixin {
   const ReviewsWidget({super.key, required this.restaurantEntity});
 
   final RestaurantEntity restaurantEntity;

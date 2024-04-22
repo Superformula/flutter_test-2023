@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/core/utils/utils.dart';
-import 'package:restaurantour/presentation/restaurant_detail/cubit/cubit.dart';
+import 'package:restaurantour/presentation/cubit/cubit.dart';
 import 'package:restaurantour/presentation/restaurant_detail/views/views.dart';
+import 'package:restaurantour/presentation/restaurant_list/widgets/widgets.dart';
 import 'package:restaurantour/presentation/widgets/widgets.dart';
 
 class FavoriteRestaurantsListWidget extends StatefulWidget {
@@ -24,13 +25,10 @@ class _FavoriteRestaurantsListWidgetState
     return BlocBuilder<FavoriteRestaurantsCubit, FavoriteRestaurantsListState>(
       bloc: widget.favoriteRestaurantsCubit,
       builder: (context, state) {
-        if (state.status == StatusEnum.loading) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: AppColors.black,
-            ),
-          );
+        if (state.status == StatusEnum.empty) {
+          return const CustomEmptyWidget();
         }
+
         if (state.status == StatusEnum.success) {
           final restaurantsList = state.restaurantsList;
 
@@ -65,9 +63,7 @@ class _FavoriteRestaurantsListWidgetState
             ),
           );
         }
-        if (state.status == StatusEnum.failure) {
-          return const CustomErrorWidget();
-        }
+
         return const SizedBox.shrink();
       },
     );

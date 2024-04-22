@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/core/utils/utils.dart';
-import 'package:restaurantour/presentation/restaurant_detail/cubit/cubit.dart';
+import 'package:restaurantour/presentation/cubit/cubit.dart';
 import 'package:restaurantour/presentation/restaurant_list/bloc/bloc.dart';
 import 'package:restaurantour/presentation/restaurant_list/widgets/widgets.dart';
 
