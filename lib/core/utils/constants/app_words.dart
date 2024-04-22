@@ -11,6 +11,7 @@ class AppWords {
   static String fakeAddress = "36 Paulista Avenue, São Paulo, Brazil";
   static String openNow = "Open Now";
   static String closed = "Closed";
+  static String noFavoritesYet = "No favorites yet";
   static String fakeReview =
       "Exceptional dining experience! The ambiance was delightful, complemented by attentive service. The food was exquisite, each dish bursting with flavor. Can't wait to return for another memorable meal!";
   static String addedToMyFavorites = "Added to 'My Favorites'";
