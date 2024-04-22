@@ -27,23 +27,20 @@ mixin RestaurantDetailMixin {
     return value;
   }
 
-  String displayUserImage(List<ReviewEntity> reviewsList) {
-    return reviewsList
-        .map(
-          (e) => e.user?.imageUrl ?? ImagePath.noPhotoUserAvatar,
-        )
-        .firstWhere(
-          (url) => url.startsWith(RegExp(r'https?://')),
-          orElse: () => ImagePath.noPhotoUserAvatar,
-        );
+  String displayUserImage(ReviewEntity reviewEntity) {
+    final imageUrl = reviewEntity.user?.imageUrl;
+
+    return imageUrl != null && imageUrl.startsWith(RegExp(r'https?://'))
+        ? imageUrl
+        : ImagePath.noPhotoUserAvatar;
   }
 
   String displayUserName(ReviewEntity review) {
     return review.user?.name ?? "";
   }
 
-  String displayAddress(LocationEntity location) {
-    return location.formattedAddress ?? AppWords.fakeAddress;
+  String displayAddress(RestaurantEntity? restaurantEntity) {
+    return restaurantEntity?.location?.formattedAddress ?? AppWords.fakeAddress;
   }
 
   int displayReviewRating(ReviewEntity review) {
