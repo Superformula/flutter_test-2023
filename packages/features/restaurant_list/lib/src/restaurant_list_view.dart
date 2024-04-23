@@ -1,3 +1,4 @@
+import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -95,11 +96,8 @@ class _RestaurantListViewState extends State<_RestaurantListView> {
                 return PagedListView<int, Restaurant>(
                   pagingController: _pagingController,
                   builderDelegate: PagedChildBuilderDelegate<Restaurant>(
-                    itemBuilder: (context, restaurant, index) => Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        restaurant.name ?? '',
-                      ),
+                    itemBuilder: (context, restaurant, index) => RestaurantCard(
+                      restaurant: restaurant,
                     ),
                   ),
                 );
