@@ -96,8 +96,11 @@ class _RestaurantListViewState extends State<_RestaurantListView> {
                 return PagedListView<int, Restaurant>(
                   pagingController: _pagingController,
                   builderDelegate: PagedChildBuilderDelegate<Restaurant>(
-                    itemBuilder: (context, restaurant, index) => RestaurantCard(
-                      restaurant: restaurant,
+                    itemBuilder: (context, restaurant, index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: RestaurantCard(
+                        restaurant: restaurant,
+                      ),
                     ),
                   ),
                 );
