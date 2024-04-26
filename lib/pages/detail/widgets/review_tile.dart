@@ -14,9 +14,9 @@ class ReviewTile extends StatelessWidget {
           rating: (review.rating ?? 0).toDouble(),
         ),
         const SizedBox(height: 8),
-        const Text(
-          'Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.',
-          style: TextStyle(
+        Text(
+          review.text ?? 'N/A',
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
           ),

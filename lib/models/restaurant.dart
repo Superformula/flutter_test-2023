@@ -56,11 +56,13 @@ class Review {
   final String? id;
   final int? rating;
   final User? user;
+  final String? text;
 
   const Review({
     this.id,
     this.rating,
     this.user,
+    this.text,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
@@ -171,6 +173,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "AyuEBJGqEQZWWjgSz_nkkA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "2I5SuEHDd9SJVHfrj84wOw",
                   "image_url":
@@ -181,6 +185,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "H85bnGMvTx0ACssHvyCyug",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "3xfzp3cOhKICnLn0D9ZheA",
                   "image_url": null,
@@ -190,6 +196,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "1evz7BLmFEa2WaMLIiQoiw",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "5LMqMp2QMVLMikT6Qmrnnw",
                   "image_url": null,
@@ -220,6 +228,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "uIeZrx9X1W0XPKqDicXZew",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "nvcvPpKYpq-nT7wwAexGYw",
                   "image_url":
@@ -230,6 +240,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "edavucuT6AszroxABpt80A",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "gjSzROrU_pDjtzG4CaO3eQ",
                   "image_url":
@@ -240,6 +252,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "w0ZDi1gh3D14maL9f4iDJg",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "49fOxINbIM9tOdJPNpulqQ",
                   "image_url":
@@ -272,6 +286,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "CfkhNXxjrmAG3Rqth2S8PA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "Lh3eh4seBFvfTgybYXL1uw",
                   "image_url":
@@ -282,6 +298,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "mOutCc88-Uk2nzyi3FqAmw",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "vv5vFZg3YuxjGJ5wU4L0Gw",
                   "image_url":
@@ -292,6 +310,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "BVXWtpN-Xn4eIjMe2eceQg",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "azjuxjks4tfg_HCt1D5zqQ",
                   "image_url":
@@ -323,6 +343,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "IENYgJX7YT2vEoqmzDuxFg",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "93GXIadcaCIy_9m4EN2Ihw",
                   "image_url": null,
@@ -332,6 +354,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "lXHzKzJfUaMHh3d6L4CcVw",
                 "rating": 3,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "owWvMQ5g6ZokQKyrKHptug",
                   "image_url": null,
@@ -341,6 +365,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "uVvPpNXu3se-hAUboWSuEw",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "uJlmP8JUrP7i2kfrv7xzuQ",
                   "image_url": null,
@@ -373,6 +399,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "_lXnOVcnw1WfFwWaG4VMDA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "DSE7W4BRJ7FiHL6vqItRag",
                   "image_url": null,
@@ -382,6 +410,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "CsuamYmDAWthyn6AxCvXZQ",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "BHIGJAgBTRD4H01yP0n9Qg",
                   "image_url": null,
@@ -391,6 +421,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "MlbzJT2UhcebcoXtq0kczA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "HVwq3FtsOuxQV9DvoPa4RA",
                   "image_url":
@@ -424,6 +456,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "59ewmBp3j19Ud3T7Lz4-Ow",
                 "rating": 4,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "7DQSAc84ydnYEP2UMWG0oQ",
                   "image_url":
@@ -434,6 +468,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "sWLL78Q4yDf3WA7tMtOl2g",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "KLyfgt5E1YwBlfNTZ6xeNQ",
                   "image_url": null,
@@ -443,6 +479,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "tcrSG4NQUQktQNTncUnA8A",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "8AFvV4hG3IsoG7kyDXRZLw",
                   "image_url": null,
@@ -474,6 +512,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "bPYqNEvJaQxkAeZDmXRCug",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "4G8bg7wdu_WHezo1c1EYgA",
                   "image_url":
@@ -484,6 +524,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "rsFWnc3wXsDeFXa2ATFZiQ",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "L6TIKUDGuzGRkfvP56-tKA",
                   "image_url": null,
@@ -493,6 +535,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "LJvvicQQOTAV9ReQOmb_9w",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "-Y5hKeoHvEmkiTLl2x02Lg",
                   "image_url": null,
@@ -524,6 +568,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "a2wdiJfGuG_f-t_1t6ctZA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "fbExfW_FZhCT9gD98pssDA",
                   "image_url": null,
@@ -533,6 +579,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "dmm9ZwRvYNVP4a29ZtYDpw",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "ADO07jdGWzdYBGh5W3e8Vg",
                   "image_url": null,
@@ -542,6 +590,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "nAXaUvEJ61PnC8jfwnlc4g",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "uDY52BHWE5pHtQXj-nJgiA",
                   "image_url": null,
@@ -574,6 +624,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "1zNFMBCOAWp-SvJqBHozoQ",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "05LJ1pHCBC9YLADh266WJw",
                   "image_url": null,
@@ -583,6 +635,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "rSayx0GhaFXmnKajV1q3uw",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "CRtTLHEWqEEpATRVIepdJA",
                   "image_url": null,
@@ -592,6 +646,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "0zzdPNrVUDImxCKvlP7kHQ",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "X55cCZntLJ93t5AqLV8Vmg",
                   "image_url": null,
@@ -621,6 +677,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "j3qyXxcVl1N5o01AuCbJkw",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "VBIGHWAj0lhxHtqEjNgXOw",
                   "image_url": null,
@@ -630,6 +688,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "uJQDyf-jKiqpogp_uvjCKA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "oiUh0PdhxGLkfY8MzXhAxA",
                   "image_url":
@@ -640,6 +700,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "NCALI3IKAXUcQNin3B5L2A",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "adn2YBDMM00Vb048MANwLA",
                   "image_url":
@@ -672,6 +734,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "9m_y_tj-4gWWnafyRR9rLQ",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "7ufSjDii5NNopQs-sL-p-A",
                   "image_url":
@@ -682,6 +746,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "F8tEzjNcVF778CANn9tkLA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "zK4R5IFl5aBqePPEd0fvxw",
                   "image_url":
@@ -692,6 +758,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "I7Ip9foJiDllocxBRGeiSQ",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "YoaQY0EZmhYCgTLtz5sd2w",
                   "image_url":
@@ -724,6 +792,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "vuUQh9HoY-N_XE_HG1VfvA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "ARpUXNeHSgVDxLD2CH11CQ",
                   "image_url":
@@ -734,6 +804,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "THnNwzh7R44ce-kV1j6EdA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "e4EXGZXtZaMLxQDKhcRstA",
                   "image_url": null,
@@ -743,6 +815,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "BTsih-QgLiwXVSvasiq55Q",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "s9DjinDkTYZVQs2yT8fGWQ",
                   "image_url":
@@ -775,6 +849,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "_gTYepaG5CRv01KMmJvaJw",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "1GORYVhCBapERJatkWJTEA",
                   "image_url": null,
@@ -784,6 +860,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "OWVVXapkfKqa7jtYje0pDA",
                 "rating": 4,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "UB0y4EctcHwlLfziJPLRXw",
                   "image_url": null,
@@ -793,6 +871,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "iNudQtW0ahSO9UM_v4vCPQ",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "t4DZCbS9gN5LJHh6QZmIzw",
                   "image_url":
@@ -826,6 +906,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "gV8Thc_VUjiMbuFYAw7SoA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "pCJ7-4JVgkguMZfsxD9F_A",
                   "image_url":
@@ -836,6 +918,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "OxJTokYMp-GhWbBdaeHjnA",
                 "rating": 3,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "spNaK0MRO5wxyjfS7Gy8EA",
                   "image_url":
@@ -846,6 +930,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "pzndfUZHiKN9udZXpZP3GA",
                 "rating": 4,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "rjV-cGARjLT5NCXE4QoITQ",
                   "image_url":
@@ -878,6 +964,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "LizBX-ZuhRQjQSqv_wyWRQ",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "9XYZmVi9zGPgO-ElhS57Tw",
                   "image_url": null,
@@ -887,6 +975,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "rrp_s8W7SX1JJ8pjghD43w",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "sNqhgZ7C11lLWmQPcPxNlg",
                   "image_url": null,
@@ -896,6 +986,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "IXrMFREpImMMySNsw1nU1g",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "bjc6Gux-JdFyfUnOOa5UdA",
                   "image_url":
@@ -928,6 +1020,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "b0Vc0DyssvQ6eR9zVI2bnQ",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "rky5o20jykKRbssb4aoo7g",
                   "image_url": null,
@@ -937,6 +1031,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "rFkhUcAd_toiQF5etzOUFw",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "TgVjm7u8yWeP7E8E8HLi9w",
                   "image_url":
@@ -947,6 +1043,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "VwdNtA6ZVYH2CQ2S8_8V7A",
                 "rating": 3,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "j-g4mLPahUwSNzWzKIIQuA",
                   "image_url":
@@ -979,6 +1077,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "KxB6EqbsUAYcXCbogF0j9A",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "W3opz1HpIXl2krFLJ53lqg",
                   "image_url": null,
@@ -988,6 +1088,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "2Uw_tdACju6YVEwPQWTSfQ",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "98BB-9KO_RySfLuafz9TKw",
                   "image_url":
@@ -998,6 +1100,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "AihtALBJbOdfy9kFtlok4w",
                 "rating": 3,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "iypYdh5IdpKtszZKa_g-5g",
                   "image_url":
@@ -1030,6 +1134,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "zBfn3qSG0KRXJ_GxWwruJQ",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "grMSssQCLcCF66dZ6VStLw",
                   "image_url":
@@ -1040,6 +1146,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "PHbD7xfoZ2XwvsaF7jo3AA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "c5xvVccRYTmcUg3n4fx0fA",
                   "image_url":
@@ -1050,6 +1158,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "Qr2Hpb1-EgZs1dw3z-DkwQ",
                 "rating": 4,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "lxdiwASOCnvRFsogbEYh3A",
                   "image_url":
@@ -1083,6 +1193,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "Fq7cQ7-qS0vREMbVb1YTfg",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "1_H2nkv9zXg1OkZPa8HAsw",
                   "image_url": null,
@@ -1092,6 +1204,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "ykqo7qqVHJtnFplGv5LvMA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "9IFnva_ZbFNv4pwT60UzNw",
                   "image_url":
@@ -1102,6 +1216,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "pGJS9csh9p3dNLj-Yzpv2A",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "ZS1dS_t9ZQVk-fvJyI7lLA",
                   "image_url":
@@ -1135,6 +1251,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "8vQVgCgiKQ0HjAG_kXeetA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "OIa6ptM1qUts5arovQUAFQ",
                   "image_url":
@@ -1145,6 +1263,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "EVewlHXfiDa6EW4xf44jog",
                 "rating": 4,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "oEqB6qGiV2K3q8g2A8rfYA",
                   "image_url":
@@ -1155,6 +1275,8 @@ class RestaurantQueryResult extends DTO {
               {
                 "id": "GcEYfDEw6KI7Yx6UR8rdMA",
                 "rating": 5,
+                "text":
+                    "Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.",
                 "user": {
                   "id": "Y4iXISephx40OlZGaRjxUw",
                   "image_url":
