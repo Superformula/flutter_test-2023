@@ -71,7 +71,9 @@ class DetailPage extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          RestaurantInfoText(restaurant: restaurant),
+                          Expanded(
+                            child: RestaurantInfoText(restaurant: restaurant),
+                          ),
                           const Spacer(),
                           Text(
                             restaurant.isOpen ? 'Open now' : 'Closed',
@@ -88,7 +90,7 @@ class DetailPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 48),
+                      const Divider(height: 48),
                       const Text(
                         'Address',
                         style: TextStyle(
@@ -104,7 +106,7 @@ class DetailPage extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const SizedBox(height: 48),
+                      const Divider(height: 48),
                       const Text(
                         'Overall Rating',
                         style: TextStyle(
@@ -133,7 +135,7 @@ class DetailPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 48),
+                      const Divider(height: 48),
                       Text(
                         '${restaurant.reviews?.length ?? 0} Reviews',
                         style: const TextStyle(
@@ -141,14 +143,15 @@ class DetailPage extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
+                      const SizedBox(height: 16),
                       if (restaurant.reviews != null)
                         ...restaurant.reviews!.map(
-                          (review) => Padding(
-                            padding: EdgeInsets.only(
-                              bottom:
-                                  restaurant.reviews!.last != review ? 32 : 0,
-                            ),
-                            child: ReviewTile(review: review),
+                          (review) => Column(
+                            children: [
+                              ReviewTile(review: review),
+                              if (restaurant.reviews!.last != review)
+                                const Divider(height: 32),
+                            ],
                           ),
                         ),
                     ],
