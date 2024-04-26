@@ -12,4 +12,7 @@ final List<SingleChildWidget> _providers = [
       ),
     ),
   ),
+  Provider<YelpService>(
+    create: (context) => YelpService(dio: context.read<Dio>()),
+  ),
 ];

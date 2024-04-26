@@ -10,7 +10,6 @@ import 'package:restaurantour/services/services.dart';
 import 'package:restaurantour/utils/utils.dart';
 
 part 'blocs.dart';
-part 'mappers.dart';
 part 'providers.dart';
 part 'repositories.dart';
 
