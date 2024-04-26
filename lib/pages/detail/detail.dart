@@ -31,15 +31,9 @@ class DetailPage extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  if (state.restaurants.contains(restaurant)) {
-                    context
-                        .read<FavoritesCubit>()
-                        .removeFavorite(restaurant: restaurant);
-                  } else {
-                    context
-                        .read<FavoritesCubit>()
-                        .addFavorite(restaurant: restaurant);
-                  }
+                  context
+                      .read<FavoritesCubit>()
+                      .toggleFavorite(restaurant: restaurant);
                 },
                 icon: Icon(
                   state.restaurants.contains(restaurant)
