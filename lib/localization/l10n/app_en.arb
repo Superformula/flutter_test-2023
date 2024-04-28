@@ -1,0 +1,10 @@
+{
+    "@@locale": "en",
+    "appTitle": "Restaurantour",
+    "closed": "Closed",
+    "openNow": "Open now",
+    "error": "Error!",
+    "noRestaurantsAddedYet": "No restaurants added yet",
+    "allRestaurants": "All restaurants",
+    "myFavorites": "My favorites"
+}

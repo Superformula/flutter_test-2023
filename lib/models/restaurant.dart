@@ -75,7 +75,7 @@ class Location {
   @JsonKey(name: 'formatted_address')
   final String? formattedAddress;
 
-  Location({
+  const Location({
     this.formattedAddress,
   });
 
@@ -108,6 +108,17 @@ class Restaurant {
     this.reviews,
     this.location,
   });
+
+  const Restaurant.test()
+      : id = '',
+        name = 'name',
+        price = '12.34',
+        rating = 4,
+        photos = const [],
+        categories = const [],
+        hours = const [],
+        reviews = const [],
+        location = const Location(formattedAddress: 'hello');
 
   factory Restaurant.fromJson(Map<String, dynamic> json) =>
       _$RestaurantFromJson(json);

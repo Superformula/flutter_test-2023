@@ -9,6 +9,7 @@ const detailPage = '/detail';
 
 final router = GoRouter(
   initialLocation: listPage,
+  errorBuilder: (_, __) => const ErrorPage(),
   routes: [
     GoRoute(
       path: listPage,
