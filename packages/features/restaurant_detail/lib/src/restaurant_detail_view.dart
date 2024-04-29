@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:restaurant_detail/src/restaurant_detail_cubit.dart';
+import 'package:restaurant_detail/src/review_tile.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
 class RestaurantDetailView extends StatelessWidget {
@@ -103,57 +104,98 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
               itemBuilder: (context, review, index) {
                 if (index == 0) {
                   return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox.square(
                         dimension: MediaQuery.of(context).size.width,
-                        child: CachedNetworkImage(
-                          imageUrl: widget.restaurant.photoUrl ?? '',
-                          fit: BoxFit.cover,
+                        child: Hero(
+                          tag: 'restaurant_${widget.restaurant.id}',
+                          child: CachedNetworkImage(
+                            imageUrl: widget.restaurant.photoUrl ?? '',
+                            errorWidget: (_, __, ___) =>
+                                const Icon(Icons.restaurant),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                      Row(
-                        children: [
-                          Text(widget.restaurant.price ?? ''),
-                          Text(widget.restaurant.category ?? ''),
-                          const Spacer(),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                widget.restaurant.isOpen ?? false
-                                    ? 'Open Now'
-                                    : 'Closed',
-                              ),
-                              Icon(
-                                Icons.circle,
-                                color: widget.restaurant.isOpen ?? false
-                                    ? Colors.green
-                                    : Colors.red,
-                                size: 8.0,
-                              ),
-                              const SizedBox(width: 8.0),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const Divider(),
-                      const Text('Address'),
-                      Text(widget.restaurant.address ?? ''),
-                      const Divider(),
-                      const Text('Overall rating'),
-                      Row(
-                        children: [
-                          Text(widget.restaurant.rating?.toString() ?? ''),
-                          const Icon(Icons.star),
-                        ],
-                      ),
-                      const Divider(),
-                      Text('${_pagingController.value.itemList?.length ?? 0} Reviews'),
-                      Text(review.text),
+                      const SizedBox(height: 24.0),
+                      ...[
+                        Row(
+                          children: [
+                            Text(widget.restaurant.price ?? ''),
+                            Text(widget.restaurant.category ?? ''),
+                            const Spacer(),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  widget.restaurant.isOpen ?? false
+                                      ? 'Open Now'
+                                      : 'Closed',
+                                ),
+                                Icon(
+                                  Icons.circle,
+                                  color: widget.restaurant.isOpen ?? false
+                                      ? Colors.green
+                                      : Colors.red,
+                                  size: 8.0,
+                                ),
+                                const SizedBox(width: 8.0),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 24.0),
+                        const Divider(),
+                        const SizedBox(height: 24.0),
+                        const Text('Address'),
+                        const SizedBox(height: 24.0),
+                        Text(widget.restaurant.address ?? ''),
+                        const SizedBox(height: 24.0),
+                        const Divider(),
+                        const SizedBox(height: 24.0),
+                        const Text('Overall rating'),
+                        const SizedBox(height: 16.0),
+                        Row(
+                          children: [
+                            Text(widget.restaurant.rating?.toString() ?? ''),
+                            const Icon(Icons.star),
+                          ],
+                        ),
+                        const SizedBox(height: 24.0),
+                        const Divider(),
+                        const SizedBox(height: 24.0),
+                        Text(
+                          '${_pagingController.value.itemList?.length ?? 0} Reviews',
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: ReviewTile(review: review)
+                        ),
+                      ]
+                          .map(
+                            (widget) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24.0),
+                              child: widget,
+                            ),
+                          )
+                          .toList(),
                     ],
                   );
                 }
-                return Text(review.text);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Column(
+                    children: [
+                      const Divider(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        child: ReviewTile(review: review),
+                      ),
+                    ],
+                  ),
+                );
               },
             ),
           );
