@@ -38,16 +38,18 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
 
 Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
       id: json['id'] as String?,
-      rating: json['rating'] as int?,
+      rating: (json['rating'] as num?)?.toInt(),
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
+      text: json['text'] as String?,
     );
 
 Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
       'id': instance.id,
       'rating': instance.rating,
       'user': instance.user,
+      'text': instance.text,
     };
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(
@@ -95,7 +97,7 @@ Map<String, dynamic> _$RestaurantToJson(Restaurant instance) =>
 RestaurantQueryResult _$RestaurantQueryResultFromJson(
         Map<String, dynamic> json) =>
     RestaurantQueryResult(
-      total: json['total'] as int?,
+      total: (json['total'] as num?)?.toInt(),
       restaurants: (json['business'] as List<dynamic>?)
           ?.map((e) => Restaurant.fromJson(e as Map<String, dynamic>))
           .toList(),
