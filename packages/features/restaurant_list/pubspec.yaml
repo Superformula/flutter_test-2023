@@ -14,6 +14,7 @@ dependencies:
   infinite_scroll_pagination: ^4.0.0
   flutter_bloc: ^8.1.5
   equatable: ^2.0.5
+  cached_network_image: ^3.3.1
 
   yelp_repository:
     path: ../../../packages/yelp_repository

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -106,71 +107,30 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox.square(
-                        dimension: MediaQuery.of(context).size.width,
-                        child: Hero(
-                          tag: 'restaurant_${widget.restaurant.id}',
-                          child: CachedNetworkImage(
-                            imageUrl: widget.restaurant.photoUrl ?? '',
-                            errorWidget: (_, __, ___) =>
-                                const Icon(Icons.restaurant),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
+                      _buildImage(),
                       const SizedBox(height: 24.0),
                       ...[
-                        Row(
-                          children: [
-                            Text(widget.restaurant.price ?? ''),
-                            Text(widget.restaurant.category ?? ''),
-                            const Spacer(),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  widget.restaurant.isOpen ?? false
-                                      ? 'Open Now'
-                                      : 'Closed',
-                                ),
-                                Icon(
-                                  Icons.circle,
-                                  color: widget.restaurant.isOpen ?? false
-                                      ? Colors.green
-                                      : Colors.red,
-                                  size: 8.0,
-                                ),
-                                const SizedBox(width: 8.0),
-                              ],
-                            ),
-                          ],
+                        _buildCostCategoryAndAvailability(),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 24.0),
+                          child: Divider(),
                         ),
-                        const SizedBox(height: 24.0),
-                        const Divider(),
-                        const SizedBox(height: 24.0),
-                        const Text('Address'),
-                        const SizedBox(height: 24.0),
-                        Text(widget.restaurant.address ?? ''),
-                        const SizedBox(height: 24.0),
-                        const Divider(),
-                        const SizedBox(height: 24.0),
-                        const Text('Overall rating'),
-                        const SizedBox(height: 16.0),
-                        Row(
-                          children: [
-                            Text(widget.restaurant.rating?.toString() ?? ''),
-                            const Icon(Icons.star),
-                          ],
+                        ..._buildAddress(),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 24.0),
+                          child: Divider(),
                         ),
-                        const SizedBox(height: 24.0),
-                        const Divider(),
-                        const SizedBox(height: 24.0),
+                        ..._buildOverallRating(),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 24.0),
+                          child: Divider(),
+                        ),
                         Text(
                           '${_pagingController.value.itemList?.length ?? 0} Reviews',
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: ReviewTile(review: review)
+                          child: ReviewTile(review: review),
                         ),
                       ]
                           .map(
@@ -203,4 +163,49 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
       ),
     );
   }
+
+  Row _buildCostCategoryAndAvailability() {
+    return Row(
+      children: [
+        Text(widget.restaurant.price ?? ''),
+        Text(widget.restaurant.category ?? ''),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: AvailabilityIndicator(
+            isOpen: widget.restaurant.isOpen ?? false,
+          ),
+        )
+      ],
+    );
+  }
+
+  SizedBox _buildImage() => SizedBox.square(
+        dimension: MediaQuery.of(context).size.width,
+        child: Hero(
+          tag: 'restaurant_${widget.restaurant.id}',
+          child: CachedNetworkImage(
+            imageUrl: widget.restaurant.photoUrl ?? '',
+            errorWidget: (_, __, ___) => const Icon(Icons.restaurant),
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+
+  List<Widget> _buildAddress() => [
+        const Text('Address'),
+        const SizedBox(height: 24.0),
+        Text(widget.restaurant.address ?? '')
+      ];
+
+  List<Widget> _buildOverallRating() => [
+        const Text('Overall rating'),
+        const SizedBox(height: 16.0),
+        Row(
+          children: [
+            Text(widget.restaurant.rating?.toString() ?? ''),
+            const RatingStar(),
+          ],
+        ),
+      ];
 }

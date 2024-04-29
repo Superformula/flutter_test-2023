@@ -1,1 +1,2 @@
-export 'src/restaurant_card.dart';
+export 'src/rating_star.dart';
+export 'src/availability_indicator.dart';

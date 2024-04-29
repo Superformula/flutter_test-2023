@@ -20,6 +20,8 @@ dependencies:
     path: ../../../packages/yelp_repository
   domain_models:
     path: ../../../packages/domain_models
+  component_library:
+    path: ../../../packages/component_library
 
 dev_dependencies:
   flutter_test:

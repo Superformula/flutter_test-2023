@@ -1,30 +1,35 @@
-import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:restaurant_list/src/restaurant_card.dart';
 import 'package:restaurant_list/src/restaurant_list_cubit.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
 // TODO: Add localization texts
 class RestaurantListView extends StatelessWidget {
   final YelpRepository _yelpRepository;
+  final Function(Restaurant) onRestaurantTapped;
+
   const RestaurantListView({
     super.key,
     required YelpRepository yelpRepository,
+    required this.onRestaurantTapped,
   }) : _yelpRepository = yelpRepository;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RestaurantListCubit>(
       create: (context) => RestaurantListCubit(_yelpRepository),
-      child: const _RestaurantListView(),
+      child: _RestaurantListView(onRestaurantTapped: onRestaurantTapped),
     );
   }
 }
 
 class _RestaurantListView extends StatefulWidget {
-  const _RestaurantListView({super.key});
+  final Function(Restaurant) onRestaurantTapped;
+
+  const _RestaurantListView({super.key, required this.onRestaurantTapped});
 
   @override
   State<_RestaurantListView> createState() => _RestaurantListViewState();
@@ -98,7 +103,10 @@ class _RestaurantListViewState extends State<_RestaurantListView> {
                   builderDelegate: PagedChildBuilderDelegate<Restaurant>(
                     itemBuilder: (context, restaurant, index) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: RestaurantCard(restaurant: restaurant),
+                      child: RestaurantCard(
+                        restaurant: restaurant,
+                        onRestaurantTapped: widget.onRestaurantTapped,
+                      ),
                     ),
                   ),
                 );

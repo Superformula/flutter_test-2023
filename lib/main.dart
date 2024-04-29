@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_list/restaurant_list.dart';
+import 'package:restaurantour/app_router.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
 void main() {
@@ -18,16 +18,11 @@ class Restaurantour extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      onGenerateRoute: (settings) => AppRouter.generateRoute(
+        settings,
+        yelpRepository: YelpRepository(),
+      ),
+      initialRoute: PageName.restaurantList,
     );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return RestaurantListView(yelpRepository: YelpRepository());
   }
 }
