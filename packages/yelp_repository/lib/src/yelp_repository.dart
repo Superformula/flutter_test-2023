@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
+import 'package:yelp_repository/src/models/review.dart';
 import 'package:yelp_repository/src/web/client.dart';
 import 'package:yelp_repository/src/models/restaurant_query_result.dart';
 import 'package:domain_models/domain_models.dart' as domain;
@@ -46,7 +47,7 @@ class YelpRepository {
     return '''
 query getRestaurants {
   search(location: "Las Vegas", limit: 20, offset: $offset) {
-    total    
+    total
     business {
       id
       name
@@ -69,30 +70,7 @@ query getRestaurants {
 ''';
   }
 
-  /// Returns a response in this shape
-  ///
-  /// ```json
-  /// {
-  ///   "data": {
-  ///     "business": {
-  ///       "reviews": [
-  ///         {
-  ///           "id": "F8tEzjNcVF778CANn9tkLA",
-  ///           "rating": 5,
-  ///           "text": "Why in the world did I wait so long to visit Bavette's!? Don't make the same mistake as me and book your romantic date night here ASAP. \n\nIt may not look...",
-  ///           "time_created": "2024-04-10 15:55:00",
-  ///           "user": {
-  ///             "id": "zK4R5IFl5aBqePPEd0fvxw",
-  ///             "image_url": "https://s3-media3.fl.yelpcdn.com/photo/rBt0S0z6NESBswiuaELa8w/o.jpg",
-  ///             "name": "McKenzie S."
-  ///           }
-  ///         }
-  ///       ]
-  ///     }
-  ///   }
-  /// }
-  /// ```
-  Future<void> getReviews({
+  Future<List<domain.Review>> getReviews({
     required String restaurantId,
     int offset = 0,
   }) async {
@@ -109,7 +87,9 @@ query getRestaurants {
       );
     }
 
-    // TODO: Create a domain model for reviews and return it
+    final jsonList = json.decode(utf8.decode(response.bodyBytes))['data']
+        ['business']['reviews'] as List<dynamic>;
+    return jsonList.map((json) => Review.fromJson(json).toDomain).toList();
   }
 
   String _getReviewsQuery(String businessId, int offset) {

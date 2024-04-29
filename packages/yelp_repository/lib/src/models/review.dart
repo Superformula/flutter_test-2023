@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:yelp_repository/src/models/user.dart';
+import 'package:domain_models/domain_models.dart' as domain;
 
 part 'review.g.dart';
 
@@ -18,4 +19,10 @@ class Review {
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReviewToJson(this);
+
+  domain.Review get toDomain => domain.Review(
+        id: id ?? '',
+        rating: rating ?? 0,
+        text: user?.name ?? '',
+      );
 }
