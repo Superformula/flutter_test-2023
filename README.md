@@ -184,8 +184,9 @@ The coding challenge is a take-home test upon which we'll be conducting a thorou
 
 ----
 # Strategy
-- [ ] setup project folder structure
-- [ ] get restaurants from yelp api (study how to do pagination)
+- [x] setup project folder structure
+- [x] get restaurants from yelp api (study how to do pagination)
+- [ ] create local storage package (objectbox)
 - [ ] design the components that will be used in the screens
 
 # References

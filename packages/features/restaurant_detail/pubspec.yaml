@@ -18,6 +18,8 @@ dependencies:
 
   yelp_repository:
     path: ../../../packages/yelp_repository
+  local_storage:
+    path: ../../../packages/local_storage
   domain_models:
     path: ../../../packages/domain_models
   component_library:

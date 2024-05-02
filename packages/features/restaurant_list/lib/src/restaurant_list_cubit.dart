@@ -1,16 +1,21 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:local_storage/local_storage.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
 part 'restaurant_list_state.dart';
 
 class RestaurantListCubit extends Cubit<RestaurantListState> {
   final YelpRepository _yelpRepository;
+  final LocalStorage _localStorage;
   final int _pageSize = 20;
 
-  RestaurantListCubit(YelpRepository yelpRepository)
-      : _yelpRepository = yelpRepository,
+  RestaurantListCubit({
+    required YelpRepository yelpRepository,
+    required LocalStorage localStorage,
+  })  : _yelpRepository = yelpRepository,
+        _localStorage = localStorage,
         super(const RestaurantListState());
 
   Future<void> getRestaurants() async {
@@ -18,7 +23,6 @@ class RestaurantListCubit extends Cubit<RestaurantListState> {
       final result = await _yelpRepository.getRestaurants(
         offset: state.pageIndex * _pageSize,
       );
-      // TODO: Remove the restauratns that user has set as favorite
       emit(
         state.copyWith(
           pageStatus: PageStatus.success,
@@ -31,4 +35,7 @@ class RestaurantListCubit extends Cubit<RestaurantListState> {
       emit(state.copyWith(pageStatus: PageStatus.error));
     }
   }
+
+  Stream<List<Restaurant>> get favoriteRestaurants =>
+      _localStorage.restaurantListener;
 }

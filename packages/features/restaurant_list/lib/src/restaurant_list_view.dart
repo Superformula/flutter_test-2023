@@ -2,6 +2,7 @@ import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:local_storage/local_storage.dart';
 import 'package:restaurant_list/src/restaurant_card.dart';
 import 'package:restaurant_list/src/restaurant_list_cubit.dart';
 import 'package:yelp_repository/yelp_repository.dart';
@@ -9,18 +10,24 @@ import 'package:yelp_repository/yelp_repository.dart';
 // TODO: Add localization texts
 class RestaurantListView extends StatelessWidget {
   final YelpRepository _yelpRepository;
+  final LocalStorage _localStorage;
   final Function(Restaurant) onRestaurantTapped;
 
   const RestaurantListView({
     super.key,
     required YelpRepository yelpRepository,
+    required LocalStorage localStorage,
     required this.onRestaurantTapped,
-  }) : _yelpRepository = yelpRepository;
+  })  : _localStorage = localStorage,
+        _yelpRepository = yelpRepository;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RestaurantListCubit>(
-      create: (context) => RestaurantListCubit(_yelpRepository),
+      create: (context) => RestaurantListCubit(
+        yelpRepository: _yelpRepository,
+        localStorage: _localStorage,
+      ),
       child: _RestaurantListView(onRestaurantTapped: onRestaurantTapped),
     );
   }
@@ -101,21 +108,57 @@ class _RestaurantListViewState extends State<_RestaurantListView> {
                 return PagedListView<int, Restaurant>(
                   pagingController: _pagingController,
                   builderDelegate: PagedChildBuilderDelegate<Restaurant>(
-                    itemBuilder: (context, restaurant, index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: RestaurantCard(
-                        restaurant: restaurant,
-                        onRestaurantTapped: widget.onRestaurantTapped,
-                      ),
-                    ),
+                    itemBuilder: (context, restaurant, index) =>
+                        _buildRestaurantCard(restaurant),
                   ),
                 );
               },
             ),
-            const Center(child: Text('Favorites')),
+            BlocBuilder<RestaurantListCubit, RestaurantListState>(
+              builder: (context, state) {
+                final cubit = context.read<RestaurantListCubit>();
+                return StreamBuilder<List<Restaurant>>(
+                  stream: cubit.favoriteRestaurants,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Center(
+                        child: Text('Failed to fetch favorite restaurants'),
+                      );
+                    }
+
+                    if (snapshot.hasData) {
+                      final restaurants = snapshot.data ?? [];
+                      if (restaurants.isEmpty) {
+                        return const Center(
+                          child: Text('You have no favorite restaurants'),
+                        );
+                      } else {
+                        return ListView.builder(
+                          itemCount: restaurants.length,
+                          itemBuilder: (context, index) {
+                            final restaurant = restaurants[index];
+                            return _buildRestaurantCard(restaurant);
+                          },
+                        );
+                      }
+                    }
+
+                    return const Center(child: CircularProgressIndicator());
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),
     );
   }
+
+  Padding _buildRestaurantCard(Restaurant restaurant) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: RestaurantCard(
+          restaurant: restaurant,
+          onRestaurantTapped: widget.onRestaurantTapped,
+        ),
+      );
 }

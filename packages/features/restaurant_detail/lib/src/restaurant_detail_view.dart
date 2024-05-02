@@ -4,26 +4,31 @@ import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:local_storage/local_storage.dart';
 import 'package:restaurant_detail/src/restaurant_detail_cubit.dart';
 import 'package:restaurant_detail/src/review_tile.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
 class RestaurantDetailView extends StatelessWidget {
   final YelpRepository _yelpRepository;
+  final LocalStorage _localStorage;
   final Restaurant _restaurant;
 
   // TODO: Add localization texts
   const RestaurantDetailView({
     super.key,
     required YelpRepository yelpRepository,
+    required LocalStorage localStorage,
     required Restaurant restaurant,
   })  : _yelpRepository = yelpRepository,
+        _localStorage = localStorage,
         _restaurant = restaurant;
 
   @override
   Widget build(BuildContext context) => BlocProvider<RestaurantDetailCubit>(
         create: (context) => RestaurantDetailCubit(
           yelpRepository: _yelpRepository,
+          localStorage: _localStorage,
           restaurant: _restaurant,
         ),
         child: _RestaurantDetailView(restaurant: _restaurant),
@@ -62,15 +67,28 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<RestaurantDetailCubit>();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.restaurant.name ?? ''),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.favorite),
-            onPressed: () => print('Favorite button pressed'),
-          ),
+          StreamBuilder<bool>(
+              stream: cubit.isFavoriteRestaurant,
+              builder: (context, snapshot) {
+                final isFavorite = snapshot.hasData && (snapshot.data ?? false);
+
+                return IconButton(
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                  ),
+                  onPressed: snapshot.hasError
+                      ? null
+                      : isFavorite
+                          ? cubit.removeFavoriteRestaurant
+                          : cubit.addFavoriteRestaurant,
+                );
+              }),
         ],
       ),
       body: BlocConsumer<RestaurantDetailCubit, RestaurantDetailState>(

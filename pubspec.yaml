@@ -16,6 +16,7 @@ dependencies:
   dio: ^5.4.0
   json_annotation: ^4.8.1
   flutter_svg: ^2.0.9
+
   yelp_repository:
     path: packages/yelp_repository
   domain_models:
@@ -24,6 +25,8 @@ dependencies:
     path: packages/features/restaurant_list
   restaurant_detail:
     path: packages/features/restaurant_detail
+  local_storage:
+    path: packages/local_storage
 
 dev_dependencies:
   flutter_test:
