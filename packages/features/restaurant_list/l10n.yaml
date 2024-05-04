@@ -1,0 +1,6 @@
+arb-dir: lib/src/l10n
+template-arb-file: map_en.arb
+output-localization-file: restaurant_list_localizations.dart
+output-class: RestaurantListLocalizations
+synthetic-package: false
+nullable-getter: false

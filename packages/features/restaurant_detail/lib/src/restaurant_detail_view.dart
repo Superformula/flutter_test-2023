@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:local_storage/local_storage.dart';
+import 'package:restaurant_detail/restaurant_detail.dart';
 import 'package:restaurant_detail/src/restaurant_detail_cubit.dart';
 import 'package:restaurant_detail/src/review_tile.dart';
+import 'package:restaurant_detail/src/string_extension.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
 class RestaurantDetailView extends StatelessWidget {
@@ -14,7 +16,6 @@ class RestaurantDetailView extends StatelessWidget {
   final LocalStorage _localStorage;
   final Restaurant _restaurant;
 
-  // TODO: Add localization texts
   const RestaurantDetailView({
     super.key,
     required YelpRepository yelpRepository,
@@ -68,6 +69,8 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<RestaurantDetailCubit>();
+    final l10n = RestaurantDetailLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.restaurant.name ?? ''),
@@ -97,8 +100,8 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
             ScaffoldMessenger.of(context)
               ..removeCurrentSnackBar()
               ..showSnackBar(
-                const SnackBar(
-                  content: Text('Failed to fetch reviews'),
+                SnackBar(
+                  content: Text(l10n.errorToFetchReviewsMessage),
                   behavior: SnackBarBehavior.floating,
                 ),
               );
@@ -133,18 +136,22 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
                           padding: EdgeInsets.symmetric(vertical: 24.0),
                           child: Divider(),
                         ),
-                        ..._buildAddress(),
+                        ..._buildAddress(l10n),
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 24.0),
                           child: Divider(),
                         ),
-                        ..._buildOverallRating(),
+                        ..._buildOverallRating(l10n),
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 24.0),
                           child: Divider(),
                         ),
                         Text(
-                          '${_pagingController.value.itemList?.length ?? 0} Reviews',
+                          l10n.reviewsQuantity.format(
+                            [
+                              '${_pagingController.value.itemList?.length ?? 0}'
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -210,14 +217,14 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
         ),
       );
 
-  List<Widget> _buildAddress() => [
-        const Text('Address'),
+  List<Widget> _buildAddress(RestaurantDetailLocalizations l10n) => [
+        Text(l10n.addressSectionTitle),
         const SizedBox(height: 24.0),
         Text(widget.restaurant.address ?? '')
       ];
 
-  List<Widget> _buildOverallRating() => [
-        const Text('Overall rating'),
+  List<Widget> _buildOverallRating(RestaurantDetailLocalizations l10n) => [
+        Text(l10n.ratingSectionTitle),
         const SizedBox(height: 16.0),
         Row(
           children: [

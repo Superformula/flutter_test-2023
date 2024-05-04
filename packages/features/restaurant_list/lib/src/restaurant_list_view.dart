@@ -1,13 +1,15 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:local_storage/local_storage.dart';
+import 'package:restaurant_list/restaurant_list.dart';
+import 'package:restaurant_list/src/assets.dart';
 import 'package:restaurant_list/src/restaurant_card.dart';
 import 'package:restaurant_list/src/restaurant_list_cubit.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
-// TODO: Add localization texts
 class RestaurantListView extends StatelessWidget {
   final YelpRepository _yelpRepository;
   final LocalStorage _localStorage;
@@ -63,96 +65,122 @@ class _RestaurantListViewState extends State<_RestaurantListView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = RestaurantListLocalizations.of(context);
+
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('RestauranTour'),
+          title: Text(l10n.appBarTitle),
           centerTitle: true,
-          bottom: const TabBar(
+          bottom: TabBar(
             tabs: [
-              Tab(text: 'All restaurants'),
-              Tab(text: 'My favorites'),
+              Tab(text: l10n.allRestaurantsTabTitle),
+              Tab(text: l10n.favoritesTabTitle),
             ],
           ),
         ),
         body: TabBarView(
           children: [
-            BlocConsumer<RestaurantListCubit, RestaurantListState>(
-              listener: (context, state) {
-                if (state.pageStatus.isError) {
-                  ScaffoldMessenger.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(
-                      const SnackBar(
-                        content: Text('Failed to fetch restaurants'),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                } else if (state.pageStatus.isSuccess) {
-                  if (state.isLastPage) {
-                    _pagingController.appendLastPage(state.restaurants);
-                  } else {
-                    _pagingController.appendPage(
-                      state.restaurants,
-                      state.pageIndex,
-                    );
-                  }
-                }
-              },
-              builder: (context, state) {
-                if (state.pageStatus.isInitial) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                return PagedListView<int, Restaurant>(
-                  pagingController: _pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<Restaurant>(
-                    itemBuilder: (context, restaurant, index) =>
-                        _buildRestaurantCard(restaurant),
-                  ),
-                );
-              },
-            ),
-            BlocBuilder<RestaurantListCubit, RestaurantListState>(
-              builder: (context, state) {
-                final cubit = context.read<RestaurantListCubit>();
-                return StreamBuilder<List<Restaurant>>(
-                  stream: cubit.favoriteRestaurants,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return const Center(
-                        child: Text('Failed to fetch favorite restaurants'),
-                      );
-                    }
-
-                    if (snapshot.hasData) {
-                      final restaurants = snapshot.data ?? [];
-                      if (restaurants.isEmpty) {
-                        return const Center(
-                          child: Text('You have no favorite restaurants'),
-                        );
-                      } else {
-                        return ListView.builder(
-                          itemCount: restaurants.length,
-                          itemBuilder: (context, index) {
-                            final restaurant = restaurants[index];
-                            return _buildRestaurantCard(restaurant);
-                          },
-                        );
-                      }
-                    }
-
-                    return const Center(child: CircularProgressIndicator());
-                  },
-                );
-              },
-            ),
+            _buildAllRestaurants(l10n),
+            _buildFavoriteRestaurants(l10n),
           ],
         ),
       ),
     );
   }
+
+  Widget _buildFavoriteRestaurants(RestaurantListLocalizations l10n) =>
+      BlocBuilder<RestaurantListCubit, RestaurantListState>(
+        builder: (context, state) {
+          final cubit = context.read<RestaurantListCubit>();
+          return StreamBuilder<List<Restaurant>>(
+            stream: cubit.favoriteRestaurants,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text(l10n.errorToFetchFavoritesErrorMessage),
+                );
+              }
+
+              if (snapshot.hasData) {
+                final restaurants = snapshot.data ?? [];
+                if (restaurants.isEmpty) {
+                  return Column(
+                    children: [
+                      const Spacer(),
+                      SizedBox.square(
+                        dimension: 200,
+                        child: SvgPicture.asset(
+                          Assets.emptyFavoritesPath,
+                        ),
+                      ),
+                      Text(l10n.emptyFavoritesMessage),
+                      const Spacer(),
+                    ],
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: restaurants.length,
+                    itemBuilder: (context, index) {
+                      final restaurant = restaurants[index];
+                      return _buildRestaurantCard(restaurant);
+                    },
+                  );
+                }
+              }
+
+              return const Center(child: CircularProgressIndicator());
+            },
+          );
+        },
+      );
+
+  Widget _buildAllRestaurants(RestaurantListLocalizations l10n) =>
+      BlocConsumer<RestaurantListCubit, RestaurantListState>(
+        listener: (context, state) {
+          if (state.pageStatus.isSuccess) {
+            if (state.isLastPage) {
+              _pagingController.appendLastPage(state.restaurants);
+            } else {
+              _pagingController.appendPage(
+                state.restaurants,
+                state.pageIndex,
+              );
+            }
+          }
+        },
+        builder: (context, state) {
+          if (state.pageStatus.isInitial) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (state.pageStatus.isError) {
+            return Column(
+              children: [
+                const Spacer(),
+                SizedBox.square(
+                  dimension: 200,
+                  child: SvgPicture.asset(
+                    Assets.errorToFetchRestaurantsPath,
+                  ),
+                ),
+                Text(l10n.errorToFetchAllRestaurantsErrorMessage),
+                const Spacer(),
+              ],
+            );
+          }
+
+          return PagedListView<int, Restaurant>(
+            pagingController: _pagingController,
+            builderDelegate: PagedChildBuilderDelegate<Restaurant>(
+              itemBuilder: (context, restaurant, index) =>
+                  _buildRestaurantCard(restaurant),
+            ),
+          );
+        },
+      );
 
   Padding _buildRestaurantCard(Restaurant restaurant) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),

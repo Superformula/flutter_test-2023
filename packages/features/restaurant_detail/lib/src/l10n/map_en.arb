@@ -1,0 +1,6 @@
+{
+	"errorToFetchReviewsMessage": "Failed to fetch reviews",
+	"reviewsQuantity": "%s Reviews",
+	"addressSectionTitle": "Address",
+	"ratingSectionTitle": "Overall rating"
+}
