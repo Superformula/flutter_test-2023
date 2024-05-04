@@ -72,7 +72,7 @@ class RestaurantCard extends StatelessWidget {
                               Row(
                                 children: [
                                   ...List.generate(
-                                    restaurant.rating?.ceil() ?? 0,
+                                    restaurant.rating?.round() ?? 0,
                                     (index) => const RatingStar(),
                                   ).toList(),
                                 ],

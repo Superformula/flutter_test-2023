@@ -5,13 +5,28 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "app",
+            "name": "app-dev",
             "request": "launch",
             "type": "dart",
-            "args": [
-                "--dart-define",
-				"yelpApiKey=you_api_key_here",
-            ]
-        }
+            "program": "${workspaceFolder}\/lib\/main_dev.dart",
+        },
+        {
+            "name": "app-prod",
+            "request": "launch",
+            "type": "dart",
+            "program": "${workspaceFolder}\/lib\/main_prod.dart",
+        },
+        {
+            "name": "app-dev-windows",
+            "request": "launch",
+            "type": "dart",
+            "program": "${workspaceFolder}\\lib\\main_dev.dart",
+        },
+        {
+            "name": "app-prod-windows",
+            "request": "launch",
+            "type": "dart",
+            "program": "${workspaceFolder}\\lib\\main_prod.dart",
+        },
     ]
 }

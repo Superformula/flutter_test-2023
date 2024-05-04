@@ -228,7 +228,7 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
         const SizedBox(height: 16.0),
         Row(
           children: [
-            Text(widget.restaurant.rating?.toString() ?? ''),
+            Text(widget.restaurant.rating?.toStringAsFixed(2) ?? ''),
             const RatingStar(),
           ],
         ),

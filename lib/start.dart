@@ -6,7 +6,7 @@ import 'package:restaurant_list/restaurant_list.dart';
 import 'package:restaurantour/app_router.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
-void main() async {
+void start() async {
   WidgetsFlutterBinding.ensureInitialized();
   final localStorage = await LocalStorage.create();
   runApp(Restaurantour(localStorage: localStorage));

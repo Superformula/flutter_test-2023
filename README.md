@@ -192,4 +192,5 @@ The coding challenge is a take-home test upon which we'll be conducting a thorou
 
 # References
 [graphQL validation](https://docs.developer.yelp.com/graphql/)
+
 [using graphQL](https://docs.developer.yelp.com/docs/graphql-basic-usage)
