@@ -124,6 +124,9 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
             pagingController: _pagingController,
             builderDelegate: PagedChildBuilderDelegate<Review>(
               itemBuilder: (context, review, index) {
+                // TODO: build restaurant details splited from reviews
+                // The way it's if there is no reviews the restaurant details
+                // will not be displayed
                 if (index == 0) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

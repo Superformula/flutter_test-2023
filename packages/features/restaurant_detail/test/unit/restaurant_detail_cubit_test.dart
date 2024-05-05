@@ -193,7 +193,7 @@ void main() {
       resetMockitoState();
     });
 
-    // Errors with the stream are hanlded in the screen
+    // Errors with the stream are handled in the screen
     test(
       'consume isFavoriteRestaurant stream',
       () {

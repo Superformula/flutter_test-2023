@@ -10,6 +10,14 @@ import 'package:restaurant_list/src/restaurant_card.dart';
 import 'package:restaurant_list/src/restaurant_list_cubit.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
+const restaurantListAllRestaurantsTabKey = Key(
+  'restaurantListAllRestaurantsTabKey',
+);
+const restaurantListFavoritesRestaurantsTabKey = Key(
+  'restaurantListFavoritesRestaurantsTabKey',
+);
+const emptyFavoritesImageKey = Key('emptyFavoritesImageKey');
+
 class RestaurantListView extends StatelessWidget {
   final YelpRepository _yelpRepository;
   final LocalStorage _localStorage;
@@ -76,8 +84,14 @@ class _RestaurantListViewState extends State<_RestaurantListView> {
           centerTitle: true,
           bottom: TabBar(
             tabs: [
-              Tab(text: l10n.allRestaurantsTabTitle),
-              Tab(text: l10n.favoritesTabTitle),
+              Tab(
+                key: restaurantListAllRestaurantsTabKey,
+                text: l10n.allRestaurantsTabTitle,
+              ),
+              Tab(
+                key: restaurantListFavoritesRestaurantsTabKey,
+                text: l10n.favoritesTabTitle,
+              ),
             ],
           ),
         ),
@@ -111,6 +125,7 @@ class _RestaurantListViewState extends State<_RestaurantListView> {
                     children: [
                       const Spacer(),
                       SizedBox.square(
+                        key: emptyFavoritesImageKey,
                         dimension: 200,
                         child: SvgPicture.asset(
                           Assets.emptyFavoritesPath,

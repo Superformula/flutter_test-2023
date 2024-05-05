@@ -10,16 +10,24 @@ import 'package:yelp_repository/yelp_repository.dart';
 void start() async {
   WidgetsFlutterBinding.ensureInitialized();
   final localStorage = await LocalStorage.create();
-  runApp(Restaurantour(localStorage: localStorage));
+  runApp(
+    Restaurantour(
+      yelpRepository: YelpRepository(),
+      localStorage: localStorage,
+    ),
+  );
 }
 
 class Restaurantour extends StatelessWidget {
+  final YelpRepository _yelpRepository;
   final LocalStorage _localStorage;
 
   const Restaurantour({
     Key? key,
+    required YelpRepository yelpRepository,
     required LocalStorage localStorage,
-  })  : _localStorage = localStorage,
+  })  : _yelpRepository = yelpRepository,
+        _localStorage = localStorage,
         super(key: key);
 
   @override
@@ -40,7 +48,7 @@ class Restaurantour extends StatelessWidget {
       ),
       onGenerateRoute: (settings) => AppRouter.generateRoute(
         settings,
-        yelpRepository: YelpRepository(),
+        yelpRepository: _yelpRepository,
         localStorage: _localStorage,
       ),
       initialRoute: PageName.restaurantList,

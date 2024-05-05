@@ -1,20 +1,85 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+import 'package:domain_models/domain_models.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:local_storage/local_storage.dart';
 
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:restaurant_detail/restaurant_detail.dart';
+import 'package:restaurant_list/restaurant_list.dart';
+import 'package:restaurantour/start.dart';
+import 'package:yelp_repository/yelp_repository.dart';
 
-// import 'package:restaurantour/main.dart';
+import 'events/events.dart';
+import 'widget_test.mocks.dart';
 
-// void main() {
-//   testWidgets('Page loads', (WidgetTester tester) async {
-//     // Build our app and trigger a frame.
-//     await tester.pumpWidget(const Restaurantour());
+@GenerateMocks([LocalStorage, YelpRepository])
+void main() {
+  final yelpRepository = MockYelpRepository();
+  final localStorage = MockLocalStorage();
+  final restaurants = List.generate(
+    21,
+    (index) => Restaurant(
+      id: 'id_$index',
+      name: 'name_$index',
+      price: 'price_$index',
+      rating: 4.6,
+      photoUrl: 'photoUrl_$index',
+      category: 'category_$index',
+      isOpen: true,
+      address: 'address_$index',
+    ),
+  );
 
-//     // Verify that tests will run
-//     expect(find.text('Fetch Restaurants'), findsOneWidget);
-//   });
-// }
+  setUp(() {
+    when(yelpRepository.getRestaurants())
+        .thenAnswer((_) => Future.value(restaurants));
+    when(
+      yelpRepository.getReviews(
+        restaurantId: anyNamed('restaurantId'),
+        offset: anyNamed('offset'),
+      ),
+    ).thenAnswer((_) => Future.value([]));
+    when(localStorage.restaurantListener).thenAnswer((_) => Stream.value([]));
+  });
+
+  tearDown(() {
+    reset(yelpRepository);
+    reset(localStorage);
+    resetMockitoState();
+  });
+
+  // TODO: indentify what is using real http request and mock it
+  testWidgets('Set restaurant as favorite', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      Restaurantour(
+        yelpRepository: yelpRepository,
+        localStorage: localStorage,
+      ),
+    );
+
+    final restaurantListView = find.byType(RestaurantListView);
+    expect(restaurantListView, findsOneWidget);
+
+    await tapOnFavoritesTab(tester);
+    await tester.pumpAndSettle();
+
+    final emptyFavoriteImage = find.byKey(emptyFavoritesImageKey);
+    expect(emptyFavoriteImage, findsOneWidget);
+
+    await tapOnAllRestaurantsTab(tester);
+    await tester.pumpAndSettle();
+
+    tapFirstRestaurantCard(tester);
+    await tester.pumpAndSettle();
+
+    final restaurantDetailView = find.byType(RestaurantDetailView);
+    expect(restaurantDetailView, findsOneWidget);
+
+    tapOnBorderedHeart(tester);
+    await tester.pumpAndSettle();
+
+    final heart = find.byIcon(Icons.favorite);
+    expect(heart, findsOneWidget);
+  });
+}
