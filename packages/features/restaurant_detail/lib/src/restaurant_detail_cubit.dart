@@ -43,11 +43,22 @@ class RestaurantDetailCubit extends Cubit<RestaurantDetailState> {
     }
   }
 
-  void addFavoriteRestaurant() => _localStorage.addRestaurant(_restaurant);
+  void addFavoriteRestaurant() {
+    try {
+      _localStorage.addRestaurant(_restaurant);
+    } catch (e) {
+      // log error at loging tool (firebase, new relic,...)
+    }
+  }
 
   void removeFavoriteRestaurant() {
     if (_restaurant.id != null) {
-      _localStorage.removeRestaurant(_restaurant.id!);
+      final isRestaurantDeleted = _localStorage.removeRestaurant(
+        _restaurant.id!,
+      );
+      if (!isRestaurantDeleted) {
+        // log error at loging tool (firebase, new relic,...)
+      }
     }
   }
 

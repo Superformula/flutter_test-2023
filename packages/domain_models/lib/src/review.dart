@@ -19,4 +19,17 @@ class Review extends Equatable {
 
   @override
   bool? get stringify => true;
+
+  Review copyWith({
+    String? id,
+    int? rating,
+    String? text,
+    User? user,
+  }) =>
+      Review(
+        id: id ?? this.id,
+        rating: rating ?? this.rating,
+        text: text ?? this.text,
+        user: user ?? this.user,
+      );
 }

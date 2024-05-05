@@ -30,6 +30,8 @@
 .pub-cache/
 .pub/
 /build/
+**/build/
+**/*.mocks.dart
 
 # Web related
 lib/generated_plugin_registrant.dart
