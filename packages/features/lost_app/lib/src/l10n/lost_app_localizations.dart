@@ -96,6 +96,12 @@ abstract class LostAppLocalizations {
   /// In en, this message translates to:
   /// **'Oops! Looks like we got lost.'**
   String get appLostMessage;
+
+  /// No description provided for @startOverButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get startOverButton;
 }
 
 class _LostAppLocalizationsDelegate extends LocalizationsDelegate<LostAppLocalizations> {

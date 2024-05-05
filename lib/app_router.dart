@@ -39,7 +39,12 @@ class AppRouter {
 
       default:
         return MaterialPageRoute(
-          builder: (context) => const LostAppView(),
+          builder: (context) => LostAppView(
+            onTapStartOver: () => Navigator.of(context).pushNamedAndRemoveUntil(
+              PageName.restaurantList,
+              (route) => false,
+            ),
+          ),
         );
     }
   }

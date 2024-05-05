@@ -6,4 +6,7 @@ class LostAppLocalizationsEn extends LostAppLocalizations {
 
   @override
   String get appLostMessage => 'Oops! Looks like we got lost.';
+
+  @override
+  String get startOverButton => 'Start over';
 }

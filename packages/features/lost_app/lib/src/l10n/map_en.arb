@@ -1,3 +1,4 @@
 {
-	"appLostMessage": "Oops! Looks like we got lost."
+	"appLostMessage": "Oops! Looks like we got lost.",
+	"startOverButton": "Start over"
 }
