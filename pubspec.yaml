@@ -19,6 +19,7 @@ dependencies:
     sdk: flutter
   equatable: ^2.0.5
   get_it: ^7.6.7
+  flutter_svg: ^2.0.9
 
   yelp_repository:
     path: packages/yelp_repository
@@ -28,6 +29,8 @@ dependencies:
     path: packages/features/restaurant_list
   restaurant_detail:
     path: packages/features/restaurant_detail
+  lost_app:
+    path: packages/features/lost_app
   local_storage:
     path: packages/local_storage
 

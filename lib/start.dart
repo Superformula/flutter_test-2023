@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:local_storage/local_storage.dart';
+import 'package:lost_app/lost_app.dart';
 import 'package:restaurant_detail/restaurant_detail.dart';
 import 'package:restaurant_list/restaurant_list.dart';
 import 'package:restaurantour/app_router.dart';
@@ -31,6 +32,7 @@ class Restaurantour extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         RestaurantListLocalizations.delegate,
         RestaurantDetailLocalizations.delegate,
+        LostAppLocalizations.delegate,
       ],
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,

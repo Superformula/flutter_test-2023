@@ -1,6 +1,7 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:local_storage/local_storage.dart';
+import 'package:lost_app/lost_app.dart';
 import 'package:restaurant_detail/restaurant_detail.dart';
 import 'package:restaurant_list/restaurant_list.dart';
 import 'package:yelp_repository/yelp_repository.dart';
@@ -36,14 +37,9 @@ class AppRouter {
           ),
         );
 
-      // TODO: Create a proper screen for this scenario
       default:
         return MaterialPageRoute(
-          builder: (context) => Scaffold(
-            appBar: AppBar(
-              title: const Text('The app got lost'),
-            ),
-          ),
+          builder: (context) => const LostAppView(),
         );
     }
   }
