@@ -123,52 +123,20 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
           return PagedListView<int, Review>(
             pagingController: _pagingController,
             builderDelegate: PagedChildBuilderDelegate<Review>(
+              noItemsFoundIndicatorBuilder: (context) =>
+                  _buildRestaurantDetail(),
               itemBuilder: (context, review, index) {
-                // TODO: build restaurant details splited from reviews
-                // The way it's if there is no reviews the restaurant details
-                // will not be displayed
                 if (index == 0) {
                   return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildImage(),
-                      const SizedBox(height: 24.0),
-                      ...[
-                        _buildCostCategoryAndAvailability(),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 24.0),
-                          child: Divider(),
+                      _buildRestaurantDetail(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16.0,
+                          horizontal: 24.0,
                         ),
-                        ..._buildAddress(l10n),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 24.0),
-                          child: Divider(),
-                        ),
-                        ..._buildOverallRating(l10n),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 24.0),
-                          child: Divider(),
-                        ),
-                        Text(
-                          l10n.reviewsQuantity.format(
-                            [
-                              '${_pagingController.value.itemList?.length ?? 0}'
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: ReviewTile(review: review),
-                        ),
-                      ]
-                          .map(
-                            (widget) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 24.0),
-                              child: widget,
-                            ),
-                          )
-                          .toList(),
+                        child: ReviewTile(review: review),
+                      ),
                     ],
                   );
                 }
@@ -189,6 +157,47 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
           );
         },
       ),
+    );
+  }
+
+  Widget _buildRestaurantDetail() {
+    final l10n = RestaurantDetailLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildImage(),
+        const SizedBox(height: 24.0),
+        ...[
+          _buildCostCategoryAndAvailability(),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 24.0),
+            child: Divider(),
+          ),
+          ..._buildAddress(l10n),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 24.0),
+            child: Divider(),
+          ),
+          ..._buildOverallRating(l10n),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 24.0),
+            child: Divider(),
+          ),
+          Text(
+            l10n.reviewsQuantity.format(
+              ['${_pagingController.value.itemList?.length ?? 0}'],
+            ),
+          ),
+          const SizedBox(height: 20.0),
+        ]
+            .map(
+              (widget) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: widget,
+              ),
+            )
+            .toList(),
+      ],
     );
   }
 
