@@ -17,15 +17,9 @@ Future<void> tapOnAllRestaurantsTab(WidgetTester tester) async {
 }
 
 Future<void> tapFirstRestaurantCard(WidgetTester tester) async {
-  final restaurantCard = find.byType(RestaurantCard);
-  expect(restaurantCard, findsWidgets);
-  final firstRestaurantCard = find.descendant(
-    of: restaurantCard.first,
-    matching: find.byType(RestaurantCard),
-  );
-  expect(firstRestaurantCard, findsOneWidget);
-  await tester.ensureVisible(firstRestaurantCard);
-  return tester.tap(firstRestaurantCard);
+  final restaurantCards = find.byType(RestaurantCard);
+  expect(restaurantCards, findsWidgets);
+  return tester.tap(restaurantCards.first);
 }
 
 Future<void> tapOnBorderedHeart(WidgetTester tester) async {

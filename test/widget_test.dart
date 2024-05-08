@@ -1,5 +1,4 @@
 import 'package:domain_models/domain_models.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:local_storage/local_storage.dart';
 
@@ -41,6 +40,9 @@ void main() {
       ),
     ).thenAnswer((_) => Future.value([]));
     when(localStorage.restaurantListener).thenAnswer((_) => Stream.value([]));
+    when(localStorage.containsRestaurantListener(any))
+        .thenAnswer((_) => Stream.value(false));
+    when(localStorage.addRestaurant(any)).thenReturn(1);
   });
 
   tearDown(() {
@@ -49,7 +51,6 @@ void main() {
     resetMockitoState();
   });
 
-  // TODO: indentify what is using real http request and mock it
   testWidgets('Set restaurant as favorite', (WidgetTester tester) async {
     await tester.pumpWidget(
       Restaurantour(
@@ -70,16 +71,14 @@ void main() {
     await tapOnAllRestaurantsTab(tester);
     await tester.pumpAndSettle();
 
-    tapFirstRestaurantCard(tester);
+    await tapFirstRestaurantCard(tester);
     await tester.pumpAndSettle();
 
     final restaurantDetailView = find.byType(RestaurantDetailView);
     expect(restaurantDetailView, findsOneWidget);
 
-    tapOnBorderedHeart(tester);
+    await tapOnBorderedHeart(tester);
     await tester.pumpAndSettle();
-
-    final heart = find.byIcon(Icons.favorite);
-    expect(heart, findsOneWidget);
+    verify(localStorage.addRestaurant(restaurants.first)).called(1);
   });
 }
