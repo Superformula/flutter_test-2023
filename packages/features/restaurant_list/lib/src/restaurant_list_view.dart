@@ -6,7 +6,6 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:local_storage/local_storage.dart';
 import 'package:restaurant_list/restaurant_list.dart';
 import 'package:restaurant_list/src/assets.dart';
-import 'package:restaurant_list/src/restaurant_card.dart';
 import 'package:restaurant_list/src/restaurant_list_cubit.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
@@ -74,13 +73,17 @@ class _RestaurantListViewState extends State<_RestaurantListView> {
   @override
   Widget build(BuildContext context) {
     final l10n = RestaurantListLocalizations.of(context);
+    final theme = Theme.of(context);
 
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(l10n.appBarTitle),
+          title: Text(
+            l10n.appBarTitle,
+            style: theme.textTheme.headline6,
+          ),
           centerTitle: true,
           bottom: TabBar(
             tabs: [

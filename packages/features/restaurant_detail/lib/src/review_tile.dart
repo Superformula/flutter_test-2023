@@ -9,6 +9,7 @@ class ReviewTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -21,6 +22,7 @@ class ReviewTile extends StatelessWidget {
         Text(
           review.text ?? '',
           maxLines: 3,
+          style: theme.textTheme.bodyText1,
         ),
         Row(
           children: [
@@ -36,7 +38,10 @@ class ReviewTile extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8.0),
-            Text(review.user?.name ?? ''),
+            Text(
+              review.user?.name ?? '',
+              style: theme.textTheme.caption,
+            ),
           ],
         ),
       ],

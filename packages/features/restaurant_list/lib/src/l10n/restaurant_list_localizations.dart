@@ -100,13 +100,13 @@ abstract class RestaurantListLocalizations {
   /// No description provided for @allRestaurantsTabTitle.
   ///
   /// In en, this message translates to:
-  /// **'All restaurants'**
+  /// **'All Restaurants'**
   String get allRestaurantsTabTitle;
 
   /// No description provided for @favoritesTabTitle.
   ///
   /// In en, this message translates to:
-  /// **'MyFavorites'**
+  /// **'My Favorites'**
   String get favoritesTabTitle;
 
   /// No description provided for @errorToFetchAllRestaurantsErrorMessage.
@@ -126,6 +126,18 @@ abstract class RestaurantListLocalizations {
   /// In en, this message translates to:
   /// **'No chef has achieved your heart yet'**
   String get emptyFavoritesMessage;
+
+  /// No description provided for @isOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Now'**
+  String get isOpen;
+
+  /// No description provided for @isClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get isClosed;
 }
 
 class _RestaurantListLocalizationsDelegate extends LocalizationsDelegate<RestaurantListLocalizations> {

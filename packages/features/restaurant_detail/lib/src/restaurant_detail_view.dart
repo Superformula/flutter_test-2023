@@ -125,6 +125,8 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
             builderDelegate: PagedChildBuilderDelegate<Review>(
               noItemsFoundIndicatorBuilder: (context) =>
                   _buildRestaurantDetail(),
+              newPageErrorIndicatorBuilder: (context) =>
+                  _buildRestaurantDetail(),
               itemBuilder: (context, review, index) {
                 if (index == 0) {
                   return Column(
@@ -187,6 +189,7 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
             l10n.reviewsQuantity.format(
               ['${_pagingController.value.itemList?.length ?? 0}'],
             ),
+            style: Theme.of(context).textTheme.caption,
           ),
           const SizedBox(height: 20.0),
         ]
@@ -202,15 +205,21 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
   }
 
   Row _buildCostCategoryAndAvailability() {
+    final l10n = RestaurantDetailLocalizations.of(context);
+    final theme = Theme.of(context);
     return Row(
       children: [
-        Text(widget.restaurant.price ?? ''),
-        Text(widget.restaurant.category ?? ''),
+        Text(
+          '${widget.restaurant.price ?? ''}, ${widget.restaurant.category ?? ''}',
+          style: theme.textTheme.caption,
+        ),
         const Spacer(),
         Padding(
           padding: const EdgeInsets.only(right: 8.0),
           child: AvailabilityIndicator(
             isOpen: widget.restaurant.isOpen ?? false,
+            isOpenText: l10n.isOpen,
+            isClosedText: l10n.isClosed,
           ),
         )
       ],
@@ -229,20 +238,45 @@ class _RestaurantDetailViewState extends State<_RestaurantDetailView> {
         ),
       );
 
-  List<Widget> _buildAddress(RestaurantDetailLocalizations l10n) => [
-        Text(l10n.addressSectionTitle),
-        const SizedBox(height: 24.0),
-        Text(widget.restaurant.address ?? '')
-      ];
+  List<Widget> _buildAddress(RestaurantDetailLocalizations l10n) {
+    final theme = Theme.of(context);
+    return [
+      Text(
+        l10n.addressSectionTitle,
+        style: theme.textTheme.caption,
+      ),
+      const SizedBox(height: 24.0),
+      Text(
+        widget.restaurant.address ?? '',
+        style: theme.textTheme.button,
+      )
+    ];
+  }
 
-  List<Widget> _buildOverallRating(RestaurantDetailLocalizations l10n) => [
-        Text(l10n.ratingSectionTitle),
-        const SizedBox(height: 16.0),
-        Row(
-          children: [
-            Text(widget.restaurant.rating?.toStringAsFixed(2) ?? ''),
-            const RatingStar(),
-          ],
-        ),
-      ];
+  List<Widget> _buildOverallRating(RestaurantDetailLocalizations l10n) {
+    final theme = Theme.of(context);
+    return [
+      Text(
+        l10n.ratingSectionTitle,
+        style: theme.textTheme.caption,
+      ),
+      const SizedBox(height: 16.0),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            widget.restaurant.rating?.toStringAsFixed(2) ?? '',
+            style: theme.textTheme.headline6?.copyWith(
+              fontSize: 28.0,
+              height: 36.0/28.0,
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 4.0),
+            child: RatingStar(),
+          ),
+        ],
+      ),
+    ];
+  }
 }

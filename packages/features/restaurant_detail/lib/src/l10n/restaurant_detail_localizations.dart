@@ -114,6 +114,18 @@ abstract class RestaurantDetailLocalizations {
   /// In en, this message translates to:
   /// **'Overall rating'**
   String get ratingSectionTitle;
+
+  /// No description provided for @isOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Now'**
+  String get isOpen;
+
+  /// No description provided for @isClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get isClosed;
 }
 
 class _RestaurantDetailLocalizationsDelegate extends LocalizationsDelegate<RestaurantDetailLocalizations> {

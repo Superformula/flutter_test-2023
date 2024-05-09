@@ -5,6 +5,7 @@ import 'package:lost_app/lost_app.dart';
 import 'package:restaurant_detail/restaurant_detail.dart';
 import 'package:restaurant_list/restaurant_list.dart';
 import 'package:restaurantour/app_router.dart';
+import 'package:restaurantour/app_theme.dart';
 import 'package:yelp_repository/yelp_repository.dart';
 
 void start() async {
@@ -42,10 +43,7 @@ class Restaurantour extends StatelessWidget {
         RestaurantDetailLocalizations.delegate,
         LostAppLocalizations.delegate,
       ],
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        useMaterial3: true,
-      ),
+      theme: AppTheme.lightTheme,
       onGenerateRoute: (settings) => AppRouter.generateRoute(
         settings,
         yelpRepository: _yelpRepository,

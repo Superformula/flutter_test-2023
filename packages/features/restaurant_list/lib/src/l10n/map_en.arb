@@ -1,8 +1,10 @@
 {
 	"appBarTitle": "RestauranTour",
-	"allRestaurantsTabTitle": "All restaurants",
-	"favoritesTabTitle": "MyFavorites",
+	"allRestaurantsTabTitle": "All Restaurants",
+	"favoritesTabTitle": "My Favorites",
 	"errorToFetchAllRestaurantsErrorMessage": "Failed to fetch restaurants",
 	"errorToFetchFavoritesErrorMessage": "Failed to fetch favorite restaurants",
-	"emptyFavoritesMessage": "No chef has achieved your heart yet"
+	"emptyFavoritesMessage": "No chef has achieved your heart yet",
+	"isOpen": "Open Now",
+	"isClosed": "Closed"
 }

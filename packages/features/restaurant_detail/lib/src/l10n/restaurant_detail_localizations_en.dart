@@ -15,4 +15,10 @@ class RestaurantDetailLocalizationsEn extends RestaurantDetailLocalizations {
 
   @override
   String get ratingSectionTitle => 'Overall rating';
+
+  @override
+  String get isOpen => 'Open Now';
+
+  @override
+  String get isClosed => 'Closed';
 }

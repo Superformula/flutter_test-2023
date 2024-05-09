@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurant_list/restaurant_list.dart';
 
 class RestaurantCard extends StatelessWidget {
   final Function(Restaurant) onRestaurantTapped;
@@ -13,10 +14,12 @@ class RestaurantCard extends StatelessWidget {
     required this.onRestaurantTapped,
   });
 
-  // TODO: Add style
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = RestaurantListLocalizations.of(context);
     return Card(
+      color: theme.colorScheme.surface,
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () => onRestaurantTapped(restaurant),
@@ -53,6 +56,7 @@ class RestaurantCard extends StatelessWidget {
                       child: Text(
                         restaurant.name ?? '',
                         maxLines: 2,
+                        style: theme.textTheme.subtitle1,
                       ),
                     ),
                     Padding(
@@ -68,6 +72,7 @@ class RestaurantCard extends StatelessWidget {
                             children: [
                               Text(
                                 '${restaurant.price ?? ''} ${restaurant.category ?? ''}',
+                                style: theme.textTheme.caption,
                               ),
                               Row(
                                 children: [
@@ -83,6 +88,8 @@ class RestaurantCard extends StatelessWidget {
                             padding: const EdgeInsets.only(right: 8.0),
                             child: AvailabilityIndicator(
                               isOpen: restaurant.isOpen ?? false,
+                              isOpenText: l10n.isOpen,
+                              isClosedText: l10n.isClosed,
                             ),
                           ),
                         ],

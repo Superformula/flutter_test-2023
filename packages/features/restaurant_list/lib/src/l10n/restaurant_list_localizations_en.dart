@@ -8,10 +8,10 @@ class RestaurantListLocalizationsEn extends RestaurantListLocalizations {
   String get appBarTitle => 'RestauranTour';
 
   @override
-  String get allRestaurantsTabTitle => 'All restaurants';
+  String get allRestaurantsTabTitle => 'All Restaurants';
 
   @override
-  String get favoritesTabTitle => 'MyFavorites';
+  String get favoritesTabTitle => 'My Favorites';
 
   @override
   String get errorToFetchAllRestaurantsErrorMessage => 'Failed to fetch restaurants';
@@ -21,4 +21,10 @@ class RestaurantListLocalizationsEn extends RestaurantListLocalizations {
 
   @override
   String get emptyFavoritesMessage => 'No chef has achieved your heart yet';
+
+  @override
+  String get isOpen => 'Open Now';
+
+  @override
+  String get isClosed => 'Closed';
 }
