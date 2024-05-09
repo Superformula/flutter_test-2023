@@ -181,16 +181,3 @@ Just create a new issue in this repo and we will respond and get back to you qui
 ## Review
 
 The coding challenge is a take-home test upon which we'll be conducting a thorough code review once complete. The review will consist of meeting some more of our mobile engineers and giving a review of the solution you have designed. Please be prepared to share your screen and run/demo the application to the group. During this process, the engineers will be asking questions.
-
-----
-# Strategy
-- [x] setup project folder structure
-- [x] get restaurants from yelp api (study how to do pagination)
-- [x] create local storage package (objectbox)
-- [ ] design the components that will be used in the screens (use propper fonts, colors)
-- [x] add localizations
-
-# References
-[graphQL validation](https://docs.developer.yelp.com/graphql/)
-
-[using graphQL](https://docs.developer.yelp.com/docs/graphql-basic-usage)
