@@ -181,3 +181,52 @@ Just create a new issue in this repo and we will respond and get back to you qui
 ## Review
 
 The coding challenge is a take-home test upon which we'll be conducting a thorough code review once complete. The review will consist of meeting some more of our mobile engineers and giving a review of the solution you have designed. Please be prepared to share your screen and run/demo the application to the group. During this process, the engineers will be asking questions.
+
+---
+
+## Clear documentation on the structure and architecture of your application.
+
+I based the app structure on a mix of "package by layer" and "package by feature" called as "package by convenience" on [this book](https://www.kodeco.com/14214369-infinite-scrolling-pagination-in-flutter).
+
+Basically follow similar rules:
+### 1 Features get their own package
+
+In this project a feature can be considered as any screen
+
+### 2 Features don't know each other
+
+The navigation responsability is designated to the [AppRouter](lib\app_router.dart)
+
+### 3 Repositories get their own package
+
+In this project, repository was understood as data sources and each one got their own package
+- [YelpRepository](packages\yelp_repository\lib\src\yelp_repository.dart): Responsible to retrieve data from yelp api
+- [LocalStorage](packages\local_storage\lib\src\local_storage.dart): Responsible to store data in the device
+
+### 4 Specialized packages
+
+Code that are meant for one specific purpose, but can be used in more than one place
+- [Component Library](packages\component_library): Widgets that were made by design team and are meant to be used in more than one place
+- [Domain Models](packages\domain_models): Data classes that will be used in the features (screens). Other packages that handle other data type must use the other data type only internally.
+
+## Tests
+
+The tests were made in the following files:
+- [unit test](packages\features\restaurant_detail\test\unit\restaurant_detail_cubit_test.dart)
+- [widget/flow test](test\widget_test.dart)
+
+## Environment setup
+If you are using a mac you can:
+- update the [.env_prod](assets\env\/.env_prod) file with the yelp api key
+  - the other file was created to showcase the ability to work on a different environment and do not impact production
+- open the terminal at the project folder and execute: `make setup;`
+- execute the project
+  - the vs code is already setup to launch the correct files, so you can find the runner at the top left on yours and choose `app-prod` and run it
+  - in android studio is necessary to setup the corrent files:
+    - Open your project in Android Studio.
+    - Go to Run -> Edit Configurations....
+    - Click on the + button at the top left of the Run/Debug Configurations dialog to add a new configuration.
+    - Select Flutter.
+    - In the Name field, enter the name of the configuration (e.g., "app-dev").
+    - In the Dart entrypoint field, enter the path to the Dart file you want to run (e.g., "lib/main_dev.dart").
+    - Click OK to save the configuration.

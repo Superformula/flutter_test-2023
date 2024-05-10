@@ -1,0 +1,6 @@
+arb-dir: lib/src/l10n
+template-arb-file: map_en.arb
+output-localization-file: lost_app_localizations.dart
+output-class: LostAppLocalizations
+synthetic-package: false
+nullable-getter: false
