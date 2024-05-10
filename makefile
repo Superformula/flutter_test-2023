@@ -32,9 +32,12 @@ clean:
 	done
 
 build-runner:
-	for package in $(BUILD-RUNNER); do \
+	for package in $(PACKAGES); do \
 		cd $${package} ; \
 		echo "Running build-runner on $${package}" ; \
 		fvm flutter pub run build_runner build --delete-conflicting-outputs ; \
 		cd ../../ ; \
 	done
+
+setup:
+	make clean; make get; make build-runner;
