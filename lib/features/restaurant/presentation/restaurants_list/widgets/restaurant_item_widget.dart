@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
 
 class RestaurantItemWidget extends StatelessWidget {
@@ -10,78 +12,95 @@ class RestaurantItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16),
-      padding: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.purple),
         borderRadius: BorderRadius.circular(8),
       ),
+      height: 120,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.network(
               restaurant.heroImage,
-              width: 100,
-              height: 100,
+              width: 88,
+              height: 88,
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(width: 16),
+          SizedBox(
+            width: 12,
+          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
               children: [
+                // Nome do restaurante no topo
                 Text(
-                  restaurant.name ?? 'Restaurant Name',
-                  style: TextStyle(
+                  restaurant.name ?? '',
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                Spacer(),
+                const Spacer(),
+                // Preço e categoria
                 Text(
                   '${restaurant.price ?? ''} ${restaurant.displayCategory}',
                   style: TextStyle(
                     color: Colors.grey[700],
                   ),
                 ),
-                SizedBox(height: 4),
-                Row(
-                  children: List.generate(5, (index) {
-                    return Icon(
-                      index < (restaurant.rating ?? 0).round()
-                          ? Icons.star
-                          : Icons.star_border,
-                      color: Colors.amber,
-                      size: 20,
-                    );
-                  }),
+
+                // Avaliações e restaurant.isOpen na parte inferior
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Row(
+                    children: [
+                      // Avaliações
+                      Row(
+                        children: List.generate(5, (index) {
+                          return Icon(
+                            index < (restaurant.rating ?? 0).round()
+                                ? Icons.star
+                                : Icons.star_border,
+                            color: Colors.amber,
+                            size: 20,
+                          );
+                        }),
+                      ),
+
+                      // Espaço entre as avaliações e restaurant.isOpen
+                      Expanded(child: Container()),
+
+                      // restaurant.isOpen
+                      Row(
+                        children: [
+                          Text(
+                            restaurant.isOpen ? 'Open Now' : 'Closed',
+                            style: TextStyle(
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Icon(
+                            Icons.circle,
+                            color:
+                                restaurant.isOpen ? Colors.green : Colors.red,
+                            size: 12,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                restaurant.isOpen ? 'Open Now' : 'Closed',
-                style: TextStyle(
-                  color: restaurant.isOpen ? Colors.green : Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Icon(
-                Icons.circle,
-                color: restaurant.isOpen ? Colors.green : Colors.red,
-                size: 10,
-              ),
-            ],
           ),
         ],
       ),
