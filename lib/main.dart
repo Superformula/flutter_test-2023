@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/repositories/yelp_repository.dart';
+import 'package:restaurantour/core/dependecy_injection.dart';
+import 'package:restaurantour/features/restaurant/restaurant.dart';
 
 void main() {
+  initDependencies();
+  initRestaurantDependecies();
   runApp(const Restaurantour());
 }
 
@@ -16,7 +19,7 @@ class Restaurantour extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const HomePage(),
+      home: const RestaurantListPage(),
     );
   }
 }
@@ -34,20 +37,7 @@ class HomePage extends StatelessWidget {
             const Text('Restaurantour'),
             ElevatedButton(
               child: const Text('Fetch Restaurants'),
-              onPressed: () async {
-                final yelpRepo = YelpRepository();
-
-                try {
-                  final result = await yelpRepo.getRestaurants();
-                  if (result != null) {
-                    print('Fetched ${result.restaurants!.length} restaurants');
-                  } else {
-                    print('No restaurants fetched');
-                  }
-                } catch (e) {
-                  print('Failed to fetch restaurants: $e');
-                }
-              },
+              onPressed: () async {},
             ),
           ],
         ),
