@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/core/design_system/widgets/open_status_widget.dart';
 import 'package:restaurantour/core/design_system/widgets/rating_widget.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
 
@@ -38,27 +39,11 @@ class RestaurantDetailPage extends StatelessWidget {
                     Text(
                       '${restaurant.price ?? ''} ${restaurant.displayCategory}',
                       style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          restaurant.isOpen ? 'Open Now' : 'Closed',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color:
-                                restaurant.isOpen ? Colors.green : Colors.red,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        Icon(
-                          Icons.circle,
-                          color: restaurant.isOpen ? Colors.green : Colors.red,
-                          size: 12,
-                        ),
-                      ],
-                    ),
+                    OpenStatus(isOpen: restaurant.isOpen),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -77,7 +62,9 @@ class RestaurantDetailPage extends StatelessWidget {
                     Text(
                       '${restaurant.rating ?? 0}',
                       style: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold),
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(width: 4),
                     const Icon(
@@ -112,7 +99,8 @@ class RestaurantDetailPage extends StatelessWidget {
                                 children: [
                                   CircleAvatar(
                                     backgroundImage: NetworkImage(
-                                        review.user?.imageUrl ?? ''),
+                                      review.user?.imageUrl ?? '',
+                                    ),
                                     radius: 12,
                                   ),
                                   const SizedBox(width: 8),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/core/design_system/widgets/open_status_widget.dart';
 import 'package:restaurantour/core/design_system/widgets/rating_widget.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
 
@@ -59,23 +60,7 @@ class RestaurantItemWidget extends StatelessWidget {
                     children: [
                       RatingWidget(rating: restaurant.rating ?? 0),
                       Expanded(child: Container()),
-                      Row(
-                        children: [
-                          Text(
-                            restaurant.isOpen ? 'Open Now' : 'Closed',
-                            style: TextStyle(
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Icon(
-                            Icons.circle,
-                            color:
-                                restaurant.isOpen ? Colors.green : Colors.red,
-                            size: 12,
-                          ),
-                        ],
-                      ),
+                      OpenStatus(isOpen: restaurant.isOpen),
                     ],
                   ),
                 ),
