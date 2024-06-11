@@ -12,8 +12,11 @@ class _RestaurantList extends StatelessWidget {
       child: BlocBuilder<RestaurantListCubit, RestaurantListState>(
         builder: (context, state) {
           if (state is RestaurantListLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return const ShimmerRestaurantItemWidget();
+              },
             );
           }
 
