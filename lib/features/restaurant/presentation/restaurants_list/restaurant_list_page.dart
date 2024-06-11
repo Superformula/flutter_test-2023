@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:restaurantour/core/design_system/text_styles/restaurantour_text_styles.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurants_list/bloc/restaurant_list_cubit.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurants_list/widgets/restaurant_item_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'restaurant_list.dart';
 part 'favorite_restaurant_list.dart';
@@ -46,7 +48,10 @@ class _RestaurantListPageState extends State<RestaurantListPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Restaurantour'),
+        title: Text(
+          AppLocalizations.of(context)!.appTitle,
+          style: RestaurantourTextStyles.heading6,
+        ),
         centerTitle: true,
         bottom: PreferredSize(
           preferredSize: const Size(0, 48.0),
@@ -72,9 +77,11 @@ class _RestaurantListPageState extends State<RestaurantListPage>
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
               ),
-              tabs: const [
-                Tab(text: "All Restaurants"),
-                Tab(text: "My Favorites"),
+              tabs: [
+                Tab(
+                  text: AppLocalizations.of(context)!.allRestaurants,
+                ),
+                Tab(text: AppLocalizations.of(context)!.myFavorites),
               ],
             ),
           ),

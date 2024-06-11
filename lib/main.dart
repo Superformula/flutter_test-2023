@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:restaurantour/core/dependecy_injection.dart';
 import 'package:restaurantour/core/hive/hive.dart';
 import 'package:restaurantour/features/restaurant/restaurant.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +21,17 @@ class Restaurantour extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'RestauranTour',
+      localizationsDelegates: const [
+        AppLocalizations.delegate, // Add this line
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('es'),
+        Locale('pt'),
+      ],
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -27,28 +40,6 @@ class Restaurantour extends StatelessWidget {
         RestaurantDetailPage.routeName: (context) =>
             const RestaurantDetailPage(),
       },
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Restaurantour'),
-            ElevatedButton(
-              child: const Text('Fetch Restaurants'),
-              onPressed: () async {},
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

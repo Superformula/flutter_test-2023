@@ -1,0 +1,11 @@
+{
+    "@@locale": "es",
+    "appTitle": "Restaurantour",
+    "allRestaurants": "Todos los restaurantes",
+    "myFavorites": "Mis favoritos",
+    "openNow": "Abierto ahora",
+    "closed": "Cerrado",
+    "address": "Dirección",
+    "overallRating": "Calificación general",
+    "reviews": "Reseñas"
+}

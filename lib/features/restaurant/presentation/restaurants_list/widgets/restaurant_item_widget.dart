@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/core/design_system/text_styles/restaurantour_text_styles.dart';
 import 'package:restaurantour/core/design_system/widgets/open_status_widget.dart';
 import 'package:restaurantour/core/design_system/widgets/rating_widget.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
@@ -31,11 +32,14 @@ class RestaurantItemWidget extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                restaurant.heroImage,
-                width: 88,
-                height: 88,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: restaurant.id ?? 'restaurant.heroImage',
+                child: Image.network(
+                  restaurant.heroImage,
+                  width: 88,
+                  height: 88,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(
@@ -47,19 +51,14 @@ class RestaurantItemWidget extends StatelessWidget {
                 children: [
                   Text(
                     restaurant.name ?? '',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                    style: RestaurantourTextStyles.subtitle1,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const Spacer(),
                   Text(
                     '${restaurant.price ?? ''} ${restaurant.displayCategory}',
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                    ),
+                    style: RestaurantourTextStyles.caption,
                   ),
                   Align(
                     alignment: Alignment.bottomLeft,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/core/design_system/text_styles/restaurantour_text_styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OpenStatus extends StatelessWidget {
   const OpenStatus({Key? key, required this.isOpen}) : super(key: key);
@@ -10,10 +12,10 @@ class OpenStatus extends StatelessWidget {
     return Row(
       children: [
         Text(
-          isOpen ? 'Open Now' : 'Closed',
-          style: TextStyle(
-            color: Colors.grey[700],
-          ),
+          isOpen
+              ? AppLocalizations.of(context)!.openNow
+              : AppLocalizations.of(context)!.closed,
+          style: RestaurantourTextStyles.overline,
         ),
         const SizedBox(width: 8),
         Icon(

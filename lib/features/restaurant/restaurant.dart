@@ -29,7 +29,7 @@ void _initHive() {
     ..registerAdapter(CategoryAdapter())
     ..registerAdapter(HoursAdapter())
     ..registerAdapter(UserAdapter())
-    ..registerAdapter(RestaurantAdapter())
+    ..registerAdapter(ReviewAdapter())
     ..registerAdapter(LocationAdapter());
   Hive.openBox<Restaurant>('favorite_restaurants');
 }
@@ -63,5 +63,5 @@ void _initUseCases() {
 
 void _initBlocs() {
   _getIt.registerSingleton<RestaurantListCubit>(RestaurantListCubit());
-  _getIt.registerSingleton<RestaurantDetailCubit>(RestaurantDetailCubit());
+  _getIt.registerFactory<RestaurantDetailCubit>(() => RestaurantDetailCubit());
 }

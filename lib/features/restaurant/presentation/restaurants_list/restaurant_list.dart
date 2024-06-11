@@ -52,13 +52,24 @@ class _RestaurantList extends StatelessWidget {
                     price: '\$\$\$',
                     rating: 4.5,
                     photos: [
-                      'https://lh5.googleusercontent.com/p/AF1QipMbAecKbQuQpZO8mVoGpsNzV6C7OnjIsOfQOtgt=w114-h114-n-k-no',
+                      'https://s3-media2.fl.yelpcdn.com/bphoto/q771KjLzI5y638leJsnJnQ/o.jpg',
                     ],
                     categories: [
                       Category(alias: 'newamerican', title: 'New American'),
                     ],
                     hours: [const Hours(isOpenNow: true)],
-                    reviews: [],
+                    reviews: [
+                      const Review(
+                        id: '1',
+                        rating: 5,
+                        user: User(
+                          id: '1',
+                          imageUrl:
+                              'https://s3-media2.fl.yelpcdn.com/photo/1.jpg',
+                          name: 'John Doe',
+                        ),
+                      ),
+                    ],
                     location:
                         Location(formattedAddress: '123 Example St, City'),
                   ),

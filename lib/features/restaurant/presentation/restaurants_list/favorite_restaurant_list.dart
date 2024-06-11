@@ -40,7 +40,7 @@ class _FavoriteRestaurantList extends StatelessWidget {
                     price: '\$\$\$',
                     rating: 4.5,
                     photos: [
-                      'https://lh5.googleusercontent.com/p/AF1QipMbAecKbQuQpZO8mVoGpsNzV6C7OnjIsOfQOtgt=w114-h114-n-k-no',
+                      'https://s3-media2.fl.yelpcdn.com/bphoto/q771KjLzI5y638leJsnJnQ/o.jpg',
                     ],
                     categories: [
                       Category(alias: 'newamerican', title: 'New American'),

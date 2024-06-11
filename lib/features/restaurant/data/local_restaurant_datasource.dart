@@ -19,7 +19,7 @@ class LocalRestaurantDataSourceImpl extends LocalRestaurantDataSource {
 
   @override
   Future<void> insertFavoriteRestaurant(Restaurant restaurant) async {
-    Hive.box(_favoriteBoxName).add(
+    Hive.box<Restaurant>(_favoriteBoxName).add(
       restaurant,
     );
   }

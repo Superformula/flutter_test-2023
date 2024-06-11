@@ -11,8 +11,10 @@ abstract class RestaurantDetailState extends Equatable {
 class RestaurantDetailLoading extends RestaurantDetailState {}
 
 class RestaurantDetailLoaded extends RestaurantDetailState {
-  const RestaurantDetailLoaded(
-      {required this.isFavorited, required this.restaurant});
+  const RestaurantDetailLoaded({
+    required this.isFavorited,
+    required this.restaurant,
+  });
   final bool isFavorited;
   final Restaurant restaurant;
 
