@@ -48,16 +48,40 @@ class _RestaurantListPageState extends State<RestaurantListPage>
       appBar: AppBar(
         title: const Text('Restaurantour'),
         centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: const Size(0, 48.0),
+          child: Container(
+            alignment: Alignment.center,
+            child: TabBar(
+              tabAlignment: TabAlignment.center,
+              labelColor: Colors.black,
+              isScrollable: true,
+              controller: _tabController,
+              indicatorColor: Colors.black,
+              indicatorSize: TabBarIndicatorSize.label,
+              unselectedLabelColor: Colors.grey,
+              indicator: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.black,
+                    width: 2,
+                  ),
+                ),
+              ),
+              labelStyle: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+              ),
+              tabs: const [
+                Tab(text: "All Restaurants"),
+                Tab(text: "My Favorites"),
+              ],
+            ),
+          ),
+        ),
       ),
       body: Column(
         children: [
-          TabBar(
-            controller: _tabController,
-            tabs: const [
-              Tab(text: 'All Restaurants'),
-              Tab(text: 'My Favorites'),
-            ],
-          ),
           Expanded(
             child: TabBarView(
               controller: _tabController,

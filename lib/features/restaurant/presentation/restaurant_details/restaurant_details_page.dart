@@ -4,13 +4,15 @@ import 'package:restaurantour/core/design_system/widgets/rating_widget.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
 
 class RestaurantDetailPage extends StatelessWidget {
-  final Restaurant restaurant;
+  const RestaurantDetailPage({Key? key}) : super(key: key);
 
-  const RestaurantDetailPage({required this.restaurant, Key? key})
-      : super(key: key);
+  static const routeName = '/restaurant_detail';
 
   @override
   Widget build(BuildContext context) {
+    final Restaurant restaurant =
+        ModalRoute.of(context)!.settings.arguments as Restaurant;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(restaurant.name ?? 'Restaurant Name'),

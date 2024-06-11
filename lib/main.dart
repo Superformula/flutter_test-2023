@@ -23,6 +23,10 @@ class Restaurantour extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const RestaurantListPage(),
+      routes: {
+        RestaurantDetailPage.routeName: (context) =>
+            const RestaurantDetailPage(),
+      },
     );
   }
 }
