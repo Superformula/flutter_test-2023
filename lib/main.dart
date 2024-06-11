@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:restaurantour/core/dependecy_injection.dart';
+import 'package:restaurantour/core/hive/hive.dart';
 import 'package:restaurantour/features/restaurant/restaurant.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initHive();
   initDependencies();
   initRestaurantDependecies();
   runApp(const Restaurantour());

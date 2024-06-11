@@ -1,14 +1,20 @@
 import 'package:get_it/get_it.dart';
+import 'package:restaurantour/features/restaurant/data/local_restaurant_datasource.dart';
 import 'package:restaurantour/features/restaurant/data/remote_restaurant_datasource.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
 
 abstract class RestaurantRepository {
   Future<List<Restaurant>> getRestaurants(int offset);
+  Future<void> insertFavoriteRestaurants(Restaurant restaurant);
+  Future<List<Restaurant>> getFavoriteRestaurants();
 }
 
 class RestaurantRepositoryImpl extends RestaurantRepository {
   final _remoteRestaurantDataSource =
       GetIt.instance<RemoteRestaurantDataSource>();
+
+  final _localRestaurantDataSource =
+      GetIt.instance<LocalRestaurantDataSource>();
 
   RestaurantRepositoryImpl();
 
@@ -21,4 +27,12 @@ class RestaurantRepositoryImpl extends RestaurantRepository {
     }
     return restaurants;
   }
+
+  @override
+  Future<List<Restaurant>> getFavoriteRestaurants() =>
+      _localRestaurantDataSource.getFavoriteRestaurants();
+
+  @override
+  Future<void> insertFavoriteRestaurants(Restaurant restaurant) =>
+      _localRestaurantDataSource.insertFavoriteRestaurant(restaurant);
 }

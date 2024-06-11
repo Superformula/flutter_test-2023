@@ -18,6 +18,15 @@ class RestaurantListLoaded extends RestaurantListState {
   List<Object> get props => [restaurants];
 }
 
+class FavoriteRestaurantsLoaded extends RestaurantListState {
+  final List<Restaurant> restaurants;
+
+  const FavoriteRestaurantsLoaded(this.restaurants);
+
+  @override
+  List<Object> get props => [restaurants];
+}
+
 class RestaurantListError extends RestaurantListState {
   final String message;
 
