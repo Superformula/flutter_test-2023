@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:restaurantour/core/design_system/text_styles/restaurantour_text_styles.dart';
+import 'package:restaurantour/core/design_system/restaurantour_design_system.dart';
 import 'package:restaurantour/core/design_system/widgets/open_status_widget.dart';
 import 'package:restaurantour/core/design_system/widgets/rating_widget.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
@@ -61,11 +61,11 @@ class RestaurantDetailPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(RestaurantourSizes.size5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 8),
+                const SizedBox(height: RestaurantourSizes.size3),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -76,27 +76,27 @@ class RestaurantDetailPage extends StatelessWidget {
                     OpenStatus(isOpen: restaurant.isOpen),
                   ],
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: RestaurantourSizes.size6),
                 const Divider(),
-                const SizedBox(height: 24),
+                const SizedBox(height: RestaurantourSizes.size6),
                 Text(
                   AppLocalizations.of(context)!.address,
                   style: RestaurantourTextStyles.caption,
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: RestaurantourSizes.size6),
                 Text(
                   restaurant.location?.formattedAddress ?? '',
                   style: RestaurantourTextStyles.caption
                       .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: RestaurantourSizes.size5),
                 const Divider(),
-                const SizedBox(height: 16),
+                const SizedBox(height: RestaurantourSizes.size5),
                 Text(
                   AppLocalizations.of(context)!.overallRating,
                   style: RestaurantourTextStyles.caption,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: RestaurantourSizes.size5),
                 Row(
                   children: [
                     Text(
@@ -107,37 +107,39 @@ class RestaurantDetailPage extends StatelessWidget {
                         fontFamily: 'Lora',
                       ),
                     ),
-                    const SizedBox(width: 4),
+                    const SizedBox(width: RestaurantourSizes.size2),
                     const Icon(
                       Icons.star,
                       color: Colors.amber,
-                      size: 16,
+                      size: RestaurantourSizes.size5,
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: RestaurantourSizes.size5),
                 const Divider(),
                 Text(
                   '${restaurant.reviews?.length ?? 0} ${AppLocalizations.of(context)!.reviews}',
                   style: RestaurantourTextStyles.caption,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: RestaurantourSizes.size5),
                 Column(
                   children: restaurant.reviews?.map((review) {
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
+                          padding: const EdgeInsets.only(
+                            bottom: RestaurantourSizes.size5,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               RatingWidget(rating: restaurant.rating ?? 0),
-                              const SizedBox(height: 4),
+                              const SizedBox(height: RestaurantourSizes.size2),
                               Text(
                                 review.id ?? 'Review ID',
                                 maxLines: review.rating,
                                 overflow: TextOverflow.ellipsis,
                                 style: RestaurantourTextStyles.body1,
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: RestaurantourSizes.size3),
                               Row(
                                 children: [
                                   CircleAvatar(

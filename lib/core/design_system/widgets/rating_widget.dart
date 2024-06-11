@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/core/design_system/restaurantour_sizes.dart';
 
 class RatingWidget extends StatelessWidget {
   const RatingWidget({Key? key, required this.rating}) : super(key: key);
@@ -12,7 +13,7 @@ class RatingWidget extends StatelessWidget {
         return Icon(
           index < (rating).round() ? Icons.star : Icons.star_border,
           color: Colors.amber,
-          size: 20,
+          size: RestaurantourSizes.size5,
         );
       }),
     );

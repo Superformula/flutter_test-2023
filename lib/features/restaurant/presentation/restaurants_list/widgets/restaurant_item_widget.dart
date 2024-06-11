@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/core/design_system/text_styles/restaurantour_text_styles.dart';
+import 'package:restaurantour/core/design_system/restaurantour_design_system.dart';
 import 'package:restaurantour/core/design_system/widgets/open_status_widget.dart';
 import 'package:restaurantour/core/design_system/widgets/rating_widget.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
@@ -20,18 +20,18 @@ class RestaurantItemWidget extends StatelessWidget {
         );
       },
       child: Container(
-        margin: const EdgeInsets.all(8),
-        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.all(RestaurantourSizes.size3),
+        padding: const EdgeInsets.all(RestaurantourSizes.size5),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey[300]!),
           borderRadius: BorderRadius.circular(8),
         ),
-        height: 120,
+        height: RestaurantourSizes.size11,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(RestaurantourSizes.size3),
               child: Hero(
                 tag: restaurant.id ?? 'restaurant.heroImage',
                 child: Image.network(
@@ -43,7 +43,7 @@ class RestaurantItemWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 12,
+              width: RestaurantourSizes.size4,
             ),
             Expanded(
               child: Column(

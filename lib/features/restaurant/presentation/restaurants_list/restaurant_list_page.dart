@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:restaurantour/core/design_system/text_styles/restaurantour_text_styles.dart';
+import 'package:restaurantour/core/design_system/restaurantour_design_system.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurants_list/bloc/restaurant_list_cubit.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurants_list/widgets/restaurant_item_widget.dart';
@@ -54,7 +54,7 @@ class _RestaurantListPageState extends State<RestaurantListPage>
         ),
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: const Size(0, 48.0),
+          preferredSize: const Size(0, RestaurantourSizes.size8),
           child: Container(
             alignment: Alignment.center,
             child: TabBar(
@@ -69,13 +69,13 @@ class _RestaurantListPageState extends State<RestaurantListPage>
                 border: Border(
                   bottom: BorderSide(
                     color: Colors.black,
-                    width: 2,
+                    width: RestaurantourSizes.size1,
                   ),
                 ),
               ),
               labelStyle: const TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 14,
+                fontSize: RestaurantourSizes.size5,
               ),
               tabs: [
                 Tab(

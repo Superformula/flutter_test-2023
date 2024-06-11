@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurantour/core/design_system/text_styles/restaurantour_text_styles.dart';
+import 'package:restaurantour/core/design_system/restaurantour_design_system.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OpenStatus extends StatelessWidget {
@@ -17,11 +17,11 @@ class OpenStatus extends StatelessWidget {
               : AppLocalizations.of(context)!.closed,
           style: RestaurantourTextStyles.overline,
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: RestaurantourSizes.size3),
         Icon(
           Icons.circle,
           color: isOpen ? Colors.green : Colors.red,
-          size: 12,
+          size: RestaurantourSizes.size4,
         ),
       ],
     );
