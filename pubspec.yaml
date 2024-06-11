@@ -33,6 +33,7 @@ dev_dependencies:
   hive_generator: ^2.0.1
   mocktail: ^1.0.3
   network_image_mock: ^2.1.1
+  bloc_test: ^9.1.7
 
 flutter:
   generate: true
