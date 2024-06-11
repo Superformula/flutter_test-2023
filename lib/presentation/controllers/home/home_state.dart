@@ -47,24 +47,3 @@ class HomeState {
     );
   }
 }
-
-// abstract class HomeState {}
-
-// class InitialHomeState extends HomeState {}
-
-// class LoadingHomeState extends HomeState {}
-
-// class SuccessHomeState extends HomeState {
-//   final List<Restaurant> restaurants;
-
-//   SuccessHomeState(this.restaurants);
-// }
-
-// class ErrorHomeState extends HomeState {
-//   final String message;
-
-//   ErrorHomeState(this.message);
-// }
-
-
-
