@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurantour/core/design_system/widgets/rating_widget.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
 
 class RestaurantItemWidget extends StatelessWidget {
@@ -36,7 +37,6 @@ class RestaurantItemWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Nome do restaurante no topo
                 Text(
                   restaurant.name ?? '',
                   style: const TextStyle(
@@ -47,36 +47,18 @@ class RestaurantItemWidget extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 const Spacer(),
-                // Preço e categoria
                 Text(
                   '${restaurant.price ?? ''} ${restaurant.displayCategory}',
                   style: TextStyle(
                     color: Colors.grey[700],
                   ),
                 ),
-
-                // Avaliações e restaurant.isOpen na parte inferior
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Row(
                     children: [
-                      // Avaliações
-                      Row(
-                        children: List.generate(5, (index) {
-                          return Icon(
-                            index < (restaurant.rating ?? 0).round()
-                                ? Icons.star
-                                : Icons.star_border,
-                            color: Colors.amber,
-                            size: 20,
-                          );
-                        }),
-                      ),
-
-                      // Espaço entre as avaliações e restaurant.isOpen
+                      RatingWidget(rating: restaurant.rating ?? 0),
                       Expanded(child: Container()),
-
-                      // restaurant.isOpen
                       Row(
                         children: [
                           Text(
