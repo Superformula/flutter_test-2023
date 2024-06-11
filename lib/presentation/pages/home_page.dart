@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../utils/typography/restaurantour_text_styles.dart';
 import '../controllers/home/home_cubit.dart';
 import '../controllers/home/home_state.dart';
+import '../widgets/restaurant_card_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -67,8 +68,14 @@ class _HomeState extends State<HomePage> {
                       child: CircularProgressIndicator(),
                     );
                   case HomeStatus.success:
-                    return const Center(
-                      child: Text('success'),
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: ListView.builder(
+                        itemCount: state.restaurants.length,
+                        itemBuilder: (context, index) => RestaurantCardWidget(
+                          restaurant: state.restaurants[index],
+                        ),
+                      ),
                     );
 
                   case HomeStatus.failure:
