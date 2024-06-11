@@ -4,6 +4,7 @@ import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart'
 abstract class LocalRestaurantDataSource {
   Future<List<Restaurant>> getFavoriteRestaurants();
   Future<void> insertFavoriteRestaurant(Restaurant restaurant);
+  Future<void> deleteFavoriteRestaurant(Restaurant restaurant);
 }
 
 class LocalRestaurantDataSourceImpl extends LocalRestaurantDataSource {
@@ -21,5 +22,14 @@ class LocalRestaurantDataSourceImpl extends LocalRestaurantDataSource {
     Hive.box(_favoriteBoxName).add(
       restaurant,
     );
+  }
+
+  @override
+  Future<void> deleteFavoriteRestaurant(Restaurant restaurant) async {
+    final box = Hive.box<Restaurant>(_favoriteBoxName);
+    final index = box.values
+        .toList()
+        .indexWhere((element) => element.id == restaurant.id);
+    box.deleteAt(index);
   }
 }

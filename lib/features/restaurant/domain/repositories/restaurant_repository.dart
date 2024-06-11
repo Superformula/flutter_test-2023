@@ -7,6 +7,7 @@ abstract class RestaurantRepository {
   Future<List<Restaurant>> getRestaurants(int offset);
   Future<void> insertFavoriteRestaurants(Restaurant restaurant);
   Future<List<Restaurant>> getFavoriteRestaurants();
+  Future<void> deleteFavoriteRestaurant(Restaurant restaurant);
 }
 
 class RestaurantRepositoryImpl extends RestaurantRepository {
@@ -35,4 +36,9 @@ class RestaurantRepositoryImpl extends RestaurantRepository {
   @override
   Future<void> insertFavoriteRestaurants(Restaurant restaurant) =>
       _localRestaurantDataSource.insertFavoriteRestaurant(restaurant);
+
+  @override
+  Future<void> deleteFavoriteRestaurant(Restaurant restaurant) {
+    return _localRestaurantDataSource.deleteFavoriteRestaurant(restaurant);
+  }
 }

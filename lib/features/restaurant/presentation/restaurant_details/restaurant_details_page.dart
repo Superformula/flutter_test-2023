@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:restaurantour/core/design_system/widgets/open_status_widget.dart';
 import 'package:restaurantour/core/design_system/widgets/rating_widget.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
+import 'package:restaurantour/features/restaurant/presentation/restaurant_details/bloc/restaurant_detail_state.dart';
+import 'package:restaurantour/features/restaurant/presentation/restaurant_details/bloc/restaurant_details_cubit.dart';
 
 class RestaurantDetailPage extends StatelessWidget {
   const RestaurantDetailPage({Key? key}) : super(key: key);
@@ -17,9 +21,27 @@ class RestaurantDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(restaurant.name ?? 'Restaurant Name'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.favorite_border),
-            onPressed: () {},
+          BlocProvider(
+            create: (context) => GetIt.instance<RestaurantDetailCubit>()
+              ..fetchRestaurantDetail(restaurant),
+            child: BlocBuilder<RestaurantDetailCubit, RestaurantDetailState>(
+              builder: (context, state) {
+                if (state is RestaurantDetailLoaded) {
+                  return IconButton(
+                    icon: Icon(
+                      state.isFavorited
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                    ),
+                    onPressed: () {
+                      context.read<RestaurantDetailCubit>().toggleFavorite();
+                    },
+                  );
+                }
+
+                return const CircularProgressIndicator();
+              },
+            ),
           ),
         ],
       ),

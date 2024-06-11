@@ -4,8 +4,11 @@ import 'package:restaurantour/features/restaurant/data/local_restaurant_datasour
 import 'package:restaurantour/features/restaurant/data/remote_restaurant_datasource.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
 import 'package:restaurantour/features/restaurant/domain/repositories/restaurant_repository.dart';
+import 'package:restaurantour/features/restaurant/domain/use_cases/add_favorite_restaurant_use_case.dart';
+import 'package:restaurantour/features/restaurant/domain/use_cases/delete_favorite_restaurant_use_case.dart';
 import 'package:restaurantour/features/restaurant/domain/use_cases/get_favorites_restaurants_use_case.dart';
 import 'package:restaurantour/features/restaurant/domain/use_cases/get_restaurants_use_case.dart';
+import 'package:restaurantour/features/restaurant/presentation/restaurant_details/bloc/restaurant_details_cubit.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurants_list/bloc/restaurant_list_cubit.dart';
 
 export 'package:restaurantour/features/restaurant/presentation/restaurant_details/restaurant_details_page.dart';
@@ -50,8 +53,15 @@ void _initUseCases() {
   _getIt.registerFactory<GetFavoriteRestaurantsUseCase>(
     () => GetFavoriteRestaurantsUseCase(),
   );
+  _getIt.registerFactory<InsertFavoriteRestaurantUseCase>(
+    () => InsertFavoriteRestaurantUseCase(),
+  );
+  _getIt.registerFactory<DeleteFavoriteRestaurantUseCase>(
+    () => DeleteFavoriteRestaurantUseCase(),
+  );
 }
 
 void _initBlocs() {
   _getIt.registerSingleton<RestaurantListCubit>(RestaurantListCubit());
+  _getIt.registerSingleton<RestaurantDetailCubit>(RestaurantDetailCubit());
 }
