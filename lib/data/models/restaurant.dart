@@ -55,11 +55,13 @@ class Review {
   final String? id;
   final int? rating;
   final User? user;
+  final String? text;
 
   const Review({
     this.id,
     this.rating,
     this.user,
+    this.text,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);

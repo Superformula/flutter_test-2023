@@ -16,15 +16,19 @@ dependencies:
   dio: ^5.4.0
   json_annotation: ^4.8.1
   flutter_svg: ^2.0.9
+  flutter_bloc: ^8.1.4
+  bloc_test: ^9.1.6
+  mocktail: ^1.0.3
+  mocktail_image_network: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.2
+  flutter_lints: ^4.0.0
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
 
 flutter:
   uses-material-design: true
-#  assets:
-#    - assets/svg/
+  assets:
+    - assets/secrets.json

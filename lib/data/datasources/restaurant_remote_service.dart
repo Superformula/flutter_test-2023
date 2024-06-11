@@ -1,24 +1,24 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/data/models/restaurant.dart';
 
-const _apiKey = '<PUT YOUR API KEY HERE>';
-
-class YelpRepository {
+class RestaurantRemoteService {
   late Dio dio;
+  final String apiKey;
 
-  YelpRepository({
+  RestaurantRemoteService({
     @visibleForTesting Dio? dio,
+    required this.apiKey,
   }) : dio = dio ??
-            Dio(
-              BaseOptions(
-                baseUrl: 'https://api.yelp.com',
-                headers: {
-                  'Authorization': 'Bearer $_apiKey',
-                  'Content-Type': 'application/graphql',
-                },
-              ),
-            );
+      Dio(
+        BaseOptions(
+          baseUrl: 'https://api.yelp.com',
+          headers: {
+            'Authorization': 'Bearer $apiKey',
+            'Content-Type': 'application/graphql',
+          },
+        ),
+      );
 
   /// Returns a response in this shape
   /// {
@@ -84,6 +84,7 @@ query getRestaurants {
       reviews {
         id
         rating
+        text
         user {
           id
           image_url
