@@ -3,8 +3,7 @@ import 'package:get_it/get_it.dart';
 
 final _getIt = GetIt.instance;
 
-const _apiKey =
-    'adc6IVk1OhheUDmDlY0PNelkBh5qFfp9hWGAv9zoRbJCrMYcJk8ckbnANWFHWxDdxXwn4tLFtfMbAHiGAEu2XWKQpT3HK-dxm9QTt85ecrb7HEl1a-40SwiCcldnZnYx';
+const _apiKey = '';
 
 void initDependencies() {
   final _dio = Dio(

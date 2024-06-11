@@ -54,8 +54,8 @@ class _RestaurantListPageState extends State<RestaurantListPage>
           TabBar(
             controller: _tabController,
             tabs: const [
-              Tab(text: 'All'),
-              Tab(text: 'Favorites'),
+              Tab(text: 'All Restaurants'),
+              Tab(text: 'My Favorites'),
             ],
           ),
           Expanded(
