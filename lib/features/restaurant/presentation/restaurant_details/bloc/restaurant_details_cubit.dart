@@ -4,7 +4,7 @@ import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart'
 import 'package:restaurantour/features/restaurant/domain/use_cases/add_favorite_restaurant_use_case.dart';
 import 'package:restaurantour/features/restaurant/domain/use_cases/delete_favorite_restaurant_use_case.dart';
 import 'package:restaurantour/features/restaurant/domain/use_cases/get_favorites_restaurants_use_case.dart';
-import 'package:restaurantour/features/restaurant/presentation/restaurant_details/bloc/restaurant_detail_state.dart';
+import 'package:restaurantour/features/restaurant/presentation/restaurant_details/bloc/restaurant_details_state.dart';
 
 class RestaurantDetailCubit extends Cubit<RestaurantDetailState> {
   RestaurantDetailCubit() : super(RestaurantDetailLoading());

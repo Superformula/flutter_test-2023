@@ -5,12 +5,12 @@ import 'package:restaurantour/core/design_system/restaurantour_design_system.dar
 import 'package:restaurantour/core/design_system/widgets/open_status_widget.dart';
 import 'package:restaurantour/core/design_system/widgets/rating_widget.dart';
 import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
-import 'package:restaurantour/features/restaurant/presentation/restaurant_details/bloc/restaurant_detail_state.dart';
+import 'package:restaurantour/features/restaurant/presentation/restaurant_details/bloc/restaurant_details_state.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurant_details/bloc/restaurant_details_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class RestaurantDetailPage extends StatelessWidget {
-  const RestaurantDetailPage({Key? key}) : super(key: key);
+class RestaurantDetailsPage extends StatelessWidget {
+  const RestaurantDetailsPage({Key? key}) : super(key: key);
 
   static const routeName = '/restaurant_detail';
 

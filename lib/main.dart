@@ -37,8 +37,8 @@ class Restaurantour extends StatelessWidget {
       ),
       home: const RestaurantListPage(),
       routes: {
-        RestaurantDetailPage.routeName: (context) =>
-            const RestaurantDetailPage(),
+        RestaurantDetailsPage.routeName: (context) =>
+            const RestaurantDetailsPage(),
       },
     );
   }
