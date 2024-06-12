@@ -54,13 +54,11 @@ class _RestaurantPageState extends State<RestaurantPage> {
             icon: BlocConsumer<FavoriteCubit, FavoriteState>(
               listener: listener,
               builder: (context, state) {
-                switch (state.status) {
-                  case FavoriteStatus.success:
-                    return const Icon(Icons.favorite);
-                  case FavoriteStatus.removed:
-                    return const Icon(Icons.favorite_border);
-                  default:
-                    return const Icon(Icons.favorite_border);
+                if (state.favorites
+                    .any((element) => element.id == widget.restaurant.id)) {
+                  return const Icon(Icons.favorite);
+                } else {
+                  return const Icon(Icons.favorite_border);
                 }
               },
             ),
