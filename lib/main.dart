@@ -14,7 +14,6 @@ void main() async {
 }
 
 class Restaurantour extends StatelessWidget {
-  // This widget is the root of your application.
   const Restaurantour({Key? key}) : super(key: key);
 
   @override
@@ -22,7 +21,7 @@ class Restaurantour extends StatelessWidget {
     return MaterialApp(
       title: 'RestauranTour',
       localizationsDelegates: const [
-        AppLocalizations.delegate, // Add this line
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
