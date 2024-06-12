@@ -131,19 +131,22 @@ class ReviewAdapter extends TypeAdapter<Review> {
       id: fields[0] as String?,
       rating: fields[1] as int?,
       user: fields[2] as User?,
+      text: fields[3] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Review obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.rating)
       ..writeByte(2)
-      ..write(obj.user);
+      ..write(obj.user)
+      ..writeByte(3)
+      ..write(obj.text);
   }
 
   @override
@@ -289,12 +292,14 @@ Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
+      text: json['text'] as String?,
     );
 
 Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
       'id': instance.id,
       'rating': instance.rating,
       'user': instance.user,
+      'text': instance.text,
     };
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(

@@ -30,7 +30,8 @@ void _initHive() {
     ..registerAdapter(HoursAdapter())
     ..registerAdapter(UserAdapter())
     ..registerAdapter(ReviewAdapter())
-    ..registerAdapter(LocationAdapter());
+    ..registerAdapter(LocationAdapter())
+    ..registerAdapter(RestaurantAdapter());
   Hive.openBox<Restaurant>('favorite_restaurants');
 }
 

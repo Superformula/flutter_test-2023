@@ -36,6 +36,7 @@ class RemoteRestaurantDataSourceImpl extends RemoteRestaurantDataSource {
       reviews {
         id
         rating
+        text
         user {
           id
           image_url

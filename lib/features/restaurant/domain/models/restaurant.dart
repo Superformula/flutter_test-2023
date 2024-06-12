@@ -70,11 +70,14 @@ class Review {
   final int? rating;
   @HiveField(2)
   final User? user;
+  @HiveField(3)
+  final String? text;
 
   const Review({
     this.id,
     this.rating,
     this.user,
+    this.text,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
