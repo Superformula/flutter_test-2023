@@ -22,7 +22,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
   FavoriteCubit get favoriteCubit => context.read<FavoriteCubit>();
 
   void listener(BuildContext context, FavoriteState state) {
-    if (state.status.isSuccess) {
+    if (state.status.isFavoriteSuccess) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('You favorited this restaurant!'),

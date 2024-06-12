@@ -2,13 +2,21 @@ import 'package:flutter/foundation.dart';
 
 import '../../../models/restaurant.dart';
 
-enum FavoriteStatus { initial, loading, success, removed, failure }
+enum FavoriteStatus {
+  initial,
+  loading,
+  success,
+  removed,
+  favoriteSuccess,
+  failure
+}
 
 extension FavoriteStatusX on FavoriteStatus {
   bool get isInitial => this == FavoriteStatus.initial;
   bool get isLoading => this == FavoriteStatus.loading;
   bool get isSuccess => this == FavoriteStatus.success;
   bool get isRemoved => this == FavoriteStatus.removed;
+  bool get isFavoriteSuccess => this == FavoriteStatus.favoriteSuccess;
   bool get isFailure => this == FavoriteStatus.failure;
 }
 

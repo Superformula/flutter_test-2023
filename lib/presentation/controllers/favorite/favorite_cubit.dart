@@ -15,6 +15,8 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       if (!state.favorites.contains(restaurant)) {
         newFavorites.add(restaurant);
 
+        emit(state.copyWith(status: FavoriteStatus.favoriteSuccess));
+
         emit(
           state.copyWith(
             favorites: newFavorites,
@@ -26,14 +28,43 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       } else {
         newFavorites.remove(restaurant);
 
-        emit(
-          state.copyWith(
-            favorites: newFavorites,
-            status: FavoriteStatus.removed,
-          ),
-        );
+        if (newFavorites.isNotEmpty) {
+          emit(
+            state.copyWith(
+              favorites: newFavorites,
+              status: FavoriteStatus.removed,
+            ),
+          );
+
+          loadFavorites();
+        } else {
+          emit(
+            state.copyWith(
+              favorites: newFavorites,
+              status: FavoriteStatus.removed,
+            ),
+          );
+          emit(state.copyWith(status: FavoriteStatus.initial));
+        }
+
         log('state list ${state.favorites}');
       }
+    }
+  }
+
+  Future<void> loadFavorites() async {
+    emit(state.copyWith(status: FavoriteStatus.loading));
+    if (state.favorites.isEmpty) {
+      emit(
+        state.copyWith(status: FavoriteStatus.initial),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          status: FavoriteStatus.success,
+          favorites: state.favorites,
+        ),
+      );
     }
   }
 }
