@@ -132,8 +132,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   ),
                   const SizedBox(height: 24.0),
                   Text(
-                    widget.restaurant.location?.formattedAddress ??
-                        'Praça antonio ventura de olveira',
+                    widget.restaurant.location?.formattedAddress ?? '',
                     style: RestaurantourTextStyles.address,
                   ),
                 ],
@@ -154,10 +153,11 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   ),
                   const SizedBox(height: 24.0),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         '${widget.restaurant.rating ?? 0}',
-                        style: RestaurantourTextStyles.h6,
+                        style: RestaurantourTextStyles.rating,
                       ),
                       const Icon(
                         Icons.star,
