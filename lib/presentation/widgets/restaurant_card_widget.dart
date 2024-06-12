@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/presentation/controllers/favorite/favorite_cubit.dart';
 import 'package:restaurantour/presentation/pages/restaurants_page.dart';
 import 'package:restaurantour/presentation/widgets/restaurant_rating_widget.dart';
 
@@ -7,9 +9,11 @@ import '../../utils/typography/restaurantour_text_styles.dart';
 
 class RestaurantCardWidget extends StatelessWidget {
   final Restaurant restaurant;
+  final FavoriteCubit favoriteCubit;
 
   const RestaurantCardWidget({
     Key? key,
+    required this.favoriteCubit,
     required this.restaurant,
   }) : super(key: key);
 
@@ -22,9 +26,12 @@ class RestaurantCardWidget extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => RestaurantPage(
-                restaurant: restaurant,
+            MaterialPageRoute<void>(
+              builder: (_) => BlocProvider.value(
+                value: favoriteCubit,
+                child: RestaurantPage(
+                  restaurant: restaurant,
+                ),
               ),
             ),
           ),
@@ -72,7 +79,7 @@ class RestaurantCardWidget extends StatelessWidget {
                           maxLines: 3,
                         ),
                         Text(
-                          '${restaurant.price} ${restaurant.categories!.first.title ?? ''}',
+                          '${restaurant.price} ${restaurant.displayCategory}',
                           style: RestaurantourTextStyles.caption,
                         ),
                         Row(
