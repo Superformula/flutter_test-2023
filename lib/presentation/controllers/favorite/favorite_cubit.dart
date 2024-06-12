@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
@@ -7,23 +9,30 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(FavoriteState());
 
   Future<void> favoriteRestaurant(Restaurant restaurant) async {
+    var newFavorites = List<Restaurant>.from(state.favorites);
+
     if (restaurant.id != null) {
-      if (!state.favorites.contains(restaurant.id)) {
-        state.favorites.add(restaurant);
+      if (!state.favorites.contains(restaurant)) {
+        newFavorites.add(restaurant);
+
         emit(
           state.copyWith(
-            favorites: state.favorites,
+            favorites: newFavorites,
             status: FavoriteStatus.success,
           ),
         );
+        log('dummy list $newFavorites');
+        log('state list ${state.favorites}');
       } else {
-        state.favorites.remove(restaurant);
+        newFavorites.remove(restaurant);
+
         emit(
           state.copyWith(
-            favorites: state.favorites,
+            favorites: newFavorites,
             status: FavoriteStatus.removed,
           ),
         );
+        log('state list ${state.favorites}');
       }
     }
   }

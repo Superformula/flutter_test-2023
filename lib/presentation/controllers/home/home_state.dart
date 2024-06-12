@@ -25,15 +25,15 @@ class HomeState {
   @override
   bool operator ==(covariant HomeState other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.status == status &&
-      listEquals(other.restaurants, restaurants) &&
-      other.errorMessage == errorMessage;
+
+    return other.status == status &&
+        listEquals(other.restaurants, restaurants) &&
+        other.errorMessage == errorMessage;
   }
 
   @override
-  int get hashCode => status.hashCode ^ restaurants.hashCode ^ errorMessage.hashCode;
+  int get hashCode =>
+      status.hashCode ^ restaurants.hashCode ^ errorMessage.hashCode;
 
   HomeState copyWith({
     HomeStatus? status,
