@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurantour/presentation/controllers/favorite/favorite_cubit.dart';
 
 import '../../utils/typography/restaurantour_text_styles.dart';
 import '../controllers/home/home_cubit.dart';
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomeState extends State<HomePage> {
   HomeCubit get cubit => context.read<HomeCubit>();
+  FavoriteCubit get favoriteCubit => context.read<FavoriteCubit>();
 
   @override
   void initState() {
@@ -24,6 +26,7 @@ class _HomeState extends State<HomePage> {
 
   @override
   void dispose() {
+    cubit.close();
     super.dispose();
   }
 
@@ -73,6 +76,7 @@ class _HomeState extends State<HomePage> {
                       child: ListView.builder(
                         itemCount: state.restaurants.length,
                         itemBuilder: (context, index) => RestaurantCardWidget(
+                          favoriteCubit: favoriteCubit,
                           restaurant: state.restaurants[index],
                         ),
                       ),
