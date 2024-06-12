@@ -177,7 +177,10 @@ class _RestaurantPageState extends State<RestaurantPage> {
                 left: 24.0,
                 right: 24.0,
               ),
-              child: Text('${widget.restaurant.reviews?.length ?? 0} Reviews'),
+              child: Text(
+                '${widget.restaurant.reviews?.length ?? 0} Reviews',
+                style: RestaurantourTextStyles.caption,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -193,11 +196,13 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   children: <Widget>[
                     const Text(
                       'Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.',
+                      style: RestaurantourTextStyles.body,
                     ),
                     const SizedBox(height: 8.0),
                     Row(
                       children: <Widget>[
                         CircleAvatar(
+                          radius: 20,
                           backgroundImage: NetworkImage(
                             widget.restaurant.reviews?[index].user!.imageUrl ??
                                 'http://via.placeholder.com/200x150',
@@ -206,6 +211,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                         const SizedBox(width: 8.0),
                         Text(
                           widget.restaurant.reviews?[index].user?.name ?? '',
+                          style: RestaurantourTextStyles.caption,
                         ),
                         const SizedBox(height: 16.0),
                       ],
