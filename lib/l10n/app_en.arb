@@ -1,0 +1,35 @@
+{
+    "@@locale": "en",
+    "appTitle": "Restaurantour",
+    "@appTitle": {
+        "description": "The title of the app"
+    },
+    "allRestaurants": "All Restaurants",
+    "@allRestaurants": {
+        "description": "The title of the page that lists all restaurants"
+    },
+    "myFavorites": "My Favorites",
+    "@myFavorites": {
+        "description": "The title of the page that lists of favorite restaurants"
+    },
+    "openNow": "Open Now",
+    "@openNow": {
+        "description": "The title of the page that lists of restaurants that are currently open"
+    },
+    "closed": "Closed",
+    "@closed": {
+        "description": "The title of the page that lists of restaurants that are currently closed"
+    },
+    "address": "Address",
+    "@address": {
+        "description": "The label for the address of a restaurant"
+    },
+    "overallRating": "Overall Rating",
+    "@overallRating": {
+        "description": "The label for the overall rating of a restaurant"
+    },
+    "reviews": "Reviews",
+    "@reviews": {
+        "description": "The label for the reviews of a restaurant"
+    }
+}

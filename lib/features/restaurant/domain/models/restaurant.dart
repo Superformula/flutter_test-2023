@@ -1,10 +1,15 @@
+import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:restaurantour/core/hive/hive_type_id.dart';
 
 part 'restaurant.g.dart';
 
 @JsonSerializable()
+@HiveType(typeId: categoryTypeId)
 class Category {
+  @HiveField(0)
   final String? alias;
+  @HiveField(1)
   final String? title;
 
   Category({
@@ -19,8 +24,10 @@ class Category {
 }
 
 @JsonSerializable()
+@HiveType(typeId: hoursTypeId)
 class Hours {
   @JsonKey(name: 'is_open_now')
+  @HiveField(0)
   final bool? isOpenNow;
 
   const Hours({
@@ -33,10 +40,14 @@ class Hours {
 }
 
 @JsonSerializable()
+@HiveType(typeId: userTypeId)
 class User {
+  @HiveField(0)
   final String? id;
   @JsonKey(name: 'image_url')
+  @HiveField(1)
   final String? imageUrl;
+  @HiveField(2)
   final String? name;
 
   const User({
@@ -51,15 +62,22 @@ class User {
 }
 
 @JsonSerializable()
+@HiveType(typeId: reviewTypeId)
 class Review {
+  @HiveField(0)
   final String? id;
+  @HiveField(1)
   final int? rating;
+  @HiveField(2)
   final User? user;
+  @HiveField(3)
+  final String? text;
 
   const Review({
     this.id,
     this.rating,
     this.user,
+    this.text,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
@@ -68,8 +86,10 @@ class Review {
 }
 
 @JsonSerializable()
+@HiveType(typeId: 5)
 class Location {
   @JsonKey(name: 'formatted_address')
+  @HiveField(0)
   final String? formattedAddress;
 
   Location({
@@ -83,15 +103,25 @@ class Location {
 }
 
 @JsonSerializable()
+@HiveType(typeId: restaurantTypeId)
 class Restaurant {
+  @HiveField(0)
   final String? id;
+  @HiveField(1)
   final String? name;
+  @HiveField(2)
   final String? price;
+  @HiveField(3)
   final double? rating;
+  @HiveField(4)
   final List<String>? photos;
+  @HiveField(5)
   final List<Category>? categories;
+  @HiveField(6)
   final List<Hours>? hours;
+  @HiveField(7)
   final List<Review>? reviews;
+  @HiveField(8)
   final Location? location;
 
   const Restaurant({
