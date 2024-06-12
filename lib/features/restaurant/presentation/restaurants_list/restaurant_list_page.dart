@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:restaurantour/core/design_system/restaurantour_design_system.dart';
-import 'package:restaurantour/features/restaurant/domain/models/restaurant.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurants_list/bloc/restaurant_list_cubit.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurants_list/widgets/restaurant_item_shimmer_widget.dart';
 import 'package:restaurantour/features/restaurant/presentation/restaurants_list/widgets/restaurant_item_widget.dart';
