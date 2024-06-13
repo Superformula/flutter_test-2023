@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
 const _apiKey =
-    '-2NGMzJ5PtYPaTiQOkXl3j6FgdYi10HrqTH6OKE5yjzfeeVvRBA6AQhQ9I52Qaz209XUlbwybnHQ8NlGdD6dB9Qm99zFu_9yhjUrtD1GoABP7G6CUefpQPiy4I1oZnYx';
+    'SDhu31HVtCQUyxR_K1YhBvN8meY9Dv4imk37siMiDlZXsq9sdXeLgG2ZTkqJ5Dk6ovmHcfvYPUCPdVWSbqAyQzL1fYPOGkFNHAB04fsE88xAP-wM32a9ZsVRku5pZnYx';
 
 class YelpRepository {
   late Dio dio;
