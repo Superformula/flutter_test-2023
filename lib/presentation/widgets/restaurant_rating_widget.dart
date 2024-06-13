@@ -14,19 +14,28 @@ class StarRating extends StatelessWidget {
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
-    if (index >= rating) {
-      icon = const Icon(
-        Icons.star_border,
-        color: Colors.black,
-      );
-    } else if (index > rating - 1 && index < rating) {
+    if (index < rating.floor()) {
       icon = Icon(
-        Icons.star_half,
+        Icons.star,
+        size: 12,
+        color: color,
+      );
+    } else if (index == rating.floor() && rating - rating.floor() < 0.5) {
+      icon = Icon(
+        Icons.star_border,
+        size: 12,
+        color: color,
+      );
+    } else if (index == rating.floor() && rating - rating.floor() >= 0.5) {
+      icon = Icon(
+        Icons.star,
+        size: 12,
         color: color,
       );
     } else {
       icon = Icon(
-        Icons.star,
+        Icons.star_border,
+        size: 12,
         color: color,
       );
     }
