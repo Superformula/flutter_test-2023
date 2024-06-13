@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/presentation/controllers/favorite/favorite_cubit.dart';
 import 'package:restaurantour/presentation/controllers/favorite/favorite_state.dart';
+import 'package:restaurantour/presentation/controllers/restaurants/restaurants_cubit.dart';
+import 'package:restaurantour/presentation/controllers/restaurants/restaurants_state.dart';
 import 'package:restaurantour/presentation/pages/favorites_page.dart';
 
 import '../../utils/typography/restaurantour_text_styles.dart';
-import '../controllers/home/home_cubit.dart';
-import '../controllers/home/home_state.dart';
 import '../widgets/restaurant_card_widget.dart';
+import 'restaurants_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,113 +17,127 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomeState();
 }
 
-class _HomeState extends State<HomePage> {
-  HomeCubit get cubit => context.read<HomeCubit>();
+class _HomeState extends State<HomePage> with SingleTickerProviderStateMixin {
+  RestaurantsCubit get cubit => context.read<RestaurantsCubit>();
   FavoriteCubit get favoriteCubit => context.read<FavoriteCubit>();
+  late TabController tabController;
 
   @override
   void initState() {
+    tabController = TabController(length: 2, vsync: this);
     super.initState();
     cubit.fetchRestaurants();
   }
 
   @override
-  void dispose() {
-    cubit.close();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => DefaultTabController(
-        initialIndex: 0,
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: const Text(
-              'RestauranTour',
-              style: RestaurantourTextStyles.h6,
-            ),
-            bottom: const TabBar(
-              tabs: <Widget>[
-                Tab(
-                  child: Text(
-                    'All Restaurants',
-                    style: RestaurantourTextStyles.body,
-                  ),
-                ),
-                Tab(
-                  child: Text(
-                    'Favorite Restaurants',
-                    style: RestaurantourTextStyles.body,
-                  ),
-                ),
-              ],
-            ),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            'RestauranTour',
+            style: RestaurantourTextStyles.h6,
           ),
-          body: SafeArea(
-            child: TabBarView(
-              children: [
-                BlocBuilder<HomeCubit, HomeState>(
-                  builder: (context, state) {
-                    switch (state.status) {
-                      case HomeStatus.initial:
-                        return const SizedBox.shrink();
-                      case HomeStatus.loading:
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      case HomeStatus.success:
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          child: ListView.builder(
-                            itemCount: state.restaurants.length,
-                            itemBuilder: (context, index) =>
-                                RestaurantCardWidget(
-                              favoriteCubit: favoriteCubit,
+          bottom: TabBar(
+            controller: tabController,
+            tabs: const <Widget>[
+              Tab(
+                child: Text(
+                  'All Restaurants',
+                  style: RestaurantourTextStyles.body,
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'Favorite Restaurants',
+                  style: RestaurantourTextStyles.body,
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: SafeArea(
+          child: TabBarView(
+            controller: tabController,
+            children: [
+              BlocBuilder<RestaurantsCubit, RestaurantsState>(
+                builder: (context, state) {
+                  switch (state.status) {
+                    case RestaurantsStatus.initial:
+                      return const SizedBox.shrink(
+                        key: Key('initial state'),
+                      );
+                    case RestaurantsStatus.loading:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case RestaurantsStatus.success:
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: ListView.builder(
+                          itemCount: state.restaurants.length,
+                          itemBuilder: (context, index) {
+                            final restaurant =
+                                state.restaurants.elementAt(index);
+                            final isFavorited =
+                                favoriteCubit.state.status.isSuccess &&
+                                    state.restaurants.any(
+                                      (element) => element.id == restaurant.id,
+                                    );
+                            return RestaurantCardWidget(
+                              onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (context) => BlocProvider.value(
+                                    value: favoriteCubit,
+                                    child: RestaurantPage(
+                                      restaurant: restaurant,
+                                      isFavorited: isFavorited,
+                                    ),
+                                  ),
+                                ),
+                              ),
                               restaurant: state.restaurants[index],
-                            ),
-                          ),
-                        );
+                            );
+                          },
+                        ),
+                      );
 
-                      case HomeStatus.failure:
-                        return Center(
-                          child: Text(state.errorMessage),
-                        );
-                    }
-                  },
-                ),
-                BlocBuilder<FavoriteCubit, FavoriteState>(
-                  builder: (context, state) {
-                    switch (state.status) {
-                      case FavoriteStatus.initial:
-                        return const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.inbox,
-                              size: 48,
-                            ),
-                            Text(
-                              'You have not added any favorite resaturants!',
-                            ),
-                          ],
-                        );
-                      case FavoriteStatus.loading:
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      case FavoriteStatus.success:
-                        return FavoritesPage(
-                          restaurants: state.favorites,
-                        );
-                      default:
-                        return const SizedBox.shrink();
-                    }
-                  },
-                ),
-              ],
-            ),
+                    case RestaurantsStatus.failure:
+                      return Center(
+                        child: Text(state.errorMessage),
+                      );
+                  }
+                },
+              ),
+              BlocBuilder<FavoriteCubit, FavoriteState>(
+                builder: (context, state) {
+                  switch (state.status) {
+                    case FavoriteStatus.initial:
+                      return const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.inbox,
+                            size: 48,
+                          ),
+                          Text(
+                            'You have not added any favorite resaturants!',
+                          ),
+                        ],
+                      );
+                    case FavoriteStatus.loading:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case FavoriteStatus.success:
+                      return FavoritesPage(
+                        restaurants: state.favorites,
+                      );
+                    default:
+                      return const SizedBox.shrink();
+                  }
+                },
+              ),
+            ],
           ),
         ),
       );

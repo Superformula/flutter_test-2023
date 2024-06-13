@@ -8,10 +8,12 @@ import '../controllers/favorite/favorite_state.dart';
 
 class RestaurantPage extends StatefulWidget {
   final Restaurant restaurant;
+  final bool isFavorited;
 
   const RestaurantPage({
     Key? key,
     required this.restaurant,
+    required this.isFavorited,
   }) : super(key: key);
 
   @override
@@ -52,6 +54,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
             onPressed: () =>
                 favoriteCubit.favoriteRestaurant(widget.restaurant),
             icon: BlocConsumer<FavoriteCubit, FavoriteState>(
+              bloc: favoriteCubit,
               listener: listener,
               builder: (context, state) {
                 if (state.favorites

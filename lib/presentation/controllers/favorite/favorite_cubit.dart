@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
@@ -9,22 +7,20 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(FavoriteState());
 
   Future<void> favoriteRestaurant(Restaurant restaurant) async {
-    var newFavorites = List<Restaurant>.from(state.favorites);
-
+    final newFavorites = List<Restaurant>.from(state.favorites);
+    final isAlreadyFavorited = !state.favorites.any(
+      (element) => element.id == restaurant.id,
+    );
     if (restaurant.id != null) {
-      if (!state.favorites.contains(restaurant)) {
+      if (isAlreadyFavorited) {
         newFavorites.add(restaurant);
-
         emit(state.copyWith(status: FavoriteStatus.favoriteSuccess));
-
         emit(
           state.copyWith(
             favorites: newFavorites,
             status: FavoriteStatus.success,
           ),
         );
-        log('dummy list $newFavorites');
-        log('state list ${state.favorites}');
       } else {
         newFavorites.remove(restaurant);
 
@@ -36,7 +32,12 @@ class FavoriteCubit extends Cubit<FavoriteState> {
             ),
           );
 
-          loadFavorites();
+          emit(
+            state.copyWith(
+              favorites: newFavorites,
+              status: FavoriteStatus.success,
+            ),
+          );
         } else {
           emit(
             state.copyWith(
@@ -46,9 +47,15 @@ class FavoriteCubit extends Cubit<FavoriteState> {
           );
           emit(state.copyWith(status: FavoriteStatus.initial));
         }
-
-        log('state list ${state.favorites}');
       }
+    } else {
+      emit(
+        state.copyWith(
+          status: FavoriteStatus.failure,
+          errorMessage:
+              'Could favorite this restaurant! Refresh the app to try again! ',
+        ),
+      );
     }
   }
 
