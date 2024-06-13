@@ -1,31 +1,34 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../repositories/yelp_repository.dart';
-import 'home_state.dart';
+import 'restaurants_state.dart';
 
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeState());
+class RestaurantsCubit extends Cubit<RestaurantsState> {
+  RestaurantsCubit() : super(RestaurantsState());
 
   final yelpRepo = YelpRepository();
 
   Future<void> fetchRestaurants() async {
-    emit(state.copyWith(status: HomeStatus.loading));
+    emit(state.copyWith(status: RestaurantsStatus.loading));
 
     try {
       final result = await yelpRepo.getRestaurants();
 
-      if (result != null) {
+      final isValidResult = result != null &&
+          result.restaurants != null &&
+          result.restaurants!.isNotEmpty;
+
+      if (isValidResult) {
         emit(
           state.copyWith(
-            status: HomeStatus.success,
-            restaurants: result.restaurants,
+            status: RestaurantsStatus.success,
+            restaurants: result!.restaurants,
           ),
         );
-        print('Fetched ${result.restaurants!.length} restaurants');
       } else {
         emit(
           state.copyWith(
-            status: HomeStatus.failure,
+            status: RestaurantsStatus.failure,
             errorMessage: 'An unexpected error occurred',
           ),
         );
@@ -33,7 +36,7 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       emit(
         state.copyWith(
-          status: HomeStatus.failure,
+          status: RestaurantsStatus.failure,
           errorMessage: 'Failed to fetch restaurants: $e',
         ),
       );

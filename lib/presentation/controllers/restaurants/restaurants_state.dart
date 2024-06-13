@@ -2,28 +2,28 @@ import 'package:flutter/foundation.dart';
 
 import '../../../models/restaurant.dart';
 
-enum HomeStatus { initial, loading, success, failure }
+enum RestaurantsStatus { initial, loading, success, failure }
 
-extension HomeStatusX on HomeStatus {
-  bool get isInitial => this == HomeStatus.initial;
-  bool get isLoading => this == HomeStatus.loading;
-  bool get isSuccess => this == HomeStatus.success;
-  bool get isFailure => this == HomeStatus.failure;
+extension RestaurantsStatusX on RestaurantsStatus {
+  bool get isInitial => this == RestaurantsStatus.initial;
+  bool get isLoading => this == RestaurantsStatus.loading;
+  bool get isSuccess => this == RestaurantsStatus.success;
+  bool get isFailure => this == RestaurantsStatus.failure;
 }
 
-class HomeState {
-  HomeState({
-    this.status = HomeStatus.initial,
+class RestaurantsState {
+  RestaurantsState({
+    this.status = RestaurantsStatus.initial,
     this.restaurants = const [],
     this.errorMessage = '',
   });
 
-  final HomeStatus status;
+  final RestaurantsStatus status;
   final List<Restaurant> restaurants;
   final String errorMessage;
 
   @override
-  bool operator ==(covariant HomeState other) {
+  bool operator ==(covariant RestaurantsState other) {
     if (identical(this, other)) return true;
 
     return other.status == status &&
@@ -35,12 +35,12 @@ class HomeState {
   int get hashCode =>
       status.hashCode ^ restaurants.hashCode ^ errorMessage.hashCode;
 
-  HomeState copyWith({
-    HomeStatus? status,
+  RestaurantsState copyWith({
+    RestaurantsStatus? status,
     List<Restaurant>? restaurants,
     String? errorMessage,
   }) {
-    return HomeState(
+    return RestaurantsState(
       status: status ?? this.status,
       restaurants: restaurants ?? this.restaurants,
       errorMessage: errorMessage ?? this.errorMessage,
