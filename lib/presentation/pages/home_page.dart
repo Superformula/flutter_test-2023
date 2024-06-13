@@ -43,12 +43,14 @@ class _HomeState extends State<HomePage> with SingleTickerProviderStateMixin {
               Tab(
                 child: Text(
                   'All Restaurants',
+                  textAlign: TextAlign.center,
                   style: RestaurantourTextStyles.body,
                 ),
               ),
               Tab(
                 child: Text(
                   'Favorite Restaurants',
+                  textAlign: TextAlign.center,
                   style: RestaurantourTextStyles.body,
                 ),
               ),

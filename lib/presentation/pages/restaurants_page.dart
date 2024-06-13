@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurantour/models/restaurant.dart';
+import 'package:restaurantour/presentation/widgets/restaurant_rating_widget.dart';
 
 import '../../utils/typography/restaurantour_text_styles.dart';
 import '../controllers/favorite/favorite_cubit.dart';
@@ -195,6 +196,13 @@ class _RestaurantPageState extends State<RestaurantPage> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) => Column(
                   children: <Widget>[
+                    StarRating(
+                      color: const Color(0xFFFFB800),
+                      rating: widget.restaurant.reviews?[index].rating!
+                              .toDouble() ??
+                          0,
+                    ),
+                    const SizedBox(height: 8.0),
                     const Text(
                       'Review text goes here. Review text goes here. This is a review. This is a review that is 3 lines long.',
                       style: RestaurantourTextStyles.body,
