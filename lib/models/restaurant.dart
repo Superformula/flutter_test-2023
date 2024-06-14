@@ -1,13 +1,14 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant.g.dart';
 
 @JsonSerializable()
-class Category {
+class Category extends Equatable {
   final String? alias;
   final String? title;
 
-  Category({
+  const Category({
     this.alias,
     this.title,
   });
@@ -16,10 +17,16 @@ class Category {
       _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
+
+  @override
+  List<Object?> get props => [
+        alias,
+        title,
+      ];
 }
 
 @JsonSerializable()
-class Hours {
+class Hours extends Equatable {
   @JsonKey(name: 'is_open_now')
   final bool? isOpenNow;
 
@@ -30,6 +37,9 @@ class Hours {
   factory Hours.fromJson(Map<String, dynamic> json) => _$HoursFromJson(json);
 
   Map<String, dynamic> toJson() => _$HoursToJson(this);
+
+  @override
+  List<Object?> get props => [isOpenNow];
 }
 
 @JsonSerializable()
@@ -51,7 +61,7 @@ class User {
 }
 
 @JsonSerializable()
-class Review {
+class Review extends Equatable {
   final String? id;
   final int? rating;
   final User? user;
@@ -65,6 +75,13 @@ class Review {
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReviewToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        rating,
+        user,
+      ];
 }
 
 @JsonSerializable()
@@ -83,7 +100,7 @@ class Location {
 }
 
 @JsonSerializable()
-class Restaurant {
+class Restaurant extends Equatable {
   final String? id;
   final String? name;
   final String? price;
@@ -135,6 +152,19 @@ class Restaurant {
     }
     return false;
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        price,
+        rating,
+        photos,
+        categories,
+        hours,
+        reviews,
+        location,
+      ];
 }
 
 @JsonSerializable()

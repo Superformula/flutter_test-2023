@@ -1,183 +1,69 @@
 # RestauranTour
 
-Be sure to read **all** of this document carefully, and follow the guidelines within.
+PT/BR 🇧🇷
+- Projeto proposto pela equipe da Super Formula. Onde é mostrado duas telas principais. Uma tela de catálogo de restaurantes onde o usuário possui as opção de clicar ver detalhes e a tela de favoritos onde estão listados os restaurantes favoritados.
 
-## Vendorized Flutter
+English 🇺🇸
+- Project proposed by Super Formula team. Where it is shown a two main screen. Oee catalogue of restaurants where the user has the option tap and see more details and the favorites screen where are listed the favorited restaurants.
 
-3. We use [fvm](https://fvm.app/) for managing the flutter version within the project. Using terminal, while being on the test repository, install the tools dependencies by running the following commands:
+## Autor
+- Guilherme Fonseca [Github](https://github.com/fonsecguilherme) e [Linkedin](https://www.linkedin.com/in/devfonsecguilherme/)
 
-    ```sh
-    dart pub global activate fvm
-    ```
+## Stack 
+Dart and Flutter
+**Packages:** [Mocktail](https://pub.dev/packages/mocktail), [Flutter_bloc](https://pub.dev/packages/flutter_bloc), [Bloc]( https://pub.dev/packages/bloc), [Network Image Mock](https://pub.dev/packages/network_image_mock), [Equatable](https://pub.dev/packages/equatable), [Bloc test](https://pub.dev/packages/bloc_test), [GetIt](https://pub.dev/packages/get_it)
 
-    The output of the command will ask to add the folder `./pub-cache/bin` to your PATH variables, if you didn't already. If that is the case, add it to your environment variables, and restart the terminal.
+## BLoc
+PT/BR 🇧🇷
+- Para esse projeto, foi utilizado cubits para gerenciamento de estados e arquitetura proposta na documentação do bloc. A escolha foi baseada justamente por ser um padrão bem definido, altamente testável, com boa adoção pelo mercado e as possibilidades de ajustes finos na UI. 
 
-    ```sh
-    export PATH="$PATH":"$HOME/.pub-cache/bin" # Add this to your environment variables
-    ```
+English 🇺🇸
+- For this project, I used cubits for state management and the architecture proposed in bloc documentation. This choice was based on the fact that bloc is a well defined standard, highly testable, well received in the market and the possibilities of precise adjustments in the UI
 
-4. Install the project's flutter version using `fvm`.
-
-    ```sh
-    fvm use
-    ```
-
-5. From now on, you will run all the flutter commands with the `fvm` prefix. Get all the projects dependencies.
-
-    ```sh
-    fvm flutter pub get
-    ```
-
-More information on the approach can be found here:
-
-> hhttps://fvm.app/docs/getting_started/installation
-
-From the root directory:
-
-
-### IDE Setup
-
-<details>
-<summary>Use with VSCode</summary>
-<p>
-
-If you're a VScode user link the new Flutter SDK path in your settings
-`$projectRoot/.vscode/settings.json` (create if it doesn't exist yet)
-
-```json
-{
-  "dart.flutterSdkPath": ".fvm/flutter_sdk"
-}
-```
-
-
+<p float="left">
+  <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/f08bacb2-f4da-4d95-8364-27e1934a1918" width="350" />
 </p>
-</details>
 
-<details>
-<summary>Use with IntelliJ / Android Studio</summary>
-<p>
+## Tests
+PT/BR 🇧🇷
+- Tentei cobrir as 3 principais componentes do app: listagem dos restaurantes, tela de detalhes e tela de favoritos. Além disso também foi testes do cubit favoritos.
 
-Go to `Preferences > Languages & Frameworks > Flutter` and set the Flutter SDK path to `$projectRoot/.fvm/flutter_sdk`
+English 🇺🇸
+- I tried to cover all 3 main componentes of the app: restaurants listing, details screen and favorites screen. Beyond that, there are also tests for favorites cubit.
 
-<img width="800" alt="IntelliJ Settings" src="https://user-images.githubusercontent.com/1096485/64658026-3a1fdd00-d436-11e9-9457-556059f68e2c.png">
+## Video
+[Video](https://drive.google.com/file/d/1MmWPcCwgEg64gvIHnNFpTsiJdiltdfQn/view?usp=share_link)
 
+## Screenshots
+* Home page Android
+<p float="left">
+  <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/3e1b54fb-7647-4bbc-b120-dd804e9306d3" width="350" />
+  <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/f735a86e-0158-4655-b053-9332c1f9d26a" width="350" />
 </p>
-</details>
 
-## Requirements
+* Favorites page Android
+<p float="left">
+  <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/3e35d0b8-f75d-45ee-a9a1-a03fffd7c45b" width="350" />
+  <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/fe5dc2bc-f12c-4404-969b-82381832ba80" width="350" />
+</p>
 
-### App Structure
+* Restaurant details Android
+<p float="left">
+  <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/9dfef093-8172-4afd-9e62-4d22062058a7" width="350" />
+  <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/fccb7ef2-3e7d-475c-8c58-2dae4b9c6c1e" width="350" />
+  <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/ef757006-2c8e-4e82-b22b-6b64cd6df171" width="350" />
+</p>
 
-#### Restaurant List Page
+* Error to fetch restaurans Android
+<p float="left">
+    <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/6e596a1c-6263-42e0-8723-f89a65447ea9" width="350" />
+</p>
 
-- Tab Bar
-  - List of favorites (stored client side)
-  - List of businesses
-    - Hero image
-    - Name
-    - Price
-    - Category
-    - Rating (rounded to the nearest value)
-    - Open/Closed
 
-#### Restaurant Detail View
+* Restaurant details snack bar Android
+<p float="left">
+  <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/6fdd2acb-88d2-4c06-b87e-c9f8f53b0eba" width="350" />
+  <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/4e99886c-7df7-4d11-b756-28df722d4031" width="350" />
+</p>
 
-- Ability to favorite a business
-- Name
-- Hero image
-- Price and category
-- Address
-- Rating
-- Total reviews
-- List of reviews
-  - User name
-  - Rating
-  - User image
-  - Review Text (These are just snippets of the full review, usually like 3-4 lines long)
 
-#### Misc.
-
-- Clear documentation on the structure and architecture of your application.
-- Clear and logical commit messages.
-  - We suggest following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
-
-## Test Coverage
-
-To demonstrate your experience writing different types of tests in Flutter please do the following:
-
-- Choose ONE portion of your state management and write a unit test.
-- Choose ONE widget and write a widget test.
-
-Feel free to add more tests as you see fit but the above is the minimum requirement.
-
-## Design
-
-- See this [Figma File](https://www.figma.com/file/KsEhQUp66m9yeVkvQ0hSZm/Flutter-Test?node-id=0%3A1) for design information related to the overall look and feel of the application. We do not expect pixel-perfection but would like the application to visually be close to what is specified in the Figma file.
-
-![List View](screenshots/listview.png)
-![Detail View](screenshots/detailview.png)
-
-## API
-
-The [Yelp GraphQL API](https://www.yelp.com/developers/graphql/guides/intro) is used as the API for this Application. We have provided the boilerplate of the API requests and backing data models to save you some time. To successfully make a request to the Yelp GraphQL API, please follow these steps:
-
-1. Please go to https://www.yelp.com/signup and sign up for a developer account.
-1. Once signed up, navigate to https://www.yelp.com/developers/v3/manage_app.
-1. Create a new app by filling out the required information.
-1. Once your app is created, scroll down and join the `Developer Beta`. This allows you to use the GraphQL API.
-1. Copy your API Key from your app page and paste it on `line 5` [yelp_repository.dart](app/lib/yelp_repository.dart) replacing the `<PUT YOUR API KEY HERE>` with your key.
-1. Run the app and tap the `Fetch Restaurants` button. If you see a log like `Fetched x restaurants` you are all set!
-
-## Technical Requirements
-
-### State Management
-
-Please restrict your usage of state management or dependency injection to the following options:
-
-1. [provider](https://pub.dev/packages/provider)
-2. [Riverpod](https://pub.dev/packages/riverpod)
-3. [bloc](https://pub.dev/packages/bloc)
-4. [get_it](https://pub.dev/packages/get_it)/[get_it_mixins](https://pub.dev/packages/get_it_mixin)
-5. [Mobx](https://pub.dev/packages/mobx)
-
-We ask this because this challenge values consistency and efficiency over ingenuity. Using commonly used libraries ensures that we can review your code in a timely manner and allows us to provide better feedback.
-
-## Coding Values
-
-At **Superformula** we strive to build applications that have
-
-- Consistent architecture
-- Extensible, clean code
-- Solid testing
-- Good security & performance best practices
-
-### Clear, consistent architecture
-
-Approach your submission as if it were a real world app. This includes Use any libraries that you would normally choose.
-
-_Please note: we're interested in your code & the way you solve the problem, not how well you can use a particular library or feature._
-
-### Easy to understand
-
-Writing boring code that is easy to follow is essential at **Superformula**.
-
-We're interested in your method and how you approach the problem just as much as we're interested in the end result.
-
-### Solid testing approach
-
-While the purpose of this challenge is not to gauge whether you can achieve 100% test coverage, we do seek to evaluate whether you know how & what to test.
-
-## Q&A
-
-> Where should I send back the result when I'm done?
-
-Please fork this repo and then send us a pull request to our repo when you think you are done. There is no deadline for this task unless otherwise noted to you directly.
-
-> What if I have a question?
-
-Just create a new issue in this repo and we will respond and get back to you quickly.
-
-## Review
-
-The coding challenge is a take-home test upon which we'll be conducting a thorough code review once complete. The review will consist of meeting some more of our mobile engineers and giving a review of the solution you have designed. Please be prepared to share your screen and run/demo the application to the group. During this process, the engineers will be asking questions.
