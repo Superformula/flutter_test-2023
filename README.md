@@ -11,8 +11,28 @@ English 🇺🇸
 
 ## Stack 
 Dart and Flutter
-**Packages:** [Mocktail](https://pub.dev/packages/mocktail), [Flutter_bloc](https://pub.dev/packages/flutter_bloc), [Bloc](, https://pub.dev/packages/bloc), [Network Image Mock](https://pub.dev/packages/network_image_mock), [Equatable](https://pub.dev/packages/equatable), [Bloc test](https://pub.dev/packages/bloc_test)
+**Packages:** [Mocktail](https://pub.dev/packages/mocktail), [Flutter_bloc](https://pub.dev/packages/flutter_bloc), [Bloc]( https://pub.dev/packages/bloc), [Network Image Mock](https://pub.dev/packages/network_image_mock), [Equatable](https://pub.dev/packages/equatable), [Bloc test](https://pub.dev/packages/bloc_test)
 
+## BLoc
+PT/BR 🇧🇷
+- Para esse projeto, foi utilizado cubits para gerenciamento de estados e arquitetura proposta na documentação do bloc. A escolha foi baseada justamente por ser um padrão bem definido, altamente testável, com boa adoção pelo mercado e as possibilidades de ajustes finos na UI. 
+
+English 🇺🇸
+- For this project, I used cubits for state management and the architecture proposed in bloc documentation. This choice was based on the fact that bloc is a well defined standard, highly testable, well received in the market and the possibilities of precise adjustments in the UI
+
+<p float="left">
+  <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/f08bacb2-f4da-4d95-8364-27e1934a1918" width="350" />
+</p>
+
+## Tests
+PT/BR 🇧🇷
+- Tentei cobrir as 3 principais componentes do app: listagem dos restaurantes, tela de detalhes e tela de favoritos. Além disso também foi testes do cubit favoritos.
+
+English 🇺🇸
+- I tried to cover all 3 main componentes of the app: restaurants listing, details screen and favorites screen. Beyond that, there are also tests for favorites cubit.
+
+## Video
+[Video](https://drive.google.com/file/d/1MmWPcCwgEg64gvIHnNFpTsiJdiltdfQn/view?usp=share_link)
 
 ## Screenshots
 * Home page Android
@@ -34,8 +54,16 @@ Dart and Flutter
   <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/ef757006-2c8e-4e82-b22b-6b64cd6df171" width="350" />
 </p>
 
+* Error to fetch restaurans Android
+<p float="left">
+    <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/6e596a1c-6263-42e0-8723-f89a65447ea9" width="350" />
+</p>
+
+
 * Restaurant details snack bar Android
 <p float="left">
   <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/6fdd2acb-88d2-4c06-b87e-c9f8f53b0eba" width="350" />
   <img src="https://github.com/fonsecguilherme/flutter_test/assets/43682827/4e99886c-7df7-4d11-b756-28df722d4031" width="350" />
 </p>
+
+
