@@ -4,9 +4,9 @@ import '../../data/repositories/yelp_repository.dart';
 import 'restaurants_state.dart';
 
 class RestaurantsCubit extends Cubit<RestaurantsState> {
-  RestaurantsCubit() : super(RestaurantsState());
+  RestaurantsCubit(this.yelpRepo) : super(RestaurantsState());
 
-  final yelpRepo = YelpRepository();
+  final YelpRepository yelpRepo;
 
   Future<void> fetchRestaurants() async {
     emit(state.copyWith(status: RestaurantsStatus.loading));

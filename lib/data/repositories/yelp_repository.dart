@@ -1,25 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
 import 'package:restaurantour/models/restaurant.dart';
 
-const _apiKey =
-    'SDhu31HVtCQUyxR_K1YhBvN8meY9Dv4imk37siMiDlZXsq9sdXeLgG2ZTkqJ5Dk6ovmHcfvYPUCPdVWSbqAyQzL1fYPOGkFNHAB04fsE88xAP-wM32a9ZsVRku5pZnYx';
-
 class YelpRepository {
-  late Dio dio;
-
-  YelpRepository({
-    @visibleForTesting Dio? dio,
-  }) : dio = dio ??
-            Dio(
-              BaseOptions(
-                baseUrl: 'https://api.yelp.com',
-                headers: {
-                  'Authorization': 'Bearer $_apiKey',
-                  'Content-Type': 'application/graphql',
-                },
-              ),
-            );
+  final dio = GetIt.I<Dio>();
 
   Future<RestaurantQueryResult?> getRestaurants({int offset = 0}) async {
     try {
