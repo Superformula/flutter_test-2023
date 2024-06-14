@@ -11,7 +11,7 @@ English 🇺🇸
 
 ## Stack 
 Dart and Flutter
-**Packages:** [Mocktail](https://pub.dev/packages/mocktail), [Flutter_bloc](https://pub.dev/packages/flutter_bloc), [Bloc]( https://pub.dev/packages/bloc), [Network Image Mock](https://pub.dev/packages/network_image_mock), [Equatable](https://pub.dev/packages/equatable), [Bloc test](https://pub.dev/packages/bloc_test)
+**Packages:** [Mocktail](https://pub.dev/packages/mocktail), [Flutter_bloc](https://pub.dev/packages/flutter_bloc), [Bloc]( https://pub.dev/packages/bloc), [Network Image Mock](https://pub.dev/packages/network_image_mock), [Equatable](https://pub.dev/packages/equatable), [Bloc test](https://pub.dev/packages/bloc_test), [GetIt](https://pub.dev/packages/get_it)
 
 ## BLoc
 PT/BR 🇧🇷
