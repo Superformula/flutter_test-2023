@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../../../models/restaurant.dart';
+import '../../models/restaurant.dart';
 
 enum FavoriteStatus {
   initial,

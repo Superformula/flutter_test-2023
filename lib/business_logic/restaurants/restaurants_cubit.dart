@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../repositories/yelp_repository.dart';
+import '../../data/repositories/yelp_repository.dart';
 import 'restaurants_state.dart';
 
 class RestaurantsCubit extends Cubit<RestaurantsState> {

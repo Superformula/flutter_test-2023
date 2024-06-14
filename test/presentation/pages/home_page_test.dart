@@ -5,9 +5,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:restaurantour/models/restaurant.dart';
-import 'package:restaurantour/presentation/controllers/favorite/favorite_cubit.dart';
-import 'package:restaurantour/presentation/controllers/restaurants/restaurants_cubit.dart';
-import 'package:restaurantour/presentation/controllers/restaurants/restaurants_state.dart';
+import 'package:restaurantour/business_logic/favorite/favorite_cubit.dart';
+import 'package:restaurantour/business_logic/restaurants/restaurants_cubit.dart';
+import 'package:restaurantour/business_logic/restaurants/restaurants_state.dart';
 import 'package:restaurantour/presentation/pages/home_page.dart';
 import 'package:restaurantour/presentation/widgets/restaurant_card_widget.dart';
 

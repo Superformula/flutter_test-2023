@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurantour/presentation/controllers/favorite/favorite_cubit.dart';
-import 'package:restaurantour/presentation/controllers/favorite/favorite_state.dart';
-import 'package:restaurantour/presentation/controllers/restaurants/restaurants_cubit.dart';
-import 'package:restaurantour/presentation/controllers/restaurants/restaurants_state.dart';
+import 'package:restaurantour/business_logic/favorite/favorite_cubit.dart';
+import 'package:restaurantour/business_logic/favorite/favorite_state.dart';
+import 'package:restaurantour/business_logic/restaurants/restaurants_cubit.dart';
+import 'package:restaurantour/business_logic/restaurants/restaurants_state.dart';
 import 'package:restaurantour/presentation/pages/favorites_page.dart';
 
 import '../../utils/typography/restaurantour_text_styles.dart';
@@ -80,11 +80,7 @@ class _HomeState extends State<HomePage> with SingleTickerProviderStateMixin {
                           itemBuilder: (context, index) {
                             final restaurant =
                                 state.restaurants.elementAt(index);
-                            final isFavorited =
-                                favoriteCubit.state.status.isSuccess &&
-                                    state.restaurants.any(
-                                      (element) => element.id == restaurant.id,
-                                    );
+
                             return RestaurantCardWidget(
                               onTap: () => Navigator.of(context).push(
                                 MaterialPageRoute<void>(
@@ -92,7 +88,6 @@ class _HomeState extends State<HomePage> with SingleTickerProviderStateMixin {
                                     value: favoriteCubit,
                                     child: RestaurantPage(
                                       restaurant: restaurant,
-                                      isFavorited: isFavorited,
                                     ),
                                   ),
                                 ),

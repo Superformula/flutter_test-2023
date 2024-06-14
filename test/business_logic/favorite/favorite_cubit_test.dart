@@ -2,8 +2,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:restaurantour/models/restaurant.dart';
-import 'package:restaurantour/presentation/controllers/favorite/favorite_cubit.dart';
-import 'package:restaurantour/presentation/controllers/favorite/favorite_state.dart';
+import 'package:restaurantour/business_logic/favorite/favorite_cubit.dart';
+import 'package:restaurantour/business_logic/favorite/favorite_state.dart';
 
 class FakeRestaurant extends Fake implements Restaurant {}
 
@@ -148,12 +148,6 @@ void main() {
             'favorites',
             const Restaurant(id: '1', name: 'Better call saul'),
           ),
-      // FavoriteState(
-      //   status: FavoriteStatus.success,
-      //   favorites: [
-      //     const Restaurant(id: '1', name: 'Better call saul'),
-      //   ],
-      // ),
     ],
   );
 }

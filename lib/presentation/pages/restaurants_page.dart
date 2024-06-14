@@ -4,17 +4,15 @@ import 'package:restaurantour/models/restaurant.dart';
 import 'package:restaurantour/presentation/widgets/restaurant_rating_widget.dart';
 
 import '../../utils/typography/restaurantour_text_styles.dart';
-import '../controllers/favorite/favorite_cubit.dart';
-import '../controllers/favorite/favorite_state.dart';
+import '../../business_logic/favorite/favorite_cubit.dart';
+import '../../business_logic/favorite/favorite_state.dart';
 
 class RestaurantPage extends StatefulWidget {
   final Restaurant restaurant;
-  final bool isFavorited;
 
   const RestaurantPage({
     Key? key,
     required this.restaurant,
-    required this.isFavorited,
   }) : super(key: key);
 
   @override
@@ -198,7 +196,9 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   children: <Widget>[
                     StarRating(
                       color: const Color(0xFFFFB800),
-                      rating: widget.restaurant.reviews?[index].rating!
+                      rating: widget.restaurant.reviews
+                              ?.elementAt(index)
+                              .rating!
                               .toDouble() ??
                           0,
                     ),
@@ -213,13 +213,20 @@ class _RestaurantPageState extends State<RestaurantPage> {
                         CircleAvatar(
                           radius: 20,
                           backgroundImage: NetworkImage(
-                            widget.restaurant.reviews?[index].user!.imageUrl ??
+                            widget.restaurant.reviews
+                                    ?.elementAt(index)
+                                    .user!
+                                    .imageUrl ??
                                 'http://via.placeholder.com/200x150',
                           ),
                         ),
                         const SizedBox(width: 8.0),
                         Text(
-                          widget.restaurant.reviews?[index].user?.name ?? '',
+                          widget.restaurant.reviews
+                                  ?.elementAt(index)
+                                  .user
+                                  ?.name ??
+                              '',
                           style: RestaurantourTextStyles.caption,
                         ),
                         const SizedBox(height: 16.0),
