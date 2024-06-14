@@ -18,11 +18,11 @@ dependencies:
   flutter_svg: ^2.0.9
   bloc: ^8.1.4
   flutter_bloc: ^8.1.5
-  provider: ^6.1.2
   mocktail: ^1.0.4
   bloc_test: ^9.1.7
   network_image_mock: ^2.1.1
   equatable: ^2.0.5
+  get_it: ^7.7.0
 
 dev_dependencies:
   flutter_test:
