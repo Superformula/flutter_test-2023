@@ -4,8 +4,7 @@ import 'package:restaurantour/data/repositories/yelp_repository.dart';
 
 final dependency = GetIt.instance;
 
-const _apiKey =
-    'kRsfu6IYKBWwj5H0V_U976-VB1a-dZqkJCaDsQpT26aGyZFPGave0zUgTv7JV5feSecQEqsAmPy8YxdKes69J5M8sp-rErzHeljjS4vF6D9pfiP9enYsj2OqdIloZnYx';
+const _apiKey = '<PUT YOUR API KEY HERE>';
 
 void setupLocator() {
   dependency.registerLazySingleton<YelpRepository>(
